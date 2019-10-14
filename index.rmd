@@ -1,0 +1,52 @@
+---
+title: index.html
+output:
+  xaringan::moon_reader:
+    css: ["default", "default-fonts", "css/custom.css"]
+    seal: false
+    yolo: false
+---
+
+layout: true
+class: center, top
+background-image: url("img/background_home.png")
+
+---
+
+.home-content[
+
+  .event[
+    Bonnes pratiques pour une recherche reproductible en écologie numérique
+  ]
+  .main-talk[
+
+  ]
+  .sub-talk[
+    API, versioning, reproductibilité et partage
+  ]
+  .speaker[
+    
+  ]
+  .function[
+
+  ]
+  .date[
+    2 au 6 décembre 2019 &#8212; Montpellier
+  ]
+]
+
+---
+
+name: slide
+layout: true
+class: left, top, slide
+background-image: url("img/background_slides.png")
+
+---
+
+### Programme
+
+.slide-content[
+
+  Page content
+]
