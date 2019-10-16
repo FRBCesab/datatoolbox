@@ -1,4 +1,4 @@
-# data-toolbox
+# datatoolbox
 
 Data Toolbox Training - Session 2019
 
