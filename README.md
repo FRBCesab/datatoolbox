@@ -64,9 +64,9 @@ Data Toolbox Training - Session 2019
 
 **Optimisation du code** (François & Nico)
 
-- [ ] Formatage et optimisation du code (indention, code profiling, commentaires, tests de performance)
+- [ ] Formatage et optimisation du code (indentation, _code profiling_, commentaires, tests de performance)
 - [ ] Création d'un package (roxygen, devtools)
-- [ ] Déploiement d'un package (testthat, travis CI, etc.)
+- [ ] Déploiement d'un package (testthat, travis CI, appveyor, etc.)
 
 
 #### Jeudi 05/12 PM
