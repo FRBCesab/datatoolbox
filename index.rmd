@@ -2,14 +2,15 @@
 title: index.html
 output:
   xaringan::moon_reader:
-    css: ["default", "default-fonts", "css/custom.css"]
+    css: ["default", "default-fonts", "assets/css/custom.css"]
+    lib_dir: assets/libs
     seal: false
     yolo: false
 ---
 
 layout: true
 class: center, top
-background-image: url("img/background_home.png")
+background-image: url("assets/img/background_home.png")
 
 ---
 
@@ -25,7 +26,7 @@ background-image: url("img/background_home.png")
     API, versioning, reproductibilité et partage
   ]
   .speaker[
-    
+
   ]
   .function[
 
@@ -40,7 +41,7 @@ background-image: url("img/background_home.png")
 name: slide
 layout: true
 class: left, top, slide
-background-image: url("img/background_slides.png")
+background-image: url("assets/img/background_slides.png")
 
 ---
 
