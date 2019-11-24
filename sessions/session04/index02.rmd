@@ -347,7 +347,7 @@ citations %>%
 
 <br> <br> <br> <br>
 
-[![Watch the video](assets/mp4/dplyr_join.mp4)](dplyr_join.mp4)
+[![Watch the video](assets/mp4/dplyr_join.mp4)](assets/mp4/dplyr_join.mp4)
 
 ---
 class: inverse, center, middle
