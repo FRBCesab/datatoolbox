@@ -5,8 +5,8 @@ author: <br /><br />Nicolas Casajus
 date: Mardi 3 décembre
 output:
   xaringan::moon_reader:
-    css: "../../assets/css/xaringan-themer.css"
-    lib_dir: "../../assets/libs"
+    css: ["../../assets/css/xaringan-themer.css", "../../assets/css/custom.css"]
+    lib_dir: "assets/libs"
     seal: true
     yolo: false
     self_contained: false
@@ -14,15 +14,10 @@ output:
       ratio: "4:3"
       titleSlideClass: ["right", "middle"]
       highlightStyle: 'zenburn'
+      highlightLines: true
       countIncrementalSlides: false
       slideNumberFormat: "%current% / %total%"
 ---
-
-
-```{r child='../../assets/css/xaringan-themer.rmd'}
-```
-
-
 
 ## Hello World
 
@@ -31,7 +26,7 @@ Install the `{xaringan}` package from [GitHub](https://github.com/yihui/xaringan
 
 ```{r eval=FALSE}
 devtools::install_github("yihui/xaringan")
-x <- 1
+*x <- 1
 print(x)
 ```
 
