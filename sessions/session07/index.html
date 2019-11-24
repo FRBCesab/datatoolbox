@@ -148,7 +148,7 @@ class: inverse, center, middle
 
 ---
 
-## 1. Création du squelette
+## Création du squelette
 
 Commençons par créer l'arborescence du package nommé `{mathr}`
 
@@ -193,7 +193,7 @@ dir(all.files = TRUE)
 
 ---
 
-## 2. Initialisation du versioning
+## Initialisation du versioning
 
 Poursuivons en transformant ce dossier en dépôt `git`
 
@@ -227,7 +227,7 @@ dir(all.files = TRUE)
 
 ---
 
-## 3. Métadonnées du package
+## Métadonnées du package
 
 Avant d'aller plus loin, il est d'usage de modifier le fichier `DESCRIPTION`.
 
@@ -269,7 +269,7 @@ Le fichier DESCRIPTION s'ouvre dans votre éditeur de texte et affiche :
 
 ---
 
-## 3. Métadonnées du package
+## Métadonnées du package
 
 Mettons à jour nos informations :
 
@@ -302,7 +302,7 @@ Mettons à jour nos informations :
 
 ---
 
-## 4. Choix d'une licence
+## Choix d'une licence
 
 Définissons maintenant la licence du package qui imposera ses conditions d'utilisation.
 Nous choisissons ici la licence [**MIT**](https://choosealicense.com/licenses/mit/) très peu contraignante.
@@ -340,7 +340,7 @@ dir(all.files = TRUE)
 
 ---
 
-## 4. Choix d'une licence
+## Choix d'une licence
 
 D'autres licences sont disponibles :
 
@@ -355,7 +355,7 @@ Pour vous orienter dans votre choix : [https://choosealicense.com](https://choos
 
 ---
 
-## 5. Mise en place de la documentation
+## Mise en place de la documentation
 
 Ajoutons un cadre de travail `roxygen2` pour documenter notre package.
 
@@ -397,7 +397,7 @@ usethis::use_roxygen_md()
 
 ---
 
-## 5. Mise en place de la documentation
+## Mise en place de la documentation
 
 Générons la documentation du fichier `R/mathr-package.R`
 
@@ -442,7 +442,7 @@ list.files(recursive = TRUE)
 
 ---
 
-## 5. Mise en place de la documentation
+## Mise en place de la documentation
 
 Contenu du fichier `man/mathr-package.Rd`
 
@@ -467,7 +467,7 @@ Contenu du fichier `man/mathr-package.Rd`
 
 ---
 
-## 6. Développement d'une fonction R
+## Développement d'une fonction R
 
 Créons une première fonction R : `moyenne()`. Tout d'abord, créons le fichier.
 
@@ -501,7 +501,7 @@ Le fichier a bien été créé dans le répertoire **R/**.
 
 ---
 
-## 6. Développement d'une fonction R
+## Développement d'une fonction R
 
 
 
@@ -540,7 +540,7 @@ moyenne &lt;- function(x, na_rm = FALSE) {
 
 ---
 
-## 6. Développement d'une fonction R
+## Développement d'une fonction R
 
 Vérifions qu'elle fonctionne.
 
@@ -593,7 +593,7 @@ moyenne(x = c(2, 4, NA), na_rm = TRUE)
 
 ---
 
-## 7. Documentation de la fonction
+## Documentation de la fonction
 
 Une fonction n'est rien sans son mode d'emploi. Et de toute façon, c'est obligatoire.
 Documentons alors notre fonction avec les tags `roxygen`.
@@ -628,7 +628,7 @@ Chaque ligne de l'entête `roxygen` commence par `#'` suivi d'un espace.
 
 ---
 
-## 7. Documentation de la fonction
+## Documentation de la fonction
 
 Un tag `roxygen` est un mot-clé précédé du symbole `@`. Voici les principaux :
 
@@ -651,7 +651,7 @@ A ceux-ci s'ajoutent trois autres tags :
 
 ---
 
-## 8. Compilation de la documentation
+## Compilation de la documentation
 
 Générons maintenant le fichier `Rd`.
 
@@ -696,7 +696,7 @@ list.files(recursive = TRUE)
 
 ---
 
-## 8. Compilation de la documentation
+## Compilation de la documentation
 
 Affichons la documentation de la fonction `moyenne()`
 
@@ -730,7 +730,7 @@ Affichons la documentation de la fonction `moyenne()`
 
 ---
 
-## 9. NAMESPACE et DESCRIPTION
+## NAMESPACE et DESCRIPTION
 
 Le **NAMESPACE** a également été mis à jour.
 
@@ -745,7 +745,7 @@ Le **NAMESPACE** a également été mis à jour.
 
 ---
 
-## 9. NAMESPACE et DESCRIPTION
+## NAMESPACE et DESCRIPTION
 
 Mais, pas le fichier **DESCRIPTION**
 
@@ -772,7 +772,7 @@ Mais, pas le fichier **DESCRIPTION**
 
 ---
 
-## 9. NAMESPACE et DESCRIPTION
+## NAMESPACE et DESCRIPTION
 
 Mettons à jour les dépendances dans le fichier **DESCRIPTION**
 
@@ -795,7 +795,7 @@ usethis::use_package(package = "stats")
 
 ---
 
-## 9. NAMESPACE et DESCRIPTION
+## NAMESPACE et DESCRIPTION
 
 Affichons le contenu du fichier **DESCRIPTION**
 
@@ -826,7 +826,7 @@ Affichons le contenu du fichier **DESCRIPTION**
 
 ---
 
-## 10. Vérification du package
+## Vérification du package
 
 Notre package est maintenant prêt. Vérifions-le:
 
@@ -863,7 +863,7 @@ Duration: 3m 9.9s
 
 ---
 
-## 11. Changement de version
+## Changement de version
 
 Notre package est vérifié et a passé avec succès tous les tests. Nous pouvons changer sa version.
 
@@ -879,7 +879,7 @@ usethis::use_version(which = "major")
 
 ---
 
-## 12. Installation du package
+## Installation du package
 
 Puisque notre package est vérifié, nous pouvons maintenant l'installer.
 
@@ -915,7 +915,7 @@ library("mathr")
 
 ---
 
-## 13. Utilisation du package
+## Utilisation du package
 
 
 
@@ -939,7 +939,7 @@ Author(s):
 
 ---
 
-## 12. Utilisation du package
+## Utilisation du package
 
 
 
@@ -979,7 +979,7 @@ Examples:
 
 ---
 
-## 12. Utilisation du package
+## Utilisation du package
 
 
 
@@ -1021,7 +1021,7 @@ mathr::moyenne(c(2, 4, NA), na_rm = TRUE)
 
 ---
 
-## 12. Utilisation du package
+## Utilisation du package
 
 
 ```r

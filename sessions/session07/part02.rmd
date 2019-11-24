@@ -11,7 +11,7 @@
 
 ---
 
-## 1. Création du squelette
+## Création du squelette
 
 Commençons par créer l'arborescence du package nommé `{mathr}`
 
@@ -43,7 +43,7 @@ setwd(opath)
 
 ---
 
-## 2. Initialisation du versioning
+## Initialisation du versioning
 
 Poursuivons en transformant ce dossier en dépôt `git`
 
@@ -75,7 +75,7 @@ setwd(opath)
 
 ---
 
-## 3. Métadonnées du package
+## Métadonnées du package
 
 Avant d'aller plus loin, il est d'usage de modifier le fichier `DESCRIPTION`.
 
@@ -106,7 +106,7 @@ setwd(opath)
 
 ---
 
-## 3. Métadonnées du package
+## Métadonnées du package
 
 Mettons à jour nos informations :
 
@@ -125,7 +125,7 @@ system(paste0("cp assets/chunks/DESCRIPTION ", path))
 
 ---
 
-## 4. Choix d'une licence
+## Choix d'une licence
 
 Définissons maintenant la licence du package qui imposera ses conditions d'utilisation.
 Nous choisissons ici la licence [**MIT**](https://choosealicense.com/licenses/mit/) très peu contraignante.
@@ -159,7 +159,7 @@ setwd(opath)
 
 ---
 
-## 4. Choix d'une licence
+## Choix d'une licence
 
 D'autres licences sont disponibles :
 
@@ -173,7 +173,7 @@ Pour vous orienter dans votre choix : [https://choosealicense.com](https://choos
 
 ---
 
-## 5. Mise en place de la documentation
+## Mise en place de la documentation
 
 Ajoutons un cadre de travail `roxygen2` pour documenter notre package.
 
@@ -213,7 +213,7 @@ setwd(opath)
 
 ---
 
-## 5. Mise en place de la documentation
+## Mise en place de la documentation
 
 Générons la documentation du fichier `R/mathr-package.R`
 
@@ -245,7 +245,7 @@ setwd(opath)
 
 ---
 
-## 5. Mise en place de la documentation
+## Mise en place de la documentation
 
 Contenu du fichier `man/mathr-package.Rd`
 
@@ -257,7 +257,7 @@ setwd(opath)
 
 ---
 
-## 6. Développement d'une fonction R
+## Développement d'une fonction R
 
 Créons une première fonction R : `moyenne()`. Tout d'abord, créons le fichier.
 
@@ -289,7 +289,7 @@ Le fichier a bien été créé dans le répertoire **R/**.
 
 ---
 
-## 6. Développement d'une fonction R
+## Développement d'une fonction R
 
 
 ```{r echo=TRUE, eval=TRUE}
@@ -329,7 +329,7 @@ system(paste0("cp assets/chunks/moyenne.R ", paste0(path, "/R")))
 
 ---
 
-## 6. Développement d'une fonction R
+## Développement d'une fonction R
 
 Vérifions qu'elle fonctionne.
 
@@ -383,7 +383,7 @@ moyenne(x = c(2, 4, NA), na_rm = TRUE)
 
 ---
 
-## 7. Documentation de la fonction
+## Documentation de la fonction
 
 Une fonction n'est rien sans son mode d'emploi. Et de toute façon, c'est obligatoire.
 Documentons alors notre fonction avec les tags `roxygen`.
@@ -417,7 +417,7 @@ Chaque ligne de l'entête `roxygen` commence par `#'` suivi d'un espace.
 
 ---
 
-## 7. Documentation de la fonction
+## Documentation de la fonction
 
 Un tag `roxygen` est un mot-clé précédé du symbole `@`. Voici les principaux :
 
@@ -440,7 +440,7 @@ A ceux-ci s'ajoutent trois autres tags :
 
 ---
 
-## 8. Compilation de la documentation
+## Compilation de la documentation
 
 Générons maintenant le fichier `Rd`.
 
@@ -470,7 +470,7 @@ setwd(opath)
 
 ---
 
-## 8. Compilation de la documentation
+## Compilation de la documentation
 
 Affichons la documentation de la fonction `moyenne()`
 
@@ -482,7 +482,7 @@ setwd(opath)
 
 ---
 
-## 9. NAMESPACE et DESCRIPTION
+## NAMESPACE et DESCRIPTION
 
 Le **NAMESPACE** a également été mis à jour.
 
@@ -494,7 +494,7 @@ setwd(opath)
 
 ---
 
-## 9. NAMESPACE et DESCRIPTION
+## NAMESPACE et DESCRIPTION
 
 Mais, pas le fichier **DESCRIPTION**
 
@@ -506,7 +506,7 @@ setwd(opath)
 
 ---
 
-## 9. NAMESPACE et DESCRIPTION
+## NAMESPACE et DESCRIPTION
 
 Mettons à jour les dépendances dans le fichier **DESCRIPTION**
 
@@ -524,7 +524,7 @@ setwd(opath)
 
 ---
 
-## 9. NAMESPACE et DESCRIPTION
+## NAMESPACE et DESCRIPTION
 
 Affichons le contenu du fichier **DESCRIPTION**
 
@@ -537,7 +537,7 @@ setwd(opath)
 
 ---
 
-## 10. Vérification du package
+## Vérification du package
 
 Notre package est maintenant prêt. Vérifions-le:
 
@@ -573,7 +573,7 @@ Duration: 3m 9.9s
 
 ---
 
-## 11. Changement de version
+## Changement de version
 
 Notre package est vérifié et a passé avec succès tous les tests. Nous pouvons changer sa version.
 
@@ -589,7 +589,7 @@ setwd(opath)
 
 ---
 
-## 12. Installation du package
+## Installation du package
 
 Puisque notre package est vérifié, nous pouvons maintenant l'installer.
 
@@ -623,7 +623,7 @@ library("mathr")
 
 ---
 
-## 13. Utilisation du package
+## Utilisation du package
 
 
 ```{r echo=TRUE, eval=FALSE}
@@ -646,7 +646,7 @@ Author(s):
 
 ---
 
-## 12. Utilisation du package
+## Utilisation du package
 
 
 ```{r echo=TRUE, eval=FALSE}
@@ -685,7 +685,7 @@ Examples:
 
 ---
 
-## 12. Utilisation du package
+## Utilisation du package
 
 
 ```{r echo=TRUE, eval=FALSE}
@@ -723,7 +723,7 @@ mathr::moyenne(c(2, 4, NA), na_rm = TRUE)
 
 ---
 
-## 12. Utilisation du package
+## Utilisation du package
 
 ```{r echo=TRUE, eval=FALSE}
 x   <- rnorm(100)
