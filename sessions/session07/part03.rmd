@@ -1,0 +1,195 @@
+## Création d'une vignette
+
+
+.pull-left[
+.center[![:scale 50%](assets/img/hex-rmarkdown.png)]
+]
+
+.pull-right[
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+]
+
+<br />
+
+```{r echo=TRUE, eval=FALSE}
+usethis::use_vignette('mathr')
+```
+
+---
+
+## Déploiement sur GitHub
+
+
+.pull-left[
+.center[![:scale 50%](assets/img/github.png)]
+]
+
+.pull-right[
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+]
+
+<br />
+
+```{r echo=TRUE, eval=FALSE}
+usethis::use_readme_rmd()
+rmarkdown::render("README.Rmd")
+
+usethis::browse_github_token()
+usethis::edit_r_environ()
+
+usethis::github_token()
+
+usethis::use_github(protocol = "https")
+```
+
+---
+
+## Intégration continue - Travis CI
+
+.pull-left[
+.center[![:scale 50%](assets/img/travis-ci.png)]
+]
+
+.pull-right[
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+]
+
+<br />
+
+```{r echo=TRUE, eval=FALSE}
+usethis::use_travis()
+
+usethis::use_travis_badge()
+```
+
+
+---
+
+## Intégration continue - Appveyor
+
+.pull-left[
+.center[![:scale 50%](assets/img/appveyor.png)]
+]
+
+.pull-right[
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+]
+
+<br />
+
+```{r echo=TRUE, eval=FALSE}
+usethis::use_appveyor()
+
+usethis::use_appveyor_badge()
+```
+
+---
+
+## Création d'un site web
+
+.pull-left[
+.center[![:scale 50%](assets/img/hex-pkgdown.png)]
+]
+
+.pull-right[
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+]
+
+<br />
+
+```{r echo=TRUE, eval=FALSE}
+usethis::use_pkgdown_travis()
+```
+
+---
+
+## Ajout de tests unitaires
+
+.pull-left[
+.center[![:scale 50%](assets/img/hex-testthat.png)]
+]
+
+.pull-right[
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+]
+
+<br />
+
+```{r echo=TRUE, eval=FALSE}
+usethis::use_testthat()
+usethis::use_test()
+```
+
+
+---
+
+## Code coverage
+
+.pull-left[
+.center[![:scale 50%](assets/img/codecover.png)]
+]
+
+.pull-right[
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+]
+
+<br />
+
+```{r echo=TRUE, eval=FALSE}
+usethis::use_coverage("codecov")
+```
+
+
+---
+
+## DOI et Zenodo
+
+.pull-left[
+.center[[![:scale 75%](assets/img/zenodo.jpg)](https://zenodo.org)]
+]
+
+.pull-right[
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+]
+
+
+---
+
+## Soumettre au CRAN
+
+.pull-left[
+[**CRAN submission**](https://cran.r-project.org/submit.html)
+]
+
+.pull-right[
+.right[
+[**CRAN policies**](https://cran.r-project.org/submit.html)
+]
+]
+
+
+.center[![](assets/img/cran.png)]

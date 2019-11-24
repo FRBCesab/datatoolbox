@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Du script R au package</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Nicolas Casajus" />
+    <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/css/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="../../assets/css/custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: right, middle, title-slide
+
+# Du script R au package
+## <i>il n’y a qu’un pas…</i>
+### <br /><br />Nicolas Casajus
+### Jeudi 5 décembre
+
+---
+
+
+class: inverse, center, middle
+
+## Résumé de la semaine
+
+---
+
+
+## Initialisation d'un project git
+
+.center[![:scale 80%](assets/img/project02.png)]
+
+- Ne pas oublier de versionner tout au long du projet
+
+
+
+---
+
+## Ajout de fichiers
+
+.center[![:scale 80%](assets/img/project04.png)]
+
+- Développement _classique_ du projet
+
+
+
+---
+
+## Formatage et nettoyage
+
+.center[![:scale 80%](assets/img/project06.png)]
+
+- Respect des "conventions" dans les noms des fichiers
+- Et à l'intérieur de ces fichiers...
+
+
+
+---
+
+## Restructuration du project
+
+.center[![:scale 80%](assets/img/project08.png)]
+
+- Réorganisation du projet selon l'approche `research compendium`
+
+
+
+---
+
+## Reproductibilité
+
+.center[![:scale 80%](assets/img/project10.png)]
+
+- Analyses et notes dans un même document : `rmarkdown`
+
+
+
+---
+
+## Optimisation du code
+
+.center[![:scale 80%](assets/img/project12.png)]
+
+- Développement de fonctions R dans un dossier à part : `R/`
+
+
+
+---
+
+## Documentation des fonctions
+
+.center[![:scale 80%](assets/img/project14.png)]
+
+- Documentation des fonctions : titre, paramètres, exemple reproductible, etc.
+
+
+
+---
+
+## Package R
+
+.center[![:scale 80%](assets/img/project16.png)]
+
+- Rajout de fichiers essentiels pour une structure en package :
+  - `DESCRIPTION` : Métadonnées du package
+  - `NAMESPACE` : Directives pour les fonctions/dépendances
+  - `LICENSE` : Licence d'utilisation du package
+
+
+
+---
+
+## Et pourquoi pas une vignette ?
+
+.center[![:scale 80%](assets/img/project18.png)]
+
+- `Vignette` : fichier `rmd` montrant l'utilisation du package
+
+---
+class: inverse, center, middle
+
+## Construction d'un package R
+
+&lt;br /&gt;
+
+.center[
+  ![:scale 15%](assets/img/hex-devtools.png)
+  &amp;nbsp;&amp;nbsp;&amp;nbsp;
+  ![:scale 15%](assets/img/hex-usethis.png)
+  &amp;nbsp;&amp;nbsp;&amp;nbsp;
+  ![:scale 15%](assets/img/hex-roxygen2.png)
+]
+
+---
+
+
+## Qu'est un package ?
+
+- [**R packages**](http://r-pkgs.had.co.nz)
+- [**Writing R Extensions**](https://cran.r-project.org/doc/manuals/r-release/R-exts.html)
+- In R, the fundamental unit of shareable code is the package. A package bundles together code, data, documentation, and tests, and is easy to share with others.
+- 15 278 packages sur le CRAN
+- objectif : creer le package mathr avec une fonction.
+
+
+
+
+---
+
+## 1. Création du squelette
+
+Commençons par créer l'arborescence du package nommé `{mathr}`
+
+--
+
+
+```r
+path &lt;- "/Users/nicolascasajus/Desktop/mathr"
+usethis::create_package(path)
+```
+
+
+```
+## ✔ Creating '/Users/nicolascasajus/Desktop/mathr/'
+## ✔ Setting active project to '/Users/nicolascasajus/Desktop/mathr'
+## ✔ Creating 'R/'
+## ✔ Writing 'DESCRIPTION'
+## Package: mathr
+## Title: What the Package Does (One Line, Title Case)
+## Version: 0.0.0.9000
+## Authors@R (parsed):
+##     * First Last &lt;first.last@example.com&gt; [aut, cre] (&lt;https://orcid.org/YOUR-ORCID-ID&gt;)
+## Description: What the package does (one paragraph).
+## License: What license it uses
+## Encoding: UTF-8
+## LazyData: true
+## ✔ Writing 'NAMESPACE'
+## ✔ Setting active project to '&lt;no active project&gt;'
+```
+
+--
+
+
+```r
+dir(all.files = TRUE)
+```
+
+
+```
+## [1] "DESCRIPTION" "NAMESPACE"   "R"
+```
+
+---
+
+## 2. Initialisation du versioning
+
+Poursuivons en transformant ce dossier en dépôt `git`
+
+
+
+```r
+usethis::use_git()
+```
+
+
+```
+## ✔ Setting active project to '/Users/nicolascasajus/Desktop/mathr'
+## ✔ Initialising Git repo
+## ✔ Adding '.Rhistory', '.RData', '.Rproj.user' to '.gitignore'
+```
+
+--
+
+&lt;br /&gt;
+
+
+```r
+dir(all.files = TRUE)
+```
+
+
+```
+## [1] ".git"        ".gitignore"  "DESCRIPTION" "NAMESPACE"   "R"
+```
+
+
+---
+
+## 3. Métadonnées du package
+
+Avant d'aller plus loin, il est d'usage de modifier le fichier `DESCRIPTION`.
+
+
+```r
+usethis::edit_file("DESCRIPTION")
+```
+
+
+```
+## ● Edit 'DESCRIPTION'
+```
+
+--
+
+&lt;br /&gt;
+
+Le fichier DESCRIPTION s'ouvre dans votre éditeur de texte et affiche :
+
+
+
+```
+## Package: mathr
+## Title: What the Package Does (One Line, Title Case)
+## Version: 0.0.0.9000
+## Authors@R: 
+##     person(given = "First",
+##            family = "Last",
+##            role = c("aut", "cre"),
+##            email = "first.last@example.com",
+##            comment = c(ORCID = "YOUR-ORCID-ID"))
+## Description: What the package does (one paragraph).
+## License: What license it uses
+## Encoding: UTF-8
+## LazyData: true
+```
+
+
+
+---
+
+## 3. Métadonnées du package
+
+Mettons à jour nos informations :
+
+
+```
+## Package: mathr
+## Title: Structure d'un package simple sous R
+## Version: 0.0.0.9000
+## Authors@R:
+##     person(
+##         given  = "Nicolas",
+##         family = "Casajus",
+##         role   = c("aut", "cre"),
+##         email  = "nicolas.casajus@fondationbiodiversite.fr"
+##     )
+## Description: Le package \code{mathr} illustre la structure d'un package...
+## Depends: R (&gt;= 3.6.0)
+## License: What license it uses
+## Encoding: UTF-8
+## LazyData: true
+```
+
+--
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right "></i> Par convention, la première version d'un package en développement est habituellement notée : `0.0.0.9000`
+
+
+
+---
+
+## 4. Choix d'une licence
+
+Définissons maintenant la licence du package qui imposera ses conditions d'utilisation.
+Nous choisissons ici la licence [**MIT**](https://choosealicense.com/licenses/mit/) très peu contraignante.
+
+
+
+```r
+usethis::use_mit_license(name = "Nicolas Casajus")
+```
+
+
+```
+## ✔ Setting License field in DESCRIPTION to 'MIT + file LICENSE'
+## ✔ Writing 'LICENSE.md'
+## ✔ Adding '^LICENSE\\.md$' to '.Rbuildignore'
+## ✔ Writing 'LICENSE'
+```
+
+--
+
+&lt;br /&gt;
+
+
+```r
+dir(all.files = TRUE)
+```
+
+
+```
+## [1] ".git"          ".gitignore"    ".Rbuildignore" "DESCRIPTION"  
+## [5] "LICENSE"       "LICENSE.md"    "NAMESPACE"     "R"
+```
+
+
+
+---
+
+## 4. Choix d'une licence
+
+D'autres licences sont disponibles :
+
+
+```r
+?usethis::use_mit_license
+```
+
+&lt;br /&gt;
+
+Pour vous orienter dans votre choix : [https://choosealicense.com](https://choosealicense.com)
+
+---
+
+## 5. Mise en place de la documentation
+
+Ajoutons un cadre de travail `roxygen2` pour documenter notre package.
+
+Le package `roxygen2` permet de :
+1. générer la documentation des fonctions (fichiers Rd dans **man/**)
+1. mettre à jour le **NAMESPACE**
+
+--
+
+&lt;br /&gt;
+
+
+```r
+usethis::use_package_doc()
+```
+
+
+```
+## ✔ Writing 'R/mathr-package.R'
+```
+
+--
+
+&lt;br /&gt;
+
+
+
+
+```r
+usethis::use_roxygen_md()
+```
+
+
+```
+## ✔ Setting Roxygen field in DESCRIPTION to 'list(markdown = TRUE)'
+## ✔ Setting RoxygenNote field in DESCRIPTION to '7.0.0'
+## ● Run `devtools::document()`
+```
+
+---
+
+## 5. Mise en place de la documentation
+
+Générons la documentation du fichier `R/mathr-package.R`
+
+
+
+```r
+devtools::document()                                 # ou roxygen2::roxygenize()
+```
+
+
+```
+## Updating mathr documentation
+```
+
+```
+## Writing NAMESPACE
+```
+
+```
+## Loading mathr
+```
+
+```
+## Writing mathr-package.Rd
+```
+
+
+--
+
+&lt;br /&gt;
+
+
+```r
+list.files(recursive = TRUE)
+```
+
+
+```
+## [1] "DESCRIPTION"          "LICENSE"              "LICENSE.md"          
+## [4] "man/mathr-package.Rd" "NAMESPACE"            "R/mathr-package.R"
+```
+
+---
+
+## 5. Mise en place de la documentation
+
+Contenu du fichier `man/mathr-package.Rd`
+
+
+```
+## % Generated by roxygen2: do not edit by hand
+## % Please edit documentation in R/mathr-package.R
+## \docType{package}
+## \name{mathr-package}
+## \alias{mathr}
+## \alias{mathr-package}
+## \title{mathr: Structure d'un package simple sous R}
+## \description{
+## Le package \code{mathr} illustre la structure d'un package...
+## }
+## \author{
+## \strong{Maintainer}: Nicolas Casajus \email{nicolas.casajus@fondationbiodiversite.fr}
+## 
+## }
+## \keyword{internal}
+```
+
+---
+
+## 6. Développement d'une fonction R
+
+Créons une première fonction R : `moyenne()`. Tout d'abord, créons le fichier.
+
+
+```r
+usethis::use_r("moyenne")
+```
+
+
+```
+## ● Edit 'R/moyenne.R'
+```
+
+--
+
+&lt;br /&gt;
+
+
+```r
+list.files(recursive = TRUE)
+```
+
+
+```
+## [1] "DESCRIPTION"          "LICENSE"              "LICENSE.md"          
+## [4] "man/mathr-package.Rd" "NAMESPACE"            "R/mathr-package.R"   
+## [7] "R/moyenne.R"
+```
+
+Le fichier a bien été créé dans le répertoire **R/**.
+
+---
+
+## 6. Développement d'une fonction R
+
+
+
+```r
+moyenne &lt;- function(x, na_rm = FALSE) {
+
+  ## Checks                         ----------
+
+  if (missing(x)) { stop("Missing x.") }
+  if (!is.vector(x)) { stop("x must be a numeric vector.") }
+  if (!is.numeric(x)) { stop("x must be a numeric vector.") }
+  if (length(x) &lt; 2) { stop("x must be length &gt; 1.") }
+  if (!is.logical(na_rm)) { stop("na_rm must be TRUE or FALSE.") }
+
+  ## Remove NAs (if required)       ----------
+
+  if (na_rm) {
+
+    x &lt;- x %&gt;% na.omit()
+
+    if (length(x) &lt; 2) { stop("x has &lt; 2 non-NA values.") }
+
+  } else {
+
+    if (sum(is.na(x)) &gt; 0) { stop("x contains NA values. Use na_rm = TRUE.") }
+  }
+
+
+  ## Compute mean                   ----------
+
+  sum(x) / length(x)
+}
+```
+
+
+
+---
+
+## 6. Développement d'une fonction R
+
+Vérifions qu'elle fonctionne.
+
+
+```r
+library("magrittr")
+devtools::load_all()                           # Source le contenu du dossier R/
+```
+
+
+
+
+<i class="fas  fa-hand-point-right "></i> Pour l'instant, nous devons importer explicitement
+le package `{magrittr}` pour pouvoir utiliser notre fonction. Nous verrons par la
+suite comment contourner ceci.
+
+
+&lt;br /&gt;
+
+--
+
+
+```r
+moyenne(x = c(2, 4))
+```
+
+```
+## [1] 3
+```
+
+
+```r
+moyenne(x = c(2, 4, NA))
+```
+
+```
+## Error in moyenne(x) : x contains NA values. Use na_rm = TRUE.
+```
+
+
+```r
+moyenne(x = c(2, 4, NA), na_rm = TRUE)
+```
+
+```
+## [1] 3
+```
+
+
+
+---
+
+## 7. Documentation de la fonction
+
+Une fonction n'est rien sans son mode d'emploi. Et de toute façon, c'est obligatoire.
+Documentons alors notre fonction avec les tags `roxygen`.
+
+--
+
+
+```r
+#' @title Moyenne d'un vecteur numerique
+#' @description Cette fonction calcule la moyenne d'un vecteur numerique en
+#'   omettant les valeurs manquantes si l'utilisateur le souhaite.
+#'
+#' @param x Un vecteur numerique sur lequel sera calculer la moyenne
+#' @param na_rm Si TRUE supprime les NA (Defaut : FALSE)
+#'
+#' @return La fonction renvoie la moyenne du vecteur x.
+#'
+#' @import magrittr
+#' @importFrom stats na.omit
+#'
+#' @export
+#'
+#' @examples
+#' moyenne(c(2, 4))
+#'
+
+moyenne &lt;- function(x, na_rm = FALSE) {...}
+```
+
+
+Chaque ligne de l'entête `roxygen` commence par `#'` suivi d'un espace.
+
+---
+
+## 7. Documentation de la fonction
+
+Un tag `roxygen` est un mot-clé précédé du symbole `@`. Voici les principaux :
+
+- `@title` : titre court de la fonction
+- `@description` : description de la fonction (plusieurs lignes)
+- `@param x` : description du paramètre `x`
+- `@return` : l'objet que renvoie la fonction (facultatif si pas de renvoi)
+- `@examples` : un exemple reproductible
+
+--
+
+&lt;br /&gt;
+
+A ceux-ci s'ajoutent trois autres tags :
+
+- `@export` : indique que la fonction sera visible et accessible
+- `@import` : indique les packages à importer (évite d'utiliser `library()`)
+- `@importFrom` : indique les fonctions des dépendances à importer
+
+
+---
+
+## 8. Compilation de la documentation
+
+Générons maintenant le fichier `Rd`.
+
+
+```r
+devtools::document()                                 # ou roxygen2::roxygenize()
+```
+
+
+```
+## Updating mathr documentation
+```
+
+```
+## Writing NAMESPACE
+```
+
+```
+## Loading mathr
+```
+
+```
+## Writing NAMESPACE
+## Writing moyenne.Rd
+```
+
+--
+
+&lt;br /&gt;
+
+
+```r
+list.files(recursive = TRUE)
+```
+
+
+```
+## [1] "DESCRIPTION"          "LICENSE"              "LICENSE.md"          
+## [4] "man/mathr-package.Rd" "man/moyenne.Rd"       "NAMESPACE"           
+## [7] "R/mathr-package.R"    "R/moyenne.R"
+```
+
+---
+
+## 8. Compilation de la documentation
+
+Affichons la documentation de la fonction `moyenne()`
+
+
+```
+## % Generated by roxygen2: do not edit by hand
+## % Please edit documentation in R/moyenne.R
+## \name{moyenne}
+## \alias{moyenne}
+## \title{Moyenne d'un vecteur numerique}
+## \usage{
+## moyenne(x, na_rm = FALSE)
+## }
+## \arguments{
+## \item{x}{Un vecteur numerique sur lequel sera calculer la moyenne}
+## 
+## \item{na_rm}{Si TRUE supprime les NA (Defaut : FALSE)}
+## }
+## \value{
+## La fonction renvoie la moyenne du vecteur x.
+## }
+## \description{
+## Cette fonction calcule la moyenne d'un vecteur numerique en
+## omettant les valeurs manquantes si l'utilisateur le souhaite.
+## }
+## \examples{
+## moyenne(c(2, 4))
+## 
+## }
+```
+
+---
+
+## 9. NAMESPACE et DESCRIPTION
+
+Le **NAMESPACE** a également été mis à jour.
+
+
+```
+## # Generated by roxygen2: do not edit by hand
+## 
+## export(moyenne)
+## import(magrittr)
+## importFrom(stats,na.omit)
+```
+
+---
+
+## 9. NAMESPACE et DESCRIPTION
+
+Mais, pas le fichier **DESCRIPTION**
+
+
+```
+## Package: mathr
+## Title: Structure d'un package simple sous R
+## Version: 0.0.0.9000
+## Authors@R:
+##     person(
+##         given  = "Nicolas",
+##         family = "Casajus",
+##         role   = c("aut", "cre"),
+##         email  = "nicolas.casajus@fondationbiodiversite.fr"
+##     )
+## Description: Le package \code{mathr} illustre la structure d'un package...
+## Depends: R (&gt;= 3.6.0)
+## License: MIT + file LICENSE
+## Encoding: UTF-8
+## LazyData: true
+## Roxygen: list(markdown = TRUE)
+## RoxygenNote: 7.0.0
+```
+
+---
+
+## 9. NAMESPACE et DESCRIPTION
+
+Mettons à jour les dépendances dans le fichier **DESCRIPTION**
+
+
+```r
+usethis::use_package(package = "magrittr")
+usethis::use_package(package = "stats")
+```
+
+
+```
+## ✔ Adding 'magrittr' to Imports field in DESCRIPTION
+## ● Refer to functions with `magrittr::fun()`
+```
+
+```
+## ✔ Adding 'stats' to Imports field in DESCRIPTION
+## ● Refer to functions with `stats::fun()`
+```
+
+---
+
+## 9. NAMESPACE et DESCRIPTION
+
+Affichons le contenu du fichier **DESCRIPTION**
+
+
+```
+## Package: mathr
+## Title: Structure d'un package simple sous R
+## Version: 0.0.0.9000
+## Authors@R:
+##     person(
+##         given  = "Nicolas",
+##         family = "Casajus",
+##         role   = c("aut", "cre"),
+##         email  = "nicolas.casajus@fondationbiodiversite.fr"
+##     )
+## Description: Le package \code{mathr} illustre la structure d'un package...
+## Depends: R (&gt;= 3.6.0)
+## License: MIT + file LICENSE
+## Encoding: UTF-8
+## LazyData: true
+## Roxygen: list(markdown = TRUE)
+## RoxygenNote: 7.0.0
+## Imports: 
+##     magrittr,
+##     stats
+```
+
+
+---
+
+## 10. Vérification du package
+
+Notre package est maintenant prêt. Vérifions-le:
+
+
+```r
+devtools::check()
+```
+
+--
+
+
+```
+── R CMD check ─────────────────────────────────────────────────────────────────
+✔  checking DESCRIPTION meta-information ...
+✔  checking R code for possible problems (1.6s)
+✔  checking Rd files ...
+✔  checking Rd metadata ...
+✔  checking Rd cross-references ...
+✔  checking for missing documentation entries ...
+✔  checking for code/documentation mismatches (340ms)
+✔  checking Rd \usage sections (558ms)
+✔  checking Rd contents ...
+✔  checking for unstated dependencies in examples ...
+✔  checking examples (446ms)
+
+── R CMD check results ─────────────────────────────────── mathr 0.0.0.9000 ────
+Duration: 3m 9.9s
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+```
+
+<i class="fas  fa-beer fa-2x "></i> &amp;nbsp;Notre package ne comporte aucune erreur !!!
+
+
+---
+
+## 11. Changement de version
+
+Notre package est vérifié et a passé avec succès tous les tests. Nous pouvons changer sa version.
+
+
+```r
+usethis::use_version(which = "major")
+```
+
+
+```
+## ✔ Setting Version field in DESCRIPTION to '1.0.0'
+```
+
+---
+
+## 12. Installation du package
+
+Puisque notre package est vérifié, nous pouvons maintenant l'installer.
+
+
+```r
+devtools::install()
+```
+
+```
+* installing *source* package ‘mathr’ ...
+** using staged installation
+** R
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (mathr)
+```
+
+--
+
+&lt;br /&gt;
+
+Ainsi, nous pouvons y accéder via la fonction `library()`
+
+
+```r
+library("mathr")
+```
+
+---
+
+## 13. Utilisation du package
+
+
+
+```r
+?mathr
+```
+
+```
+mathr-package              package:mathr               R Documentation
+
+mathr: Structure d'un package simple sous R
+
+Description:
+
+     Le package ‘mathr’ illustre la structure d'un package...
+
+Author(s):
+
+     *Maintainer*: Nicolas Casajus &lt;email: nicolas.casajus@fondationbiodiversite.fr&gt;
+```
+
+---
+
+## 12. Utilisation du package
+
+
+
+```r
+?mathr::moyenne
+```
+
+```
+moyenne                 package:mathr                  R Documentation
+
+Moyenne d'un vecteur numerique
+
+Description:
+
+     Cette fonction calcule la moyenne d'un vecteur numerique en
+     omettant les valeurs manquantes si l'utilisateur le souhaite.
+
+Usage:
+
+     moyenne(x, na_rm = FALSE)
+
+Arguments:
+
+       x: Un vecteur numerique sur lequel sera calculer la moyenne
+
+   na_rm: Si TRUE supprime les NA (Defaut : FALSE)
+
+Value:
+
+     La fonction renvoie la moyenne du vecteur x.
+
+Examples:
+
+     moyenne(c(2, 4))
+```
+
+
+---
+
+## 12. Utilisation du package
+
+
+
+```r
+mathr::moyenne(2)
+```
+
+```
+## Error in moyenne(2) : x must be length &gt; 1.
+```
+
+
+```r
+mathr::moyenne(c(2, 4))
+```
+
+```
+## [1] 3
+```
+
+
+```r
+mathr::moyenne(c(2, 4, NA))
+```
+
+```
+## Error in moyenne(c(2, 4, NA)) : x contains NA values. Use na_rm = TRUE.
+```
+
+
+```r
+mathr::moyenne(c(2, 4, NA), na_rm = TRUE)
+```
+
+```
+## [1] 3
+```
+
+
+---
+
+## 12. Utilisation du package
+
+
+```r
+x   &lt;- rnorm(100)
+moy &lt;- mathr::moyenne(x)
+
+boxplot(x, col = "#49847b", border = "#7c4e20", horizontal = TRUE)
+points(y = 1, x = moy, pch = 17, cex = 2, col = "red")
+```
+
+![](assets/chunks/boxplot-1.png)&lt;!-- --&gt;
+
+---
+
+## En résumé
+
+
+```r
+usethis::create_package("path/to/pkgname")      # Package skeleton
+
+usethis::use_git()                              # Init git repository
+
+usethis::edit_file("DESCRIPTION")               # Edit package metadata
+usethis::use_mit_license("author")              # Add a license
+
+usethis::use_roxygen_md()                       # Init roxygen2
+
+usethis::use_package_doc()                      # Add pkg documentation
+devtools::document()                            # Generate pkg documentation
+
+usethis::use_r("funname")                       # Edit new function + doc
+devtools::load_all()                            # Source R/ content
+devtools::document()                            # Generate function doc
+
+usethis::use_package("dependencies")            # Add dependencies in DESCRIPTION
+
+devtools::check()                               # Check package building
+
+usethis::use_version("major")                   # Update major version
+
+devtools::install()                             # Install package
+```
+
+---
+class: inverse, center, middle
+
+## Utilisation avancée
+
+&lt;br /&gt;
+
+.center[
+  ![:scale 15%](assets/img/hex-rmarkdown.png)
+  &amp;nbsp;&amp;nbsp;&amp;nbsp;
+  ![:scale 15%](assets/img/hex-pkgdown.png)
+  &amp;nbsp;&amp;nbsp;&amp;nbsp;
+  ![:scale 15%](assets/img/hex-testthat.png)
+
+  ![:scale 15%](assets/img/travis-ci.png)
+  &amp;nbsp;&amp;nbsp;&amp;nbsp;
+  ![:scale 15%](assets/img/appveyor.png)
+  &amp;nbsp;&amp;nbsp;&amp;nbsp;
+  ![:scale 15%](assets/img/codecover.png)
+]
+
+---
+
+
+## Création d'une vignette
+
+
+.pull-left[
+.center[![:scale 50%](assets/img/hex-rmarkdown.png)]
+]
+
+.pull-right[
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+]
+
+&lt;br /&gt;
+
+
+```r
+usethis::use_vignette('mathr')
+```
+
+---
+
+## Déploiement sur GitHub
+
+
+.pull-left[
+.center[![:scale 50%](assets/img/github.png)]
+]
+
+.pull-right[
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+]
+
+&lt;br /&gt;
+
+
+```r
+usethis::use_readme_rmd()
+rmarkdown::render("README.Rmd")
+
+usethis::browse_github_token()
+usethis::edit_r_environ()
+
+usethis::github_token()
+
+usethis::use_github(protocol = "https")
+```
+
+---
+
+## Intégration continue - Travis CI
+
+.pull-left[
+.center[![:scale 50%](assets/img/travis-ci.png)]
+]
+
+.pull-right[
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+]
+
+&lt;br /&gt;
+
+
+```r
+usethis::use_travis()
+
+usethis::use_travis_badge()
+```
+
+
+---
+
+## Intégration continue - Appveyor
+
+.pull-left[
+.center[![:scale 50%](assets/img/appveyor.png)]
+]
+
+.pull-right[
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+]
+
+&lt;br /&gt;
+
+
+```r
+usethis::use_appveyor()
+
+usethis::use_appveyor_badge()
+```
+
+---
+
+## Création d'un site web
+
+.pull-left[
+.center[![:scale 50%](assets/img/hex-pkgdown.png)]
+]
+
+.pull-right[
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+]
+
+&lt;br /&gt;
+
+
+```r
+usethis::use_pkgdown_travis()
+```
+
+---
+
+## Ajout de tests unitaires
+
+.pull-left[
+.center[![:scale 50%](assets/img/hex-testthat.png)]
+]
+
+.pull-right[
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+]
+
+&lt;br /&gt;
+
+
+```r
+usethis::use_testthat()
+usethis::use_test()
+```
+
+
+---
+
+## Code coverage
+
+.pull-left[
+.center[![:scale 50%](assets/img/codecover.png)]
+]
+
+.pull-right[
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+]
+
+&lt;br /&gt;
+
+
+```r
+usethis::use_coverage("codecov")
+```
+
+
+---
+
+## DOI et Zenodo
+
+.pull-left[
+.center[[![:scale 75%](assets/img/zenodo.jpg)](https://zenodo.org)]
+]
+
+.pull-right[
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua.
+]
+
+
+---
+
+## Soumettre au CRAN
+
+.pull-left[
+[**CRAN submission**](https://cran.r-project.org/submit.html)
+]
+
+.pull-right[
+.right[
+[**CRAN policies**](https://cran.r-project.org/submit.html)
+]
+]
+
+
+.center[![](assets/img/cran.png)]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="../../assets/libs/macros.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "4:3",
+"highlightStyle": "zenburn",
+"highlightLines": false,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current% / %total%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,778 @@
+## Qu'est un package ?
+
+- [**R packages**](http://r-pkgs.had.co.nz)
+- [**Writing R Extensions**](https://cran.r-project.org/doc/manuals/r-release/R-exts.html)
+- In R, the fundamental unit of shareable code is the package. A package bundles together code, data, documentation, and tests, and is easy to share with others.
+- 15 278 packages sur le CRAN
+- objectif : creer le package mathr avec une fonction.
+
+
+
+
+---
+
+## 1. Création du squelette
+
+Commençons par créer l'arborescence du package nommé `{mathr}`
+
+--
+
+```{r echo=TRUE, eval=FALSE}
+path <- "/Users/nicolascasajus/Desktop/mathr"
+usethis::create_package(path)
+```
+
+```{r echo=FALSE, eval=TRUE}
+opath <- getwd()
+path  <- "~/Desktop/mathr"
+system(paste0("rm -rf ", path))
+usethis::create_package(path = path, open = FALSE)
+```
+
+--
+
+```{r echo=TRUE, eval=FALSE}
+dir(all.files = TRUE)
+```
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+dir(all.files = TRUE)[-c(1, 2)]
+setwd(opath)
+```
+
+---
+
+## 2. Initialisation du versioning
+
+Poursuivons en transformant ce dossier en dépôt `git`
+
+
+```{r echo=TRUE, eval=FALSE}
+usethis::use_git()
+```
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+usethis::use_git()
+setwd(opath)
+```
+
+--
+
+<br />
+
+```{r echo=TRUE, eval=FALSE}
+dir(all.files = TRUE)
+```
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+dir(all.files = TRUE)[-c(1, 2)]
+setwd(opath)
+```
+
+
+---
+
+## 3. Métadonnées du package
+
+Avant d'aller plus loin, il est d'usage de modifier le fichier `DESCRIPTION`.
+
+```{r echo=TRUE, eval=FALSE}
+usethis::edit_file("DESCRIPTION")
+```
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+usethis::edit_file("DESCRIPTION")
+setwd(opath)
+```
+
+--
+
+<br />
+
+Le fichier DESCRIPTION s'ouvre dans votre éditeur de texte et affiche :
+
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+cat(paste0(readLines("DESCRIPTION"), collapse = "\n"))
+setwd(opath)
+```
+
+
+
+---
+
+## 3. Métadonnées du package
+
+Mettons à jour nos informations :
+
+```{r echo=FALSE, eval=TRUE}
+cat(paste0(readLines("assets/chunks/DESCRIPTION"), collapse = "\n"))
+system(paste0("cp assets/chunks/DESCRIPTION ", path))
+```
+
+--
+
+<br />
+
+`r icon::fa("hand-point-right")` Par convention, la première version d'un package en développement est habituellement notée : `0.0.0.9000`
+
+
+
+---
+
+## 4. Choix d'une licence
+
+Définissons maintenant la licence du package qui imposera ses conditions d'utilisation.
+Nous choisissons ici la licence [**MIT**](https://choosealicense.com/licenses/mit/) très peu contraignante.
+
+
+```{r echo=TRUE, eval=FALSE}
+usethis::use_mit_license(name = "Nicolas Casajus")
+```
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+usethis::use_mit_license(name = "Nicolas Casajus")
+setwd(opath)
+```
+
+--
+
+<br />
+
+```{r echo=TRUE, eval=FALSE}
+dir(all.files = TRUE)
+```
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+dir(all.files = TRUE)[-c(1, 2)]
+setwd(opath)
+```
+
+
+
+---
+
+## 4. Choix d'une licence
+
+D'autres licences sont disponibles :
+
+```{r echo=TRUE, eval=FALSE}
+?usethis::use_mit_license
+```
+
+<br />
+
+Pour vous orienter dans votre choix : [https://choosealicense.com](https://choosealicense.com)
+
+---
+
+## 5. Mise en place de la documentation
+
+Ajoutons un cadre de travail `roxygen2` pour documenter notre package.
+
+Le package `roxygen2` permet de :
+1. générer la documentation des fonctions (fichiers Rd dans **man/**)
+1. mettre à jour le **NAMESPACE**
+
+--
+
+<br />
+
+```{r echo=TRUE, eval=FALSE}
+usethis::use_package_doc()
+```
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+usethis::use_package_doc()
+setwd(opath)
+```
+
+--
+
+<br />
+
+
+
+```{r echo=TRUE, eval=FALSE}
+usethis::use_roxygen_md()
+```
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+usethis::use_roxygen_md()
+setwd(opath)
+```
+
+---
+
+## 5. Mise en place de la documentation
+
+Générons la documentation du fichier `R/mathr-package.R`
+
+
+```{r echo=TRUE, eval=FALSE}
+devtools::document()                                 # ou roxygen2::roxygenize()
+```
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+devtools::document()
+setwd(opath)
+```
+
+
+--
+
+<br />
+
+```{r echo=TRUE, eval=FALSE}
+list.files(recursive = TRUE)
+```
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+list.files(recursive = TRUE)
+setwd(opath)
+```
+
+---
+
+## 5. Mise en place de la documentation
+
+Contenu du fichier `man/mathr-package.Rd`
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+cat(paste0(readLines("man/mathr-package.Rd"), collapse = "\n"))
+setwd(opath)
+```
+
+---
+
+## 6. Développement d'une fonction R
+
+Créons une première fonction R : `moyenne()`. Tout d'abord, créons le fichier.
+
+```{r echo=TRUE, eval=FALSE}
+usethis::use_r("moyenne")
+```
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+usethis::use_r("moyenne")
+setwd(opath)
+```
+
+--
+
+<br />
+
+```{r echo=TRUE, eval=FALSE}
+list.files(recursive = TRUE)
+```
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+list.files(recursive = TRUE)
+setwd(opath)
+```
+
+Le fichier a bien été créé dans le répertoire **R/**.
+
+---
+
+## 6. Développement d'une fonction R
+
+
+```{r echo=TRUE, eval=TRUE}
+moyenne <- function(x, na_rm = FALSE) {
+
+  ## Checks                         ----------
+
+  if (missing(x)) { stop("Missing x.") }
+  if (!is.vector(x)) { stop("x must be a numeric vector.") }
+  if (!is.numeric(x)) { stop("x must be a numeric vector.") }
+  if (length(x) < 2) { stop("x must be length > 1.") }
+  if (!is.logical(na_rm)) { stop("na_rm must be TRUE or FALSE.") }
+
+  ## Remove NAs (if required)       ----------
+
+  if (na_rm) {
+
+    x <- x %>% na.omit()
+
+    if (length(x) < 2) { stop("x has < 2 non-NA values.") }
+
+  } else {
+
+    if (sum(is.na(x)) > 0) { stop("x contains NA values. Use na_rm = TRUE.") }
+  }
+
+
+  ## Compute mean                   ----------
+
+  sum(x) / length(x)
+}
+```
+
+```{r echo=FALSE, eval=TRUE}
+system(paste0("cp assets/chunks/moyenne.R ", paste0(path, "/R")))
+```
+
+---
+
+## 6. Développement d'une fonction R
+
+Vérifions qu'elle fonctionne.
+
+```{r echo=TRUE, eval=FALSE}
+library("magrittr")
+devtools::load_all()                           # Source le contenu du dossier R/
+```
+
+```{r echo=FALSE, eval=TRUE}
+library("magrittr")
+setwd(path)
+devtools::load_all(quiet = TRUE)
+setwd(opath)
+```
+
+
+`r icon::fa("hand-point-right")` Pour l'instant, nous devons importer explicitement
+le package `{magrittr}` pour pouvoir utiliser notre fonction. Nous verrons par la
+suite comment contourner ceci.
+
+
+<br />
+
+--
+
+```{r echo=TRUE, eval=FALSE}
+moyenne(x = c(2, 4))
+```
+
+```
+## [1] 3
+```
+
+```{r echo=TRUE, eval=FALSE}
+moyenne(x = c(2, 4, NA))
+```
+
+```
+## Error in moyenne(x) : x contains NA values. Use na_rm = TRUE.
+```
+
+```{r echo=TRUE, eval=FALSE}
+moyenne(x = c(2, 4, NA), na_rm = TRUE)
+```
+
+```
+## [1] 3
+```
+
+
+
+---
+
+## 7. Documentation de la fonction
+
+Une fonction n'est rien sans son mode d'emploi. Et de toute façon, c'est obligatoire.
+Documentons alors notre fonction avec les tags `roxygen`.
+
+--
+
+```{r echo=TRUE, eval=FALSE}
+#' @title Moyenne d'un vecteur numerique
+#' @description Cette fonction calcule la moyenne d'un vecteur numerique en
+#'   omettant les valeurs manquantes si l'utilisateur le souhaite.
+#'
+#' @param x Un vecteur numerique sur lequel sera calculer la moyenne
+#' @param na_rm Si TRUE supprime les NA (Defaut : FALSE)
+#'
+#' @return La fonction renvoie la moyenne du vecteur x.
+#'
+#' @import magrittr
+#' @importFrom stats na.omit
+#'
+#' @export
+#'
+#' @examples
+#' moyenne(c(2, 4))
+#'
+
+moyenne <- function(x, na_rm = FALSE) {...}
+```
+
+
+Chaque ligne de l'entête `roxygen` commence par `#'` suivi d'un espace.
+
+---
+
+## 7. Documentation de la fonction
+
+Un tag `roxygen` est un mot-clé précédé du symbole `@`. Voici les principaux :
+
+- `@title` : titre court de la fonction
+- `@description` : description de la fonction (plusieurs lignes)
+- `@param x` : description du paramètre `x`
+- `@return` : l'objet que renvoie la fonction (facultatif si pas de renvoi)
+- `@examples` : un exemple reproductible
+
+--
+
+<br />
+
+A ceux-ci s'ajoutent trois autres tags :
+
+- `@export` : indique que la fonction sera visible et accessible
+- `@import` : indique les packages à importer (évite d'utiliser `library()`)
+- `@importFrom` : indique les fonctions des dépendances à importer
+
+
+---
+
+## 8. Compilation de la documentation
+
+Générons maintenant le fichier `Rd`.
+
+```{r echo=TRUE, eval=FALSE}
+devtools::document()                                 # ou roxygen2::roxygenize()
+```
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+devtools::document()
+setwd(opath)
+```
+
+--
+
+<br />
+
+```{r echo=TRUE, eval=FALSE}
+list.files(recursive = TRUE)
+```
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+list.files(recursive = TRUE)
+setwd(opath)
+```
+
+---
+
+## 8. Compilation de la documentation
+
+Affichons la documentation de la fonction `moyenne()`
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+cat(paste0(readLines("man/moyenne.Rd"), collapse = "\n"))
+setwd(opath)
+```
+
+---
+
+## 9. NAMESPACE et DESCRIPTION
+
+Le **NAMESPACE** a également été mis à jour.
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+cat(paste0(readLines("NAMESPACE"), collapse = "\n"))
+setwd(opath)
+```
+
+---
+
+## 9. NAMESPACE et DESCRIPTION
+
+Mais, pas le fichier **DESCRIPTION**
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+cat(paste0(readLines("DESCRIPTION"), collapse = "\n"))
+setwd(opath)
+```
+
+---
+
+## 9. NAMESPACE et DESCRIPTION
+
+Mettons à jour les dépendances dans le fichier **DESCRIPTION**
+
+```{r echo=TRUE, eval=FALSE}
+usethis::use_package(package = "magrittr")
+usethis::use_package(package = "stats")
+```
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+usethis::use_package(package = "magrittr")
+usethis::use_package(package = "stats")
+setwd(opath)
+```
+
+---
+
+## 9. NAMESPACE et DESCRIPTION
+
+Affichons le contenu du fichier **DESCRIPTION**
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+cat(paste0(readLines("DESCRIPTION"), collapse = "\n"))
+setwd(opath)
+```
+
+
+---
+
+## 10. Vérification du package
+
+Notre package est maintenant prêt. Vérifions-le:
+
+```{r echo=TRUE, eval=FALSE}
+devtools::check()
+```
+
+--
+
+
+```
+── R CMD check ─────────────────────────────────────────────────────────────────
+✔  checking DESCRIPTION meta-information ...
+✔  checking R code for possible problems (1.6s)
+✔  checking Rd files ...
+✔  checking Rd metadata ...
+✔  checking Rd cross-references ...
+✔  checking for missing documentation entries ...
+✔  checking for code/documentation mismatches (340ms)
+✔  checking Rd \usage sections (558ms)
+✔  checking Rd contents ...
+✔  checking for unstated dependencies in examples ...
+✔  checking examples (446ms)
+
+── R CMD check results ─────────────────────────────────── mathr 0.0.0.9000 ────
+Duration: 3m 9.9s
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+```
+
+`r icon::fa("beer", size = 2)` &nbsp;Notre package ne comporte aucune erreur !!!
+
+
+---
+
+## 11. Changement de version
+
+Notre package est vérifié et a passé avec succès tous les tests. Nous pouvons changer sa version.
+
+```{r echo=TRUE, eval=FALSE}
+usethis::use_version(which = "major")
+```
+
+```{r echo=FALSE, eval=TRUE}
+setwd(path)
+usethis::use_version(which = "major")
+setwd(opath)
+```
+
+---
+
+## 12. Installation du package
+
+Puisque notre package est vérifié, nous pouvons maintenant l'installer.
+
+```{r echo=TRUE, eval=FALSE}
+devtools::install()
+```
+
+```
+* installing *source* package ‘mathr’ ...
+** using staged installation
+** R
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded from temporary location
+** testing if installed package can be loaded from final location
+** testing if installed package keeps a record of temporary installation path
+* DONE (mathr)
+```
+
+--
+
+<br />
+
+Ainsi, nous pouvons y accéder via la fonction `library()`
+
+```{r echo=TRUE, eval=TRUE}
+library("mathr")
+```
+
+---
+
+## 13. Utilisation du package
+
+
+```{r echo=TRUE, eval=FALSE}
+?mathr
+```
+
+```
+mathr-package              package:mathr               R Documentation
+
+mathr: Structure d'un package simple sous R
+
+Description:
+
+     Le package ‘mathr’ illustre la structure d'un package...
+
+Author(s):
+
+     *Maintainer*: Nicolas Casajus <email: nicolas.casajus@fondationbiodiversite.fr>
+```
+
+---
+
+## 12. Utilisation du package
+
+
+```{r echo=TRUE, eval=FALSE}
+?mathr::moyenne
+```
+
+```
+moyenne                 package:mathr                  R Documentation
+
+Moyenne d'un vecteur numerique
+
+Description:
+
+     Cette fonction calcule la moyenne d'un vecteur numerique en
+     omettant les valeurs manquantes si l'utilisateur le souhaite.
+
+Usage:
+
+     moyenne(x, na_rm = FALSE)
+
+Arguments:
+
+       x: Un vecteur numerique sur lequel sera calculer la moyenne
+
+   na_rm: Si TRUE supprime les NA (Defaut : FALSE)
+
+Value:
+
+     La fonction renvoie la moyenne du vecteur x.
+
+Examples:
+
+     moyenne(c(2, 4))
+```
+
+
+---
+
+## 12. Utilisation du package
+
+
+```{r echo=TRUE, eval=FALSE}
+mathr::moyenne(2)
+```
+
+```
+## Error in moyenne(2) : x must be length > 1.
+```
+
+```{r echo=TRUE, eval=FALSE}
+mathr::moyenne(c(2, 4))
+```
+
+```
+## [1] 3
+```
+
+```{r echo=TRUE, eval=FALSE}
+mathr::moyenne(c(2, 4, NA))
+```
+
+```
+## Error in moyenne(c(2, 4, NA)) : x contains NA values. Use na_rm = TRUE.
+```
+
+```{r echo=TRUE, eval=FALSE}
+mathr::moyenne(c(2, 4, NA), na_rm = TRUE)
+```
+
+```
+## [1] 3
+```
+
+
+---
+
+## 12. Utilisation du package
+
+```{r echo=TRUE, eval=FALSE}
+x   <- rnorm(100)
+moy <- mathr::moyenne(x)
+
+boxplot(x, col = "#49847b", border = "#7c4e20", horizontal = TRUE)
+points(y = 1, x = moy, pch = 17, cex = 2, col = "red")
+```
+
+```{r "boxplot", echo=FALSE, eval=TRUE, dpi=300, fig.path="assets/chunks/", fig.width=7, fig.height=2}
+x   <- rnorm(100)
+moy <- mathr::moyenne(x)
+
+par(
+  bg = "transparent", mar = c(0, 0, 0, 0), col.axis = "#7c4e20", col = "#7c4e20",
+  fg = "#7c4e20", family = "serif", tcl = -0.25, mgp = c(3, .30, 0)
+)
+boxplot(x, col = "#49847b", border = "#7c4e20", horizontal = TRUE, axes = FALSE)
+points(y = 1, x = moy, pch = 17, cex = 2, col = "red")
+axis(side = 1, pos = 0.6, at = c(par()$usr[1], par()$usr[2]), labels = NA, lwd = 1, lwd.ticks = 0)
+axis(side = 1, pos = 0.6, lwd = 0, lwd.ticks = 1)
+```
+
+---
+
+## En résumé
+
+```{r echo=TRUE, eval=FALSE}
+usethis::create_package("path/to/pkgname")      # Package skeleton
+
+usethis::use_git()                              # Init git repository
+
+usethis::edit_file("DESCRIPTION")               # Edit package metadata
+usethis::use_mit_license("author")              # Add a license
+
+usethis::use_roxygen_md()                       # Init roxygen2
+
+usethis::use_package_doc()                      # Add pkg documentation
+devtools::document()                            # Generate pkg documentation
+
+usethis::use_r("funname")                       # Edit new function + doc
+devtools::load_all()                            # Source R/ content
+devtools::document()                            # Generate function doc
+
+usethis::use_package("dependencies")            # Add dependencies in DESCRIPTION
+
+devtools::check()                               # Check package building
+
+usethis::use_version("major")                   # Update major version
+
+devtools::install()                             # Install package
+```

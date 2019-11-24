@@ -1,0 +1,76 @@
+---
+title: Du script R au package
+subtitle: <i>il n'y a qu'un pas...</i>
+author: <br /><br />Nicolas Casajus
+date: Jeudi 5 décembre
+output:
+  xaringan::moon_reader:
+    css: ["../../assets/css/xaringan-themer.css", "../../assets/css/custom.css"]
+    lib_dir: "assets/libs"
+    seal: true
+    yolo: false
+    self_contained: false
+    nature:
+      ratio: "4:3"
+      titleSlideClass: ["right", "middle"]
+      highlightStyle: 'zenburn'
+      highlightLines: false
+      countIncrementalSlides: false
+      slideNumberFormat: "%current% / %total%"
+      beforeInit: "../../assets/libs/macros.js"
+---
+
+class: inverse, center, middle
+
+## Résumé de la semaine
+
+---
+
+```{r child='part01.rmd'}
+```
+
+---
+class: inverse, center, middle
+
+## Construction d'un package R
+
+<br />
+
+.center[
+  ![:scale 15%](assets/img/hex-devtools.png)
+  &nbsp;&nbsp;&nbsp;
+  ![:scale 15%](assets/img/hex-usethis.png)
+  &nbsp;&nbsp;&nbsp;
+  ![:scale 15%](assets/img/hex-roxygen2.png)
+]
+
+---
+
+```{r child='part02.rmd'}
+```
+
+---
+class: inverse, center, middle
+
+## Utilisation avancée
+
+<br />
+
+.center[
+  ![:scale 15%](assets/img/hex-rmarkdown.png)
+  &nbsp;&nbsp;&nbsp;
+  ![:scale 15%](assets/img/hex-pkgdown.png)
+  &nbsp;&nbsp;&nbsp;
+  ![:scale 15%](assets/img/hex-testthat.png)
+
+  ![:scale 15%](assets/img/travis-ci.png)
+  &nbsp;&nbsp;&nbsp;
+  ![:scale 15%](assets/img/appveyor.png)
+  &nbsp;&nbsp;&nbsp;
+  ![:scale 15%](assets/img/codecover.png)
+]
+
+---
+
+```{r child='part03.rmd'}
+```
