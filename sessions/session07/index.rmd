@@ -1,5 +1,5 @@
 ---
-title: Du script R au package
+title: Du script au package R
 subtitle: <i>il n'y a qu'un pas...</i>
 author: <br /><br />Nicolas Casajus
 date: Jeudi 5 décembre

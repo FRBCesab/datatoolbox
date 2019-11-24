@@ -1,11 +1,34 @@
-## Qu'est un package ?
+## Qu'est-ce qu'un package ?
 
-- [**R packages**](http://r-pkgs.had.co.nz)
-- [**Writing R Extensions**](https://cran.r-project.org/doc/manuals/r-release/R-exts.html)
-- In R, the fundamental unit of shareable code is the package. A package bundles together code, data, documentation, and tests, and is easy to share with others.
-- 15 278 packages sur le CRAN
-- objectif : creer le package pkgmin avec une fonction.
+- `r icon::fa("quote-left", size = 1)` &nbsp;_In R, the fundamental unit of
+shareable code is the package. A package bundles together code, data,
+documentation, and tests, and is easy to share with others_ (**Hadley Wickham**)
 
+- 15 278 packages sur le [**CRAN**](https://cran.r-project.org) (consulté le 24/11/2019)
+
+--
+
+- Ressources :
+
+.pull-left[
+  .center[[![:scale 50%](assets/img/r-pkg.png)](http://r-pkgs.had.co.nz)]
+]
+
+.pull-right[
+  .center[[![:scale 49.2%](assets/img/r-ext.jpg)](https://cran.r-project.org/doc/manuals/r-release/R-exts.html)]
+]
+
+
+
+---
+
+## Cas d'étude
+
+- Nous allons créer un package simple nommé `{pkgmin}`
+
+- Il contiendra une seul fonction : `moyenne()`
+
+- Et dépendra de deux autres packages : `{magrittr}` et `{stats}`
 
 
 
@@ -13,13 +36,12 @@
 
 ## Création du squelette
 
-Commençons par créer l'arborescence du package nommé `{pkgmin}`
+- Commençons par créer l'arborescence de notre package
 
 --
 
 ```{r echo=TRUE, eval=FALSE}
-path <- "/Users/nicolascasajus/Desktop/pkgmin"
-usethis::create_package(path)
+usethis::create_package("/Users/nicolascasajus/Desktop/pkgmin")
 ```
 
 ```{r echo=FALSE, eval=TRUE}
@@ -28,8 +50,9 @@ path  <- "~/Desktop/pkgmin"
 system(paste0("rm -rf ", path))
 usethis::create_package(path = path, open = FALSE)
 ```
-
 --
+
+<br />
 
 ```{r echo=TRUE, eval=FALSE}
 dir(all.files = TRUE)
@@ -41,11 +64,13 @@ dir(all.files = TRUE)[-c(1, 2)]
 setwd(opath)
 ```
 
+
+
 ---
 
 ## Initialisation du versioning
 
-Poursuivons en transformant ce dossier en dépôt `git`
+- Poursuivons en transformant ce dossier en dépôt `git`
 
 
 ```{r echo=TRUE, eval=FALSE}
@@ -71,13 +96,14 @@ setwd(path)
 dir(all.files = TRUE)[-c(1, 2)]
 setwd(opath)
 ```
+
 
 
 ---
 
 ## Métadonnées du package
 
-Avant d'aller plus loin, il est d'usage de modifier le fichier `DESCRIPTION`.
+- Avant d'aller plus loin, il est d'usage de modifier le fichier `DESCRIPTION`
 
 ```{r echo=TRUE, eval=FALSE}
 usethis::edit_file("DESCRIPTION")
@@ -93,7 +119,7 @@ setwd(opath)
 
 <br />
 
-Le fichier DESCRIPTION s'ouvre dans votre éditeur de texte et affiche :
+- Le fichier s'ouvre dans votre éditeur de texte et affiche :
 
 
 ```{r echo=FALSE, eval=TRUE}
@@ -108,17 +134,17 @@ setwd(opath)
 
 ## Métadonnées du package
 
-Mettons à jour nos informations :
+- Mettons à jour nos informations :
 
 ```{r echo=FALSE, eval=TRUE}
 cat(paste0(readLines("assets/chunks/DESCRIPTION"), collapse = "\n"))
 system(paste0("cp assets/chunks/DESCRIPTION ", path))
 ```
 
-
 <br />
 
-`r icon::fa("hand-point-right")` Par convention, la première version d'un package en développement est habituellement notée : `0.0.0.9000`
+`r icon::fa("hand-point-right")` &nbsp;Par convention, la première version d'un
+package en développement est habituellement notée : `0.0.0.9000`
 
 
 
@@ -126,9 +152,9 @@ system(paste0("cp assets/chunks/DESCRIPTION ", path))
 
 ## Choix d'une licence
 
-Définissons maintenant la licence du package qui imposera ses conditions d'utilisation.
-Nous choisissons ici la licence [**MIT**](https://choosealicense.com/licenses/mit/) très peu contraignante.
-
+- Définissons maintenant la licence du package qui imposera ses conditions d'utilisation.
+Nous choisissons ici la licence [**MIT**](https://choosealicense.com/licenses/mit/),
+très peu contraignante.
 
 ```{r echo=TRUE, eval=FALSE}
 usethis::use_mit_license(name = "Nicolas Casajus")
@@ -160,7 +186,7 @@ setwd(opath)
 
 ## Choix d'une licence
 
-D'autres licences sont disponibles :
+- D'autres licences sont disponibles :
 
 ```{r echo=TRUE, eval=FALSE}
 ?usethis::use_mit_license
@@ -168,23 +194,24 @@ D'autres licences sont disponibles :
 
 <br />
 
-Pour vous orienter dans votre choix : [https://choosealicense.com](https://choosealicense.com)
+- Pour vous orienter dans votre choix :
+[https://choosealicense.com](https://choosealicense.com)
+
+
 
 ---
 
 ## Mise en place de la documentation
 
-Ajoutons un cadre de travail `roxygen2` pour documenter notre package.
+- Ajoutons un cadre de travail `roxygen2` pour documenter notre package.
 
-Le package `roxygen2` permet de :
-1. générer la documentation des fonctions (fichiers Rd dans **man/**)
-1. mettre à jour le **NAMESPACE**
+- Le package `roxygen2` permet de :
+  1. générer la documentation des fonctions (fichiers Rd dans `man/`)
+  1. mettre à jour le `NAMESPACE`
 
 --
 
 <br />
-
-
 
 ```{r echo=TRUE, eval=FALSE}
 usethis::use_roxygen_md()
@@ -211,12 +238,13 @@ setwd(opath)
 ```
 
 
+
 ---
 
 ## Mise en place de la documentation
 
-Générons la documentation du fichier `R/pkgmin-package.R`
-
+- Générons la documentation du fichier `R/pkgmin-package.R`
+(page d'accueil du package)
 
 ```{r echo=TRUE, eval=FALSE}
 devtools::document()                                 # ou roxygen2::roxygenize()
@@ -228,7 +256,6 @@ devtools::document()
 setwd(opath)
 ```
 
-
 --
 
 <br />
@@ -243,11 +270,13 @@ list.files(recursive = TRUE)
 setwd(opath)
 ```
 
+
+
 ---
 
 ## Mise en place de la documentation
 
-Contenu du fichier `man/pkgmin-package.Rd`
+- Affichons le contenu du fichier `man/pkgmin-package.Rd`
 
 ```{r echo=FALSE, eval=TRUE}
 setwd(path)
@@ -255,11 +284,13 @@ cat(paste0(readLines("man/pkgmin-package.Rd"), collapse = "\n"))
 setwd(opath)
 ```
 
+
+
 ---
 
 ## Développement d'une fonction R
 
-Créons une première fonction R : `moyenne()`. Tout d'abord, créons le fichier.
+- Créons notre fonction R : `moyenne()`
 
 ```{r echo=TRUE, eval=FALSE}
 usethis::use_r("moyenne")
@@ -285,12 +316,17 @@ list.files(recursive = TRUE)
 setwd(opath)
 ```
 
-Le fichier a bien été créé dans le répertoire **R/**.
+<br />
+
+- Le fichier a bien été créé dans le répertoire `R/`
+
+- Nous allons maintenant implémenter le code de la fonction
+
+
 
 ---
 
 ## Développement d'une fonction R
-
 
 ```{r echo=TRUE, eval=TRUE}
 moyenne <- function(x, na_rm = FALSE) {
@@ -327,11 +363,13 @@ moyenne <- function(x, na_rm = FALSE) {
 system(paste0("cp assets/chunks/moyenne.R ", paste0(path, "/R")))
 ```
 
+
+
 ---
 
 ## Développement d'une fonction R
 
-Vérifions qu'elle fonctionne.
+- Vérifions qu'elle fonctionne correctement
 
 ```{r echo=TRUE, eval=FALSE}
 library("magrittr")
@@ -344,16 +382,6 @@ setwd(path)
 devtools::load_all(quiet = TRUE)
 setwd(opath)
 ```
-
-
-`r icon::fa("hand-point-right")` Pour l'instant, nous devons importer explicitement
-le package `{magrittr}` pour pouvoir utiliser notre fonction. Nous verrons par la
-suite comment contourner ceci.
-
-
-<br />
-
---
 
 ```{r echo=TRUE, eval=FALSE}
 moyenne(x = c(2, 4))
@@ -379,13 +407,19 @@ moyenne(x = c(2, 4, NA), na_rm = TRUE)
 ## [1] 3
 ```
 
+<br />
+
+`r icon::fa("hand-point-right")` &nbsp;Pour l'instant, nous devons importer explicitement
+le package `{magrittr}` pour pouvoir utiliser notre fonction. Nous verrons par la
+suite comment contourner ceci (notamment avec le `NAMESPACE`)
+
 
 
 ---
 
 ## Documentation de la fonction
 
-Une fonction n'est rien sans son mode d'emploi. Et de toute façon, c'est obligatoire.
+- Une fonction n'est rien sans son mode d'emploi.
 Documentons alors notre fonction avec les tags `roxygen`.
 
 --
@@ -412,37 +446,39 @@ Documentons alors notre fonction avec les tags `roxygen`.
 moyenne <- function(x, na_rm = FALSE) {...}
 ```
 
+- Chaque ligne de l'entête `roxygen` commence par `#'` suivi d'un espace.
 
-Chaque ligne de l'entête `roxygen` commence par `#'` suivi d'un espace.
+
 
 ---
 
 ## Documentation de la fonction
 
-Un tag `roxygen` est un mot-clé précédé du symbole `@`. Voici les principaux :
+- Un tag `roxygen` est un mot-clé précédé du symbole `@`. Voici les principaux :
 
-- `@title` : titre court de la fonction
-- `@description` : description de la fonction (plusieurs lignes)
-- `@param x` : description du paramètre `x`
-- `@return` : l'objet que renvoie la fonction (facultatif si pas de renvoi)
-- `@examples` : un exemple reproductible
+  - `@title` : titre court de la fonction
+  - `@description` : description de la fonction (plusieurs lignes)
+  - `@param x` : description du paramètre `x`
+  - `@return` : l'objet que renvoie la fonction (facultatif si pas de renvoi)
+  - `@examples` : un exemple reproductible
 
 --
 
 <br />
 
-A ceux-ci s'ajoutent trois autres tags :
+- A ceux-ci s'ajoutent trois autres tags :
 
-- `@export` : indique que la fonction sera visible et accessible
-- `@import` : indique les packages à importer (évite d'utiliser `library()`)
-- `@importFrom` : indique les fonctions des dépendances à importer
+  - `@export` : indique que la fonction sera visible et accessible
+  - `@import` : indique les packages à importer
+  - `@importFrom` : indique les fonctions des dépendances à importer
+
 
 
 ---
 
 ## Compilation de la documentation
 
-Générons maintenant le fichier `Rd`.
+- Générons maintenant le fichier `Rd` de la fonction `moyenne()`
 
 ```{r echo=TRUE, eval=FALSE}
 devtools::document()                                 # ou roxygen2::roxygenize()
@@ -468,11 +504,13 @@ list.files(recursive = TRUE)
 setwd(opath)
 ```
 
+
+
 ---
 
 ## Compilation de la documentation
 
-Affichons la documentation de la fonction `moyenne()`
+- Affichons la documentation de la fonction `moyenne()`
 
 ```{r echo=FALSE, eval=TRUE}
 setwd(path)
@@ -480,11 +518,13 @@ cat(paste0(readLines("man/moyenne.Rd"), collapse = "\n"))
 setwd(opath)
 ```
 
+
+
 ---
 
 ## NAMESPACE et DESCRIPTION
 
-Le **NAMESPACE** a également été mis à jour.
+- Le `NAMESPACE` a également été mis à jour
 
 ```{r echo=FALSE, eval=TRUE}
 setwd(path)
@@ -492,11 +532,13 @@ cat(paste0(readLines("NAMESPACE"), collapse = "\n"))
 setwd(opath)
 ```
 
+
+
 ---
 
 ## NAMESPACE et DESCRIPTION
 
-Mais, pas le fichier **DESCRIPTION**
+- Mais, pas le fichier `DESCRIPTION`
 
 ```{r echo=FALSE, eval=TRUE}
 setwd(path)
@@ -504,11 +546,13 @@ cat(paste0(readLines("DESCRIPTION"), collapse = "\n"))
 setwd(opath)
 ```
 
+
+
 ---
 
 ## NAMESPACE et DESCRIPTION
 
-Mettons à jour les dépendances dans le fichier **DESCRIPTION**
+- Mettons à jour les dépendances dans le fichier `DESCRIPTION`
 
 ```{r echo=TRUE, eval=FALSE}
 usethis::use_package(package = "magrittr")
@@ -522,34 +566,38 @@ usethis::use_package(package = "stats")
 setwd(opath)
 ```
 
+
+
 ---
 
 ## NAMESPACE et DESCRIPTION
 
-Affichons le contenu du fichier **DESCRIPTION**
+- Affichons le contenu du fichier `DESCRIPTION`
 
 ```{r echo=FALSE, eval=TRUE}
 setwd(path)
 cat(paste0(readLines("DESCRIPTION"), collapse = "\n"))
 setwd(opath)
 ```
+
 
 
 ---
 
 ## Vérification du package
 
-Notre package est maintenant prêt. Vérifions-le:
+- Le développement de notre package est maintenant terminé
+
+--
+
+- Vérifions sa structure et son intégrité
 
 ```{r echo=TRUE, eval=FALSE}
 devtools::check()
 ```
 
---
-
-
 ```
-── R CMD check ─────────────────────────────────────────────────────────────────
+── R CMD check ────────────────────────────────────────────────────────────────────
 ✔  checking DESCRIPTION meta-information ...
 ✔  checking R code for possible problems (1.6s)
 ✔  checking Rd files ...
@@ -562,20 +610,26 @@ devtools::check()
 ✔  checking for unstated dependencies in examples ...
 ✔  checking examples (446ms)
 
-── R CMD check results ─────────────────────────────────── pkgmin 0.0.0.9000 ────
+── R CMD check results ────────────────────────────────── pkgmin 0.0.0.9000 ───────
 Duration: 3m 9.9s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
 ```
 
-`r icon::fa("beer", size = 2)` &nbsp;Notre package ne comporte aucune erreur !!!
+- Notre package ne comporte aucune erreur
+&nbsp;`r icon::fa("beer", size = 1)`
+&nbsp;`r icon::fa("beer", size = 1)`
+&nbsp;`r icon::fa("beer", size = 1)`
+
 
 
 ---
 
 ## Changement de version
 
-Notre package est vérifié et a passé avec succès tous les tests. Nous pouvons changer sa version.
+- Notre package est vérifié et a passé avec succès tous les tests
+
+- Nous pouvons changer sa version
 
 ```{r echo=TRUE, eval=FALSE}
 usethis::use_version(which = "major")
@@ -587,11 +641,13 @@ usethis::use_version(which = "major")
 setwd(opath)
 ```
 
+
+
 ---
 
 ## Installation du package
 
-Puisque notre package est vérifié, nous pouvons maintenant l'installer.
+- Puisque notre package est vérifié, nous pouvons maintenant l'installer dans notre librairie R
 
 ```{r echo=TRUE, eval=FALSE}
 devtools::install()
@@ -615,16 +671,16 @@ devtools::install()
 
 <br />
 
-Ainsi, nous pouvons y accéder via la fonction `library()`
-
 ```{r echo=TRUE, eval=TRUE}
 library("pkgmin")
 ```
 
+- Le tour est joué !
+
+
 ---
 
 ## Utilisation du package
-
 
 ```{r echo=TRUE, eval=FALSE}
 ?pkgmin
@@ -637,17 +693,18 @@ pkgmin: Structure d'un package simple sous R
 
 Description:
 
-     Le package ‘pkgmin’ illustre la structure d'un package...
+    Le package ‘pkgmin’ illustre la structure d'un package...
 
 Author(s):
 
-     *Maintainer*: Nicolas Casajus <email: nicolas.casajus@fondationbiodiversite.fr>
+    *Maintainer*: Nicolas Casajus <email: nicolas.casajus@fondationbiodiversite.fr>
 ```
+
+
 
 ---
 
 ## Utilisation du package
-
 
 ```{r echo=TRUE, eval=FALSE}
 ?pkgmin::moyenne
@@ -660,12 +717,12 @@ Moyenne d'un vecteur numerique
 
 Description:
 
-     Cette fonction calcule la moyenne d'un vecteur numerique en
-     omettant les valeurs manquantes si l'utilisateur le souhaite.
+    Cette fonction calcule la moyenne d'un vecteur numerique en
+    omettant les valeurs manquantes si l'utilisateur le souhaite.
 
 Usage:
 
-     moyenne(x, na_rm = FALSE)
+    moyenne(x, na_rm = FALSE)
 
 Arguments:
 
@@ -675,21 +732,21 @@ Arguments:
 
 Value:
 
-     La fonction renvoie la moyenne du vecteur x.
+    La fonction renvoie la moyenne du vecteur x.
 
 Examples:
 
-     moyenne(c(2, 4))
+    moyenne(c(2, 4))
 ```
+
 
 
 ---
 
 ## Utilisation du package
 
-
 ```{r echo=TRUE, eval=FALSE}
-pkgmin::moyenne(2)
+moyenne(2)
 ```
 
 ```
@@ -697,7 +754,7 @@ pkgmin::moyenne(2)
 ```
 
 ```{r echo=TRUE, eval=FALSE}
-pkgmin::moyenne(c(2, 4))
+moyenne(c(2, 4))
 ```
 
 ```
@@ -705,7 +762,7 @@ pkgmin::moyenne(c(2, 4))
 ```
 
 ```{r echo=TRUE, eval=FALSE}
-pkgmin::moyenne(c(2, 4, NA))
+moyenne(c(2, 4, NA))
 ```
 
 ```
@@ -713,12 +770,13 @@ pkgmin::moyenne(c(2, 4, NA))
 ```
 
 ```{r echo=TRUE, eval=FALSE}
-pkgmin::moyenne(c(2, 4, NA), na_rm = TRUE)
+moyenne(c(2, 4, NA), na_rm = TRUE)
 ```
 
 ```
 ## [1] 3
 ```
+
 
 
 ---
@@ -747,12 +805,14 @@ axis(side = 1, pos = 0.6, at = c(par()$usr[1], par()$usr[2]), labels = NA, lwd =
 axis(side = 1, pos = 0.6, lwd = 0, lwd.ticks = 1)
 ```
 
+
+
 ---
 
 ## En résumé
 
 ```{r echo=TRUE, eval=FALSE}
-usethis::create_package("path/to/pkgname")      # Package skeleton
+usethis::create_package("path/to/pkgmin")       # Package skeleton
 
 usethis::use_git()                              # Init git repository
 
@@ -764,7 +824,7 @@ usethis::use_roxygen_md()                       # Init roxygen2
 usethis::use_package_doc()                      # Add pkg documentation
 devtools::document()                            # Generate pkg documentation
 
-usethis::use_r("funname")                       # Edit new function + doc
+usethis::use_r("function")                      # Edit new function + doc
 devtools::load_all()                            # Source R/ content
 devtools::document()                            # Generate function doc
 
@@ -775,4 +835,5 @@ devtools::check()                               # Check package building
 usethis::use_version("major")                   # Update major version
 
 devtools::install()                             # Install package
+library("pkgmin")                               # Load package
 ```
