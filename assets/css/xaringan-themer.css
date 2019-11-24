@@ -16,14 +16,14 @@
  *    - remarkjs wiki: https://github.com/gnab/remark/wiki
  *
  * ------------------------------------------------------- */
-@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:300,300i,500);
 @import url(https://fonts.googleapis.com/css?family=Varela);
 @import url(https://fonts.googleapis.com/css?family=Droid+Mono);
 
 
 body {
-  font-family: 'Droid Serif', 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
-  font-weight: normal;
+  font-family: Montserrat, 'Palatino Linotype', 'Book Antiqua', Palatino, 'Microsoft YaHei', 'Songti SC', serif;
+  font-weight: 300;
   color: #49847b;
 }
 h1, h2, h3 {
@@ -52,7 +52,7 @@ h1, h2, h3 {
   font-family: Droid Mono, 'Lucida Console', Monaco, monospace;
 }
 .remark-code {
-  font-size: 1.00em;
+  font-size: 0.75em;
 }
 .remark-inline-code {
   font-size: 1.00em;
@@ -78,7 +78,7 @@ a, a > code {
   font-size: 0.9em;
 }
 .remark-code-line-highlighted {
-  background-color: rgba(255,255,0,0.5);
+  background-color: #49847b;
 }
 .inverse {
   background-color: #3f3f3f;

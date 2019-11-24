@@ -1,5 +1,3 @@
-```{r xaringer-themer, include = FALSE}
-
 ## Colors variables          ----------
 
 colors_pal <- c(
@@ -20,7 +18,7 @@ xaringanthemer::write_xaringan_theme(
   ## Fonts family            ----------
 
   header_font_google              = xaringanthemer::google_font("Varela"),
-  text_font_google                = xaringanthemer::google_font("Montserrat", "300", "300i", "700"),
+  text_font_google                = xaringanthemer::google_font("Montserrat", "300", "300i", "500"),
   code_font_google                = xaringanthemer::google_font("Droid Mono"),
 
 
@@ -30,7 +28,7 @@ xaringanthemer::write_xaringan_theme(
   header_h2_font_size             = "2.00em",
   header_h3_font_size             = "1.25em",
   text_font_size                  = "1.25em",
-  code_font_size                  = "1.00em",
+  code_font_size                  = "0.75em",
   code_inline_font_size           = "1.00em",
   text_slide_number_font_size     = "0.75em",
 
@@ -49,6 +47,7 @@ xaringanthemer::write_xaringan_theme(
   link_color                      = colors_pal[5],
   text_slide_number_color         = colors_pal[1],
   code_inline_color               = colors_pal[4],
+  code_highlight_color            = colors_pal[3],
 
 
   ## Inverse colors          ----------
@@ -67,6 +66,5 @@ xaringanthemer::write_xaringan_theme(
 
   ## Others                  ----------
 
-  outfile = "../../assets/css/xaringan-themer.css"
+  outfile = "assets/css/xaringan-themer.css"
 )
-```
