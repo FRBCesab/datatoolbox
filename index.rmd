@@ -47,7 +47,5 @@ background-image: url("assets/img/background_slides.png")
 
 ### Programme
 
-.slide-content[
-
-  Page content
-]
+[Acquisition de données](sessions/session04/index.html)
+[Package R](sessions/session07/index.html)
