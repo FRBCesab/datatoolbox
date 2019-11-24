@@ -15,7 +15,7 @@ incididunt ut labore et dolore magna aliqua.
 <br />
 
 ```{r echo=TRUE, eval=FALSE}
-usethis::use_vignette('mathr')
+usethis::use_vignette('pkgmin')
 ```
 
 ---

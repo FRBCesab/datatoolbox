@@ -4,7 +4,7 @@
 - [**Writing R Extensions**](https://cran.r-project.org/doc/manuals/r-release/R-exts.html)
 - In R, the fundamental unit of shareable code is the package. A package bundles together code, data, documentation, and tests, and is easy to share with others.
 - 15 278 packages sur le CRAN
-- objectif : creer le package mathr avec une fonction.
+- objectif : creer le package pkgmin avec une fonction.
 
 
 
@@ -13,18 +13,18 @@
 
 ## Création du squelette
 
-Commençons par créer l'arborescence du package nommé `{mathr}`
+Commençons par créer l'arborescence du package nommé `{pkgmin}`
 
 --
 
 ```{r echo=TRUE, eval=FALSE}
-path <- "/Users/nicolascasajus/Desktop/mathr"
+path <- "/Users/nicolascasajus/Desktop/pkgmin"
 usethis::create_package(path)
 ```
 
 ```{r echo=FALSE, eval=TRUE}
 opath <- getwd()
-path  <- "~/Desktop/mathr"
+path  <- "~/Desktop/pkgmin"
 system(paste0("rm -rf ", path))
 usethis::create_package(path = path, open = FALSE)
 ```
@@ -115,7 +115,6 @@ cat(paste0(readLines("assets/chunks/DESCRIPTION"), collapse = "\n"))
 system(paste0("cp assets/chunks/DESCRIPTION ", path))
 ```
 
---
 
 <br />
 
@@ -185,13 +184,15 @@ Le package `roxygen2` permet de :
 
 <br />
 
+
+
 ```{r echo=TRUE, eval=FALSE}
-usethis::use_package_doc()
+usethis::use_roxygen_md()
 ```
 
 ```{r echo=FALSE, eval=TRUE}
 setwd(path)
-usethis::use_package_doc()
+usethis::use_roxygen_md()
 setwd(opath)
 ```
 
@@ -199,23 +200,22 @@ setwd(opath)
 
 <br />
 
-
-
 ```{r echo=TRUE, eval=FALSE}
-usethis::use_roxygen_md()
+usethis::use_package_doc()
 ```
 
 ```{r echo=FALSE, eval=TRUE}
 setwd(path)
-usethis::use_roxygen_md()
+usethis::use_package_doc()
 setwd(opath)
 ```
+
 
 ---
 
 ## Mise en place de la documentation
 
-Générons la documentation du fichier `R/mathr-package.R`
+Générons la documentation du fichier `R/pkgmin-package.R`
 
 
 ```{r echo=TRUE, eval=FALSE}
@@ -247,11 +247,11 @@ setwd(opath)
 
 ## Mise en place de la documentation
 
-Contenu du fichier `man/mathr-package.Rd`
+Contenu du fichier `man/pkgmin-package.Rd`
 
 ```{r echo=FALSE, eval=TRUE}
 setwd(path)
-cat(paste0(readLines("man/mathr-package.Rd"), collapse = "\n"))
+cat(paste0(readLines("man/pkgmin-package.Rd"), collapse = "\n"))
 setwd(opath)
 ```
 
@@ -562,7 +562,7 @@ devtools::check()
 ✔  checking for unstated dependencies in examples ...
 ✔  checking examples (446ms)
 
-── R CMD check results ─────────────────────────────────── mathr 0.0.0.9000 ────
+── R CMD check results ─────────────────────────────────── pkgmin 0.0.0.9000 ────
 Duration: 3m 9.9s
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔
@@ -598,7 +598,7 @@ devtools::install()
 ```
 
 ```
-* installing *source* package ‘mathr’ ...
+* installing *source* package ‘pkgmin’ ...
 ** using staged installation
 ** R
 ** byte-compile and prepare package for lazy loading
@@ -608,7 +608,7 @@ devtools::install()
 ** testing if installed package can be loaded from temporary location
 ** testing if installed package can be loaded from final location
 ** testing if installed package keeps a record of temporary installation path
-* DONE (mathr)
+* DONE (pkgmin)
 ```
 
 --
@@ -618,7 +618,7 @@ devtools::install()
 Ainsi, nous pouvons y accéder via la fonction `library()`
 
 ```{r echo=TRUE, eval=TRUE}
-library("mathr")
+library("pkgmin")
 ```
 
 ---
@@ -627,17 +627,17 @@ library("mathr")
 
 
 ```{r echo=TRUE, eval=FALSE}
-?mathr
+?pkgmin
 ```
 
 ```
-mathr-package              package:mathr               R Documentation
+pkgmin-package              package:pkgmin               R Documentation
 
-mathr: Structure d'un package simple sous R
+pkgmin: Structure d'un package simple sous R
 
 Description:
 
-     Le package ‘mathr’ illustre la structure d'un package...
+     Le package ‘pkgmin’ illustre la structure d'un package...
 
 Author(s):
 
@@ -650,11 +650,11 @@ Author(s):
 
 
 ```{r echo=TRUE, eval=FALSE}
-?mathr::moyenne
+?pkgmin::moyenne
 ```
 
 ```
-moyenne                 package:mathr                  R Documentation
+moyenne                 package:pkgmin                  R Documentation
 
 Moyenne d'un vecteur numerique
 
@@ -689,7 +689,7 @@ Examples:
 
 
 ```{r echo=TRUE, eval=FALSE}
-mathr::moyenne(2)
+pkgmin::moyenne(2)
 ```
 
 ```
@@ -697,7 +697,7 @@ mathr::moyenne(2)
 ```
 
 ```{r echo=TRUE, eval=FALSE}
-mathr::moyenne(c(2, 4))
+pkgmin::moyenne(c(2, 4))
 ```
 
 ```
@@ -705,7 +705,7 @@ mathr::moyenne(c(2, 4))
 ```
 
 ```{r echo=TRUE, eval=FALSE}
-mathr::moyenne(c(2, 4, NA))
+pkgmin::moyenne(c(2, 4, NA))
 ```
 
 ```
@@ -713,7 +713,7 @@ mathr::moyenne(c(2, 4, NA))
 ```
 
 ```{r echo=TRUE, eval=FALSE}
-mathr::moyenne(c(2, 4, NA), na_rm = TRUE)
+pkgmin::moyenne(c(2, 4, NA), na_rm = TRUE)
 ```
 
 ```
@@ -727,7 +727,7 @@ mathr::moyenne(c(2, 4, NA), na_rm = TRUE)
 
 ```{r echo=TRUE, eval=FALSE}
 x   <- rnorm(100)
-moy <- mathr::moyenne(x)
+moy <- pkgmin::moyenne(x)
 
 boxplot(x, col = "#49847b", border = "#7c4e20", horizontal = TRUE)
 points(y = 1, x = moy, pch = 17, cex = 2, col = "red")
@@ -735,7 +735,7 @@ points(y = 1, x = moy, pch = 17, cex = 2, col = "red")
 
 ```{r "boxplot", echo=FALSE, eval=TRUE, dpi=300, fig.path="assets/chunks/", fig.width=7, fig.height=2}
 x   <- rnorm(100)
-moy <- mathr::moyenne(x)
+moy <- pkgmin::moyenne(x)
 
 par(
   bg = "transparent", mar = c(0, 0, 0, 0), col.axis = "#7c4e20", col = "#7c4e20",
