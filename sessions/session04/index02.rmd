@@ -1,0 +1,982 @@
+---
+title: "Introduction to the Tidyverse"
+subtitle: "How to be a tidy data scientist"
+author: "Olivier Gimenez"
+date: "Mardi 3 décembre 2019"
+output:
+  xaringan::moon_reader:
+    css: ["../../assets/css/rutgers-tidyverse.css", "../../assets/css/rutgers-fonts_og.css"]
+    lib_dir: "assets/libs"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+# to convert html output into pdf,
+# xaringan::decktape("file://.../filename.html", "filename.pdf", docker = FALSE)
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.path = 'assets/chunks/', cache.path = "assets/cache/")
+```
+
+# **Tidyverse**
+
+- **Ordocosme** in `r emo::ji("fr")` with _Tidy_ for "bien rangé" and _verse_ for "univers"
+
+- A collection of R `r emo::ji("package")` developed by H. Wickham and others at Rstudio
+
+```{r echo=FALSE, out.width = "50%", fig.align="center"}
+knitr::include_graphics("assets/img/wickham_president.jpg")
+```
+
+
+---
+
+# **Tidyverse**
+
+* "A framework for managing data that aims at making the cleaning and preparing steps [muuuuuuuch] easier" (Julien Barnier).
+
+* Main characteristics of a tidy dataset:
+    - each variable is a column
+    - each observation is a raw
+    - each value is in a different cell
+
+```{r echo=FALSE, out.width = "80%", fig.align="center"}
+knitr::include_graphics("assets/img/tidydata.png")
+```
+
+
+---
+
+# **Tidyverse** is a collection of R `r emo::ji("package")`
+
+
+* `ggplot2` - visualising stuff
+
+* `dplyr`, `tidyr` - data manipulation
+
+* `purrr` - advanced programming
+
+* `readr` - import data
+
+* `tibble` - improved data.frame format
+
+* `forcats` - working w/ factors
+
+* `stringr` - working w/ chain of characters
+
+---
+
+# **Tidyverse** is a collection of R `r emo::ji("package")`
+
+* [`ggplot2` - visualising stuff](https://ggplot2.tidyverse.org/)
+
+* [`dplyr`, `tidyr` - data manipulation](https://dplyr.tidyverse.org/)
+
+* `purrr` - advanced programming
+
+* [`readr` - import data](https://readr.tidyverse.org/)
+
+* [`tibble` - improved data.frame format](https://tibble.tidyverse.org/)
+
+* [`forcats` - working w/ factors](https://forcats.tidyverse.org/)
+
+* [`stringr` - working w/ chain of characters](https://stringr.tidyverse.org/)
+
+
+
+---
+class: middle
+
+
+# Workflow in data science
+
+```{r, echo=FALSE, out.width = '100%', fig.align="center"}
+knitr::include_graphics("assets/img/data-science-workflow.png")
+```
+
+---
+class: middle
+
+# Workflow in data science, with **Tidyverse**
+
+```{r, echo=FALSE, out.width = '90%', fig.align="center"}
+knitr::include_graphics("assets/img/01_tidyverse_data_science.png")
+```
+
+---
+background-image: url(https://github.com/rstudio/hex-stickers/raw/master/SVG/tidyverse.svg?sanitize=true)
+background-size: 100px
+background-position: 90% 3%
+
+# Load [tidyverse](www.tidyverse.org) `r emo::ji("package")`
+
+```{r}
+#install.packages("tidyverse")
+library(tidyverse)
+```
+
+---
+class: middle
+
+## Case study:
+# [Using Twitter to predict citation rates of ecological research](https://peerj.com/preprints/3180/)
+
+```{r, echo=FALSE, out.width = '85%', fig.align="center"}
+knitr::include_graphics("assets/img/paper_workflow.png")
+```
+
+---
+class: inverse, center, middle
+
+# Import
+
+
+---
+
+# Import data
+
+**readr::read_csv** function:
+
+* keeps input types as is (no conversion to factor)
+
+* creates `tibbles` instead of `data.frame`
+     - no names to rows
+     - allows column names with special characters
+     - more clever on screen display than w/ data.frames
+     - no partial matching on column names
+     - warning if attempt to access unexisting column
+
+* is daaaaaamn fast `r emo::ji("racing_car")`
+
+---
+
+# Import data
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, cache=TRUE}
+citations_raw <- read_csv('https://raw.githubusercontent.com/oliviergimenez/intro_tidyverse/master/journal.pone.0166570.s001.CSV')
+citations_raw
+```
+
+---
+class: inverse, center, middle
+
+# Tidy, transform
+
+---
+
+# Rename columns
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+citations_temp <- rename(citations_raw,
+       journal = 'Journal identity',
+       impactfactor = '5-year journal impact factor',
+       pubyear = 'Year published',
+       colldate = 'Collection date',
+       pubdate = 'Publication date',
+       nbtweets = 'Number of tweets',
+       woscitations = 'Number of Web of Science citations')
+citations_temp
+```
+
+---
+
+# Create (or modify) columns
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+citations <- mutate(citations_temp, journal = as.factor(journal))
+citations
+```
+
+---
+
+# Create (or modify) columns
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+levels(citations$journal)
+```
+
+---
+class: inverse, center, middle
+
+# Give your code some air
+
+---
+
+# Cleaner code with "pipe" operator `%>%`
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+citations_raw %>%
+  rename(journal = 'Journal identity',
+       impactfactor = '5-year journal impact factor',
+       pubyear = 'Year published',
+       colldate = 'Collection date',
+       pubdate = 'Publication date',
+       nbtweets = 'Number of tweets',
+       woscitations = 'Number of Web of Science citations') %>%
+  mutate(journal = as.factor(journal))
+```
+
+---
+
+# Name object
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, eval = FALSE}
+citations <- citations_raw %>% #<<
+  rename(journal = 'Journal identity',
+       impactfactor = '5-year journal impact factor',
+       pubyear = 'Year published',
+       colldate = 'Collection date',
+       pubdate = 'Publication date',
+       nbtweets = 'Number of tweets',
+       woscitations = 'Number of Web of Science citations') %>%
+  mutate(journal = as.factor(journal))
+```
+
+---
+
+# Syntax with pipe
+
+* Verb(Subject,Complement) replaced by Subject %>% Verb(Complement)
+
+
+* No need to name unimportant intermediate variables
+
+
+* Clear syntax (readability)
+
+```{r echo=FALSE, out.width = "40%", fig.align="center"}
+knitr::include_graphics("assets/img/logo_pipe.png")
+```
+
+---
+
+# Base R from [Lise Vaudor's blog](http://perso.ens-lyon.fr/lise.vaudor/)
+
+```{r, eval = FALSE}
+white_and_yolk <- crack(egg, add_seasoning)
+omelette_batter <- beat(white_and_yolk)
+omelette_with_chives <- cook(omelette_batter,add_chives)
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, out.width = "500px", fig.align = "center"}
+knitr::include_graphics("assets/img/piping_successive.jpg")
+```
+
+---
+
+# Piping from [Lise Vaudor's blog](http://perso.ens-lyon.fr/lise.vaudor/)
+
+```{r, eval = FALSE}
+egg %>%
+  crack(add_seasoning) %>%
+  beat() %>%
+  cook(add_chives) -> omelette_with_chives
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, out.width = "250px", fig.align = "center"}
+knitr::include_graphics("assets/img/piping_piped.png")
+```
+
+
+---
+class: inverse, center, middle
+
+# Tidy, transform
+
+---
+
+# Select columns
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+citations %>%
+  select(journal, impactfactor, nbtweets)
+```
+
+---
+
+# Drop columns
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+citations %>%
+  select(-Volume, -Issue, -Authors)
+```
+
+
+---
+
+# Split a column in several columns
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+citations %>%
+  separate(pubdate,c('month','day','year'),'/')
+```
+
+---
+
+# Transform in Date format...
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(lubridate)
+citations %>%
+  mutate(pubdate = mdy(pubdate),
+         colldate = mdy(colldate))
+```
+
+---
+
+# ...for easy manipulation of dates
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(lubridate)
+citations %>%
+  mutate(pubdate = mdy(pubdate),
+         colldate = mdy(colldate),
+         pubyear2 = year(pubdate)) #<<
+
+```
+
+* Check out `?lubridate::lubridate` for more functions
+
+---
+
+# How to join tables together?
+
+<blockquote class="twitter-tweet" data-lang="fr"><p lang="en" dir="ltr">More <a href="https://twitter.com/hashtag/dplyr?src=hash&amp;ref_src=twsrc%5Etfw">#dplyr</a> 🔧 gifs!  It took me a hella long time to wrap my head around the different types of joins when I first started learning them, so here&#39;s a few examples with some excellent mini datasets from <a href="https://twitter.com/hashtag/dplyr?src=hash&amp;ref_src=twsrc%5Etfw">#dplyr</a> designed specifically for this purpose! <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> <a href="https://twitter.com/hashtag/tidyverse?src=hash&amp;ref_src=twsrc%5Etfw">#tidyverse</a> <a href="https://t.co/G56fWmIZSq">pic.twitter.com/G56fWmIZSq</a></p>&mdash; Nic Crane (@nic_crane) <a href="https://twitter.com/nic_crane/status/1064237554910806016?ref_src=twsrc%5Etfw">18 novembre 2018</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<br> <br> <br> <br>
+
+[![Watch the video](assets/mp4/dplyr_join.mp4)](dplyr_join.mp4)
+
+---
+class: inverse, center, middle
+
+# Easy character manipulation
+
+---
+
+# Select rows corresponding to papers with more than 3 authors
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+citations %>%
+  filter(str_detect(Authors,'et al'))
+```
+
+---
+
+# Select rows corresponding to papers with less than 3 authors
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+citations %>%
+  filter(!str_detect(Authors,'et al'))
+```
+
+---
+
+# Select rows corresponding to papers with less than 3 authors in journal with IF < 5
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+citations %>%
+  filter(!str_detect(Authors,'et al'), impactfactor < 5)
+```
+
+---
+
+# Convert words to lowercase
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+citations %>%
+  mutate(authors_lowercase = str_to_lower(Authors)) %>% #<<
+  select(authors_lowercase)
+```
+
+---
+
+# Remove all spaces in journal names
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+citations %>%
+  mutate(journal = str_remove_all(journal," ")) %>% #<<
+  select(journal) %>%
+  unique() %>%
+  head(5)
+```
+
+
+---
+
+# Explore `r emo::ji("package")` stringr and regular expressions
+
+* Check out the [vignette on stringr](https://cran.r-project.org/web/packages/stringr/vignettes/stringr.html) for more examples on character manipulation and pattern matching functions.
+
+* Check out the [vignette on regular expressions](https://stringr.tidyverse.org/articles/regular-expressions.html) which are a concise and flexible tool for describing patterns in strings.
+
+
+---
+class: inverse, center, middle
+
+# Basic exploratory data analysis
+
+---
+
+# Count
+
+```{r}
+citations %>% count(journal, sort = TRUE)
+```
+
+---
+
+# Count
+
+```{r}
+citations %>%
+  count(journal, pubyear) %>%
+  head()
+```
+
+---
+
+# Group by variable to calculate stats
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+citations %>%
+  group_by(journal) %>%
+  summarise(avg_tweets = mean(nbtweets)) %>%
+  head(10)
+```
+
+
+---
+
+# Order stuff
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+citations %>%
+  group_by(journal) %>%
+  summarise(avg_tweets = mean(nbtweets)) %>%
+  arrange(desc(avg_tweets)) %>% # decreasing order (wo desc for increasing) #<<
+  head(10)
+```
+
+
+---
+
+# Group by variables to calculate stats
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+citations %>%
+  group_by(journal, pubyear) %>%
+  summarise(avg_tweets_year = mean(nbtweets))
+```
+
+---
+
+# There are so many more things to explore
+
+* **mutate_all()**, **select_if()** and **summarise_at()** or scoped verbs where _scoped_ means that these functions operate only on a selection of variables; see [here](http://www.rebeccabarter.com/blog/2019-01-23_scoped-verbs/) for example
+
+* **pivot_longer()** and **pivot_wider()** from package `tidyr` to reshape tibbles; see [here](https://www.fromthebottomoftheheap.net/2019/10/25/pivoting-tidily/) for example
+
+
+```{r echo=FALSE, out.width = "50%", fig.align="center"}
+knitr::include_graphics("assets/img/01_tidyverse_data_science.png")
+```
+
+---
+class: inverse, center, middle
+
+# Visualize
+
+
+---
+
+# Visualization with ggplot2
+
+* The package ggplot2 implements a **g**rammar of **g**raphics
+
+* Operates on data.frames or tibbles, not vectors like base R
+
+* Explicitly differentiates between the data and its representation
+
+```{r echo=FALSE, out.width = "30%", fig.align="center"}
+knitr::include_graphics("assets/img/ggplot2_logo.jpg")
+```
+
+---
+
+# The ggplot2 grammar
+
+
+ Grammar element   | What it is
+ :---------------- | :-----------------------------
+ **Data**          | The data frame being plotted
+ **Geometrics**    | The geometric shape that will represent the data
+                   | (e.g., point, boxplot, histogram)
+ **Aesthetics**    | The aesthetics of the geometric object
+                   | (e.g., color, size, shape)
+
+
+```{r echo=FALSE, out.width = "30%", fig.align="center"}
+knitr::include_graphics("assets/img/ggplot2_logo.jpg")
+```
+
+
+---
+
+# Scatterplots
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+citations %>%
+  ggplot() +
+  aes(x = nbtweets, y = woscitations) +
+  geom_point()
+```
+
+---
+
+# Scatterplots
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 4, fig.width = 4, fig.align = "center", eval=FALSE}
+citations %>%  #<<
+  ggplot() + #<<
+  aes(x = nbtweets, y = woscitations) +
+  geom_point()
+```
+* Pass in the data frame as your first argument
+
+---
+
+# Scatterplots
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 4, fig.width = 4, fig.align = "center", eval=FALSE}
+citations %>%
+  ggplot() +
+  aes(x = nbtweets, y = woscitations) + #<<
+  geom_point()
+```
+* Pass in the data frame as your first argument
+* Aesthetics maps the data onto plot characteristics, here x and y axes
+
+---
+
+# Scatterplots
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 4, fig.width = 4, fig.align = "center", eval=FALSE}
+citations %>%
+  ggplot() +
+  aes(x = nbtweets, y = woscitations) +
+  geom_point() #<<
+```
+* Pass in the data frame as your first argument
+* Aesthetics maps the data onto plot characteristics, here x and y axes
+* Display the data geometrically as points
+
+
+---
+
+# Scatterplots, with colors
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+citations %>%
+  ggplot() +
+  aes(x = nbtweets, y = woscitations) +
+  geom_point(color = "red") #<<
+```
+
+---
+
+# Scatterplots, with species-specific colors
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 8, fig.align = "center"}
+citations %>%
+  ggplot() +
+  aes(x = nbtweets, y = woscitations, color = journal) + #<<
+  geom_point()
+```
+
+* Placing color inside aesthetic maps it to the data
+
+
+---
+
+# Pick a few journals
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+citations_ecology <- citations %>%
+  mutate(journal = str_to_lower(journal)) %>% # all journals names lowercase
+  filter(journal %in%
+           c('journal of animal ecology','journal of applied ecology','ecology')) # filter
+citations_ecology
+```
+
+
+---
+
+# Scatterplots, with species-specific shapes
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 8, fig.align = "center"}
+citations_ecology %>%
+  ggplot() +
+  aes(x = nbtweets, y = woscitations, shape = journal) + #<<
+  geom_point(size=2)
+```
+
+---
+
+# Scatterplots, lines instead of points
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+citations_ecology %>%
+  ggplot() +
+  aes(x = nbtweets, y = woscitations) +
+  geom_line() + #<<
+  scale_x_log10()
+```
+
+---
+
+# Scatterplots, add points
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+citations_ecology %>%
+  ggplot() +
+  aes(x = nbtweets, y = woscitations) +
+  geom_line() +
+  geom_point() + #<<
+  scale_x_log10()
+```
+
+---
+
+# Scatterplots, add smoother
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+citations_ecology %>%
+  ggplot() +
+  aes(x = nbtweets, y = woscitations) +
+  geom_point() +
+  geom_smooth() + #<<
+  scale_x_log10()
+```
+
+---
+
+# aes or not aes?
+
+* If we are to establish a link between the values of a variable and a graphical feature, ie a mapping, then we need an aes().
+
+* Otherwise, the graphical feature is modified irrespective of the data, then we do not need an aes().
+
+```{r echo=FALSE, out.width = "30%", fig.align="center"}
+knitr::include_graphics("assets/img/ggplot2_logo.jpg")
+```
+
+---
+
+# Histograms
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+citations_ecology %>%
+  ggplot() +
+  aes(x = nbtweets) +
+  geom_histogram() #<<
+```
+
+---
+
+# Histograms, with colors
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+citations_ecology %>%
+  ggplot() +
+  aes(x = nbtweets) +
+  geom_histogram(fill = "orange") #<<
+```
+
+---
+
+# Histograms, with colors
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+citations_ecology %>%
+  ggplot() +
+  aes(x = nbtweets) +
+  geom_histogram(fill = "orange", color = "brown") #<<
+```
+
+---
+
+# Histograms, with labels and title
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 4, fig.width = 5, fig.align = "center"}
+citations_ecology %>%
+  ggplot() +
+  aes(x = nbtweets) +
+  geom_histogram(fill = "orange", color = "brown") +
+  xlab("Number of tweets") + #<<
+  ylab("Count") + #<<
+  ggtitle("Histogram of the number of tweets") #<<
+```
+
+---
+
+# Histograms, by species
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 4, fig.width = 7, fig.align = "center"}
+citations_ecology %>%
+  ggplot() +
+  aes(x = nbtweets) +
+  geom_histogram(fill = "orange", color = "brown") +
+  xlab("Number of tweets") + #<<
+  ylab("Count") + #<<
+  ggtitle("Histogram of the number of tweets") +
+  facet_wrap(vars(journal)) #<<
+```
+
+---
+
+# Boxplots
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+citations_ecology %>%
+  ggplot() +
+  aes(x = "", y = nbtweets) +
+  geom_boxplot() + #<<
+  scale_y_log10()
+```
+
+---
+
+# Boxplots with colors
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+citations_ecology %>%
+  ggplot() +
+  aes(x = "", y = nbtweets) +
+  geom_boxplot(fill = "green") + #<<
+  scale_y_log10()
+```
+
+---
+
+# Boxplots with colors by species
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 8, fig.align = "center"}
+citations_ecology %>%
+  ggplot() +
+  aes(x = journal, y = nbtweets, fill = journal) + #<<
+  geom_boxplot() +
+  scale_y_log10()
+```
+
+---
+
+# Boxplots, user-specified colors by species
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 4, fig.width = 8, fig.align = "center"}
+citations_ecology %>%
+  ggplot() +
+  aes(x = journal, y = nbtweets, fill = journal) +
+  geom_boxplot() +
+  scale_y_log10() +
+  scale_fill_manual( #<<
+    values=c("red", "blue", "purple")) #<<
+```
+
+---
+
+# Boxplots, change legend settings
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 4, fig.width = 8, fig.align = "center"}
+citations_ecology %>%
+  ggplot() +
+  aes(x = journal, y = nbtweets, fill = journal) +
+  geom_boxplot() +
+  scale_y_log10() +
+  scale_fill_manual( #<<
+    values=c("red", "blue", "purple"),
+    name = "Journal name", #<<
+    labels=c("Ecology", "J Animal Ecology", "J Applied Ecology"))#<<
+```
+
+
+---
+
+# Ugly bar plots
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 4, fig.width = 8, fig.align = "center"}
+citations %>%
+  count(journal) %>%
+  ggplot() +
+  aes(x = journal, y = n) +
+  geom_col() #<<
+```
+
+---
+
+# Idem, with factors reordering and flipping
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 4, fig.width = 8, fig.align = "center"}
+citations %>%
+  count(journal) %>%
+  ggplot() +
+  aes(x = fct_reorder(journal, n), y = n) + #<<
+  geom_col() +
+  coord_flip() #<<
+```
+
+* More about how to (tidy) work with factors [here](https://stat545.com/block029_factors.html) and [here](https://thinkr.fr/forcats-forcats-vous-avez-dit-forcats/).
+
+
+---
+
+# Density plots
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 8, fig.align = "center"}
+citations_ecology %>%
+  ggplot() +
+  aes(x = nbtweets, fill = journal) +
+  geom_density() +#<<
+  scale_x_log10()
+```
+
+---
+
+# Density plots, control transparency
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 8, fig.align = "center"}
+citations_ecology %>%
+  ggplot() +
+  aes(x = nbtweets, fill = journal) +
+  geom_density(alpha = 0.5) +#<<
+  scale_x_log10()
+```
+
+---
+
+# Change default background theme 1/3
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 8, fig.align = "center"}
+citations_ecology %>%
+  ggplot() +
+  aes(x = nbtweets, fill = journal) +
+  geom_density(alpha = 0.5) +
+  scale_x_log10() +
+  theme_bw() #<<
+```
+
+---
+
+# Change default background theme 2/3
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 8, fig.align = "center"}
+citations_ecology %>%
+  ggplot() +
+  aes(x = nbtweets, fill = journal) +
+  geom_density(alpha = 0.5) +
+  scale_x_log10() +
+  theme_classic() #<<
+```
+
+---
+
+# Change default background theme 3/3
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 8, fig.align = "center"}
+citations_ecology %>%
+  ggplot() +
+  aes(x = nbtweets, fill = journal) +
+  geom_density(alpha = 0.5) +
+  scale_x_log10() +
+  theme_dark() #<<
+```
+
+
+---
+
+# More on data visualisation with ggplot2
+
+
+* [Portfolio](https://www.r-graph-gallery.com/portfolio/ggplot2-package/) of ggplot2 plots
+
+
+* [Top](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html) ggplot2 visualizations
+
+
+* [Interactive](https://github.com/dreamRs/esquisse) ggplot2 visualizations
+
+
+```{r echo=FALSE, out.width = "30%", fig.align="center"}
+knitr::include_graphics("assets/img/ggplot2_logo.jpg")
+```
+
+
+---
+
+background-image: url(https://github.com/rstudio/hex-stickers/raw/master/SVG/tidyverse.svg?sanitize=true)
+background-size: 550px
+background-position: 50% 50%
+
+
+---
+
+# To dive even deeper in the tidyverse
+
+* [Learn the tidyverse](https://www.tidyverse.org/learn/): books, workshops and online courses
+
+
+* My selection of books:
+   - [R for Data Science](https://r4ds.had.co.nz/) et [Advanced R](http://adv-r.had.co.nz/)
+   - [Introduction à R et au tidyverse](https://juba.github.io/tidyverse/)
+   - [Fundamentals of Data visualization](https://serialmentor.com/dataviz/)
+   - [Data Visualization: A practical introduction](http://socviz.co/)
+
+
+* [Tidy Tuesdays videos](https://www.youtube.com/user/safe4democracy/videos) by D. Robinson chief data scientist at DataCamp
+
+
+* Material of the [2-day workshop Data Science in the tidyverse](https://github.com/cwickham/data-science-in-tidyverse) held at the RStudio 2019 conference
+
+
+* Material of the stat545 course on [Data wrangling, exploration, and analysis with R](https://stat545.com/) at the University of British Columbia
+
+
+* List of best R packages (with their description) on [data import, wrangling and visualization](https://www.computerworld.com/article/2921176/business-intelligence/great-r-packages-for-data-import-wrangling-visualization.html)
+
+---
+
+# [How to switch from base R to tidyverse?](https://www.significantdigits.org/2017/10/switching-from-base-r-to-tidyverse/)
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, out.width = "800px", fig.align = "center"}
+knitr::include_graphics("assets/img/switch_baseR_tidyverse.png")
+```
+
+---
+
+# The [RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, out.width = "600px", fig.align = "center"}
+knitr::include_graphics("assets/img/cheatsheet_dplyr.png")
+```
+
+
+---
+class: title-slide-final, middle
+background-size: 55px
+background-position: 9% 15%
+
+# Thanks!
+
+### I created these slides with [xaringan](https://github.com/yihui/xaringan) and [RMarkdown](https://rmarkdown.rstudio.com/) using the [rutgers css](https://github.com/jvcasillas/ru_xaringan) that I slightly modified.
+
+### Credit: I used material from [Cécile Sauder](https://github.com/cecilesauder/RLadiesTidyverse), [Stephanie J. Spielman](http://sjspielman.org/bio5312_fall2017/) and [Julien Barnier](https://juba.github.io/tidyverse/).
+
+
+|                                                                                                            |                                   |
+| :--------------------------------------------------------------------------------------------------------- | :-------------------------------- |
+| `r icon::fa("envelope")` | **olivier.gimenez@cefe.cnrs.fr**       |
+| `r icon::fa("home")` | [**https://oliviergimenez.github.io/**](https://oliviergimenez.github.io/) |
+| `r icon::fa_twitter()` | [**@oaggimenez**](https://twitter.com/oaggimenez)                         |
+| `r icon::fa_github()` | [**@oliviergimenez**](https://github.com/oliviergimenez)
