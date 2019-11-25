@@ -5,6 +5,7 @@ part7=sessions/session07/index.html
 index=index.html
 
 all: $(theme) $(part41) $(part42) $(part7) $(index)
+# all: $(theme) $(part41) $(part7) $(index)
 
 $(theme): template/*
 	Rscript -e "source(\"template/xaringan_themer.R\")"
