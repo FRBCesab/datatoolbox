@@ -1,0 +1,46 @@
+---
+title: "Open Science <br/> (recherche reproductible) <br/> <br/>"
+author: "François Guilhaumon <br/> <br/> IRD, MARBEC<br/>"
+date: "02/12/2019, formation data toolbox au CESAB<br/><br/><br/><span class='caption'>francois.guilhaumon@ird.fr</span>"
+output:
+  revealjs::revealjs_presentation:
+    theme: night
+    center: true
+    transition: slide
+    css: assets/custom.css
+---
+
+# C'est quoi ?
+
+##
+
+![](assets/Galileo_Galilei_by_Peter_Paul_Rubens.jpg){width=40%}
+
+Galileo Galilei, par Peter Paul Rubens (circa 1630)<br/>
+<span class="small">wikimedia commons</span>
+
+## 
+
+![](assets/goodman_2014_fig1.png){width=70%}
+
+<span class="green">Figure 1.</span> Two pages (scan) from Galilei's Sidereus Nuncius (“The Starry Messenger” or “The Herald of the Stars”), Venice, 1610.
+
+<span class="small">Goodman et al. (2014) PLoS Comput Biol 10(4): e1003542. doi:10.1371/journal.pcbi.1003542</span>
+
+# The big picture
+
+## The small picture
+
+<div class="container">
+
+<div class="col">
+text
+</div>
+
+<div class="col">
+<br/><br/>
+text
+<br/><br/>
+text
+</div>
+
