@@ -1,4 +1,5 @@
 ---
+# PAS TOUCHE SVP !!!!!!
 title: index.html
 output:
   xaringan::moon_reader:
@@ -47,8 +48,14 @@ background-image: url("assets/img/background_slides.png")
 
 ### Programme
 
+- [Stéphane 1](sessions/session02/index.html)
+
+- [Stéphane 2](sessions/session03/index.html)
+
 - [Acquisition de données](sessions/session04/index01.html)
 
 - [Manipulation & Visualisation de données](sessions/session04/index02.html)
+
+- [Spatial](sessions/session05/index.html)
 
 - [Package R](sessions/session07/index.html)
