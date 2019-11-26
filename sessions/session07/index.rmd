@@ -74,3 +74,30 @@ class: inverse, center, middle
 
 ```{r child='part03.rmd'}
 ```
+
+---
+class: inverse, center, middle
+
+## A vous de jouer !
+
+<br />
+
+.center[
+  ![:scale 15%](assets/img/hex-devtools.png)
+  &nbsp;&nbsp;&nbsp;
+  ![:scale 15%](assets/img/hex-usethis.png)
+  &nbsp;&nbsp;&nbsp;
+  ![:scale 15%](assets/img/hex-roxygen2.png)
+
+  ![:scale 15%](assets/img/hex-rmarkdown.png)
+  &nbsp;&nbsp;&nbsp;
+  ![:scale 15%](assets/img/hex-pkgdown.png)
+  &nbsp;&nbsp;&nbsp;
+  ![:scale 15%](assets/img/hex-testthat.png)
+
+  ![:scale 15%](assets/img/travis-ci.png)
+  &nbsp;&nbsp;&nbsp;
+  ![:scale 15%](assets/img/appveyor.png)
+  &nbsp;&nbsp;&nbsp;
+  ![:scale 15%](assets/img/codecover.png)
+]

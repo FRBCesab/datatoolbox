@@ -2220,42 +2220,113 @@ travis::use_travis_deploy()
 
 ---
 
-## Ajout de tests unitaires
+## Tests unitaires
 
-.pull-left[
-.center[![:scale 50%](assets/img/hex-testthat.png)]
+.pull-leftt[
+.center[[![:scale 75%](assets/img/hex-testthat.png)](https://testthat.r-lib.org)]
 ]
 
-.pull-right[
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-incididunt ut labore et dolore magna aliqua.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-incididunt ut labore et dolore magna aliqua.
+.pull-rightt[
+- Tester son code est une partie importante du développement logiciel
+- Les tests unitaires permettent de s'assurer que notre code fonctionne comme il le devrait
+- `{testthat}` implémente de nombreux tests unitaires
 ]
 
-&lt;br /&gt;
+--
 
 
 ```r
 usethis::use_testthat()
-usethis::use_test()
 ```
+
+```
+✔ Adding 'testthat' to Suggests field in DESCRIPTION
+✔ Creating 'tests/testthat/'
+✔ Writing 'tests/testthat.R'
+● Call `use_test()` to initialize a basic test file and open it for editing.
+```
+
+--
+
+Le fichier `tests/testthat.R` contient les outils nécessaires pour les tests
+
+
+```r
+library(testthat)
+library(pkgmin)
+
+test_check("pkgmin")
+```
+
+
+---
+
+## Tests unitaires
+
+- Créons maintenant un fichier de tests pour la fonction : `moyenne()`
+
+
+```r
+usethis::use_test("moyenne")
+```
+
+```
+✔ Increasing 'testthat' version to '&gt;= 2.1.0' in DESCRIPTION
+✔ Writing 'tests/testthat/test-moyenne.R'
+● Modify 'tests/testthat/test-moyenne.R'
+```
+
+
+---
+
+## Tests unitaires
+
+- Remplaçons le contenu de `tests/testthat/test-moyenne.R` par quelques tests :
+
+```r
+context("Tests for moyenne()")
+
+data(xy)
+
+test_that("check inputs", {
+
+  expect_error(moyenne(xy$y),     "x contains NA values. Use na_rm = TRUE.")
+  expect_error(moyenne(c(2, NA), na_rm = TRUE),  "x has &lt; 2 non-NA values.")
+})
+
+test_that("check outputs", {
+
+  expect_length(moyenne(xy$x), 1)
+
+  expect_equal(moyenne(xy$x), -0.7596629, tolerance = 1e-1)
+  expect_equal(moyenne(xy$y, na_rm = TRUE), 5.5, tolerance = 1e-1)
+})
+```
+
+--
+
+Si notre fonction est bien implémentée, aucun message ne sera affiché
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Lors de la construction du package (sous Travis CI notamment), ces tests sont pris en compte
+
 
 
 ---
 
 ## Code coverage
 
-.pull-left[
-.center[![:scale 50%](assets/img/codecover.png)]
+.pull-leftt[
+.center[[![:scale 75%](assets/img/codecover.png)](https://codecov.io)]
 ]
 
-.pull-right[
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-incididunt ut labore et dolore magna aliqua.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-incididunt ut labore et dolore magna aliqua.
+.pull-rightt[
+- La couverture du code représente le pourcentage des lignes de code qui sont couvertes par les tests unitaires
+- Utilise donc les tests `{testthat}`
+
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;![:scale 20%](https://codecov.io/gh/ahasverus/pkgmin/branch/master/graph/badge.svg)
 ]
+
+--
 
 &lt;br /&gt;
 
@@ -2264,44 +2335,128 @@ incididunt ut labore et dolore magna aliqua.
 usethis::use_coverage("codecov")
 ```
 
+```
+✔ Adding 'covr' to Suggests field in DESCRIPTION
+✔ Writing 'codecov.yml'
+✔ Adding '^codecov\\.yml$' to '.Rbuildignore'
+✔ Adding Codecov test coverage badge to 'README.Rmd'
+● Re-knit 'README.Rmd'
+● Add to '.travis.yml':
+  after_success:
+    - Rscript -e 'covr::codecov()'
+```
 
----
-
-## DOI et Zenodo
-
-.pull-left[
-.center[[![:scale 75%](assets/img/zenodo.jpg)](https://zenodo.org)]
-]
-
-.pull-right[
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-incididunt ut labore et dolore magna aliqua.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-incididunt ut labore et dolore magna aliqua.
-]
 
 
 ---
 
-## Soumettre au CRAN
+## Code coverage
+
+- Sur [**https://codecov.io**](https://codecov.io), vous devrez vous connecter avec
+vos identifiants GitHub et ajouter le dépôt `{pkgmin}` à codecov
+
+--
+
+&lt;br /&gt;
+
+- Recompilons le `README.Rmd` en `README.md`
 
 
 ```r
-devtools::build()                  # Crée une archive du package au format tar.gz
+rmarkdown::render("README.Rmd")
 ```
 
-.pull-left[
-[**CRAN submission**](https://cran.r-project.org/submit.html)
+--
+
+&lt;br /&gt;
+
+- Et ajoutons ces lignes au fichier `.travis.yml` (ne pas oublier d'ajouter le package `{covr}` dans les packages requis pour Travis CI)
+
+```
+  after_success:
+    - Rscript -e 'covr::codecov()'
+```
+
+--
+
+- Après un _push_ (et quelques minutes d'attente) :
+
+.left[![:scale 60%](assets/img/codecov-badge.png)]
+
+
+
+---
+
+## Etat du projet
+
+.pull-left[.left[![:scale 45%](assets/img/git-final-l.png)]]
+
+.pull-right[.right[![:scale 100%](assets/img/git-final-r.png)]]
+
+
+
+---
+
+## Pour aller plus loin
+
+- Associer un DOI à son package :  [**Zenodo**](https://zenodo.org)
+
+- Lifecycle du package : [`lifecycle`](https://cran.r-project.org/web/packages/lifecycle/vignettes/lifecycle.html)
+
+- Ajouter d'autres badges : `usethis::use_badge()`
+
+- Ajouter un logo à son package : [`hexSticker`](https://cran.r-project.org/web/packages/hexSticker/readme/README.html)
+
+- Découvrez les [**GitHub actions**](https://github.com/features/actions)
+
+- Révision du package par les pairs : [**rOpenSci**](https://ropensci.org/blog/2017/09/01/nf-softwarereview/)
+
+- Soumettre son package au [**CRAN**](https://cran.r-project.org/submit.html) : `devtools::submit_cran()`
+
+
+&lt;br /&gt;
+
+.center[
+![](https://travis-ci.org/ahasverus/pkgmin.svg?branch=master)
+![](https://ci.appveyor.com/api/projects/status/github/ahasverus/pkgmin?branch=master&amp;svg=true)
+![](https://codecov.io/gh/ahasverus/pkgmin/branch/master/graph/badge.svg)
+![](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)
+![](https://img.shields.io/badge/License-MIT-yellow.svg)
+![](https://zenodo.org/badge/223958446.svg)
 ]
 
-.pull-right[
-.right[
-[**CRAN policies**](https://cran.r-project.org/submit.html)
-]
-]
+&lt;br /&gt;
 
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;`pkgmin : `&amp;nbsp;&amp;nbsp;
+[**\[Dépôt GitHub\]**](https://github.com/ahasverus/pkgmin/)&amp;nbsp;&amp;nbsp;&amp;nbsp;
+[**\[Site web\]**](https://ahasverus.github.io/pkgmin/)
 
-.center[![](assets/img/cran.png)]
+---
+class: inverse, center, middle
+
+## A vous de jouer !
+
+&lt;br /&gt;
+
+.center[
+  ![:scale 15%](assets/img/hex-devtools.png)
+  &amp;nbsp;&amp;nbsp;&amp;nbsp;
+  ![:scale 15%](assets/img/hex-usethis.png)
+  &amp;nbsp;&amp;nbsp;&amp;nbsp;
+  ![:scale 15%](assets/img/hex-roxygen2.png)
+
+  ![:scale 15%](assets/img/hex-rmarkdown.png)
+  &amp;nbsp;&amp;nbsp;&amp;nbsp;
+  ![:scale 15%](assets/img/hex-pkgdown.png)
+  &amp;nbsp;&amp;nbsp;&amp;nbsp;
+  ![:scale 15%](assets/img/hex-testthat.png)
+
+  ![:scale 15%](assets/img/travis-ci.png)
+  &amp;nbsp;&amp;nbsp;&amp;nbsp;
+  ![:scale 15%](assets/img/appveyor.png)
+  &amp;nbsp;&amp;nbsp;&amp;nbsp;
+  ![:scale 15%](assets/img/codecover.png)
+]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
