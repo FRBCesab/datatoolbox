@@ -22,16 +22,6 @@ output:
 
 class: inverse, center, middle
 
-## Résumé de la semaine
-
----
-
-```{r child='part01.rmd'}
-```
-
----
-class: inverse, center, middle
-
 ## Construction d'un package R
 
 <br />
