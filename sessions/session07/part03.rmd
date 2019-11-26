@@ -87,7 +87,6 @@ vignette: >
 format HTML
 
 ```{r echo=TRUE, eval=FALSE}
-devtools::install(..., build_vignettes = TRUE)
 devtools::install_github(..., build_vignettes = TRUE)
 ```
 
@@ -108,6 +107,8 @@ de créer un dépôt distant sur GitHub et de l'associer au dépôt local
   1. Le dépôt local doit être versionné et à jour
   2. Vous devez avoir un [**Token GitHub**](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line)
 ]
+
+--
 
 <br />
 
@@ -218,7 +219,7 @@ usethis::use_github(
 ```
 
 `r icon::fa("hand-point-right")` &nbsp;Si vous avez généré des clés de chiffrement
-et déposé la clé publique sur GitHub, vous pouvez opter pour le protocole `ssh`
+et déposé la clé publique sur GitHub, vous pouvez opter pour le protocole `ssh` plus sécurisé
 
 --
 
@@ -493,22 +494,177 @@ system("git push")
 
 ## Création d'un site web
 
-.pull-left[
-.center[![:scale 50%](assets/img/hex-pkgdown.png)]
+.pull-leftt[
+.center[[![:scale 75%](assets/img/hex-pkgdown.png)](https://pkgdown.r-lib.org)]
 ]
 
-.pull-right[
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-incididunt ut labore et dolore magna aliqua.
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-incididunt ut labore et dolore magna aliqua.
+.pull-rightt[
+- Pourquoi ne pas créer un site web pour votre package ?
+- Le package `{pkgdown}` permet de faire ça très simplement
+- Le site comprendra le README, les pages des fonctions/objets ainsi que la vignette
 ]
+
+--
 
 <br />
+
+- Initialisation de `{pkgdown}` pour notre package
+
+```{r echo=TRUE, eval=FALSE}
+usethis::use_pkgdown()
+```
+
+```
+✔ Adding '^_pkgdown\\.yml$', '^docs$' to '.Rbuildignore'
+✔ Adding '^pkgdown$' to '.Rbuildignore'
+✔ Writing '_pkgdown.yml'
+● Modify '_pkgdown.yml'
+```
+
+
+
+---
+
+## Création d'un site web
+
+- Construisons notre site web
+
+```{r echo=TRUE, eval=FALSE}
+pkgdown::build_site()
+```
+
+```
+══ Building pkgdown site ══════════════════════════════════════════════════════════
+Writing to:   '/Users/nicolascasajus/Desktop/pkgmin/docs'
+── Initialising site ──────────────────────────────────────────────────────────────
+Writing 'authors.html'
+Writing 'LICENSE.html'
+Writing 'index.html'
+── Building home ──────────────────────────────────────────────────────────────────
+Writing 'authors.html'
+Writing 'LICENSE.html'
+Writing 'index.html'
+Writing 'reference/index.html'
+Writing 'reference/moyenne.html'
+Writing 'reference/pkgmin-package.html'
+Writing 'reference/xy.html'
+── Building articles ──────────────────────────────────────────────────────────────
+Writing 'articles/index.html'
+Writing 'articles/pkgmin.html'
+══ DONE ═══════════════════════════════════════════════════════════════════════════
+```
+
+--
+
+`r icon::fa("hand-point-right")` &nbsp;[**https://ahasverus.github.io/pkgmin**](https://ahasverus.github.io/pkgmin)
+
+
+
+---
+
+## Création d'un site web
+
+- Une seule contrainte cependant : à chaque modification de notre package, nous
+devrons reconstruire notre site manuellement avec `pkgdown::build_site()` (avec
+le risque d'oublier)
+
+--
+
+- Pourquoi ne pas utiliser Travis CI pour déployer notre site web à notre place
+après chaque _push_ ?
+
+--
+
+- Avant toute chose, nous devons installer un package supplémentaire :
+
+```{r echo=TRUE, eval=FALSE}
+remotes::install_github("ropenscilabs/travis")
+```
+
+ou
+
+```{r echo=TRUE, eval=FALSE}
+devtools::install_github("ropenscilabs/travis")
+```
+
+- Le package `{travis}` nous permettra d'autoriser Travis CI à écrire sur notre dépôt GitHub
+
+`r icon::fa("hand-point-right")` &nbsp;Il est très permissif, donc à vous de voir
+si vous souhaitez l'utiliser ou pas (dans ce cas-là vous devrez ajouter le GitHub
+PAT dans les variables d'environnement de Travis CI pour chaque dépôt)
+
+
+
+---
+
+## Création d'un site web
+
+- Initialisons la connexion Travis CI-`{pkgdown}`
 
 ```{r echo=TRUE, eval=FALSE}
 usethis::use_pkgdown_travis()
 ```
+
+```
+✔ Adding 'docs/' to '.gitignore'
+● Set up deploy keys by running `travis::use_travis_deploy()`
+● Insert the following code in '.travis.yml'
+ before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
+ deploy:
+   provider: script
+   script: Rscript -e 'pkgdown::deploy_site_github()'
+   skip_cleanup: true
+```
+
+--
+
+- Et donnons les autorisations nécessaires à Travis CI :
+
+```{r echo=TRUE, eval=FALSE}
+travis::use_travis_deploy()
+```
+
+```
+✔ Authentication successful.
+✔ Successfully added public deploy key travis+tic' to GitHub for ahasverus/pkgmin.
+✔ Successfully added private deploy key to ahasverus/pkgmin as secure environment
+  variable id_rsa to Travis CI.
+```
+
+
+
+---
+
+## Création d'un site web
+
+- Modifions le `.travis.yml` comme suit :
+
+```
+  language: r
+  warnings_are_errors: false
+  sudo: required
+  cache: packages
+
+  notifications:
+    email:
+      recipients:
+        - nicolas.casajus@fondationbiodiversite.fr
+
+  r_packages:
+    - magrittr
+
+  before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
+  deploy:
+    provider: script
+    script: Rscript -e 'pkgdown::deploy_site_github()'
+    skip_cleanup: true
+```
+
+--
+
+`r icon::fa("hand-point-right")` &nbsp;Et voilà ! Après chaque push, notre site web sera reconstruit automatiquement !!!
+
+
 
 ---
 

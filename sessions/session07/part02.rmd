@@ -32,13 +32,16 @@ documentation, and tests, and is easy to share with others_ (**Hadley Wickham**)
 
 - Il dépendra de deux autres packages : `{magrittr}` et `{stats}`
 
+<br />
+
+`r icon::fa("hand-point-right")` &nbsp;Le nom d'un package ne doit contenir que des caractères alphanumériques (le point est autorisé)
 
 
 ---
 
 ## Création du squelette
 
-- Commençons par créer l'arborescence de notre package
+- Commençons par créer l'arborescence minimale de notre package
 
 --
 
@@ -52,8 +55,8 @@ path  <- "~/Desktop/pkgmin"
 system(paste0("rm -rf ", path))
 usethis::create_package(path = path, open = FALSE)
 ```
---
 
+<!--
 ```{r echo=TRUE, eval=FALSE}
 dir(all.files = TRUE)
 ```
@@ -63,7 +66,7 @@ setwd(path)
 dir(all.files = TRUE)[-c(1, 2)]
 setwd(opath)
 ```
-
+-->
 
 
 ---
@@ -214,7 +217,7 @@ setwd(opath)
 <br />
 
 ```{r echo=TRUE, eval=FALSE}
-usethis::use_roxygen_md()
+usethis::use_roxygen_md()                                         # Init roxygen2
 ```
 
 ```{r echo=FALSE, eval=TRUE}
@@ -228,7 +231,7 @@ setwd(opath)
 <br />
 
 ```{r echo=TRUE, eval=FALSE}
-usethis::use_package_doc()
+usethis::use_package_doc()                                # Add pkg documentation
 ```
 
 ```{r echo=FALSE, eval=TRUE}
@@ -641,7 +644,7 @@ même si la fonction `usethis::use_data_raw()` ne propose pas de changer son nom
 
 ## Exemple reproductible
 
-- Créons un jeu de données internes (`rda`)
+- Créons un jeu de données fictif
 
 ```{r echo=TRUE, eval=TRUE}
 set.seed(1637)
@@ -655,6 +658,8 @@ set.seed(1637)
 ---
 
 ## Exemple reproductible
+
+- Convertissons-le en `rda`
 
 ```{r echo=TRUE, eval=FALSE}
 usethis::use_data(xy, internal = FALSE)
