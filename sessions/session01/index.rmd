@@ -12,14 +12,14 @@ output:
 
 # C'est quoi ?
 
-##
+## Un exemple
 
 ![](assets/Galileo_Galilei_by_Peter_Paul_Rubens.jpg){width=40%}
 
 Galileo Galilei, par Peter Paul Rubens (circa 1630)<br/>
 <span class="small">wikimedia commons</span>
 
-## 
+## Un exemple
 
 ![](assets/goodman_2014_fig1.png){width=70%}
 
@@ -27,20 +27,32 @@ Galileo Galilei, par Peter Paul Rubens (circa 1630)<br/>
 
 <span class="small">Goodman et al. (2014) PLoS Comput Biol 10(4): e1003542. doi:10.1371/journal.pcbi.1003542</span>
 
-# The big picture
-
-## The small picture
+## Un exemple
 
 <div class="container">
-
-<div class="col">
-text
+<div class="col" data-markdown>
+![](assets/Galileo_Galilei_by_Peter_Paul_Rubens.jpg){width=100%}
 </div>
 
-<div class="col">
+<div class="col" data-markdown>
+
 <br/><br/>
-text
+
+Les notes de Galilée intègrent:
 <br/><br/>
-text
+
+> - Données (dessins)
+<br/><br/>
+> - Méta-données (date, météo, carac. lunette)
+<br/><br/>
+> - Texte (description des méthodes, analyses et conclusions)
+
 </div>
 
+##
+
+<span class="very_big green">Open Science ?</span>
+
+## Recherche reproductible
+<br/><br/><br/>
+données + méta-données + matériel & méthodes
