@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
-    <title>Les données en biodiversité</title>
+    <title>Acquisition de données</title>
     <meta charset="utf-8" />
     <meta name="author" content="  Nicolas Casajus" />
     <link rel="stylesheet" href="../../assets/css/xaringan-themer.css" type="text/css" />
@@ -11,50 +11,69 @@
     <textarea id="source">
 class: right, middle, title-slide
 
-# Les données en<br/>biodiversité
-## Acquisition avec R
+# Acquisition de données
+## API, webscraping, etc.
 ### <br /><br />Nicolas Casajus
 ### Mardi 3 décembre
 
 ---
 
 
-## Hello World
-
-Install the `{xaringan}` package from [GitHub](https://github.com/yihui/xaringan)
-
-
-
-```r
-devtools::install_github("yihui/xaringan")
-*x &lt;- 1
-print(x)
-```
-
-
-You are **recommended** to use the [RStudio IDE](https://www.rstudio.com/products/rstudio/), but you do not have to.
-
-- Create a new R Markdown document from the menu: `File -&gt; New File -&gt; R Markdown -&gt; From Template -&gt; Ninja Presentation`
-
-- Click the `Knit` button to compile it
-
-- or use the [RStudio Addin](https://rstudio.github.io/rstudioaddins/) "Infinite Moon Reader" to live preview the slides (every time you update and save the Rmd document, the slides will be automatically reloaded in RStudio Viewer
-
----
 class: inverse, center, middle
 
-# Hello World
+# Introduction
 
-⚔
 
-## All the World
+
+---
+
+## Une révolution numérique
+
+Nous vivons une époque formidable...
+
+avec des vidéos de chats...
+
+![:scale 50%](assets/img/clip.gif)
+
+&lt;br /&gt;
+
+--
+
+mais pas que...
+
+
+
+---
+
+## Un accès à la connaissance universelle
+
+.pull-left[
+  .center[[![:scale 50%](assets/img/wikipedia-logo.png)](https://www.wikipedia.org)]
+  &lt;br /&gt;&lt;br /&gt;&lt;br /&gt;
+  .center[[![:scale 60%](assets/img/gutenberg-logo.jpg)](https://www.gutenberg.org)]
+]
+
+.pull-right[
+  .center[[![:scale 60%](assets/img/osm-logo.png)](https://www.openstreetmap.org/)]
+
+  .center[[![:scale 50%](assets/img/github.png)](https://github.com/)]
+]
+
+
+
+---
+
+## Dans le domaine de la biodiversité
+
+xxx
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="../../assets/libs/macros.js"></script>
 <script>var slideshow = remark.create({
 "ratio": "4:3",
 "highlightStyle": "zenburn",
-"highlightLines": true,
+"highlightLines": false,
 "countIncrementalSlides": false,
 "slideNumberFormat": "%current% / %total%"
 });
@@ -96,24 +115,7 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();
-// adds .remark-code-has-line-highlighted class to <pre> parent elements
-// of code chunks containing highlighted lines with class .remark-code-line-highlighted
-(function(d) {
-  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
-  const preParents = [];
-  const findPreParent = function(line, p = 0) {
-    if (p > 1) return null; // traverse up no further than grandparent
-    const el = line.parentElement;
-    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
-  };
-
-  for (let line of hlines) {
-    let pre = findPreParent(line);
-    if (pre && !preParents.includes(pre)) preParents.push(pre);
-  }
-  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
-})(document);</script>
+})();</script>
 
 <script>
 (function() {
