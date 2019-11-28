@@ -4,6 +4,7 @@
     <title>Acquisition de données</title>
     <meta charset="utf-8" />
     <meta name="author" content="  Nicolas Casajus" />
+    <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../assets/css/xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="../../assets/css/custom.css" type="text/css" />
   </head>
@@ -12,7 +13,7 @@
 class: right, middle, title-slide
 
 # Acquisition de données
-## API, webscraping, etc.
+## API, web scraping, etc.
 ### <br /><br />Nicolas Casajus
 ### Mardi 3 décembre
 
@@ -58,14 +59,448 @@ mais pas que...
 
   .center[[![:scale 50%](assets/img/github.png)](https://github.com/)]
 ]
-
+Encylopedia of Life
 
 
 ---
 
 ## Dans le domaine de la biodiversité
 
-xxx
+- Accès aux données d'articles
+
+- Nombreuses bases de données disponibles (IUCN Spatial data, WorldClim, GIEC)
+
+- Open science
+
+- Métadonnées
+
+- L'intiative [**rOpenSci**](https://ropensci.org)
+
+- Données de science participative
+
+- Exemple `download.file()` = reproductibilité
+
+---
+class: inverse, center, middle
+
+# Les API
+
+
+
+---
+
+## Qu'est-ce qu'une API ?
+
+- Définition
+
+- Termes et conditions
+
+- Code de bonne conduite
+
+- Les **token**
+
+- Limites quantité de résultats
+
+- Limites nombres de requêtes
+
+
+https://www.lafabriquedunet.fr/blog/definition-api/
+https://openclassrooms.com/fr/courses/3449001-utilisez-des-api-rest-dans-vos-projets-web/3449008-quest-ce-quune-api
+https://medium.com/@mercier_remi/c-est-quoi-une-api-f37ae350cb9
+https://developer.mozilla.org/fr/docs/Web/HTTP/Méthode
+https://www.supinfo.com/articles/single/5642-qu-est-ce-qu-une-api-rest-restful
+
+---
+
+## Accès via des Packages R
+
+Package           | Type de données
+------------------|------------------
+`{taxize}`        | Taxonomie
+`{spocc}`         | Occurrences d'espèces
+`{rcites}`        | Espèces protégées mondiales
+`{rfishbase}`     | Informations sur les poissons
+`{rredlist}`      | Accès à IUCN liste rouge
+`{treebase}`      | Données phylogénétiques
+`{traits}`        | Traits d'espèces
+`{rnaturalearth}` | Données vectorielles spatiales
+`{raster}`        | Données climatiques, altitude, etc.
+
+&lt;br /&gt;
+
+Pour aller plus loin :
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+[**rOpenSci**](https://ropensci.org/packages/)
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+[**Open Data**](https://github.com/ropensci/opendata/blob/master/README.md)
+
+
+---
+
+## Cas d'étude : le package `{taxize}`
+
+- Exemple : `{taxize}`
+
+
+
+---
+
+## Construction d'un client R
+
+_Que faire si aucun package R n'a été développé mais qu'il existe une API ?_
+
+--
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Construire soi-même un client R (c.-à-d. écrire soi-même les requêtes à envoyer à l'API)
+
+--
+
+&lt;br /&gt;
+
+Sous <i class="fab  fa-r-project "></i> il existe de nombreux packages pour communiquer
+avec les services Web (`{httr}`, `{curl}`, etc.)
+
+--
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;
+[**Getting started with httr**](https://cran.r-project.org/web/packages/httr/vignettes/quickstart.html)
+
+<i class="fas  fa-hand-point-right " style="color:#e1ddc0;"></i> &amp;nbsp;
+[**Best practices for API packages**](https://cran.r-project.org/web/packages/httr/vignettes/api-packages.html)
+
+<i class="fas  fa-hand-point-right " style="color:#e1ddc0;"></i> &amp;nbsp;
+[**Managing secrets**](https://cran.r-project.org/web/packages/httr/vignettes/secrets.html)
+
+--
+
+&lt;br /&gt;
+
+Voyons deux exemples illustrant l'utilisation de `{httr}`
+
+
+
+---
+
+## IUCN Red list API
+
+.center[[![:scale 20%](assets/img/redlist_logo.png)](https://apiv3.iucnredlist.org/api/v3/docs)]
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Conditions d'utilisation disponibles [**ici**](https://www.iucnredlist.org/terms/terms-of-use)
+
+&lt;br /&gt;
+
+Cette API permet d'obtenir différentes informations sur les espèces en danger
+- Listes d'espèces par catégorie IUCN
+- Listes d'espèces par pays
+- Les habitats, menaces pour chaque espèce
+- _et bien d'autres..._
+
+Elle requière un [**token**](https://apiv3.iucnredlist.org/api/v3/token)
+
+
+
+---
+
+## IUCN Red list API
+
+Pour la démonstration, nous utiliserons le token fourni dans la documentation de l'API
+
+&lt;br /&gt;
+
+.center[<i class="fas  fa-universal-access fa-5x " style="color:#3f3f3f;"></i>]
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Si vous voulez utiliser cette API, **SVP** obtenez votre propre [**token**](https://apiv3.iucnredlist.org/api/v3/token)
+
+
+
+
+---
+
+## IUCN Red list API
+
+- Stockons le token comme variable d'environnement dans le fichier `.Renviron`
+
+
+```r
+usethis::edit_r_environ()                       # Ouverture du fichier `.Renviron`
+```
+
+- Et ajoutons cette ligne (en adaptant la valeur)
+
+
+```r
+IUCN_KEY=9bb4facb6...
+```
+
+--
+
+&lt;br /&gt;
+
+- Vérifions que le PAT est bien stocké (après un redémarrage de <i class="fab  fa-r-project "></i>)
+
+
+```r
+Sys.getenv("IUCN_KEY")
+```
+
+```
+## [1] "9bb4facb6..."
+```
+
+
+
+---
+
+## IUCN Red list API
+
+<i class="fas  fa-question-circle "></i> &amp;nbsp;Combien d'espèces de chaque catégorie IUCN y a-t-il en France ?
+
+--
+
+- Ecrivons la requête
+
+
+```r
+api_url    &lt;- "https://apiv3.iucnredlist.org/api/v3/"
+query      &lt;- "country/getspecies/"
+country    &lt;- "FR"
+iucn_token &lt;- Sys.getenv("IUCN_KEY")
+
+request &lt;- paste0(
+  api_url,
+  query,
+  country,
+  "?token=",
+  iucn_token
+)
+```
+```
+## [1] "https://apiv3.iucnredlist.org/api/v3/country/getspecies/FR?token=9bb4fac...
+```
+
+
+
+
+---
+
+## IUCN Red list API
+
+- Envoyons la requête à l'API et récupérons le résultat
+
+
+```r
+response &lt;- httr::GET(request)
+```
+
+--
+
+- Affichons le statut de la réponse
+
+
+```r
+httr::http_status(response)
+```
+
+```
+## $category
+## [1] "Success"
+## 
+## $reason
+## [1] "OK"
+## 
+## $message
+## [1] "Success: (200) OK"
+```
+
+--
+
+- Sous quel format sont retournées les données ?
+
+
+```r
+httr::http_type(response)
+```
+
+```
+## [1] "application/json"
+```
+
+
+
+
+---
+
+## IUCN Red list API
+
+- Accédons au contenu de la réponse (données)
+
+
+```r
+datas &lt;- httr::content(response, as = "text")
+```
+
+```
+{
+  "count":3897,
+  "country":"FR",
+  "result":[
+    {
+      "taxonid":190498,
+      "scientific_name":"Abida ateni",
+      "subspecies":null,
+      "subpopulation":null,
+      "category":"VU"
+    },
+    {
+      "taxonid":156905,
+      "scientific_name":"Abida attenuata",
+      "subspecies":null,
+      "subpopulation":null,
+      "category":"LC"
+    }
+    ...
+  ]
+}
+```
+
+
+
+
+---
+
+## IUCN Red list API
+
+- Convertissons (_parse_) ce format JSON en objet R
+
+
+```r
+results &lt;- jsonlite::fromJSON(datas)
+```
+
+--
+
+&lt;br /&gt;
+
+- Quel est le format retourné ?
+
+
+```r
+str(results)
+```
+
+```
+## List of 3
+##  $ count  : int 3897
+##  $ country: chr "FR"
+##  $ result :'data.frame':	3897 obs. of  6 variables:
+##   ..$ taxonid        : int [1:3897] 190498 156905 156761 156390 156989  ...
+##   ..$ scientific_name: chr [1:3897] "Abida ateni" "Abida attenuata"     ...
+##   ..$ subspecies     : chr [1:3897] NA NA NA NA ...
+##   ..$ rank           : chr [1:3897] NA NA NA NA ...
+##   ..$ subpopulation  : chr [1:3897] NA NA NA NA ...
+##   ..$ category       : chr [1:3897] "VU" "LC" "LC" "LC" ...
+```
+
+
+
+
+
+---
+
+## IUCN Red list API
+
+- Extrayons les données qui nous intéressent
+
+
+```r
+species_fr &lt;- results$result
+head(species_fr)
+```
+
+```
+##   taxonid     scientific_name subspecies rank subpopulation category
+## 1  190498         Abida ateni       &lt;NA&gt; &lt;NA&gt;          &lt;NA&gt;       VU
+## 2  156905     Abida attenuata       &lt;NA&gt; &lt;NA&gt;          &lt;NA&gt;       LC
+## 3  156761   Abida bigerrensis       &lt;NA&gt; &lt;NA&gt;          &lt;NA&gt;       LC
+## 4  156390    Abida cylindrica       &lt;NA&gt; &lt;NA&gt;          &lt;NA&gt;       LC
+## 5  156989 Abida gittenbergeri       &lt;NA&gt; &lt;NA&gt;          &lt;NA&gt;       NT
+## 6  156823  Abida occidentalis       &lt;NA&gt; &lt;NA&gt;          &lt;NA&gt;       LC
+```
+
+--
+
+- Nombre d'espèces par catégorie listées par l'IUCN
+
+
+```r
+table(species_fr[ , "category"])
+```
+
+```
+## 
+##    CR    DD    EN    EW    EX    LC LR/cd LR/lc LR/nt    NT    VU 
+##    40   345    99     1     8  2915     1     3    16   219   250
+```
+
+--
+
+.right[<i class="fas  fa-hand-point-right "></i> &amp;nbsp; Package R ` {rredlist}`]
+
+
+
+---
+
+## OpenStreetMap Nominatim
+
+.center[[![:scale 20%](assets/img/osm-logo.png)](http://nominatim.openstreetmap.org/search/)]
+
+
+
+---
+class: inverse, center, middle
+
+# Web scraping
+
+
+---
+
+# Quésaco ?
+
+- Définition
+
+https://fr.wikipedia.org/wiki/Web_scraping
+
+- Robot =&gt; Légalité
+
+- Blocage notamment Google
+Le bannissement d’ip, La création d’un compte utilisateur, Captchas
+- Brutal : https://en.wikipedia.org/wiki/
+
+- Regular expressions
+
+
+- Intelligent : le package {`rvest`} et FAO
+
+
+
+---
+class: inverse, center, middle
+
+# Bonus
+
+
+
+---
+
+## RSelenium
+
+- Une petite révolution
+
+.right[**Démo**]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
