@@ -1,0 +1,52 @@
+## Une révolution numérique
+
+Nous vivons une époque formidable...
+
+avec des vidéos de chats...
+
+![:scale 50%](assets/img/clip.gif)
+
+<br />
+
+--
+
+mais pas que...
+
+
+
+---
+
+## Un accès à la connaissance universelle
+
+.pull-left[
+  .center[[![:scale 50%](assets/img/wikipedia-logo.png)](https://www.wikipedia.org)]
+  <br /><br /><br />
+  .center[[![:scale 60%](assets/img/gutenberg-logo.jpg)](https://www.gutenberg.org)]
+]
+
+.pull-right[
+  .center[[![:scale 60%](assets/img/osm-logo.png)](https://www.openstreetmap.org/)]
+
+  .center[[![:scale 50%](assets/img/github.png)](https://github.com/)]
+]
+Encylopedia of Life
+
+
+
+---
+
+## Dans le domaine de la biodiversité
+
+- Accès aux données d'articles
+
+- Nombreuses bases de données disponibles (IUCN Spatial data, WorldClim, GIEC)
+
+- Open science
+
+- Métadonnées
+
+- L'intiative [**rOpenSci**](https://ropensci.org)
+
+- Données de science participative
+
+- Exemple `download.file()` = reproductibilité
