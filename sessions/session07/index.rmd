@@ -91,3 +91,9 @@ class: inverse, center, middle
   &nbsp;&nbsp;&nbsp;
   ![:scale 15%](assets/img/codecover.png)
 ]
+
+
+
+```{r echo=FALSE, eval=TRUE}
+system(paste0("rm -rf ", path))
+```
