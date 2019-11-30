@@ -1,0 +1,224 @@
+---
+title: Exercice n°1
+subtitle: <i>Acquisition de données avec `r icon::fa("r-project")`</i><br /><br /><br /><br />
+output:
+  xaringan::moon_reader:
+    css: ["../../assets/css/xaringan-themer.css", "../../assets/css/custom.css"]
+    lib_dir: "assets/libs"
+    seal: true
+    yolo: false
+    self_contained: false
+    nature:
+      ratio: "4:3"
+      titleSlideClass: ["right", "middle"]
+      highlightStyle: 'zenburn'
+      highlightLines: false
+      countIncrementalSlides: false
+      slideNumberFormat: "%current% / %total%"
+      beforeInit: "../../assets/libs/macros.js"
+---
+
+## Contexte
+
+Tout au long de la semaine, nous allons utiliser deux jeux de données sur les mammifères :
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;[**Wildfinder**](https://www.worldwildlife.org/WildFinder) (WWF, 2006) : données de présence de chaque espèce de mammifères à l'échelle des écorégions mondiales
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;[**PanTHERIA**](https://esajournals.onlinelibrary.wiley.com/doi/abs/10.1890/08-1494.1) (Jones _et al._, 2009) : données de traits écologiques et d'histoire de vie des mammifères du globe
+
+--
+
+<br />
+
+Pour ce premier exercice, nous nous contenterons des données du **Wildfinder** (déjà nettoyées pour vous `r emo::ji("smile")`).
+
+
+
+---
+
+## Instructions
+
+**1)** Téléchargez le fichier `csv` : [**https://raw.githubusercontent.com/FRBCesab/datatoolbox/master/data/wildfinder-mammals_list.csv**](https://raw.githubusercontent.com/FRBCesab/datatoolbox/master/data/wildfinder-mammals_list.csv)
+
+`r icon::fa("lightbulb", color = "#3f3f3f")` &nbsp;Dans une optique reproductible, utilisez la fonction `download.file()`
+
+
+**2)** Importez-le dans `r icon::fa("r-project")` et sélectionnez uniquement les espèces de la famille des Ursidés
+
+<br />
+
+**3)** En utilisant le package `{taxize}`, vérifiez si les noms d'espèces sont bien orthographiés et s'ils sont les noms acceptés
+
+<br />
+
+**Bonus :** Vérifiez si vous ne pouvez pas trouver des noms vernaculaires supplémentaires
+
+
+
+---
+
+## Instructions
+
+**1)** Téléchargez le fichier `csv` : [**https://raw.githubusercontent.com/FRBCesab/datatoolbox/master/data/wildfinder-mammals_list.csv**](https://raw.githubusercontent.com/FRBCesab/datatoolbox/master/data/wildfinder-mammals_list.csv)
+
+`r icon::fa("lightbulb", color = "#3f3f3f")` &nbsp;Dans une optique reproductible, utilisez la fonction `download.file()`
+
+
+**2)** Importez-le dans `r icon::fa("r-project")` et sélectionnez uniquement les espèces de la famille des Ursidés
+
+`r icon::fa("lightbulb", color = "#3f3f3f")` &nbsp;Utilisez les fonctions `readr::read_csv()` et `subset()`
+
+
+**3)** En utilisant le package `{taxize}`, vérifiez si les noms d'espèces sont bien orthographiés et s'ils sont les noms acceptés
+
+`r icon::fa("lightbulb", color = "#3f3f3f")` &nbsp;Utilisez les fonctions `gnr_resolve()`, `tnrs()` et `synonyms()`
+
+**Bonus :** Vérifiez si vous ne pouvez pas trouver des noms vernaculaires supplémentaires
+
+`r icon::fa("lightbulb", color = "#3f3f3f")` &nbsp;Utilisez la fonction `sci2comm()`
+
+
+---
+class: inverse, center, middle
+
+## Correction
+
+
+---
+
+## Corrigé
+
+```{r echo=TRUE, eval=FALSE}
+## Création d'un sous-répertoire pour les données
+folder <- "data"
+dir.create(folder, showWarnings = FALSE)
+
+## URL et nom du fichier
+url      <- "https://raw.githubusercontent.com/FRBCesab/datatoolbox/master/data/"
+filename <- "wildfinder-mammals_list.csv"
+
+## Téléchargement du fichier
+download.file(
+  url      = paste0(url, filename),
+  destfile = file.path(folder, filename)
+)
+
+## Importation du CSV
+species_list <- readr::read_csv(file.path(folder, filename))
+
+## Subset des Ursidés
+ursus <- subset(species_list, family == "Ursidae")
+```
+
+---
+
+## Corrigé
+
+```{r echo=FALSE, eval=TRUE, message=FALSE}
+filename     <- "wildfinder-mammals_list.csv"
+species_list <- readr::read_csv(file.path("..", "..", "data", filename))
+ursus <- subset(species_list, family == "Ursidae")
+ursus[ , -c(1:3)]
+```
+
+
+
+---
+
+## Corrigé
+
+```{r echo=TRUE, eval=TRUE, message=FALSE}
+## Vérification des noms
+spellings <- taxize::gnr_resolve(names = ursus$sci_name)
+
+## Nombre de résultats par espèce
+table(spellings$user_supplied_name)
+```
+
+
+---
+
+## Corrigé
+
+```{r echo=TRUE, eval=FALSE, message=FALSE}
+## Espèce problématique - Synonyme ?
+subset(spellings, user_supplied_name == "Ursus malayanus")
+```
+
+```{r echo=FALSE, eval=TRUE, message=FALSE}
+subset(spellings, user_supplied_name == "Ursus malayanus")[ , -c(2)]
+```
+
+
+
+---
+
+## Corrigé
+
+```{r echo=TRUE, eval=FALSE, message=FALSE}
+## Nom accepté
+taxize::tnrs(query = "Helarctos malayanus")
+```
+
+```{r echo=FALSE, eval=TRUE, message=FALSE}
+taxize::tnrs(query = "Helarctos malayanus")[ , -c(6, 7)]
+```
+
+```{r echo=TRUE, eval=FALSE, message=FALSE}
+## Nom accepté
+taxize::tnrs(query = "Ursus malayanus")
+```
+
+```{r echo=FALSE, eval=TRUE, message=FALSE}
+taxize::tnrs(query = "Ursus malayanus")[ , -c(6, 7)]
+```
+
+--
+
+<br />
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Clairement _Ursus malayanus_ pose problème (ce n'est pas une plante...)
+
+La fonction `taxize::synonyms()` utilisée avec différentes bases de données ne retourne
+aucun résultat.
+
+`r icon::fa("lightbulb", color = "#3f3f3f")` &nbsp;Voyons voir si on trouve son nom commun (absent de nos données)
+
+
+
+---
+
+## Corrigé
+
+```{r echo=TRUE, eval=FALSE, message=FALSE}
+taxize::sci2comm("Ursus malayanus")                                # Noms communs
+```
+```
+## $`Ursus malayanus`
+## [1] "Malayan sun bear"
+```
+
+```{r echo=TRUE, eval=FALSE, message=FALSE}
+taxize::sci2comm("Helarctos malayanus")                            # Noms communs
+```
+
+```
+## $`Helarctos malayanus`
+## [1] "Malayan sun bear"
+```
+
+Et dans nos données :
+
+```{r echo=TRUE, eval=FALSE, message=FALSE}
+ursus[ursus[ , "sci_name"] == "Helarctos malayanus", "common"]
+```
+
+```
+## [1] "Sun Bear"
+```
+
+
+
+<br />
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Conclusion : ** ces deux espèces sont les mêmes
