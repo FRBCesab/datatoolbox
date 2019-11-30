@@ -1,8 +1,8 @@
 ---
 title: Acquisition de données
 subtitle: API & web scraping
-author: <br /><br />Nicolas Casajus
-date: Mardi 3 décembre
+author: <br /><br />Nicolas CASAJUS<br />.inst[{{ Data scientist FRB-Cesab }}]
+date: .inst[Mardi 3 décembre 2019]
 output:
   xaringan::moon_reader:
     css: ["../../assets/css/xaringan-themer.css", "../../assets/css/custom.css"]

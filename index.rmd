@@ -1,7 +1,7 @@
 ---
 title: .small[Formation FRB-Cesab & GDR EcoStat]
 subtitle: .ssmall[Bonnes pratiques pour une recherche reproductible en écologie numérique]
-author: .verysmall[<br />du 2 au 6 décembre 2019<br />Dans les locaux du Cesab à Montpellier]
+author: .verysmall[<br />Du 2 au 6 décembre 2019<br />Dans les locaux du Cesab à Montpellier]
 output:
   xaringan::moon_reader:
     css: ["assets/css/xaringan-themer.css", "assets/css/custom.css"]
