@@ -26,15 +26,15 @@ output:
 
 `r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;[ .nolink[**Introduction à la recherche reproductible**]](sessions/session01/index.html)
 
-`r icon::fa("hand-point-right", color = "#49847b")` &nbsp;**Versioning du code et Travail collaboratif**
+`r icon::fa("hand-point-right", color = "#e1ddc0")` &nbsp;**Versioning du code et Travail collaboratif**
 
 `r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;[ .nolink[**API et Web scraping**]](sessions/session04/index01.html)
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;[ .nolink[**Le tidyverse**]](sessions/session04/index02.html)
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;[ .nolink[**Introduction au tidyverse**]](sessions/session04/index02.html)
 
 `r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;[ .nolink[**Données spatiales et cartographie**]](sessions/session05/index.html)
 
-`r icon::fa("hand-point-right", color = "#49847b")` &nbsp;**Research compendium et drake**
+`r icon::fa("hand-point-right", color = "#e1ddc0")` &nbsp;**Research compendium et drake**
 
 `r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;[ .nolink[**Du script au package R**]](sessions/session07/index.html)
 
