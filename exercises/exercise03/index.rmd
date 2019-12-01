@@ -47,7 +47,7 @@ library(tidyverse)
 
 # Read in data
 
-```{r cache = TRUE, message=FALSE, echo=-4}
+```{r cache = TRUE, message=FALSE, echo=-5}
 url       <- "http://esapubs.org/archive/ecol/E090/184/"
 filename  <- "PanTHERIA_1-0_WR05_Aug2008.txt"
 

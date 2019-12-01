@@ -53,7 +53,7 @@ library(tidyverse)
 url       &lt;- "http://esapubs.org/archive/ecol/E090/184/"
 filename  &lt;- "PanTHERIA_1-0_WR05_Aug2008.txt"
 
-pantheria
+pantheria &lt;- readr::read_delim(file.path(url, filename), delim = "\t")
 ```
 
 ```
