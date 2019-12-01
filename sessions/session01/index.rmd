@@ -221,11 +221,9 @@ Le code, les scripts
 
 L'environnement logiciel.
 
-> - Les packages (version) : packrat
-
 <br/>
 
-> - cela ne suffit plus ...
+> - Les packages (version) : packrat
 
 <br/>
 
@@ -233,7 +231,17 @@ L'environnement logiciel.
 
 <br/>
 
-> - Docker, permet de créer une image de l'environnement de travail (OS, bibliothèques, R, packages)
+> - Docker (Rocker pour R), permet de créer une image de l'environnement de travail (OS, bibliothèques, R, packages) (https://colinfay.me/docker-r-reproducibility/ ; https://journal.r-project.org/archive/2017/RJ-2017-065/RJ-2017-065.pdf)
+
+## <span class="green">Software</span>
+
+Le "workflow" (echaînement des scripts, des logiciels).
+
+D'une manière générale automatiser au maximum
+
+![](https://imgs.xkcd.com/comics/automation.png)
+
+> - il existe des outils pour ça (pseudo makefile en R, makefile shell, pipeline toolkits [Remake, Drake])
 
 ## <span class="green">Tracking Changes</span>
 
