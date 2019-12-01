@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
-    <title>Titre de la présentation</title>
+    <title>Versioning your code (and more)</title>
     <meta charset="utf-8" />
     <meta name="author" content="  Stéphane DRAY" />
-    <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../assets/css/xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="../../assets/css/custom.css" type="text/css" />
   </head>
@@ -12,108 +11,226 @@
     <textarea id="source">
 class: right, middle, title-slide
 
-# Titre de la présentation
-## <i>sous-titre de la présentation</i>
+# Versioning your code (and more)
+## <i>An illustration with git</i>
 ### <br /><br />Stéphane DRAY
-### Lundi 2 décembre 2019
+### 2/12/2019
 
 ---
-
 
 class: inverse, center, middle
-
-## Page de transition
-
+## Introduction
 
 
 
 ---
-
-## Titre d'une page classique
-
-- Du Markdown **classique**...
-
-Une image rescalée : ![:scale 2%](assets/img/github.png)
-
---
-
-Et une image centrée :
-
-.center[![:scale 25%](assets/img/github.png)]
-
-&lt;br /&gt;
-
-Et des icones : <i class="fab  fa-r-project " style="color:#3f3f3f;"></i> avec le package `{icon}`
-
---
-
-
-```r
-(x &lt;- 1:10)
-```
-
-```
-##  [1]  1  2  3  4  5  6  7  8  9 10
-```
-
+.center[![:scale 80%](assets/img/confucius.jpg)]
 ---
 
-## Page à deux colonnes
+## Science is a long and step-by-step procedure
 
-
-.pull-left[
-.center[
-Contenu de gauche centré
-
-![:scale 50%](assets/img/github.png)
+.center[![:scale 80%](assets/img/scientific_method.jpg)
+.img-source-tiny[https://images.slideplayer.com/27/8939519/slides/slide_4.jpg]
 ]
 
-&lt;br /&gt;
+---
+## Remember the time
+.pull-right[
 
-#### Input
+.center[![:scale 80%](assets/img/mjackson.jpg)]
+]
+---
+## Remember the time
 
-(aligné à gauche)
+.pull-left[
+Track the changes in a project:
 
-
-```r
-(x &lt;- 1:10)
-```
+- Data gathering: **Lab notebook**
+- Data analysis: **Versioning**
+- Article writing: **Versioning**
 ]
 
 .pull-right[
-.center[
-Contenu de droite centré
 
-![:scale 50%](assets/img/github.png)
+.center[![:scale 80%](assets/img/mjackson.jpg)]
+
+]
+---
+## Remember the time
+
+.pull-left[
+Track the changes in a project:
+
+- Data gathering: **Lab notebook**
+- Data analysis: **Versioning**
+- Article writing: **Versioning**
+
+
+.center[![](assets/img/5W.jpeg)
+.img-source-tiny[https://miro.medium.com/max/472/1*B0Ykkbhw5bzhHkY79cYrWg.jpeg]]
+
 ]
 
-&lt;br /&gt;
+.pull-right[
 
-.right[
-#### Output
+.center[![:scale 80%](assets/img/mjackson.jpg)]
 
-(aligné à droite)
-
-
-```
-##  [1]  1  2  3  4  5  6  7  8  9 10
-```
 ]
-]
+---
+## An example
 
-
+.center[https://github.com/sdray/ade4/]
 
 ---
 
-## Et une figure générée par <i class="fab  fa-r-project "></i>
+class: inverse, center, middle
+
+## Introduction to git
+
+---
+## git
+
+There are several tools for versioning. This course focuses on `git`.
+
+`git` is a program that takes **snapshots** of a directory tree and helps navigating between those snapshots.
+- archiving/documentation of development steps
+- backtracking to previous versions
+- handling of multiple versions
+- collaborative development
+- backup (using external servers)
+
+Especially useful when developing software, writing papers. . .
+---
+
+## Some definitions
+
+- **repository**: a directory including with a `.git` directory
+- **commit**: a snapchot of the repository (a date, an author, a description, a parent)
+- **working copy**: a version of the files of the repository on your computer
+- **index**: a temporary space including the modficiations to be commited 
+
+&lt;br&gt;
+
+All git commands follow the same pattern:
 
 
-```r
-par(bg = "transparent")
-hist(rnorm(500), col = "#49847b", border = "#294557")
+```bash
+git SUBCMD ARGS ∗
 ```
 
-&lt;img src="assets/chunks/chunkname-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+---
+class: inverse, center, middle
+
+## Starting with git
+---
+## Create a repository
+
+
+```bash
+git init
+```
+&lt;br&gt;
+
+**Demo**
+- Create a directory
+- Move to the directory
+- Initialize the repostitory
+
+---
+## Checking the state of the repository
+
+
+```bash
+git status
+```
+&lt;br&gt;
+
+**Demo**
+- Check the status of your repository
+
+---
+## Put a file under version control
+
+
+```bash
+git add FILE
+```
+&lt;br&gt;
+
+Files in the directory are ignored by git unless they are explicitly added to the repository
+
+**Demo**
+- Create a text file
+- Check the status of your repository
+- Add the file to your repository
+- Check the status of your repository
+
+---
+## Take a snapshot
+
+
+```bash
+git commit -a -m MSG
+```
+&lt;br&gt;
+
+A snapshot in git is called a commit. The -m option introduces a message describing the changes in the new snapshot.
+
+**Demo**
+- Take a snaphsot of your repository
+- Check the status of your repository
+
+---
+## Print commit history
+
+
+```bash
+git log
+```
+&lt;br&gt;
+
+
+**Demo**
+- Display the history
+
+
+## Print an old version of a file
+
+
+```bash
+git show COMMIT ID:PATH
+```
+&lt;br&gt;
+
+You can retrieve commit id using git log. Only the 6-8 letters of the id are generally enough
+
+**Demo**
+- Display the content of your text file at the previous commit
+
+---
+## Summary
+
+Here are the basic commands to archive your work in a git repo:
+
+| I want to | I use |
+|---------------------------------|
+|Initialize a new (empty) git repo| git init|
+|Put files under version control| git add file1 file2 ...|
+|Take a snapshot| git commit -a -m "commit descr"|
+|See commit history| git log |
+|See previous version of a file| git show aazef345:src/foo.c|
+
+---
+
+## Acknowledgments
+This presentation is strongly inspired from the slides of Philippe Veber (LBBE)
+
+&lt;br&gt;
+
+A good summary:
+
+.center[
+https://github.github.com/training-kit/downloads/fr/github-git-cheat-sheet.pdf]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
