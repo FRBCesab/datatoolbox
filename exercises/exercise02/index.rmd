@@ -156,7 +156,8 @@ sp_eco   <- readr::read_csv(file.path(folder, "wildfinder-ecoregions_species.csv
 
 ## Corrigé
 
-```{r echo=TRUE, eval=TRUE}
+```{r echo=-2, eval=-1}
+wildfinder-mammals_list
 sp_list
 ```
 
@@ -166,7 +167,8 @@ sp_list
 
 ## Corrigé
 
-```{r echo=TRUE, eval=TRUE}
+```{r echo=-2, eval=-1}
+wildfinder-ecoregions_list
 eco_list
 ```
 
@@ -176,7 +178,8 @@ eco_list
 
 ## Corrigé
 
-```{r echo=TRUE, eval=TRUE}
+```{r echo=-2, eval=-1}
+wildfinder-ecoregions_species
 sp_eco
 ```
 
