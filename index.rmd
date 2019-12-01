@@ -58,7 +58,7 @@ output:
 &nbsp;
 **[Exo 1]**
 &nbsp;
-**[Exo 2]**
+[**[Exo 2]**](exercises/exercise03/index.html)
 
 [**[Cours]**](sessions/session05/index.html)
 &nbsp;
