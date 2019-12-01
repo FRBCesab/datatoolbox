@@ -24,7 +24,7 @@ Tout au long de la semaine, nous allons utiliser deux jeux de données sur les m
 
 `r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;[**Wildfinder**](https://www.worldwildlife.org/WildFinder) (WWF, 2006) : données de présence de chaque espèce de mammifères à l'échelle des écorégions mondiales
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;[**PanTHERIA**](https://esajournals.onlinelibrary.wiley.com/doi/abs/10.1890/08-1494.1) (Jones _et al._, 2009) : données de traits écologiques et d'histoire de vie des mammifères du globe
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;[**PanTHERIA**](http://esapubs.org/archive/ecol/E090/184/) ([Jones _et al._, 2009](https://esajournals.onlinelibrary.wiley.com/doi/abs/10.1890/08-1494.1)) : données de traits écologiques et d'histoire de vie des mammifères du globe
 
 --
 
