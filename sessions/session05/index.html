@@ -328,6 +328,8 @@ library("rnaturalearthdata")
 
 --
 
+&lt;br /&gt;
+
 Et chargeons le fond de carte du monde entier :
 
 
@@ -394,6 +396,8 @@ ggplot(data = world) +
 
 Dans la plupart des cas, vous devrez importer une couche spatiale déjà prête.
 
+--
+
 Téléchargeons les départements de la région Occitanie
 
 
@@ -414,9 +418,267 @@ unzip(zipfile = filename)
 
 ---
 
+## Importation d'une couche vectorielle
 
-- importation (st_read(), st_layers()) / exportation (st_drivers(), st_write())
-- definition (st_crs, st_set_crs) projection (st_transform)
+Que contient la couche ?
+
+
+```r
+sf::st_layers("occitanie.shp")
+```
+
+
+```
+## Driver: ESRI Shapefile 
+## Available layers:
+##   layer_name geometry_type features fields
+## 1  occitanie       Polygon       13     13
+```
+
+--
+
+&lt;br /&gt;
+
+Importons-la :
+
+
+```r
+occitanie &lt;- sf::st_read(dsn = ".", layer = "occitanie")
+```
+
+
+```
+## Reading layer 'occitanie' from data source '/Users/nicolascasajus/Desktop/...'
+## Simple feature collection with 13 features and 13 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -0.326875 ymin: 42.33344 xmax: 4.845344 ymax: 45.04467
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+```
+
+---
+
+## Importation d'une couche vectorielle
+
+
+```r
+occitanie %&gt;% head(3)
+```
+
+```
+## Simple feature collection with 3 features and 13 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: 0.8266816 ymin: 42.57232 xmax: 3.450981 ymax: 44.94122
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+##   GID_0 NAME_0    GID_1    NAME_1 NL_NAME_1      GID_2  NAME_2 VARNAME_2
+## 1   FRA France FRA.11_1 Occitanie      &lt;NA&gt; FRA.11.1_1  Ariège      &lt;NA&gt;
+## 2   FRA France FRA.11_1 Occitanie      &lt;NA&gt; FRA.11.2_1    Aude      &lt;NA&gt;
+## 3   FRA France FRA.11_1 Occitanie      &lt;NA&gt; FRA.11.3_1 Aveyron      &lt;NA&gt;
+##   NL_NAME_2      TYPE_2  ENGTYPE_2 CC_2 HASC_2                       geometry
+## 1      &lt;NA&gt; Département Department   09  FR.AG MULTIPOLYGON (((1.494104 42...
+## 2      &lt;NA&gt; Département Department   11  FR.AD MULTIPOLYGON (((3.027638 42...
+## 3      &lt;NA&gt; Département Department   12  FR.AV MULTIPOLYGON (((3.236248 43...
+```
+
+---
+
+&lt;img src="assets/chunks/map4-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+ggplot(data = occitanie) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE")
+```
+
+
+---
+
+&lt;img src="assets/chunks/map5-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+ggplot(data = occitanie) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE") +
+  geom_sf_label(aes(label = NAME_2))
+```
+
+
+---
+
+&lt;img src="assets/chunks/map6-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+ggplot(data = occitanie) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE") +
+  geom_sf_label(aes(label = paste0(NAME_2, " (", CC_2, ")")))
+```
+
+
+---
+
+## Exportation d'une couche vectorielle
+
+
+```r
+sf::st_drivers()
+```
+
+```
+          name                       long_name write  copy is_raster is_vector   vsi
+        PCIDSK            PCIDSK Database File  TRUE FALSE      TRUE      TRUE  TRUE
+        netCDF      Network Common Data Format  TRUE  TRUE      TRUE      TRUE FALSE
+           PDF                  Geospatial PDF  TRUE  TRUE      TRUE      TRUE FALSE
+       MBTiles                         MBTiles  TRUE  TRUE      TRUE      TRUE  TRUE
+          EEDA           Earth Engine Data API FALSE FALSE     FALSE      TRUE FALSE
+ESRI Shapefile                  ESRI Shapefile  TRUE FALSE     FALSE      TRUE  TRUE
+  MapInfo File                    MapInfo File  TRUE FALSE     FALSE      TRUE  TRUE
+       UK .NTF                         UK .NTF FALSE FALSE     FALSE      TRUE  TRUE
+      OGR_SDTS                            SDTS FALSE FALSE     FALSE      TRUE  TRUE
+           S57                  IHO S-57 (ENC)  TRUE FALSE     FALSE      TRUE  TRUE
+           DGN                Microstation DGN  TRUE FALSE     FALSE      TRUE  TRUE
+       OGR_VRT        VRT - Virtual Datasource FALSE FALSE     FALSE      TRUE  TRUE
+           REC                    EPIInfo .REC FALSE FALSE     FALSE      TRUE FALSE
+        Memory                          Memory  TRUE FALSE     FALSE      TRUE FALSE
+           BNA                       Atlas BNA  TRUE FALSE     FALSE      TRUE  TRUE
+           CSV    Comma Separated Value (.csv)  TRUE FALSE     FALSE      TRUE  TRUE
+           GML Geography Markup Language (GML)  TRUE FALSE     FALSE      TRUE  TRUE
+           GPX                             GPX  TRUE FALSE     FALSE      TRUE  TRUE
+           KML   Keyhole Markup Language (KML)  TRUE FALSE     FALSE      TRUE  TRUE
+       GeoJSON                         GeoJSON  TRUE FALSE     FALSE      TRUE  TRUE
+           ...                             ...   ...   ...       ...       ...   ...
+```
+
+
+---
+
+## Exportation d'une couche vectorielle
+
+Au format ESRI&lt;sup&gt;.small[TM]&lt;/sup&gt; :
+
+
+```r
+sf::st_write(
+  obj    = occitanie,
+  dsn    = ".",
+  layer  = "occitanie_copie",
+  driver = "ESRI Shapefile"
+)
+```
+
+
+
+
+---
+
+## Le système de coordonnées
+
+Le CRS de notre couche vectorielle (monde) est-il défini ?
+
+
+```r
+sf::st_crs(world)
+```
+
+```
+## Coordinate Reference System:
+##   EPSG: 4326 
+##   proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+```
+
+--
+
+&lt;br /&gt;
+
+Supprimons-le :
+
+
+
+```r
+world &lt;- world %&gt;%
+  sf::st_set_crs(NA)
+
+sf::st_crs(world)
+```
+
+```
+## Coordinate Reference System: NA
+```
+
+
+
+
+---
+
+## Le système de coordonnées
+
+Et redéfinissons-le :
+
+
+```r
+world &lt;- world %&gt;%
+  sf::st_set_crs(4326)
+
+sf::st_crs(world)
+```
+
+```
+## Coordinate Reference System:
+##   EPSG: 4326 
+##   proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+```
+
+--
+
+&lt;br /&gt;
+
+Projetons notre couche dans un autre système (par .ex, la projection Lambert
+azimuthal equal area centrée sur la France)
+
+
+
+```r
+prj &lt;- paste(
+  "+proj=laea +lat_0=48 +lon_0=5",
+  "+x_0=4321000 +y_0=3210000",
+  "+ellps=GRS80 +units=m +no_defs"
+)
+world_ortho &lt;- world %&gt;%
+  sf::st_transform(crs = prj)
+```
+
+---
+
+&lt;img src="assets/chunks/map7-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+ggplot(data = world_ortho) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0")
+```
+
+---
+
+&lt;img src="assets/chunks/map8-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+ggplot(data = world) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  coord_sf(crs = prj)
+```
+
+
+
+---
+
+## Quelques opérations spatiales
 
 
 ---
@@ -432,26 +694,8 @@ unzip(zipfile = filename)
 
 ### ggplot2
 
-- geom_sf()
-- coord_sf()
 - scale_fill_viridis()
 - mapView()
-
----
-
-### dplyr
-
-- select() keeps the specified variables, possibly renaming them
-- rename() renames a variable and leaves all others unchanged
-- filter() returns the rows that match the given conditions
-- mutate() adds new variables based on existing variables
-- transmute() creates new variables and drops existing variables
-- arrange() sorts by the given variables
-- slice() selects rows based on row number
-- sample_n() samples n features randomly
-- *_join()
-- group_by(CODE_REG, NOM_REG) %&gt;%
-- summarize()
 
 
 

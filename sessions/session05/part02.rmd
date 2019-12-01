@@ -177,6 +177,8 @@ library("rnaturalearthdata")
 
 --
 
+<br />
+
 Et chargeons le fond de carte du monde entier :
 
 ```{r echo=TRUE, eval=TRUE}
@@ -248,6 +250,8 @@ ggplot(data = world) +
 
 Dans la plupart des cas, vous devrez importer une couche spatiale déjà prête.
 
+--
+
 Téléchargeons les départements de la région Occitanie
 
 ```{r echo=TRUE, eval=FALSE}
@@ -263,14 +267,245 @@ download.file(
 
 ## Extraction du ZIP
 unzip(zipfile = filename)
-
 ```
 
 ---
 
+## Importation d'une couche vectorielle
 
-- importation (st_read(), st_layers()) / exportation (st_drivers(), st_write())
-- definition (st_crs, st_set_crs) projection (st_transform)
+Que contient la couche ?
+
+```{r echo=TRUE, eval=FALSE}
+sf::st_layers("occitanie.shp")
+```
+
+```{r echo=FALSE, eval=TRUE}
+sf::st_layers(file.path("..", "..", "data", "occitanie.shp"))
+```
+
+--
+
+<br />
+
+Importons-la :
+
+```{r echo=TRUE, eval=FALSE}
+occitanie <- sf::st_read(dsn = ".", layer = "occitanie")
+```
+
+```{r echo=FALSE, eval=TRUE}
+occitanie <- sf::st_read(dsn = file.path("..", "..", "data"), layer = "occitanie", quiet = TRUE)
+```
+```
+## Reading layer 'occitanie' from data source '/Users/nicolascasajus/Desktop/...'
+## Simple feature collection with 13 features and 13 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -0.326875 ymin: 42.33344 xmax: 4.845344 ymax: 45.04467
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+```
+
+---
+
+## Importation d'une couche vectorielle
+
+```{r echo=TRUE, eval=TRUE}
+occitanie %>% head(3)
+```
+
+---
+
+```{r "map4", echo=FALSE, eval=TRUE, fig.align="center", fig.width=8, dpi=300, fig.height=7, out.width="70%", fig.path="assets/chunks/"}
+ggplot(data = occitanie) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE")
+```
+
+```{r echo=TRUE, eval=FALSE}
+ggplot(data = occitanie) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE")
+```
+
+
+---
+
+```{r "map5", echo=FALSE, eval=TRUE, fig.align="center", fig.width=8, dpi=300, fig.height=7, out.width="70%", fig.path="assets/chunks/", warning=FALSE}
+ggplot(data = occitanie) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE") +
+  geom_sf_label(aes(label = NAME_2))
+```
+
+```{r echo=TRUE, eval=FALSE}
+ggplot(data = occitanie) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE") +
+  geom_sf_label(aes(label = NAME_2))
+```
+
+
+---
+
+```{r "map6", echo=FALSE, eval=TRUE, fig.align="center", fig.width=8, dpi=300, fig.height=7, out.width="70%", fig.path="assets/chunks/", warning=FALSE}
+ggplot(data = occitanie) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE") +
+  geom_sf_label(aes(label = paste0(NAME_2, " (", CC_2, ")")))
+```
+
+```{r echo=TRUE, eval=FALSE}
+ggplot(data = occitanie) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE") +
+  geom_sf_label(aes(label = paste0(NAME_2, " (", CC_2, ")")))
+```
+
+
+---
+
+## Exportation d'une couche vectorielle
+
+```{r echo=TRUE, eval=FALSE}
+sf::st_drivers()
+```
+
+```
+          name                       long_name write  copy is_raster is_vector   vsi
+        PCIDSK            PCIDSK Database File  TRUE FALSE      TRUE      TRUE  TRUE
+        netCDF      Network Common Data Format  TRUE  TRUE      TRUE      TRUE FALSE
+           PDF                  Geospatial PDF  TRUE  TRUE      TRUE      TRUE FALSE
+       MBTiles                         MBTiles  TRUE  TRUE      TRUE      TRUE  TRUE
+          EEDA           Earth Engine Data API FALSE FALSE     FALSE      TRUE FALSE
+ESRI Shapefile                  ESRI Shapefile  TRUE FALSE     FALSE      TRUE  TRUE
+  MapInfo File                    MapInfo File  TRUE FALSE     FALSE      TRUE  TRUE
+       UK .NTF                         UK .NTF FALSE FALSE     FALSE      TRUE  TRUE
+      OGR_SDTS                            SDTS FALSE FALSE     FALSE      TRUE  TRUE
+           S57                  IHO S-57 (ENC)  TRUE FALSE     FALSE      TRUE  TRUE
+           DGN                Microstation DGN  TRUE FALSE     FALSE      TRUE  TRUE
+       OGR_VRT        VRT - Virtual Datasource FALSE FALSE     FALSE      TRUE  TRUE
+           REC                    EPIInfo .REC FALSE FALSE     FALSE      TRUE FALSE
+        Memory                          Memory  TRUE FALSE     FALSE      TRUE FALSE
+           BNA                       Atlas BNA  TRUE FALSE     FALSE      TRUE  TRUE
+           CSV    Comma Separated Value (.csv)  TRUE FALSE     FALSE      TRUE  TRUE
+           GML Geography Markup Language (GML)  TRUE FALSE     FALSE      TRUE  TRUE
+           GPX                             GPX  TRUE FALSE     FALSE      TRUE  TRUE
+           KML   Keyhole Markup Language (KML)  TRUE FALSE     FALSE      TRUE  TRUE
+       GeoJSON                         GeoJSON  TRUE FALSE     FALSE      TRUE  TRUE
+           ...                             ...   ...   ...       ...       ...   ...
+```
+
+
+---
+
+## Exportation d'une couche vectorielle
+
+Au format ESRI<sup>.small[TM]</sup> :
+
+```{r echo=TRUE, eval=FALSE}
+sf::st_write(
+  obj    = occitanie,
+  dsn    = ".",
+  layer  = "occitanie_copie",
+  driver = "ESRI Shapefile"
+)
+```
+
+
+
+
+---
+
+## Le système de coordonnées
+
+Le CRS de notre couche vectorielle (monde) est-il défini ?
+
+```{r echo=TRUE, eval=TRUE}
+sf::st_crs(world)
+```
+
+--
+
+<br />
+
+Supprimons-le :
+
+
+```{r echo=TRUE, eval=TRUE}
+world <- world %>%
+  sf::st_set_crs(NA)
+
+sf::st_crs(world)
+```
+
+
+
+
+---
+
+## Le système de coordonnées
+
+Et redéfinissons-le :
+
+```{r echo=TRUE, eval=TRUE}
+world <- world %>%
+  sf::st_set_crs(4326)
+
+sf::st_crs(world)
+```
+
+--
+
+<br />
+
+Projetons notre couche dans un autre système (par .ex, la projection Lambert
+azimuthal equal area centrée sur la France)
+
+
+```{r echo=TRUE, eval=TRUE}
+prj <- paste(
+  "+proj=laea +lat_0=48 +lon_0=5",
+  "+x_0=4321000 +y_0=3210000",
+  "+ellps=GRS80 +units=m +no_defs"
+)
+world_ortho <- world %>%
+  sf::st_transform(crs = prj)
+```
+
+---
+
+```{r "map7", echo=FALSE, eval=TRUE, fig.align="center", fig.width=6, dpi=300, fig.height=6, out.width="60%", fig.path="assets/chunks/", warning=FALSE}
+ggplot(data = world_ortho) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  theme(panel.border = element_blank())
+```
+
+```{r echo=TRUE, eval=FALSE}
+ggplot(data = world_ortho) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0")
+```
+
+---
+
+```{r "map8", echo=FALSE, eval=TRUE, fig.align="center", fig.width=6, dpi=300, fig.height=6, out.width="60%", fig.path="assets/chunks/", warning=FALSE}
+ggplot(data = world) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  coord_sf(crs = prj) +
+  theme(panel.border = element_blank())
+```
+
+```{r echo=TRUE, eval=FALSE}
+ggplot(data = world) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  coord_sf(crs = prj)
+```
+
+
+
+---
+
+## Quelques opérations spatiales
 
 
 ---
@@ -286,23 +521,5 @@ unzip(zipfile = filename)
 
 ### ggplot2
 
-- geom_sf()
-- coord_sf()
 - scale_fill_viridis()
 - mapView()
-
----
-
-### dplyr
-
-- select() keeps the specified variables, possibly renaming them
-- rename() renames a variable and leaves all others unchanged
-- filter() returns the rows that match the given conditions
-- mutate() adds new variables based on existing variables
-- transmute() creates new variables and drops existing variables
-- arrange() sorts by the given variables
-- slice() selects rows based on row number
-- sample_n() samples n features randomly
-- *_join()
-- group_by(CODE_REG, NOM_REG) %>%
-- summarize()
