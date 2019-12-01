@@ -53,7 +53,7 @@ Pour ce premier exercice, nous nous contenterons des données du **Wildfinder** 
 
 **Bonus :** Vérifiez si vous ne pouvez pas trouver des noms vernaculaires supplémentaires
 
-
+...
 
 ---
 
