@@ -1,0 +1,296 @@
+---
+title: "Practical on data visualization"
+subtitle: "Playing around with ggplot2"
+author: "Olivier Gimenez"
+date: "3 décembre 2019"
+output:
+  xaringan::moon_reader:
+    css: ["rutgers-tidyverse.css","rutgers-fonts_og.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+# to convert html output into pdf,
+# xaringan::decktape("file://.../filename.html", "filename.pdf", docker = FALSE)
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.path = 'assets/chunks/', cache.path = "assets/cache/")
+```
+
+# The data we will use
+
+```{r echo=FALSE, out.width = "80%", fig.align="center"}
+knitr::include_graphics("assets/img/esa.png")
+```
+
+---
+
+# Read in the data
+
+* Check out http://esapubs.org/archive/ecol/E090/184/
+
+* Read in PanTHERIA_1-0_WR05_Aug2008.txt
+
+* Hint: Check out the tidy function `read_table2`
+
+---
+
+# Load tidyverse
+
+```{r, message=FALSE}
+library(tidyverse)
+```
+
+---
+
+# Read in data
+
+```{r cache = TRUE, message=FALSE, echo=-5}
+url       <- "http://esapubs.org/archive/ecol/E090/184/"
+filename  <- "PanTHERIA_1-0_WR05_Aug2008.txt"
+
+pantheria <- readr::read_delim(file.path(url, filename), delim = "\t")
+pantheria
+```
+
+---
+
+# Tidy the dataset
+
+* Transform `MSW05_Order` and `MSW05_Family` columns in factors
+
+* Rename columns `5-1_AdultBodyMass_g`, `7-1_DispersalAge_d`, `9-1_GestationLen_d`, `22-2_HomeRange_Indiv_km2`, `16-1_LittersPerYear`, `17-1_MaxLongevity_m` as you see fit
+
+* Select a few columns for convenience, and at least: family, order, longevity, home range and litter size
+
+* Replace -999 by NA (hint: check out `na_if()` function)
+
+* Print out the dataset
+
+---
+
+# Tidy the dataset
+
+```{r}
+dat <- pantheria %>%
+
+  mutate(                                    # Conversion de type
+    order   = as_factor(MSW05_Order),
+    family  = as_factor(MSW05_Family)
+  ) %>%
+
+  rename(                                    # Nom des colonnes
+    adult_bodymass = `5-1_AdultBodyMass_g`,
+    dispersal_age  = `7-1_DispersalAge_d`,
+    gestation      = `9-1_GestationLen_d`,
+    homerange      = `22-2_HomeRange_Indiv_km2`,
+    litter_size    = `16-1_LittersPerYear`,
+    longevity      = `17-1_MaxLongevity_m`
+  )
+
+```
+
+---
+
+# Tidy the dataset
+
+```{r}
+dat <- dat %>%
+
+  select(                                    # Sélection de colonnes
+    order,
+    family,
+    adult_bodymass,
+    dispersal_age,
+    gestation,
+    homerange,
+    litter_size,
+    longevity
+  ) %>%
+
+  na_if(-999)                                # Conversion des NA
+```
+
+---
+
+# Print out
+
+```{r}
+dat                                          # dat %>% View()
+```
+
+
+---
+
+# Data exploration
+
+* How many observations in family? In order?
+
+* What is the mean home range by family? Standard deviation? The sample size?
+
+---
+
+# Data exploration
+
+```{r}
+dat %>%
+  count(order)
+```
+
+---
+
+# Data exploration
+
+```{r}
+dat %>%
+  count(family)
+```
+
+---
+
+# Data exploration
+
+```{r}
+dat %>%
+  filter(!is.na(homerange)) %>%
+  summarise(mean(homerange))
+```
+
+---
+
+# Data exploration
+
+```{r}
+dat %>%
+  filter(!is.na(homerange)) %>%
+  group_by(family) %>%
+  summarise(m = mean(homerange), sd = sd(homerange),n = n())
+```
+
+
+---
+
+# Graph 1: Bar chart of the number of entries per family
+
+* Group by family, and select only those with more than 100 observations.
+
+* Make a bar chart of the number of observations per family. Order the bars by increasing number of observations.
+
+* Add a title and labels to the X and Y axes.
+
+---
+
+# Graph 1
+
+```{r eval = FALSE}
+dat %>%
+
+  group_by(family) %>% # group by family
+  mutate(n = n()) %>% # calculate number of entries per family
+  filter(n > 100) %>% # select only the families with more than 100 entries
+
+  ggplot() +
+  aes(x = fct_reorder(family, n), y = n) + # order bars
+  geom_col() +
+  coord_flip() + # flip the bar chart
+  xlab("Family") + # add label for X axis
+  ylab("Counts") + # add label for Y axis
+  ggtitle("Number of entries per family") # add title
+```
+
+
+---
+
+# Graph 1
+
+```{r echo=FALSE, dpi=300, out.width=700, fig.width=7, fig.height=5, fig.path="assets/chunks/"}
+dat %>%
+
+  group_by(family) %>% # group by family
+  mutate(n = n()) %>% # calculate number of entries per family
+  filter(n > 100) %>% # select only the families with more than 100 entries
+
+  ggplot() +
+  aes(x = fct_reorder(family, n), y = n) + # order bars
+  geom_col() +
+  coord_flip() + # flip the bar chart
+  xlab("Family") + # add label for X axis
+  ylab("Counts") + # add label for Y axis
+  ggtitle("Number of entries per family") # add title
+```
+
+---
+
+# Graph 2: Scatter plot of litter size as a function of longevity
+
+* Filter out missing values in both litter size and longevity
+
+* Group by family, and select only those with more than 50 observations.
+
+* Make a scatter plot of litter size as a function of longevity.
+
+* Add a linear regression fit for each family.
+
+* Split the plot in several scatter plots, one for each family.
+
+* Add a title and labels to the X and Y axes.
+
+
+---
+
+# Graph 2
+
+```{r eval = FALSE}
+theme_set(theme_bw()) # play around with theme
+
+dat %>%
+
+  filter(!is.na(litter_size), !is.na(longevity)) %>%
+  group_by(family) %>% # group by family
+  mutate(n = n()) %>% # count the number of entries per family
+  mutate(longevity = longevity / 12) %>% # Change month to year
+  filter(n > 10) %>% # select only those families with more than 50 entries
+
+  ggplot() +
+  aes(x = longevity, y = litter_size, col = family) + # scatter plot
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) + # se = TRUE to add confidence intervals
+  xlab("Longevity") + # add label for X axis
+  ylab("Litter size") + # add label for Y axis
+  ggtitle("Scatterplot") + # add title
+  facet_wrap(~ family, nrow = 3) # split in several panels,
+                                 # one for each family
+                                 # remove scale = 'free' for
+                                 # same scale for all plots
+```
+
+
+---
+
+# Graph 2
+
+```{r echo=FALSE, dpi=300, out.width=750, fig.width=7, fig.height=4.5, fig.path="assets/chunks/"}
+theme_set(theme_bw()) # play around with theme
+
+dat %>%
+
+  filter(!is.na(litter_size), !is.na(longevity)) %>%
+  group_by(family) %>% # group by family
+  mutate(n = n()) %>% # count the number of entries per family
+  mutate(longevity = longevity / 12) %>% # Change month to year
+  filter(n > 10) %>% # select only those families with more than 50 entries
+
+  ggplot() +
+  aes(x = longevity, y = litter_size, col = family) + # scatter plot
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) + # se = TRUE to add confidence intervals
+  xlab("Longevity") + # add label for X axis
+  ylab("Litter size") + # add label for Y axis
+  ggtitle("Scatterplot") + # add title
+  facet_wrap(~ family, nrow = 3) # split in several panels,
+                                 # one for each family
+                                 # remove scale = 'free' for
+                                 # same scale for all plots
+```

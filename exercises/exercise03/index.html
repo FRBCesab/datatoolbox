@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Practical on data visualization</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Olivier Gimenez" />
+    <link rel="stylesheet" href="rutgers-tidyverse.css" type="text/css" />
+    <link rel="stylesheet" href="rutgers-fonts_og.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Practical on data visualization
+## Playing around with ggplot2
+### Olivier Gimenez
+### 3 décembre 2019
+
+---
+
+
+
+
+# The data we will use
+
+&lt;img src="assets/img/esa.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Read in the data
+
+* Check out http://esapubs.org/archive/ecol/E090/184/
+
+* Read in PanTHERIA_1-0_WR05_Aug2008.txt
+
+* Hint: Check out the tidy function `read_table2`
+
+---
+
+# Load tidyverse
+
+
+```r
+library(tidyverse)
+```
+
+---
+
+# Read in data
+
+
+```r
+url       &lt;- "http://esapubs.org/archive/ecol/E090/184/"
+filename  &lt;- "PanTHERIA_1-0_WR05_Aug2008.txt"
+
+pantheria &lt;- readr::read_delim(file.path(url, filename), delim = "\t")
+```
+
+```
+## # A tibble: 5,416 x 55
+##    MSW05_Order MSW05_Family MSW05_Genus MSW05_Species MSW05_Binomial
+##    &lt;chr&gt;       &lt;chr&gt;        &lt;chr&gt;       &lt;chr&gt;         &lt;chr&gt;         
+##  1 Artiodacty… Camelidae    Camelus     dromedarius   Camelus drome…
+##  2 Carnivora   Canidae      Canis       adustus       Canis adustus 
+##  3 Carnivora   Canidae      Canis       aureus        Canis aureus  
+##  4 Carnivora   Canidae      Canis       latrans       Canis latrans 
+##  5 Carnivora   Canidae      Canis       lupus         Canis lupus   
+##  6 Artiodacty… Bovidae      Bos         frontalis     Bos frontalis 
+##  7 Artiodacty… Bovidae      Bos         grunniens     Bos grunniens 
+##  8 Artiodacty… Bovidae      Bos         javanicus     Bos javanicus 
+##  9 Primates    Pitheciidae  Callicebus  cupreus       Callicebus cu…
+## 10 Primates    Pitheciidae  Callicebus  discolor      Callicebus di…
+## # … with 5,406 more rows, and 50 more variables: `1-1_ActivityCycle` &lt;dbl&gt;,
+## #   `5-1_AdultBodyMass_g` &lt;dbl&gt;, `8-1_AdultForearmLen_mm` &lt;dbl&gt;,
+## #   `13-1_AdultHeadBodyLen_mm` &lt;dbl&gt;, `2-1_AgeatEyeOpening_d` &lt;dbl&gt;,
+## #   `3-1_AgeatFirstBirth_d` &lt;dbl&gt;, `18-1_BasalMetRate_mLO2hr` &lt;dbl&gt;,
+## #   `5-2_BasalMetRateMass_g` &lt;dbl&gt;, `6-1_DietBreadth` &lt;dbl&gt;,
+## #   `7-1_DispersalAge_d` &lt;dbl&gt;, `9-1_GestationLen_d` &lt;dbl&gt;,
+## #   `12-1_HabitatBreadth` &lt;dbl&gt;, `22-1_HomeRange_km2` &lt;dbl&gt;,
+## #   `22-2_HomeRange_Indiv_km2` &lt;dbl&gt;, `14-1_InterbirthInterval_d` &lt;dbl&gt;,
+## #   `15-1_LitterSize` &lt;dbl&gt;, `16-1_LittersPerYear` &lt;dbl&gt;,
+## #   `17-1_MaxLongevity_m` &lt;dbl&gt;, `5-3_NeonateBodyMass_g` &lt;dbl&gt;,
+## #   `13-2_NeonateHeadBodyLen_mm` &lt;dbl&gt;, `21-1_PopulationDensity_n/km2` &lt;dbl&gt;,
+## #   `10-1_PopulationGrpSize` &lt;dbl&gt;, `23-1_SexualMaturityAge_d` &lt;dbl&gt;,
+## #   `10-2_SocialGrpSize` &lt;dbl&gt;, `24-1_TeatNumber` &lt;dbl&gt;,
+## #   `12-2_Terrestriality` &lt;dbl&gt;, `6-2_TrophicLevel` &lt;dbl&gt;,
+## #   `25-1_WeaningAge_d` &lt;dbl&gt;, `5-4_WeaningBodyMass_g` &lt;dbl&gt;,
+## #   `13-3_WeaningHeadBodyLen_mm` &lt;dbl&gt;, References &lt;chr&gt;,
+## #   `5-5_AdultBodyMass_g_EXT` &lt;dbl&gt;, `16-2_LittersPerYear_EXT` &lt;dbl&gt;,
+## #   `5-6_NeonateBodyMass_g_EXT` &lt;dbl&gt;, `5-7_WeaningBodyMass_g_EXT` &lt;dbl&gt;,
+## #   `26-1_GR_Area_km2` &lt;dbl&gt;, `26-2_GR_MaxLat_dd` &lt;dbl&gt;,
+## #   `26-3_GR_MinLat_dd` &lt;dbl&gt;, `26-4_GR_MidRangeLat_dd` &lt;dbl&gt;,
+## #   `26-5_GR_MaxLong_dd` &lt;dbl&gt;, `26-6_GR_MinLong_dd` &lt;dbl&gt;,
+## #   `26-7_GR_MidRangeLong_dd` &lt;dbl&gt;, `27-1_HuPopDen_Min_n/km2` &lt;dbl&gt;,
+## #   `27-2_HuPopDen_Mean_n/km2` &lt;dbl&gt;, `27-3_HuPopDen_5p_n/km2` &lt;dbl&gt;,
+## #   `27-4_HuPopDen_Change` &lt;dbl&gt;, `28-1_Precip_Mean_mm` &lt;dbl&gt;,
+## #   `28-2_Temp_Mean_01degC` &lt;dbl&gt;, `30-1_AET_Mean_mm` &lt;dbl&gt;,
+## #   `30-2_PET_Mean_mm` &lt;dbl&gt;
+```
+
+---
+
+# Tidy the dataset
+
+* Transform `MSW05_Order` and `MSW05_Family` columns in factors
+
+* Rename columns `5-1_AdultBodyMass_g`, `7-1_DispersalAge_d`, `9-1_GestationLen_d`, `22-2_HomeRange_Indiv_km2`, `16-1_LittersPerYear`, `17-1_MaxLongevity_m` as you see fit
+
+* Select a few columns for convenience, and at least: family, order, longevity, home range and litter size
+
+* Replace -999 by NA (hint: check out `na_if()` function)
+
+* Print out the dataset
+
+---
+
+# Tidy the dataset
+
+
+```r
+dat &lt;- pantheria %&gt;%
+
+  mutate(                                    # Conversion de type
+    order   = as_factor(MSW05_Order),
+    family  = as_factor(MSW05_Family)
+  ) %&gt;%
+
+  rename(                                    # Nom des colonnes
+    adult_bodymass = `5-1_AdultBodyMass_g`,
+    dispersal_age  = `7-1_DispersalAge_d`,
+    gestation      = `9-1_GestationLen_d`,
+    homerange      = `22-2_HomeRange_Indiv_km2`,
+    litter_size    = `16-1_LittersPerYear`,
+    longevity      = `17-1_MaxLongevity_m`
+  )
+```
+
+---
+
+# Tidy the dataset
+
+
+```r
+dat &lt;- dat %&gt;%
+
+  select(                                    # Sélection de colonnes
+    order,
+    family,
+    adult_bodymass,
+    dispersal_age,
+    gestation,
+    homerange,
+    litter_size,
+    longevity
+  ) %&gt;%
+
+  na_if(-999)                                # Conversion des NA
+```
+
+---
+
+# Print out
+
+
+```r
+dat                                          # dat %&gt;% View()
+```
+
+```
+## # A tibble: 5,416 x 8
+##    order family adult_bodymass dispersal_age gestation homerange litter_size
+##    &lt;fct&gt; &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;       &lt;dbl&gt;
+##  1 Arti… Camel…        492714.           NA      387.      NA              1
+##  2 Carn… Canid…         10392.          330.      65        1.01          NA
+##  3 Carn… Canid…          9659.           NA       61.2      3.13          NA
+##  4 Carn… Canid…         11989.          255       61.7     19.9           NA
+##  5 Carn… Canid…         31757.          180       63.5     43.1            2
+##  6 Arti… Bovid…        800143.           NA      274.      NA              1
+##  7 Arti… Bovid…        500000            NA      274.      NA              1
+##  8 Arti… Bovid…        635974.           NA      297.      NA              1
+##  9 Prim… Pithe…          1117.           NA      129.      NA             NA
+## 10 Prim… Pithe…            NA            NA       NA       NA             NA
+## # … with 5,406 more rows, and 1 more variable: longevity &lt;dbl&gt;
+```
+
+
+---
+
+# Data exploration
+
+* How many observations in family? In order?
+
+* What is the mean home range by family? Standard deviation? The sample size?
+
+---
+
+# Data exploration
+
+
+```r
+dat %&gt;%
+  count(order)
+```
+
+```
+## # A tibble: 29 x 2
+##    order               n
+##    &lt;fct&gt;           &lt;int&gt;
+##  1 Artiodactyla      240
+##  2 Carnivora         286
+##  3 Primates          376
+##  4 Didelphimorphia    87
+##  5 Cingulata          21
+##  6 Rodentia         2277
+##  7 Cetacea            84
+##  8 Erinaceomorpha     24
+##  9 Diprotodontia     143
+## 10 Chiroptera       1116
+## # … with 19 more rows
+```
+
+---
+
+# Data exploration
+
+
+```r
+dat %&gt;%
+  count(family)
+```
+
+```
+## # A tibble: 153 x 2
+##    family            n
+##    &lt;fct&gt;         &lt;int&gt;
+##  1 Camelidae         4
+##  2 Canidae          35
+##  3 Bovidae         143
+##  4 Pitheciidae      40
+##  5 Didelphidae      87
+##  6 Dasypodidae      21
+##  7 Muridae         730
+##  8 Spalacidae       36
+##  9 Cricetidae      681
+## 10 Neobalaenidae     1
+## # … with 143 more rows
+```
+
+---
+
+# Data exploration
+
+
+```r
+dat %&gt;%
+  filter(!is.na(homerange)) %&gt;%
+  summarise(mean(homerange))
+```
+
+```
+## # A tibble: 1 x 1
+##   `mean(homerange)`
+##               &lt;dbl&gt;
+## 1              327.
+```
+
+---
+
+# Data exploration
+
+
+```r
+dat %&gt;%
+  filter(!is.na(homerange)) %&gt;%
+  group_by(family) %&gt;%
+  summarise(m = mean(homerange), sd = sd(homerange),n = n())
+```
+
+```
+## # A tibble: 93 x 4
+##    family               m        sd     n
+##    &lt;fct&gt;            &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt;
+##  1 Camelidae    0.13       NA           1
+##  2 Canidae     49.6       176.         21
+##  3 Bovidae     44.6       159.         24
+##  4 Pitheciidae  0.8         1.27        7
+##  5 Didelphidae  0.0704      0.160      10
+##  6 Dasypodidae  1.38        2.14        4
+##  7 Muridae      0.00336     0.00839    35
+##  8 Spalacidae   0.0000732  NA           1
+##  9 Cricetidae   0.00305     0.00572    62
+## 10 Erinaceidae  0.0255      0.0306      4
+## # … with 83 more rows
+```
+
+
+---
+
+# Graph 1: Bar chart of the number of entries per family
+
+* Group by family, and select only those with more than 100 observations.
+
+* Make a bar chart of the number of observations per family. Order the bars by increasing number of observations.
+
+* Add a title and labels to the X and Y axes.
+
+---
+
+# Graph 1
+
+
+```r
+dat %&gt;%
+
+  group_by(family) %&gt;% # group by family
+  mutate(n = n()) %&gt;% # calculate number of entries per family
+  filter(n &gt; 100) %&gt;% # select only the families with more than 100 entries
+
+  ggplot() +
+  aes(x = fct_reorder(family, n), y = n) + # order bars
+  geom_col() +
+  coord_flip() + # flip the bar chart
+  xlab("Family") + # add label for X axis
+  ylab("Counts") + # add label for Y axis
+  ggtitle("Number of entries per family") # add title
+```
+
+
+---
+
+# Graph 1
+
+&lt;img src="assets/chunks/unnamed-chunk-12-1.png" width="700" /&gt;
+
+---
+
+# Graph 2: Scatter plot of litter size as a function of longevity
+
+* Filter out missing values in both litter size and longevity
+
+* Group by family, and select only those with more than 50 observations.
+
+* Make a scatter plot of litter size as a function of longevity.
+
+* Add a linear regression fit for each family.
+
+* Split the plot in several scatter plots, one for each family.
+
+* Add a title and labels to the X and Y axes.
+
+
+---
+
+# Graph 2
+
+
+```r
+theme_set(theme_bw()) # play around with theme
+
+dat %&gt;%
+
+  filter(!is.na(litter_size), !is.na(longevity)) %&gt;%
+  group_by(family) %&gt;% # group by family
+  mutate(n = n()) %&gt;% # count the number of entries per family
+  mutate(longevity = longevity / 12) %&gt;% # Change month to year
+  filter(n &gt; 10) %&gt;% # select only those families with more than 50 entries
+
+  ggplot() +
+  aes(x = longevity, y = litter_size, col = family) + # scatter plot
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) + # se = TRUE to add confidence intervals
+  xlab("Longevity") + # add label for X axis
+  ylab("Litter size") + # add label for Y axis
+  ggtitle("Scatterplot") + # add title
+  facet_wrap(~ family, nrow = 3) # split in several panels,
+                                 # one for each family
+                                 # remove scale = 'free' for
+                                 # same scale for all plots
+```
+
+
+---
+
+# Graph 2
+
+&lt;img src="assets/chunks/unnamed-chunk-14-1.png" width="750" /&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Exercice n°2</title>
+    <meta charset="utf-8" />
+    <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/css/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="../../assets/css/custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: right, middle, title-slide
+
+# Exercice n°2
+## <i>Manipulation de données avec <code>{dplyr}</code></i><br /><br /><br /><br />
+
+---
+
+
+
+
+
+
+## Instructions (1)
+
+**1)** Téléchargez les deux fichiers `csv` :
+- (https:)//raw.githubusercontent.com/FRBCesab/datatoolbox/master/data/
+**wildfinder-ecoregions_list.csv** [**[lien]**](https://raw.githubusercontent.com/FRBCesab/datatoolbox/master/data/wildfinder-ecoregions_list.csv)
+- (https:)//raw.githubusercontent.com/FRBCesab/datatoolbox/master/data/
+**wildfinder-ecoregions_species.csv** [**[lien]**](https://raw.githubusercontent.com/FRBCesab/datatoolbox/master/data/wildfinder-ecoregions_species.csv)
+
+<i class="fas  fa-lightbulb " style="color:#3f3f3f;"></i> &amp;nbsp;Dans une optique reproductible, utilisez la fonction `download.file()`
+
+&lt;br /&gt;
+
+**2)** Importez dans <i class="fab  fa-r-project "></i> les trois fichiers :
+- `wildfinder-mammals_list.csv` (vu à l'exercice 1)
+- `wildfinder-ecoregions_list.csv`
+- `wildfinder-ecoregions_species.csv`
+
+<i class="fas  fa-lightbulb " style="color:#3f3f3f;"></i> &amp;nbsp;Utilisez la fonction `readr::read_csv()`
+
+
+
+
+
+
+
+---
+
+## Instructions (1)
+
+
+```r
+wildfinder-mammals_list
+```
+
+```
+## # A tibble: 4,936 x 8
+##    species_id class  order   family    genus   species  common      sci_name    
+##         &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;       
+##  1      15168 Mamma… Artiod… Antiloca… Antilo… america… Pronghorn   Antilocapra…
+##  2      15290 Mamma… Artiod… Bovidae   Addax   nasomac… Addax       Addax nasom…
+##  3      15169 Mamma… Artiod… Bovidae   Aepyce… melampus Impala      Aepyceros m…
+##  4      15170 Mamma… Artiod… Bovidae   Alcela… buselap… Hartebeest  Alcelaphus …
+##  5      15176 Mamma… Artiod… Bovidae   Alcela… lichten… Lichtenste… Alcelaphus …
+##  6      15177 Mamma… Artiod… Bovidae   Ammodo… clarkei  Dibatag     Ammodorcas …
+##  7      15239 Mamma… Artiod… Bovidae   Ammotr… lervia   Aoudad      Ammotragus …
+##  8      15178 Mamma… Artiod… Bovidae   Antido… marsupi… Springbok   Antidorcas …
+##  9      15179 Mamma… Artiod… Bovidae   Antilo… cervica… Blackbuck   Antilope ce…
+## 10      15173 Mamma… Artiod… Bovidae   Beatra… hunteri  Hirola      Beatragus h…
+## # … with 4,926 more rows
+```
+
+
+---
+
+## Instructions (1)
+
+
+```r
+wildfinder-ecoregions_list
+```
+
+```
+## # A tibble: 798 x 4
+##    ecoregion_id ecoregion                   realm    biome                      
+##    &lt;chr&gt;        &lt;chr&gt;                       &lt;chr&gt;    &lt;chr&gt;                      
+##  1 AA0106       Halmahera rain forests      Austral… Tropical and Subtropical M…
+##  2 AA0107       Huon Peninsula montane rai… Austral… Tropical and Subtropical M…
+##  3 AA0105       Central Range montane rain… Austral… Tropical and Subtropical M…
+##  4 AA0102       Banda Sea Islands moist de… Austral… Tropical and Subtropical M…
+##  5 AA0103       Biak-Numfoor rain forests   Austral… Tropical and Subtropical M…
+##  6 AA0104       Buru rain forests           Austral… Tropical and Subtropical M…
+##  7 AA0118       Seram rain forests          Austral… Tropical and Subtropical M…
+##  8 AA0119       Solomon Islands rain fores… Austral… Tropical and Subtropical M…
+##  9 AA0120       Southeastern Papuan rain f… Austral… Tropical and Subtropical M…
+## 10 AA0121       Southern New Guinea freshw… Austral… Tropical and Subtropical M…
+## # … with 788 more rows
+```
+
+
+
+---
+
+## Instructions (1)
+
+
+```r
+wildfinder-ecoregions_species
+```
+
+```
+## # A tibble: 350,045 x 2
+##    ecoregion_id species_id
+##    &lt;chr&gt;             &lt;dbl&gt;
+##  1 AT0101            17507
+##  2 AT0101            17688
+##  3 AT0101            17730
+##  4 AT0101            17736
+##  5 AT0101            17741
+##  6 AT0101            17789
+##  7 AT0101            17793
+##  8 AT0101            17814
+##  9 AT0101            17831
+## 10 AT0101            17838
+## # … with 350,035 more rows
+```
+
+
+---
+
+## Instructions (2)
+
+<i class="fas  fa-question-circle "></i> &amp;nbsp;Dans combien de royaumes, biomes et écorégions différents retrouve-t-on chacune des 7 espèces d'Ursidés ?
+
+<i class="fas  fa-lightbulb " style="color:#3f3f3f;"></i> &amp;nbsp;Vous devez joindre les trois tables ensemble avec `dplyr`
+
+
+--
+
+&lt;br /&gt;
+
+Etapes :
+- Sélectionnez uniquement les espèces d'Ursidés
+- Supprimez l'espèce _Ursus malayanus_
+- Joindre les tables `wildfinder-ursus_list` et `wildfinder-ecoregions_species`
+- Joindre la table résultante à `wildfinder-ecoregions_list`
+- Combien de royaumes, biomes, d'écorégions uniques a-t-on pour chaque espèce ?
+
+--
+
+&lt;br /&gt;
+
+`filter()`, `select()`, `*_join()`, `group_by()`, `summarize()`, `n_distinct()`,
+`arrange()`, `desc()`
+
+
+
+---
+class: inverse, center, middle
+
+## Correction
+
+
+---
+
+## Corrigé
+
+
+```r
+## Création d'un sous-répertoire pour les données
+folder &lt;- "data"
+dir.create(folder, showWarnings = FALSE)
+
+## URL et nom du fichier
+url       &lt;- "https://raw.githubusercontent.com/FRBCesab/datatoolbox/master/data/"
+filenames &lt;- c(
+  "wildfinder-mammals_list.csv",
+  "wildfinder-ecoregions_list.csv",
+  "wildfinder-ecoregions_species.csv"
+)
+
+## Téléchargement des fichiers
+for (filename in filenames) {
+
+  download.file(
+    url      = paste0(url, filename),
+    destfile = file.path(folder, filename)
+  )
+}
+
+## Importation des fichiers
+sp_list  &lt;- readr::read_csv(file.path(folder, "wildfinder-mammals_list.csv"))
+eco_list &lt;- readr::read_csv(file.path(folder, "wildfinder-ecoregions_list.csv"))
+sp_eco   &lt;- readr::read_csv(file.path(folder, "wildfinder-ecoregions_species.csv"))
+```
+
+
+
+---
+
+## Corrigé
+
+
+```r
+sp_list
+```
+
+```
+## # A tibble: 4,936 x 8
+##    species_id class  order   family    genus   species  common      sci_name    
+##         &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;       
+##  1      15168 Mamma… Artiod… Antiloca… Antilo… america… Pronghorn   Antilocapra…
+##  2      15290 Mamma… Artiod… Bovidae   Addax   nasomac… Addax       Addax nasom…
+##  3      15169 Mamma… Artiod… Bovidae   Aepyce… melampus Impala      Aepyceros m…
+##  4      15170 Mamma… Artiod… Bovidae   Alcela… buselap… Hartebeest  Alcelaphus …
+##  5      15176 Mamma… Artiod… Bovidae   Alcela… lichten… Lichtenste… Alcelaphus …
+##  6      15177 Mamma… Artiod… Bovidae   Ammodo… clarkei  Dibatag     Ammodorcas …
+##  7      15239 Mamma… Artiod… Bovidae   Ammotr… lervia   Aoudad      Ammotragus …
+##  8      15178 Mamma… Artiod… Bovidae   Antido… marsupi… Springbok   Antidorcas …
+##  9      15179 Mamma… Artiod… Bovidae   Antilo… cervica… Blackbuck   Antilope ce…
+## 10      15173 Mamma… Artiod… Bovidae   Beatra… hunteri  Hirola      Beatragus h…
+## # … with 4,926 more rows
+```
+
+
+
+---
+
+## Corrigé
+
+
+```r
+eco_list
+```
+
+```
+## # A tibble: 798 x 4
+##    ecoregion_id ecoregion                   realm    biome                      
+##    &lt;chr&gt;        &lt;chr&gt;                       &lt;chr&gt;    &lt;chr&gt;                      
+##  1 AA0106       Halmahera rain forests      Austral… Tropical and Subtropical M…
+##  2 AA0107       Huon Peninsula montane rai… Austral… Tropical and Subtropical M…
+##  3 AA0105       Central Range montane rain… Austral… Tropical and Subtropical M…
+##  4 AA0102       Banda Sea Islands moist de… Austral… Tropical and Subtropical M…
+##  5 AA0103       Biak-Numfoor rain forests   Austral… Tropical and Subtropical M…
+##  6 AA0104       Buru rain forests           Austral… Tropical and Subtropical M…
+##  7 AA0118       Seram rain forests          Austral… Tropical and Subtropical M…
+##  8 AA0119       Solomon Islands rain fores… Austral… Tropical and Subtropical M…
+##  9 AA0120       Southeastern Papuan rain f… Austral… Tropical and Subtropical M…
+## 10 AA0121       Southern New Guinea freshw… Austral… Tropical and Subtropical M…
+## # … with 788 more rows
+```
+
+
+
+---
+
+## Corrigé
+
+
+```r
+sp_eco
+```
+
+```
+## # A tibble: 350,045 x 2
+##    ecoregion_id species_id
+##    &lt;chr&gt;             &lt;dbl&gt;
+##  1 AT0101            17507
+##  2 AT0101            17688
+##  3 AT0101            17730
+##  4 AT0101            17736
+##  5 AT0101            17741
+##  6 AT0101            17789
+##  7 AT0101            17793
+##  8 AT0101            17814
+##  9 AT0101            17831
+## 10 AT0101            17838
+## # … with 350,035 more rows
+```
+
+
+
+---
+
+## Corrigé
+
+
+```r
+## Sélection des espèces
+ursus &lt;- sp_list %&gt;%
+  filter(family   == "Ursidae") %&gt;%                       # Sélection des Ursidés
+  filter(sci_name != "Ursus malayanus") %&gt;%             # Suppression du synonyme
+  select(species_id, sci_name, common)                    # Sélection de colonnes
+```
+
+
+```
+## # A tibble: 7 x 3
+##   species_id sci_name               common             
+##        &lt;dbl&gt; &lt;chr&gt;                  &lt;chr&gt;              
+## 1      14932 Ailuropoda melanoleuca Giant Panda        
+## 2      14934 Helarctos malayanus    Sun Bear           
+## 3      14935 Melursus ursinus       Sloth Bear         
+## 4      14936 Tremarctos ornatus     Spectacled Bear    
+## 5      14937 Ursus americanus       American Black Bear
+## 6      14938 Ursus arctos           Brown Bear         
+## 7      14940 Ursus thibetanus       Asiatic Black Bear
+```
+
+
+
+---
+
+## Corrigé
+
+
+```r
+## Première jointure
+ursus_eco &lt;- ursus %&gt;%
+  left_join(sp_eco)
+```
+
+```
+## Joining, by = "species_id"
+```
+
+
+```
+## # A tibble: 389 x 4
+##    species_id sci_name               common      ecoregion_id
+##         &lt;dbl&gt; &lt;chr&gt;                  &lt;chr&gt;       &lt;chr&gt;       
+##  1      14932 Ailuropoda melanoleuca Giant Panda PA0509      
+##  2      14932 Ailuropoda melanoleuca Giant Panda PA0102      
+##  3      14932 Ailuropoda melanoleuca Giant Panda PA0417      
+##  4      14932 Ailuropoda melanoleuca Giant Panda PA0434      
+##  5      14932 Ailuropoda melanoleuca Giant Panda PA0518      
+##  6      14932 Ailuropoda melanoleuca Giant Panda PA1017      
+##  7      14934 Helarctos malayanus    Sun Bear    IM0106      
+##  8      14934 Helarctos malayanus    Sun Bear    IM0117      
+##  9      14934 Helarctos malayanus    Sun Bear    IM0119      
+## 10      14934 Helarctos malayanus    Sun Bear    IM0139      
+## # … with 379 more rows
+```
+
+
+
+---
+
+## Corrigé
+
+
+```r
+## Seconde jointure
+ursus_eco &lt;- ursus_eco %&gt;%
+  left_join(eco_list, by = "ecoregion_id")
+```
+
+
+```
+## # A tibble: 389 x 7
+##    species_id sci_name    common  ecoregion_id ecoregion       realm biome      
+##         &lt;dbl&gt; &lt;chr&gt;       &lt;chr&gt;   &lt;chr&gt;        &lt;chr&gt;           &lt;chr&gt; &lt;chr&gt;      
+##  1      14932 Ailuropoda… Giant … PA0509       Hengduan Mount… Pala… Temperate …
+##  2      14932 Ailuropoda… Giant … PA0102       Yunnan Plateau… Pala… Tropical a…
+##  3      14932 Ailuropoda… Giant … PA0417       Daba Mountains… Pala… Temperate …
+##  4      14932 Ailuropoda… Giant … PA0434       Qin Ling Mount… Pala… Temperate …
+##  5      14932 Ailuropoda… Giant … PA0518       Qionglai-Minsh… Pala… Temperate …
+##  6      14932 Ailuropoda… Giant … PA1017       Southeast Tibe… Pala… Montane Gr…
+##  7      14934 Helarctos … Sun Be… IM0106       Cardamom Mount… Indo… Tropical a…
+##  8      14934 Helarctos … Sun Be… IM0117       Irrawaddy mois… Indo… Tropical a…
+##  9      14934 Helarctos … Sun Be… IM0119       Kayah-Karen mo… Indo… Tropical a…
+## 10      14934 Helarctos … Sun Be… IM0139       Northern Thail… Indo… Tropical a…
+## # … with 379 more rows
+```
+
+
+
+---
+
+## Corrigé
+
+
+```r
+## Nombre de royaumes où chaque espèce est retrouvée
+realm_ursus &lt;- ursus_eco %&gt;%
+  group_by(sci_name) %&gt;%
+  summarise(n_realms     = n_distinct(realm))
+```
+
+
+```
+## # A tibble: 7 x 2
+##   sci_name               n_realms
+##   &lt;chr&gt;                     &lt;int&gt;
+## 1 Ailuropoda melanoleuca        1
+## 2 Helarctos malayanus           2
+## 3 Melursus ursinus              1
+## 4 Tremarctos ornatus            1
+## 5 Ursus americanus              3
+## 6 Ursus arctos                  3
+## 7 Ursus thibetanus              3
+```
+
+
+---
+
+## Corrigé
+
+
+```r
+## Nombre de biomes où chaque espèce est retrouvée
+biome_ursus &lt;- ursus_eco %&gt;%
+  group_by(sci_name) %&gt;%
+  summarise(n_biomes     = n_distinct(biome))
+```
+
+
+```
+## # A tibble: 7 x 2
+##   sci_name               n_biomes
+##   &lt;chr&gt;                     &lt;int&gt;
+## 1 Ailuropoda melanoleuca        4
+## 2 Helarctos malayanus           5
+## 3 Melursus ursinus              6
+## 4 Tremarctos ornatus            3
+## 5 Ursus americanus             10
+## 6 Ursus arctos                 11
+## 7 Ursus thibetanus             11
+```
+
+
+---
+
+## Corrigé
+
+
+```r
+## Nombre d'écorégions où chaque espèce est retrouvée
+eco_ursus &lt;- ursus_eco %&gt;%
+  group_by(sci_name) %&gt;%
+  summarise(n_ecoregions = n_distinct(ecoregion))
+```
+
+
+```
+## # A tibble: 7 x 2
+##   sci_name               n_ecoregions
+##   &lt;chr&gt;                         &lt;int&gt;
+## 1 Ailuropoda melanoleuca            6
+## 2 Helarctos malayanus              37
+## 3 Melursus ursinus                 21
+## 4 Tremarctos ornatus               23
+## 5 Ursus americanus                 82
+## 6 Ursus arctos                    139
+## 7 Ursus thibetanus                 78
+```
+
+
+---
+
+## Corrigé
+
+
+```r
+## Combinons toutes les informations
+realm_ursus %&gt;%
+  left_join(biome_ursus, by = "sci_name") %&gt;%
+  left_join(eco_ursus, by = "sci_name") %&gt;%
+  left_join(ursus, by = "sci_name") %&gt;%
+  select(sci_name, common, n_realms, n_biomes, n_ecoregions) %&gt;%
+  arrange(desc(n_ecoregions))
+```
+
+```
+## # A tibble: 7 x 5
+##   sci_name               common              n_realms n_biomes n_ecoregions
+##   &lt;chr&gt;                  &lt;chr&gt;                  &lt;int&gt;    &lt;int&gt;        &lt;int&gt;
+## 1 Ursus arctos           Brown Bear                 3       11          139
+## 2 Ursus americanus       American Black Bear        3       10           82
+## 3 Ursus thibetanus       Asiatic Black Bear         3       11           78
+## 4 Helarctos malayanus    Sun Bear                   2        5           37
+## 5 Tremarctos ornatus     Spectacled Bear            1        3           23
+## 6 Melursus ursinus       Sloth Bear                 1        6           21
+## 7 Ailuropoda melanoleuca Giant Panda                1        4            6
+```
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="../../assets/libs/macros.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "4:3",
+"highlightStyle": "zenburn",
+"highlightLines": false,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current% / %total%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

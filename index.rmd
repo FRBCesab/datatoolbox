@@ -1,61 +1,78 @@
 ---
-# PAS TOUCHE SVP !!!!!!
-title: index.html
+title: .small[Formation FRB-Cesab & GDR EcoStat]
+subtitle: .ssmall[Bonnes pratiques pour une recherche reproductible en écologie numérique]
+author: .verysmall[<br />Du 2 au 6 décembre 2019<br />Dans les locaux du Cesab à Montpellier]
 output:
   xaringan::moon_reader:
-    css: ["default", "default-fonts", "assets/css/custom.css"]
-    lib_dir: assets/libs
-    seal: false
+    css: ["assets/css/xaringan-themer.css", "assets/css/custom.css"]
+    lib_dir: "assets/libs"
+    seal: true
     yolo: false
+    self_contained: false
+    nature:
+      ratio: "4:3"
+      titleSlideClass: ["right", "middle"]
+      highlightStyle: 'zenburn'
+      highlightLines: false
+      countIncrementalSlides: false
+      slideNumberFormat: "%current% / %total%"
+      beforeInit: "assets/libs/macros.js"
 ---
 
-layout: true
-class: center, top
-background-image: url("assets/img/background_home.png")
 
----
+## Programme
 
-.home-content[
 
-  .event[
-    Bonnes pratiques pour une recherche reproductible en écologie numérique
-  ]
-  .main-talk[
+.pull-left[
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Recherche reproductible**
 
-  ]
-  .sub-talk[
-    API, versioning, reproductibilité et partage
-  ]
-  .speaker[
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Versioning du code**
 
-  ]
-  .function[
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Travail collaboratif**
 
-  ]
-  .date[
-    2 au 6 décembre 2019 &#8212; Montpellier
-  ]
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**API et Web scraping**
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Introduction au tidyverse**
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Données spatiales**
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Research compendium**
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**_drake: a pipeline toolkit_**
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Du script au package R**
 ]
 
----
+.pull-right[
+[**[Cours]**](sessions/session01/index.html)
 
-name: slide
-layout: true
-class: left, top, slide
-background-image: url("assets/img/background_slides.png")
+[**[Cours]**](sessions/session02/index.html)
 
----
+**[Cours]**
 
-### Programme
+[**[Cours]**](sessions/session04/index01.html)
+&nbsp;
+[**[Exo 1]**](exercises/exercise01/index.html)
 
-- [Stéphane 1](sessions/session02/index.html)
+[**[Cours]**](sessions/session04/index02.html)
+&nbsp;
+[**[Exo 1]**](exercises/exercise02/index.html)
+&nbsp;
+[**[Exo 2]**](exercises/exercise03/index.html)
 
-- [Stéphane 2](sessions/session03/index.html)
+[**[Cours]**](sessions/session05/index.html)
+&nbsp;
+**[Exo 1]**
+&nbsp;
+**[Exo 2]**
 
-- [Acquisition de données](sessions/session04/index01.html)
+**[Cours]**
 
-- [Manipulation & Visualisation de données](sessions/session04/index02.html)
+[**[Cours]**](sessions/session06/drake/drake_intro/intro_drake.html)
 
-- [Spatial](sessions/session05/index.html)
+[**[Cours]**](sessions/session07/index.html)
 
-- [Package R](sessions/session07/index.html)
+<br />
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**[Projets]**
+]

@@ -1,0 +1,371 @@
+---
+title: "Reproducible workflow with drake"
+author: "Nina M. D. Schiettekatte"
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: xaringan-themer.css
+    nature:
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+drake::clean()
+```
+
+```{r xaringan-themer, include=FALSE}
+library(xaringanthemer)
+duo(primary_color = "#00486DFF", secondary_color = "#8ECCBBFF",
+  code_font_family = "Fira Code",
+  code_font_url    = "https://cdn.rawgit.com/tonsky/FiraCode/1.204/distr/fira_code.css"
+)
+```
+
+# WARNING
+### This presentation contains less rap than you might have expected.
+
+.center[![](https://www.biography.com/.image/ar_1:1%2Cc_fill%2Ccs_srgb%2Cg_face%2Cq_auto:good%2Cw_300/MTQ3NTI2OTA4NzY5MjE2MTI4/drake_photo_by_prince_williams_wireimage_getty_479503454.jpg)]
+
+.center[(run while you can!)]
+---
+class: center
+
+# The plan
+
+
+<br>
+
+1) What is drake and why use it?
+
+--
+
+<br>
+
+2) How does it work? 
+
+--
+
+<br>
+
+3) Coding time
+
+
+---
+class: inverse, center, middle
+
+# What is drake?
+
+---
+# Large data science project struggles
+                    
+1) Long runtimes   
+         
+2) Many tasks    
+                  
+3) Interconnected tasks    
+                                    
+                     
+.center[![](https://wwwen.uni.lu/var/storage/images/media/images/data_science_explore/1136248-1-fre-FR/data_science_explore.png)]
+
+---
+# The Sisyphean workflow
+                         
+1) Launch the code    
+                  
+2) Wait while it runs
+                  
+3) Discover an issue
+                     
+4) Restart from scratch
+
+.center[<img src = https://www.kinesophy.com/wp-content/uploads/2013/01/sisyphus.jpg style="width: 60%" />]
+---
+
+
+# drake to the rescue
+
+**drake** is a workflow manager for your R code     
+
+.pull-left[
+
+- Keeps track of interconected elements     
+           
+- Automatically launches the parts that changed since last time and skips the rest  
+                      
+- Tangible evidence of reproducibility     
+                    
+- Big data efficiency     
+                     
+- Readibility and transparancy     
+]
+
+
+.pull-right[.center[<img src="https://camo.githubusercontent.com/44749362ca36c9e3295f2bcf18975d811564c121/68747470733a2f2f646f63732e726f70656e7363692e6f72672f6472616b652f7265666572656e63652f666967757265732f6c6f676f2e737667" style="width: 60%" />]]
+---
+# Clear the clutter
+.pull-left[.center[<img src="https://www.ozy.com/wp-content/uploads/2019/07/gettyimages860536912.jpg?w=2048&h=1152&crop=1" style="width: 80%" />]]
+.pull-right[.center[<img src="https://caen.lamaisondestravaux-pro.com/media/cache/realisation/rc/3rAcQlmo//uploads/images/d407dd32756c25bf60bef23ba5bb4c74c4614717.jpeg" style="width: 80%" />]]
+
+--
+      
+       
+# Use functions   
+
+.pull-left[
+```{r, eval = FALSE}
+mydata <- read.csv("mydata.csv")
+data2 <- clean(mydata)
+data3 <- transform(data2)
+data4 <- erase_na(data3)
+data_clean <- transform(data_4)
+```
+]
+.pull-right[
+```{r, eval=FALSE}
+mydata <- read.csv("mydata.csv")
+wrangle <- function(data){
+  data2 <- clean(data)
+  data3 <- transform(data2)
+  data4 <- erase_na(data3)
+  data_clean <- transform(data_4)
+  return(data_clean)
+}
+data_clean <- wrangle(mydata)
+```
+]
+
+---
+
+class: inverse, center, middle
+
+# How does it work?
+
+
+
+---
+# Vocabulary 
+
+- plan = a recipe of your code       
+     
+- target = an object inside your plan    
+     
+- command = function that builds a target (whether or not dependent on other targets)   
+     
+- dependency graph = visualization of your plan   
+
+---
+# Key functions
+
+-  drake_plan(): create a workflow data frame     
+       
+-  make(): build your project          
+ 
+-  drake_history(): show what you built, when you built it, and the function arguments you used            
+     
+-  loadd(): load one or more built targets into your R session            
+     
+-  readd(): read and return a built target      
+           
+-  drake_config(): create a master configuration list for other user-side functions 
+       
+-  vis_drake_graph(): show an interactive visual network representation of your workflow      
+ 
+---
+# The brain    
+
+.drake/
+.center[<img src="https://scx1.b-cdn.net/csz/news/800/2018/20-neuroscienti.jpg" style="width: 80%" />]
+
+---
+# Example long project  
+![](diet_drake_dependencygraph.png)
+---
+# Workflow   
+
+1) Set up project structure   
+
+2) Write a function   
+    
+3) Add target to plan
+     
+4) Make plan   
+    
+5) Look at results  
+    
+6) Write a function       
+...      
+...     
+---
+# Example: analysis R package downloads
+
+```{r, message=FALSE}
+library(cranlogs)
+crandata <- cran_downloads(
+  packages = c("dplyr", "ggplot2", "purrr", "tidyr", "stringr"), 
+  when = "last-month")
+
+head(crandata)
+```
+---
+
+## Some custom functions
+
+```{r, message=FALSE}
+# packages
+library(ggplot2)
+library(drake)
+library(dplyr)
+library(cranlogs)
+
+# functions
+make_my_table <- function(downloads){
+  group_by(downloads, package) %>%
+    summarize(mean_downloads = mean(count))
+}
+make_my_plot <- function(downloads){
+  ggplot(downloads) +
+    geom_line(aes(x = date, y = count, group = package,
+                  color = package))
+}
+```
+---
+
+## The plan   
+
+```{r}
+plan <- drake_plan(
+  # load data
+  crandata_new = cran_downloads(
+    packages = c("dplyr", "ggplot2", "purrr", "tidyr", "stringr"), 
+    from = "2019-11-01", to = "2019-12-01"),
+  crandata_old = cran_downloads(
+    packages = c("dplyr", "ggplot2", "purrr", "tidyr", "stringr"), 
+    from = "2016-11-01", to = "2016-12-01"),
+  # make tables
+  averages_new = make_my_table(crandata_new),
+  averages_old = make_my_table(crandata_old),
+  # make plots
+  plot_new = make_my_plot(crandata_new),
+  plot_old = make_my_plot(crandata_old),
+  # combine 
+  averages_combined = left_join(averages_old, averages_new, by = "package")
+)
+```
+---
+## Make the plan
+```{r}
+head(plan)
+make(plan)
+```
+---
+## Read or load results
+```{r, fig.height=3}
+readd(averages_new) #loadd()
+readd(plot_new)
+```
+---
+## Vizualize the workflow  
+```{r}
+config <- drake_config(plan)
+vis_drake_graph(config, targets_only = TRUE, background = "#e3e3e3")
+```
+---
+## drake loves changes
+
+.pull-left[
+```{r dep, fig.height=4, fig.width=6}
+library(fishualize)
+make_my_plot <- function(downloads){
+  ggplot(downloads) +
+    geom_line(aes(x = date, y = count, group = package, color = package)) +
+    scale_color_fish_d() +
+    theme_minimal()
+}
+
+make(plan)
+```
+---
+
+]
+.pull-right[
+![](https://media.giphy.com/media/xT8qBawKWgpsT2Doxq/giphy.gif)
+```{r, fig.height=4}
+readd(plot_old)
+```
+]
+---
+# Project structure
+.pull-left[
+```
+myproject.Rproj
+|___data/
+|
+|___R/
+|   |___1_loadandclean.R
+|   |___2_analysis.R
+|   |___3_plots.R
+|
+|___text/
+|   |___myreport.Rmd
+|
+|___output/
+    |___text
+    |___plots
+```
+]
+--
+.pull-right[
+```
+myproject.Rproj
+|___data/
+|
+|___R/
+|   |___packages.R
+|   |___functions.R
+|   |___plan.R
+|
+|___text/
+|   |___myreport.Rmd
+|
+|___output/
+|   |___text
+|   |___plots
+|
+|___make.R
+|
+|___.drake/
+```
+]
+
+---
+# Recap: Why use drake? 
+
+- Optimize your workflow    
+        
+--
+- Repeatible for others and your future self  
+        
+--
+- 100% sure to be reproducible
+      
+--
+- You can count on **drake**'s brain and work in a clean environment  
+        
+--
+- Package is well maintained and documented with a great [manual](https://books.ropensci.org/drake/)    
+
+
+---
+
+class: inverse, center, middle
+
+# Coding time!   
+
+
+
+---
+
+

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
-    <title>Titre de la présentation</title>
+    <title>Les données spatiales</title>
     <meta charset="utf-8" />
-    <meta name="author" content="  Loreleï GUÉRY" />
+    <meta name="author" content="  Loreleï GUÉRY Nicolas CASAJUS" />
     <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../assets/css/xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="../../assets/css/custom.css" type="text/css" />
@@ -12,108 +12,714 @@
     <textarea id="source">
 class: right, middle, title-slide
 
-# Titre de la présentation
-## <i>sous-titre de la présentation</i>
-### <br /><br />Loreleï GUÉRY
-### Mercredi 4 décembre 2019
+# Les données spatiales
+## <i><code>{sf}</code>  <code>{raster}</code>  <code>{ggplot2}</code></i>
+### <br /><br />Loreleï GUÉRY<br />Nicolas CASAJUS
+### .inst[Mercredi 4 décembre 2019]
 
 ---
+
+
 
 
 class: inverse, center, middle
 
-## Page de transition
+## Introduction
 
+---
+
+
+## Qu'est-ce qu'un objet spatial ?
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Deux catégories :
+
+**1)** Les données vectorielles
+
+&lt;br /&gt;
+
+.center[![:scale 100%](assets/img/vectors.png)]
 
 
 
 ---
 
-## Titre d'une page classique
+## Qu'est-ce qu'un objet spatial ?
 
-- Du Markdown **classique**...
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Deux catégories :
 
-Une image rescalée : ![:scale 2%](assets/img/github.png)
+**2)** Les données matricielles
+
+&lt;br /&gt;
+
+.center[![:scale 100%](assets/img/rasters.png)]
+
+
+
+---
+
+## Le système de coordonnées
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Un objet spatial se représente
+dans l'espace selon un référentiel spatial : le **système de coordonnées** (**CRS** pour _Coordinates Reference System_)
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Deux types de systèmes de coordonnées existent  :
+
+**1)** Les systèmes géographiques (ou non projetés) [en degrés]
+
+.center[![:scale 100%](assets/img/projections01.png)]
+
+
+
+---
+
+## Le système de coordonnées
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Un objet spatial se représente
+dans l'espace selon un référentiel spatial : le **système de coordonnées** (**CRS** pour _Coordinates Reference System_)
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Deux types de systèmes de coordonnées existent :
+
+**2)** Les systèmes projetés [en mètres]
+
+.center[![:scale 100%](assets/img/projections02.png)]
 
 --
 
-Et une image centrée :
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Le choix du CRS peut être crucial et dépend souvent de l'information que l'on souhaite représenter
 
-.center[![:scale 25%](assets/img/github.png)]
 
-&lt;br /&gt;
 
-Et des icones : <i class="fab  fa-r-project " style="color:#3f3f3f;"></i> avec le package `{icon}`
+---
+
+## Le système de coordonnées
+
+Sous <i class="fab  fa-r-project "></i> le CRS s'exprime selon le standard `proj4string` défini par le projet [**PROJ**](https://proj.org/)
+
+.small[`+proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0`]
 
 --
 
+&lt;br /&gt;
 
-```r
-(x &lt;- 1:10)
-```
+Chaque CRS possède un **SRID** (_Spatial Reference Identifier_) ou **EPSG**
+(_European Petroleum Survey Group_) : un identifiant unique qui nous évite de
+devoir écrire à la main le CRS au format `proj4string`
 
-```
-##  [1]  1  2  3  4  5  6  7  8  9 10
-```
+`+init=epsg:4326` est l'identifiant du CRS ci-dessus
+
+.small[`+init=epsg:4326 +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0`]
+
+&lt;br /&gt;
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Où trouver le bon CRS ? Réponse : [**Spatial Reference**](https://spatialreference.org/)
+
+
+
+---
+class: inverse, center, middle
+
+## Objets vectoriels
 
 ---
 
-## Page à deux colonnes
 
+## Les packages <i class="fab  fa-r-project "></i> - Vecteurs
 
-.pull-left[
-.center[
-Contenu de gauche centré
-
-![:scale 50%](assets/img/github.png)
-]
-
-&lt;br /&gt;
-
-#### Input
-
-(aligné à gauche)
-
-
-```r
-(x &lt;- 1:10)
-```
-]
-
-.pull-right[
-.center[
-Contenu de droite centré
-
-![:scale 50%](assets/img/github.png)
-]
+Package           | Fonctionnalités
+------------------|------------------
+`{sp}`            | Classes et méthodes pour couches vectorielles
+`{rgdal}`         | Lecture et écriture de couches spatiales
+`{rgeos}`         | Opérations spatiales sur couches vectorielles
+`{maptools}`      | Opérations spatiales sur couches vectorielles
+`{sf}`            | Le petit dernier - Une vraie bête !
 
 &lt;br /&gt;
 
-.right[
-#### Output
-
-(aligné à droite)
-
-
-```
-##  [1]  1  2  3  4  5  6  7  8  9 10
-```
-]
-]
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;`{sf}` est devenu la "norme" : `{sf} = {sp} + {rgdal} + {rgeos}`
 
 
 
 ---
 
-## Et une figure générée par <i class="fab  fa-r-project "></i>
+## Pourquoi `{sf}` ?
+
+- Implémentation sous <i class="fab  fa-r-project "></i> des _Simple Features_
+  - Standard reposant sur la norme ISO 19125 (stockage et accès)
+  - Remplace le format d'ESRI&lt;sup&gt;.small[TM]&lt;/sup&gt;, vous savez le shapefile !?
+
+- 3 packages en 1
+
+- Syntaxe (_snake_case_) des fonctions simples (`{st_*()}`)
+
+- Objets stockés dans des `data.frame` ou des `tibble`
+  - avec la géométrie stockée dans des `list-column`
+
+- Très grandes performances comparées à `{sp}`
+
+- Pipe-friendly et intégration au tidyverse (dont `{ggplot2}`)
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Edzer Pebesma le recommende 😄
+
+
+
+---
+
+## Structure d'un objet `sf`
+
+&lt;br /&gt;
+
+.center[![:scale 100%](assets/img/str_sf.png)]
+
+
+
+---
+
+## Les _Simple feature geometry_ `sfg`
+
+
+.center[![:scale 60%](assets/img/sf_obj.png)]
+
+
+
+---
+
+## Installation
 
 
 ```r
-par(bg = "transparent")
-hist(rnorm(500), col = "#49847b", border = "#294557")
+## install.packages("sf")
+
+library("sf")
 ```
 
-&lt;img src="assets/chunks/chunkname-1.png" width="50%" style="display: block; margin: auto;" /&gt;
+```
+## Linking to GEOS 3.7.2, GDAL 2.4.2, PROJ 5.2.0
+```
+
+
+---
+
+## Création de points spatiaux (1)
+
+Soit les villes avec les coordonnées suivantes :
+
+
+
+
+
+```r
+paris     &lt;- c(2.3514992, 48.8566101)
+marseille &lt;- c(5.3699525, 43.2961743)
+lyon      &lt;- c(4.8320114, 45.7578137)
+```
+
+--
+
+Convertissons ces vecteurs en points spatiaux :
+
+
+```r
+paris     &lt;- sf::st_point(paris)
+marseille &lt;- sf::st_point(marseille)
+lyon      &lt;- sf::st_point(lyon)
+```
+
+--
+
+Et regroupons-les en un seul _spatial column_ en définissant le CRS :
+
+
+```r
+villes &lt;- sf::st_sfc(
+  list(paris, marseille, lyon),
+  crs = 4326
+)
+class(villes)
+```
+
+```
+## [1] "sfc_POINT" "sfc"
+```
+
+---
+
+## Création de points spatiaux (1)
+
+Ajoutons une table d'attributs et convertissons l'objet en _simple  feature_ :
+
+
+```r
+datas &lt;- data.frame(
+  ville      = c("Paris", "Marseille", "Lyon"),
+  population = c(2190327, 862211, 515695)
+)
+
+villes &lt;- sf::st_sf(datas, geom = villes)
+class(villes)
+```
+
+```
+## [1] "sf"         "data.frame"
+```
+
+--
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Quid des lignes et polygones ?
+
+<i class="fas  fa-hand-point-right " style="color:#e1ddc0;"></i> &amp;nbsp;Voir les fonctions `st_linestring()` et `st_polygon()`
+
+
+
+---
+
+## Création de points spatiaux (2)
+
+Bien souvent, vous importerez directement un `data.frame` que vous souhaiterez convertir en _simple feature_
+
+
+```r
+datas &lt;- data.frame(
+  ville      = c("Paris", "Marseille", "Lyon"),
+  lat        = c(48.8566101, 43.2961743, 45.7578137),
+  lon        = c( 2.3514992,  5.3699525,  4.8320114),
+  population = c(2190327, 862211, 515695)
+)
+
+(villes &lt;- sf::st_as_sf(datas, coords = c("lon", "lat"), crs = 4326))
+```
+
+```
+## Simple feature collection with 3 features and 2 fields
+## geometry type:  POINT
+## dimension:      XY
+## bbox:           xmin: 2.351499 ymin: 43.29617 xmax: 5.369952 ymax: 48.85661
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+##       ville population                  geometry
+## 1     Paris    2190327 POINT (2.351499 48.85661)
+## 2 Marseille     862211 POINT (5.369953 43.29617)
+## 3      Lyon     515695 POINT (4.832011 45.75781)
+```
+
+
+---
+
+## Une première carte
+
+Les packages `{rnaturalearth}` et `{rnaturalearthdata}` proposent différentes
+couches vectorielles, dont les limites administratives des pays du monde.
+
+Installons ces packages :
+
+
+```r
+## install.packages("rnaturalearth")
+## install.packages("rnaturalearthdata")
+
+library("rnaturalearth")
+library("rnaturalearthdata")
+```
+
+--
+
+&lt;br /&gt;
+
+Et chargeons le fond de carte du monde entier :
+
+
+```r
+world &lt;- ne_countries(scale = "medium", returnclass = "sf")
+class(world)
+```
+
+```
+## [1] "sf"         "data.frame"
+```
+
+
+
+---
+
+## Une première carte
+
+&lt;img src="assets/chunks/map1-1.png" width="100%" /&gt;
+
+
+```r
+ggplot(data = world) +
+  geom_sf() +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("Carte du monde")
+```
+
+
+
+---
+
+## Une première carte
+
+&lt;img src="assets/chunks/map2-1.png" width="100%" /&gt;
+
+
+```r
+ggplot(data = world) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("Carte du monde")
+```
+
+
+
+---
+
+## Une première carte
+
+&lt;img src="assets/chunks/map3-1.png" width="100%" /&gt;
+
+
+```r
+ggplot(data = world) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("Carte du monde") +
+  geom_sf(data = villes, colour = "black")
+```
+
+
+
+---
+
+## Importation d'une couche vectorielle
+
+Dans la plupart des cas, vous devrez importer une couche spatiale déjà prête.
+
+--
+
+Téléchargeons les départements de la région Occitanie
+
+
+```r
+## URL et nom du fichier
+url      &lt;- "https://raw.githubusercontent.com/FRBCesab/datatoolbox/master/data/"
+filename &lt;- "occitanie.zip"
+
+## Téléchargement du fichier
+download.file(
+  url      = paste0(url, filename),
+  destfile = filename
+)
+
+## Extraction du ZIP
+unzip(zipfile = filename)
+```
+
+---
+
+## Importation d'une couche vectorielle
+
+Que contient la couche ?
+
+
+```r
+sf::st_layers("occitanie.shp")
+```
+
+
+```
+## Driver: ESRI Shapefile 
+## Available layers:
+##   layer_name geometry_type features fields
+## 1  occitanie       Polygon       13     13
+```
+
+--
+
+&lt;br /&gt;
+
+Importons-la :
+
+
+```r
+occitanie &lt;- sf::st_read(dsn = ".", layer = "occitanie")
+```
+
+
+```
+## Reading layer 'occitanie' from data source '/Users/nicolascasajus/Desktop/...'
+## Simple feature collection with 13 features and 13 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: -0.326875 ymin: 42.33344 xmax: 4.845344 ymax: 45.04467
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+```
+
+---
+
+## Importation d'une couche vectorielle
+
+
+```r
+occitanie %&gt;% head(3)
+```
+
+```
+## Simple feature collection with 3 features and 13 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: 0.8266816 ymin: 42.57232 xmax: 3.450981 ymax: 44.94122
+## epsg (SRID):    4326
+## proj4string:    +proj=longlat +datum=WGS84 +no_defs
+##   GID_0 NAME_0    GID_1    NAME_1 NL_NAME_1      GID_2  NAME_2 VARNAME_2
+## 1   FRA France FRA.11_1 Occitanie      &lt;NA&gt; FRA.11.1_1  Ariège      &lt;NA&gt;
+## 2   FRA France FRA.11_1 Occitanie      &lt;NA&gt; FRA.11.2_1    Aude      &lt;NA&gt;
+## 3   FRA France FRA.11_1 Occitanie      &lt;NA&gt; FRA.11.3_1 Aveyron      &lt;NA&gt;
+##   NL_NAME_2      TYPE_2  ENGTYPE_2 CC_2 HASC_2                       geometry
+## 1      &lt;NA&gt; Département Department   09  FR.AG MULTIPOLYGON (((1.494104 42...
+## 2      &lt;NA&gt; Département Department   11  FR.AD MULTIPOLYGON (((3.027638 42...
+## 3      &lt;NA&gt; Département Department   12  FR.AV MULTIPOLYGON (((3.236248 43...
+```
+
+---
+
+&lt;img src="assets/chunks/map4-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+ggplot(data = occitanie) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE")
+```
+
+
+---
+
+&lt;img src="assets/chunks/map5-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+ggplot(data = occitanie) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE") +
+  geom_sf_label(aes(label = NAME_2))
+```
+
+
+---
+
+&lt;img src="assets/chunks/map6-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+ggplot(data = occitanie) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE") +
+  geom_sf_label(aes(label = paste0(NAME_2, " (", CC_2, ")")))
+```
+
+
+---
+
+## Exportation d'une couche vectorielle
+
+
+```r
+sf::st_drivers()
+```
+
+```
+          name                       long_name write  copy is_raster is_vector   vsi
+        PCIDSK            PCIDSK Database File  TRUE FALSE      TRUE      TRUE  TRUE
+        netCDF      Network Common Data Format  TRUE  TRUE      TRUE      TRUE FALSE
+           PDF                  Geospatial PDF  TRUE  TRUE      TRUE      TRUE FALSE
+       MBTiles                         MBTiles  TRUE  TRUE      TRUE      TRUE  TRUE
+          EEDA           Earth Engine Data API FALSE FALSE     FALSE      TRUE FALSE
+ESRI Shapefile                  ESRI Shapefile  TRUE FALSE     FALSE      TRUE  TRUE
+  MapInfo File                    MapInfo File  TRUE FALSE     FALSE      TRUE  TRUE
+       UK .NTF                         UK .NTF FALSE FALSE     FALSE      TRUE  TRUE
+      OGR_SDTS                            SDTS FALSE FALSE     FALSE      TRUE  TRUE
+           S57                  IHO S-57 (ENC)  TRUE FALSE     FALSE      TRUE  TRUE
+           DGN                Microstation DGN  TRUE FALSE     FALSE      TRUE  TRUE
+       OGR_VRT        VRT - Virtual Datasource FALSE FALSE     FALSE      TRUE  TRUE
+           REC                    EPIInfo .REC FALSE FALSE     FALSE      TRUE FALSE
+        Memory                          Memory  TRUE FALSE     FALSE      TRUE FALSE
+           BNA                       Atlas BNA  TRUE FALSE     FALSE      TRUE  TRUE
+           CSV    Comma Separated Value (.csv)  TRUE FALSE     FALSE      TRUE  TRUE
+           GML Geography Markup Language (GML)  TRUE FALSE     FALSE      TRUE  TRUE
+           GPX                             GPX  TRUE FALSE     FALSE      TRUE  TRUE
+           KML   Keyhole Markup Language (KML)  TRUE FALSE     FALSE      TRUE  TRUE
+       GeoJSON                         GeoJSON  TRUE FALSE     FALSE      TRUE  TRUE
+           ...                             ...   ...   ...       ...       ...   ...
+```
+
+
+---
+
+## Exportation d'une couche vectorielle
+
+Au format ESRI&lt;sup&gt;.small[TM]&lt;/sup&gt; :
+
+
+```r
+sf::st_write(
+  obj    = occitanie,
+  dsn    = ".",
+  layer  = "occitanie_copie",
+  driver = "ESRI Shapefile"
+)
+```
+
+
+
+
+---
+
+## Le système de coordonnées
+
+Le CRS de notre couche vectorielle (monde) est-il défini ?
+
+
+```r
+sf::st_crs(world)
+```
+
+```
+## Coordinate Reference System:
+##   EPSG: 4326 
+##   proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+```
+
+--
+
+&lt;br /&gt;
+
+Supprimons-le :
+
+
+
+```r
+world &lt;- world %&gt;%
+  sf::st_set_crs(NA)
+
+sf::st_crs(world)
+```
+
+```
+## Coordinate Reference System: NA
+```
+
+
+
+
+---
+
+## Le système de coordonnées
+
+Et redéfinissons-le :
+
+
+```r
+world &lt;- world %&gt;%
+  sf::st_set_crs(4326)
+
+sf::st_crs(world)
+```
+
+```
+## Coordinate Reference System:
+##   EPSG: 4326 
+##   proj4string: "+proj=longlat +datum=WGS84 +no_defs"
+```
+
+--
+
+&lt;br /&gt;
+
+Projetons notre couche dans un autre système (par .ex, la projection Lambert
+azimuthal equal area centrée sur la France)
+
+
+
+```r
+prj &lt;- paste(
+  "+proj=laea +lat_0=48 +lon_0=5",
+  "+x_0=4321000 +y_0=3210000",
+  "+ellps=GRS80 +units=m +no_defs"
+)
+world_ortho &lt;- world %&gt;%
+  sf::st_transform(crs = prj)
+```
+
+---
+
+&lt;img src="assets/chunks/map7-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+ggplot(data = world_ortho) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0")
+```
+
+---
+
+&lt;img src="assets/chunks/map8-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+ggplot(data = world) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  coord_sf(crs = prj)
+```
+
+
+
+---
+
+## Quelques opérations spatiales
+
+
+---
+
+### st_*
+
+- st_cast()
+- st_crop()
+- st_buffer()
+- st_intersection()
+- st_union()
+- st_centroid()
+
+### ggplot2
+
+- scale_fill_viridis()
+- mapView()
+
+
+
+---
+class: inverse, center, middle
+
+## Objets matriciels
+
+---
+
+
+## Title
+
+
+
+---
+class: inverse, center, middle
+
+## Cartographie
+
+---
+
+
+## Title
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

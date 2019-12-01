@@ -1,8 +1,8 @@
 ---
-title: Les données en<br/>biodiversité
-subtitle: Acquisition avec R
-author: <br /><br />Nicolas Casajus
-date: Mardi 3 décembre
+title: Acquisition de données
+subtitle: API & web scraping
+author: <br /><br />Nicolas CASAJUS<br />.inst[{{ Data scientist FRB-Cesab }}]
+date: .inst[Mardi 3 décembre 2019]
 output:
   xaringan::moon_reader:
     css: ["../../assets/css/xaringan-themer.css", "../../assets/css/custom.css"]
@@ -14,36 +14,41 @@ output:
       ratio: "4:3"
       titleSlideClass: ["right", "middle"]
       highlightStyle: 'zenburn'
-      highlightLines: true
+      highlightLines: false
       countIncrementalSlides: false
       slideNumberFormat: "%current% / %total%"
+      beforeInit: "../../assets/libs/macros.js"
 ---
 
-## Hello World
 
-Install the `{xaringan}` package from [GitHub](https://github.com/yihui/xaringan)
+class: inverse, center, middle
+
+# Les API
 
 
-```{r eval=FALSE}
-devtools::install_github("yihui/xaringan")
-*x <- 1
-print(x)
+
+---
+
+```{r child='part02.rmd'}
 ```
 
 
-You are **recommended** to use the [RStudio IDE](https://www.rstudio.com/products/rstudio/), but you do not have to.
-
-- Create a new R Markdown document from the menu: `File -> New File -> R Markdown -> From Template -> Ninja Presentation`
-
-- Click the `Knit` button to compile it
-
-- or use the [RStudio Addin](https://rstudio.github.io/rstudioaddins/) "Infinite Moon Reader" to live preview the slides (every time you update and save the Rmd document, the slides will be automatically reloaded in RStudio Viewer
 
 ---
 class: inverse, center, middle
 
-# Hello World
+# Web scraping
 
-⚔
 
-## All the World
+
+---
+
+```{r child='part03.rmd'}
+```
+
+
+
+---
+class: inverse, center, middle
+
+# Pratique
