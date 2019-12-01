@@ -46,7 +46,7 @@ output:
 .pull-right[
 [**[Cours]**](sessions/session01/index.html)
 
-**[Cours]**
+[**[Cours]**](sessions/session02/index.html)
 
 **[Cours]**
 
