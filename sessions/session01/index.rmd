@@ -12,7 +12,7 @@ output:
 
 # C'est quoi ?
 
-## Un exemple
+## Un exemple 
 
 ![](assets/Galileo_Galilei_by_Peter_Paul_Rubens.jpg){width=40%}
 
@@ -48,11 +48,288 @@ Les notes de Galilée intègrent:
 > - Texte (description des méthodes, analyses et conclusions)
 
 </div>
-
-##
-
-<span class="very_big green">Open Science ?</span>
+</div>
 
 ## Recherche reproductible
 <br/><br/><br/>
 données + méta-données + matériel & méthodes
+
+# Pourquoi ? {data-background-video="assets/Bubbles_Animation.mp4" data-background-video-loop="true" data-background-size="cover"}
+
+##
+
+![](assets/poker_face.png){width=60%}
+
+
+## Pourquoi on en parle ?
+
+## Pourquoi on en parle ?
+
+![](assets/natureCapture.png){width=100%}
+
+
+## Pourquoi on en parle ?
+
+![](assets/ferric_head.png){width=100%}
+
+## Pourquoi on en parle ?
+
+![](assets/ferric_fig.png){width=60%}
+
+<span class="reference">Ferric C. Fang, and Arturo Casadevall Infect. Immun. 2011;79:3855-3859</span>
+
+## Pourquoi on en parle ?
+
+<div class="container">
+<div class="col" data-markdown>
+
+<br/>
+
+![](assets/ferric_fig.png){width=100%}
+</div>
+
+<div class="col" data-markdown>
+
+Causes de rétractation
+<br/><br/>
+
+> - 40% honest error or nonreplicable findings
+<br/><br/>
+> - 28% research misconduct
+<br/><br/>
+> - 17% redundant publication
+<br/><br/>
+> - 15% other or unstated reasons
+</div>
+</div>
+
+## Pourquoi on en parle ?
+
+![](assets/leMonde_science.png){width=100%}
+
+# Comment ?
+
+## Recherche reproductible
+<br/>
+
+![](assets/goodman_2014_fig1.png){width=40%}
+
+depuis Galilée le concept a un peut évolué ...
+
+## Recherche reproductible
+
+<br/>
+
+Un article publié n'est que le sommet de l'iceberg que représente le processus de recherche.
+
+<br/>
+
+<blockquote>
+"An article about computational results is advertising, not scholarship. The actual scholarship is the full software environment, code and data, that produced the result."
+</blockquote>
+
+<span class="reference">Claerbout and Karrenbach 1992.  http://sepwww.stanford.edu/doku.php?id=sep:research:reproducible:seg92</span>
+
+"[...] reproducible computational research is to expose more of the research workflow to our audience."
+
+<span class="reference">https://ropensci.github.io/reproducibility-guide/sections/introduction/</span>
+
+## Recherche reproductible
+
+<br/>
+
+> - <span class="green">Data Management:</span> saving both raw and intermediate forms; documenting all
+steps; creating tidy data amenable to analysis.
+
+> - <span class="green">Software:</span> writing, organizing, and sharing scripts and programs used in an
+analysis.
+
+> - <span class="green">Tracking Changes:</span> recording how various components of your project change
+over time.
+
+> - <span class="green">Collaboration:</span> making it easy for existing and new collaborators to understand
+and contribute to a project.
+
+> - <span class="green">Project Organization:</span> organizing the digital artifacts of a project to ease
+discovery and understanding.
+
+> - <span class="green">Manuscripts:</span> writing manuscripts in a way that leaves an audit trail and
+minimizes manual merging of conflict.
+
+<span class="reference">Wilson et al. 2016. Plos Comp Biol. https://arxiv.org/pdf/1609.00037.pdf</span>
+
+## <span class="green">Data Management</span>
+
+<br/>
+
+Saving both raw and intermediate forms; documenting all
+steps; creating tidy data amenable to analysis.
+
+## <span class="green">Data Management</span>
+
+<br/>
+
+> - Sauvegarder les données initiales en l'état.
+
+<br/>
+
+> - Les mettre en lecture seule si possible.
+
+<br/>
+
+> - Scripter l'acquisition des données au maximum (API), surtout si elles sont volumineuses.
+
+<br/>
+
+> - Toute transformation sera scriptée, cela devient un résultat.
+
+<br/>
+
+> - Générer les données que vous voudriez recevoir (tidy)
+
+
+## <span class="green">Software</span>
+
+<br/>
+
+Writing, organizing, and sharing scripts and programs used in an
+analysis.
+
+## <span class="green">Software</span>
+
+Le code, les scripts
+
+> - Respecter au maximum les conventions de code de votre communauté, https://style.tidyverse.org/
+
+<br/>
+
+> - Peut importe la convention adoptée, rester constant !
+
+<br/>
+
+> - Chemins relatifs ! Toujours !
+
+<br/>
+
+> - Pas d'espaces, d'accents dans les noms !
+
+<br/>
+
+> - Commenter/documenter (les fonctions, les scripts)
+
+## <span class="green">Software</span>
+
+L'environnement logiciel.
+
+> - Les packages (version) : packrat
+
+<br/>
+
+> - cela ne suffit plus ...
+
+<br/>
+
+> - quid des bibliothèques système, de la version de R, de la version de l'OS ?
+
+<br/>
+
+> - Docker, permet de créer une image de l'environnement de travail (OS, bibliothèques, R, packages)
+
+## <span class="green">Tracking Changes</span>
+
+<br/>
+
+Recording how various components of your project change
+over time.
+
+## <span class="green">Tracking Changes</span>
+
+Utiliser un logiciel de gestion de versions (Git).
+
+![](https://imgs.xkcd.com/comics/git.png)
+
+## <span class="green">Collaboration</span>
+
+Making it easy for existing and new collaborators to understand
+and contribute to a project.
+
+## <span class="green">Collaboration</span>
+
+<br/>
+
+> - conventions de code
+
+<br/>
+
+> - documentaiton de l'archive de recherche (Readme, License, code de contribution)
+
+<br/>
+
+> - Plateforme de collaboration en ligne (intègre Git !) : github, gitlab
+
+## <span class="green">Project Organization</span>
+
+<br/>
+
+Organizing the digital artifacts of a project to ease
+discovery and understanding.
+
+## <span class="green">Project Organization</span>
+
+<br/>
+
+![](assets/nat_com.png)
+
+## <span class="green">Project Organization</span>
+
+<br/>
+
+> - Research compendium : organisation du répertoire de travail
+
+<br/>
+
+> - Pipeline toolkit (Drake) : gère les dépendances entre données, scripts et résultats
+
+## <span class="green">Manuscripts</span>
+
+<br/>
+
+Writing manuscripts in a way that leaves an audit trail and minimizes manual merging of conflict.
+
+## <span class="green">Manuscripts</span>
+
+<br/>
+
+Utiliser la programmation lettrée (literate programming)
+
+<br/>
+
+<blockquote> au lieu de considérer que notre tâche principale est de dire à un ordinateur ce qu'il doit faire, appliquons-nous plutôt à expliquer à des êtres humains ce que nous voulons que l'ordinateur fasse.
+</blockquote>
+
+<span class="reference">Donald Knuth, années 70</span>
+
+## <span class="green">Manuscripts</span>
+
+Rmarkdown (https://rmarkdown.rstudio.com/)
+
+![](assets/rmarkdown.png)
+
+## <span class="green">Manuscripts</span>
+
+<br/>
+<br/>
+
+Comment ça marche Rmarkdown ?
+
+![](assets/rmarkdownflow.png)
+
+En markdown le texte est formaté en utilisant des balises très simples comme les _ ou les *
+
+## <span class="green">Manuscripts</span>
+
+Formats d'export de Rmarkdown (pandoc)
+
+![](assets/rmarkdown_formats.png){width=50%}
+
+# On y va ?
