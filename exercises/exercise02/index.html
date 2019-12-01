@@ -42,6 +42,92 @@ class: right, middle, title-slide
 
 
 
+
+
+
+---
+
+## Instructions (1)
+
+
+```r
+sp_list
+```
+
+```
+## # A tibble: 4,936 x 8
+##    species_id class  order   family    genus   species  common      sci_name    
+##         &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;     &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt;       
+##  1      15168 Mamma… Artiod… Antiloca… Antilo… america… Pronghorn   Antilocapra…
+##  2      15290 Mamma… Artiod… Bovidae   Addax   nasomac… Addax       Addax nasom…
+##  3      15169 Mamma… Artiod… Bovidae   Aepyce… melampus Impala      Aepyceros m…
+##  4      15170 Mamma… Artiod… Bovidae   Alcela… buselap… Hartebeest  Alcelaphus …
+##  5      15176 Mamma… Artiod… Bovidae   Alcela… lichten… Lichtenste… Alcelaphus …
+##  6      15177 Mamma… Artiod… Bovidae   Ammodo… clarkei  Dibatag     Ammodorcas …
+##  7      15239 Mamma… Artiod… Bovidae   Ammotr… lervia   Aoudad      Ammotragus …
+##  8      15178 Mamma… Artiod… Bovidae   Antido… marsupi… Springbok   Antidorcas …
+##  9      15179 Mamma… Artiod… Bovidae   Antilo… cervica… Blackbuck   Antilope ce…
+## 10      15173 Mamma… Artiod… Bovidae   Beatra… hunteri  Hirola      Beatragus h…
+## # … with 4,926 more rows
+```
+
+
+
+---
+
+## Instructions (1)
+
+
+```r
+eco_list
+```
+
+```
+## # A tibble: 798 x 4
+##    ecoregion_id ecoregion                   realm    biome                      
+##    &lt;chr&gt;        &lt;chr&gt;                       &lt;chr&gt;    &lt;chr&gt;                      
+##  1 AA0106       Halmahera rain forests      Austral… Tropical and Subtropical M…
+##  2 AA0107       Huon Peninsula montane rai… Austral… Tropical and Subtropical M…
+##  3 AA0105       Central Range montane rain… Austral… Tropical and Subtropical M…
+##  4 AA0102       Banda Sea Islands moist de… Austral… Tropical and Subtropical M…
+##  5 AA0103       Biak-Numfoor rain forests   Austral… Tropical and Subtropical M…
+##  6 AA0104       Buru rain forests           Austral… Tropical and Subtropical M…
+##  7 AA0118       Seram rain forests          Austral… Tropical and Subtropical M…
+##  8 AA0119       Solomon Islands rain fores… Austral… Tropical and Subtropical M…
+##  9 AA0120       Southeastern Papuan rain f… Austral… Tropical and Subtropical M…
+## 10 AA0121       Southern New Guinea freshw… Austral… Tropical and Subtropical M…
+## # … with 788 more rows
+```
+
+
+
+---
+
+## Instructions (1)
+
+
+```r
+sp_eco
+```
+
+```
+## # A tibble: 350,045 x 2
+##    ecoregion_id species_id
+##    &lt;chr&gt;             &lt;dbl&gt;
+##  1 AT0101            17507
+##  2 AT0101            17688
+##  3 AT0101            17730
+##  4 AT0101            17736
+##  5 AT0101            17741
+##  6 AT0101            17789
+##  7 AT0101            17793
+##  8 AT0101            17814
+##  9 AT0101            17831
+## 10 AT0101            17838
+## # … with 350,035 more rows
+```
+
+
 ---
 
 ## Instructions (2)
@@ -109,7 +195,6 @@ sp_list  &lt;- readr::read_csv(file.path(folder, "wildfinder-mammals_list.csv"))
 eco_list &lt;- readr::read_csv(file.path(folder, "wildfinder-ecoregions_list.csv"))
 sp_eco   &lt;- readr::read_csv(file.path(folder, "wildfinder-ecoregions_species.csv"))
 ```
-
 
 
 

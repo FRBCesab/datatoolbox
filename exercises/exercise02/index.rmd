@@ -44,6 +44,43 @@ knitr::opts_chunk$set(fig.path = 'assets/chunks/', cache.path = "assets/cache/")
 `r icon::fa("lightbulb", color = "#3f3f3f")` &nbsp;Utilisez la fonction `readr::read_csv()`
 
 
+```{r echo=FALSE, eval=TRUE, message=FALSE}
+library(tidyverse)
+sp_list  <- readr::read_csv(file.path("..", "..", "data", "wildfinder-mammals_list.csv"))
+eco_list <- readr::read_csv(file.path("..", "..", "data", "wildfinder-ecoregions_list.csv"))
+sp_eco   <- readr::read_csv(file.path("..", "..", "data", "wildfinder-ecoregions_species.csv"))
+```
+
+
+
+---
+
+## Instructions (1)
+
+```{r echo=TRUE, eval=TRUE}
+sp_list
+```
+
+
+
+---
+
+## Instructions (1)
+
+```{r echo=TRUE, eval=TRUE}
+eco_list
+```
+
+
+
+---
+
+## Instructions (1)
+
+```{r echo=TRUE, eval=TRUE}
+sp_eco
+```
+
 
 ---
 
@@ -112,12 +149,6 @@ eco_list <- readr::read_csv(file.path(folder, "wildfinder-ecoregions_list.csv"))
 sp_eco   <- readr::read_csv(file.path(folder, "wildfinder-ecoregions_species.csv"))
 ```
 
-```{r echo=FALSE, eval=TRUE, message=FALSE}
-library(tidyverse)
-sp_list  <- readr::read_csv(file.path("..", "..", "data", "wildfinder-mammals_list.csv"))
-eco_list <- readr::read_csv(file.path("..", "..", "data", "wildfinder-ecoregions_list.csv"))
-sp_eco   <- readr::read_csv(file.path("..", "..", "data", "wildfinder-ecoregions_species.csv"))
-```
 
 
 
