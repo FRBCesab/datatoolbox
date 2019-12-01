@@ -68,9 +68,7 @@ output:
 
 **[Cours]**
 
-**[Cours]**
-&nbsp;
-**[Exo 1]**
+[**[Cours]**](sessions/session06/drake/drake_intro/intro_drake.html)
 
 [**[Cours]**](sessions/session07/index.html)
 
