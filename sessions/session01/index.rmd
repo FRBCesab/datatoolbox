@@ -1,7 +1,7 @@
 ---
 title: "Open Science <br/> (recherche reproductible) <br/> <br/>"
 author: "François Guilhaumon <br/> <br/> IRD, MARBEC<br/>"
-date: "02/12/2019, formation data toolbox au CESAB<br/><br/><br/><span class='caption'>francois.guilhaumon@ird.fr</span>"
+date: "02/12/2019, intro data toolbox au CESAB<br/><br/><br/><span class='caption'>francois.guilhaumon@ird.fr</span>"
 output:
   revealjs::revealjs_presentation:
     theme: night
