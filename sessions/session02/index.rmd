@@ -188,7 +188,7 @@ git log
 **Demo**
 - Display the history
 
-
+---
 ## Print an old version of a file
 
 ```{bash, eval = FALSE}
@@ -216,19 +216,203 @@ Here are the basic commands to archive your work in a git repo:
 
 ---
 class: inverse, center, middle
+## The 3 areas of git
+---
+## Revisiting git
+- ** Working directory ** : your files, this is the place where you edit contents
+
+<br>
+
+- ** Commit graph **: snapshot storage
+
+<br>
+
+- ** Index **: a place in-between to prepare commits. It contains a list of modifications selected for the next commit
+---
+## Moving between the three areas
+
+.center[![:scale 80%](assets/img/git3areas.png)]
+.img-source-tiny[https://git-scm.com/blog/2011/07/11/reset.html]
+---
+## Moving between the three areas
+- `git add` put updates of the working directory in the index
+- `git commit` builds a commit from the contents of the index (option -a selects all modifications and put them in the index before committing)
+- `git diff` shows differences between working directory and the index. With --cached option, shows differences between index and last commit
+- `git checkout` update the working directory with the content of the repo
+- `git reset HEAD` remove the last changes from the index
+---
+class: inverse, center, middle
 ## Using a distant server
+---
+## Why using a distant server
+- A backup of your repository
+- Work with others
+- Increase your visibility
+- Increase interactions with users
+- Easy distribution of devel versions
+
+<br>
+There are several source hosting services run by academic or private institutions.
+---
+## Cloning a repo
+
+```{bash, eval = FALSE}
+git clone URL
+```
+<br>
+
+This command create an (independent) copy of an existing repo, with all
+its history.
+
+**Demo**
+- Try to clone the repository of the course
+- Display the history of the repository
+
+---
+
+## Interact with the distant repository
+
+```{bash, eval = FALSE}
+git pull
+```
+
+This command will fetch commits from the cloned repo and update the working directory to latest commit.
+
+<br>
+<br>
+
+```{bash, eval = FALSE}
+git push
+```
+
+
+This command will send commits to the cloned repo. It requires write access.
+
+**Demo**
+- Try to obtain the last version of the course (after I update it)
+- Modify the course and send your commit
+---
+## Summary
+
+Here are the basic commands to work with a distant repo:
+
+| I want to | I use |
+|---------------------------------|
+|Clone a distant repo| git clone https://github.com/...|
+|Update local repo| git pull |
+|Send commits to distant repo| git push |
 ---
 class: inverse, center, middle
 ## Starting a new project on GitHub
 ---
+## Identification
+
+It is possible to use GitHub with https protocol but you will be asked for your GitHub username and password for each action.
+
+ssh provides another way to access to a Git repository. If you generate ssh public and private keys, you can use git without username/password.
+
+
+```{bash, eval = FALSE}
+cd ~/
+ssh -keygen - t rsa
+```
+**Demo**
+- Copy the public key on GitHub (Settings)
+- Create a new project
+- Clone the repo
+- Do a few commits
+- Push your commits
+- Modify and have a look to README.md
+- Create an issue
+---
 class: inverse, center, middle
 ## Dealing with branches
 ---
+## Commit graph and branches
+
+Sometimes, you want to do experimental developments that diverge from the main line of development. Branches allow to "play" without messing with that main line.
+
+- The main feature of branches is to allow switching between different versions very easily
+- A branch should correspond to a topic, e.g. a bug fix, new feature, etc.
+- especially useful when unsure when/if some modifications will be included (that is, very often)
+- it permits several concurrent development processes
+---
+## Understanding branches
+
+- commits form a graph
+- each commit is linked to its parent(s)
+- a branch is a pointer to a commit
+- after repo init, there is a single branch called
+master
+- at all time, one branch is selected as the
+”current branch”
+
+<br>
+
+** Demo **
+https://learngitbranching.js.org/?NODEMO
+---
+## Branches in practice
+- After a commit, a new commit is created in the graph and the current branch is moved to the new commit
+- A new branch can be created by
+```{bash, eval = FALSE}
+git branch BRANCH_NAME
+```
+The new branch is located at the same location than the current branch. Commits act on the current branch
+- It is possible to switch to a branch by 
+```{bash, eval = FALSE}
+git checkout BRANCH_NAME
+```
+Current branch (and the working directory) is updated to reflect the state of the corresponding commit
+---
+## Branches in practice
+
+- A branch can be deleted by 
+```{bash, eval = FALSE}
+git branch -d BRANCH_NAME
+```
+Only the pointer is deleted, not the pointed commits but commit may be hard to find after branch deletion.
+
+- Two branches can be merged by 
+```{bash, eval = FALSE}
+git merge BRANCH_NAME
+```
+git will try to merge the snapshot pointed by current branch and the one pointed by the branch given in argument.
+
+It creates a new commit and moves the current branch to the newly created commit.
+
+The newly created commit has two parents!
+---
 class: inverse, center, middle
-##Work with others
+## Work with others
+---
+## A distributed system
+
+.center[![:scale 80%](assets/img/distributed-vc.png)]
+.img-source-tiny[https://miro.medium.com/max/1698/1*GgaGcwh5L246YcU5NVDA5A.png]
+---
+## Dealing with conflicts
+What happens if someone push before me? A conflict. 
+
+Two commits are in conflict when they contain different updates to the same area of a file. They should be resolved manually after merging
+
+To avoid conflicts, update your branch before you start working on something and make frequent and small commits
+---
+## Demo
+- Invite a colleague in your project
+- Clone the repo
+- Create commit, branches, etc.
+- Push
+- If they are conflicts, try to solve them
 ---
 class: inverse, center, middle
 ## Git and RStudio
+---
+## GUIs for git
+There are several GUIs for git. RStudio provides a convenient way to deal with R projects
+
+** Demo **
+- Create a project and configure RStudio
 ---
 ## Acknowledgments
 This presentation is strongly inspired from the slides of Philippe Veber (LBBE)
