@@ -1,0 +1,308 @@
+## Les packages `r icon::fa("r-project")` - Vecteurs
+
+Package           | Fonctionnalités
+------------------|------------------
+`{sp}`            | Classes et méthodes pour couches vectorielles
+`{rgdal}`         | Lecture et écriture de couches spatiales
+`{rgeos}`         | Opérations spatiales sur couches vectorielles
+`{maptools}`      | Opérations spatiales sur couches vectorielles
+`{sf}`            | Le petit dernier - Une vraie bête !
+
+<br />
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;`{sf}` est devenu la "norme" : `{sf} = {sp} + {rgdal} + {rgeos}`
+
+
+
+---
+
+## Pourquoi `{sf}` ?
+
+- Implémentation sous `r icon::fa("r-project")` des _Simple Features_
+  - Standard reposant sur la norme ISO 19125 (stockage et accès)
+  - Remplace le format d'ESRI<sup>.small[TM]</sup>, vous savez le shapefile !?
+
+- 3 packages en 1
+
+- Syntaxe (_snake_case_) des fonctions simples (`{st_*()}`)
+
+- Objets stockés dans des `data.frame` ou des `tibble`
+  - avec la géométrie stockée dans des `list-column`
+
+- Très grandes performances comparées à `{sp}`
+
+- Pipe-friendly et intégration au tidyverse (dont `{ggplot2}`)
+
+<br />
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Edzer Pebesma le recommende `r emo::ji("smile")`
+
+
+
+---
+
+## Structure d'un objet `sf`
+
+<br />
+
+.center[![:scale 100%](assets/img/str_sf.png)]
+
+
+
+---
+
+## Les _Simple feature geometry_ `sfg`
+
+
+.center[![:scale 60%](assets/img/sf_obj.png)]
+
+
+
+---
+
+## Installation
+
+```{r echo=TRUE, eval=-1}
+install.packages("sf")
+
+library("sf")
+```
+
+
+---
+
+## Création de points spatiaux (1)
+
+Soit les villes avec les coordonnées suivantes :
+
+```{r echo=FALSE, eval=TRUE, message=FALSE}
+library("tidyverse")
+theme_set(theme_bw())
+theme_update(
+  panel.background = element_rect(fill = "transparent", colour = NA),
+  plot.background  = element_rect(fill = "transparent", colour = NA)
+)
+library("sf")
+```
+
+
+```{r echo=TRUE, eval=TRUE}
+paris     <- c(2.3514992, 48.8566101)
+marseille <- c(5.3699525, 43.2961743)
+lyon      <- c(4.8320114, 45.7578137)
+```
+
+--
+
+Convertissons ces vecteurs en points spatiaux :
+
+```{r echo=TRUE, eval=TRUE}
+paris     <- sf::st_point(paris)
+marseille <- sf::st_point(marseille)
+lyon      <- sf::st_point(lyon)
+```
+
+--
+
+Et regroupons-les en un seul _spatial column_ en définissant le CRS :
+
+```{r echo=TRUE, eval=TRUE}
+villes <- sf::st_sfc(
+  list(paris, marseille, lyon),
+  crs = 4326
+)
+class(villes)
+```
+
+---
+
+## Création de points spatiaux (1)
+
+Ajoutons une table d'attributs et convertissons l'objet en _simple  feature_ :
+
+```{r echo=TRUE, eval=TRUE}
+datas <- data.frame(
+  ville      = c("Paris", "Marseille", "Lyon"),
+  population = c(2190327, 862211, 515695)
+)
+
+villes <- sf::st_sf(datas, geom = villes)
+class(villes)
+```
+
+--
+
+<br />
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Quid des lignes et polygones ?
+
+`r icon::fa("hand-point-right", color = "#e1ddc0")` &nbsp;Voir les fonctions `st_linestring()` et `st_polygon()`
+
+
+
+---
+
+## Création de points spatiaux (2)
+
+Bien souvent, vous importerez directement un `data.frame` que vous souhaiterez convertir en _simple feature_
+
+```{r echo=TRUE, eval=TRUE}
+datas <- data.frame(
+  ville      = c("Paris", "Marseille", "Lyon"),
+  lat        = c(48.8566101, 43.2961743, 45.7578137),
+  lon        = c( 2.3514992,  5.3699525,  4.8320114),
+  population = c(2190327, 862211, 515695)
+)
+
+(villes <- sf::st_as_sf(datas, coords = c("lon", "lat"), crs = 4326))
+```
+
+
+---
+
+## Une première carte
+
+Les packages `{rnaturalearth}` et `{rnaturalearthdata}` proposent différentes
+couches vectorielles, dont les limites administratives des pays du monde.
+
+Installons ces packages :
+
+```{r echo=TRUE, eval=-c(1, 2)}
+install.packages("rnaturalearth")
+install.packages("rnaturalearthdata")
+
+library("rnaturalearth")
+library("rnaturalearthdata")
+```
+
+--
+
+Et chargeons le fond de carte du monde entier :
+
+```{r echo=TRUE, eval=TRUE}
+world <- ne_countries(scale = "medium", returnclass = "sf")
+class(world)
+```
+
+
+
+---
+
+## Une première carte
+
+```{r "map1", echo=FALSE, eval=TRUE, fig.width=10, dpi=300, fig.height=5, out.width="100%", fig.path="assets/chunks/"}
+ggplot(data = world) +
+  geom_sf() +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("Carte du monde")
+```
+
+```{r echo=TRUE, eval=FALSE, fig.width=10, dpi=300, fig.height=5, out.width="100%", fig.path="assets/chunks/"}
+ggplot(data = world) +
+  geom_sf() +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("Carte du monde")
+```
+
+
+
+---
+
+## Une première carte
+
+```{r "map2", echo=FALSE, eval=TRUE, fig.width=10, dpi=300, fig.height=5, out.width="100%", fig.path="assets/chunks/"}
+ggplot(data = world) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("Carte du monde")
+```
+
+```{r echo=TRUE, eval=FALSE, fig.width=10, dpi=300, fig.height=5, out.width="100%", fig.path="assets/chunks/"}
+ggplot(data = world) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("Carte du monde")
+```
+
+
+
+---
+
+## Une première carte
+
+```{r "map3", echo=FALSE, eval=TRUE, fig.width=10, dpi=300, fig.height=5, out.width="100%", fig.path="assets/chunks/"}
+ggplot(data = world) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("Carte du monde") +
+  geom_sf(data = villes, colour = "black")
+```
+
+```{r echo=TRUE, eval=FALSE, fig.width=10, dpi=300, fig.height=5, out.width="100%", fig.path="assets/chunks/"}
+ggplot(data = world) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("Carte du monde") +
+  geom_sf(data = villes, colour = "black")
+```
+
+
+
+---
+
+## Importation d'une couche vectorielle
+
+Dans la plupart des cas, vous devrez importer une couche spatiale déjà prête.
+
+Téléchargeons les départements de la région Occitanie
+
+```{r echo=TRUE, eval=FALSE}
+## URL et nom du fichier
+url      <- "https://raw.githubusercontent.com/FRBCesab/datatoolbox/master/data/"
+filename <- "occitanie.zip"
+
+## Téléchargement du fichier
+download.file(
+  url      = paste0(url, filename),
+  destfile = filename
+)
+
+## Extraction du ZIP
+unzip(zipfile = filename)
+
+```
+
+---
+
+
+- importation (st_read(), st_layers()) / exportation (st_drivers(), st_write())
+- definition (st_crs, st_set_crs) projection (st_transform)
+
+
+---
+
+### st_*
+
+- st_cast()
+- st_crop()
+- st_buffer()
+- st_intersection()
+- st_union()
+- st_centroid()
+
+### ggplot2
+
+- geom_sf()
+- coord_sf()
+- scale_fill_viridis()
+- mapView()
+
+---
+
+### dplyr
+
+- select() keeps the specified variables, possibly renaming them
+- rename() renames a variable and leaves all others unchanged
+- filter() returns the rows that match the given conditions
+- mutate() adds new variables based on existing variables
+- transmute() creates new variables and drops existing variables
+- arrange() sorts by the given variables
+- slice() selects rows based on row number
+- sample_n() samples n features randomly
+- *_join()
+- group_by(CODE_REG, NOM_REG) %>%
+- summarize()
