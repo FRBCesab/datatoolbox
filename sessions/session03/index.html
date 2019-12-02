@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
-    <title>Titre de la présentation</title>
+    <title>Writing dynamic documents</title>
     <meta charset="utf-8" />
     <meta name="author" content="  Stéphane DRAY" />
     <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
@@ -12,25 +12,80 @@
     <textarea id="source">
 class: right, middle, title-slide
 
-# Titre de la présentation
-## <i>sous-titre de la présentation</i>
+# Writing dynamic documents
+## <i>An introduction to (R)markdown</i>
 ### <br /><br />Stéphane DRAY
-### Mardi 3 décembre 2019
+### 3/12/2019
 
 ---
 
 
 class: inverse, center, middle
 
-## Page de transition
+## Introduction
 
 
 
 
 ---
+## Why you should not use Word (or other WYSIWYG editors)
 
+** Demo **
+- Create a document with Word
+- Put the file under versioning
+- Update the file and commit
+- Perform a regression model using the `iris` dataset (available in `MASS`)
+---
+## What we need
+- Something that can be easily used in versioning tools
+- Something able to integrate text and analysis
+- Something that is dynamic
+
+--
+
+.center[![](assets/img/Literate_Programming_book_cover.jpg)]
+
+---
+## Literate Programming
+
+- Text in human language (English)
+- Code snippet (separated by a primitive markup) included (chunk)
+- Text and code are compiled to produce the final document (tangle, sweave)
+
+&lt;br&gt;
+In R
+
+- Sweave (.Rnw) = Latex and R -&gt; .pdf 
+- Rmarkdown (.Rmd) = Mardown and R -&gt; .pdf, .html, etc.
+
+---
+## RMarkdown
+.center[![](assets/img/schema_rmd.png)
+https://stateofther.github.io/finistR2018/atelier3_advancedrmd.html
+]
+---
+## Strucutre of a RMarkdown document
+.center[![](assets/img/rmd_struc.png)
+https://yongfu.name/2019-fju-rmd-talk/slide/#1
+]
+
+&lt;br&gt;
+** Demo **
+- create a new Rmd file with RStudio
+- Identify the three parts
+
+---
+class: inverse, center, middle
+## The YAML metadata
+---
 ## Titre d'une page classique
 
+```md
+    Ce _mot_ sera écrit en italique. *Celui-ci* aussi...
+```
+--
+Ce _mot_ sera écrit en italique. *Celui-ci* aussi
+    
 - Du Markdown **classique**...
 
 Une image rescalée : ![:scale 2%](assets/img/github.png)
