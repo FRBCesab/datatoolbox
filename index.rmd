@@ -76,5 +76,3 @@ output:
 
 `r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**[Projets]**
 ]
-
----

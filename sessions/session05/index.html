@@ -678,9 +678,38 @@ ggplot(data = world) +
 
 ---
 
-## Quelques opérations spatiales
+## Mesures géométriques
 
-- Création de buffers : `st_buffer()`
+Fonction R              | Détails
+------------------------|------------------
+`sf::st_length(x)`      | Longueur de lignes spatiales
+`sf::st_area(x)`        | Superficie de polygones spatiaux
+`sf::st_distance(x, y)` | Distance entre deux couches
+`sf::st_bbox(x)`        | Etentue spatiale (emprise) d'une couche
+
+
+
+---
+
+## Opérations géométriques unitaires
+
+Fonction R              | Détails
+------------------------|------------------
+`sf::st_buffer(x)`      | Buffers autour d'une géométrie
+`sf::st_boundary(x)`    | Limites d'une géométrie
+`sf::st_convex_hull(x)` | Convex hull d'un ensemble de points
+`sf::st_centroid(x)`    | Centroïde d'une géométrie
+
+
+
+---
+
+## Opérations géométriques binaires
+
+`sf::st_intersects(x, y)`, `sf::st_disjoint(x, y)`, `sf::st_contains(x, y)`, `sf::st_overlaps(x, y)`
+
+
+
 
 ---
 
@@ -700,6 +729,10 @@ ggplot(data = world) +
 - scale_fill_viridis()
 - mapView()
 - geom_sf_text()
+
+
+- ggsflabel::geom_sf_label_repel
+- st_crop(st_bbox(studysites))
 
 
 
