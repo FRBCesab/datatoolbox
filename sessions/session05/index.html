@@ -212,9 +212,9 @@ Soit les villes avec les coordonnées suivantes :
 
 
 ```r
-paris     &lt;- c(2.3514992, 48.8566101)
-marseille &lt;- c(5.3699525, 43.2961743)
-lyon      &lt;- c(4.8320114, 45.7578137)
+foix        &lt;- c(1.6053807, 42.9638998)
+carcassonne &lt;- c(2.3491069, 43.2130358)
+rodez       &lt;- c(2.5728419, 44.3516207)
 ```
 
 --
@@ -223,9 +223,9 @@ Convertissons ces vecteurs en points spatiaux :
 
 
 ```r
-paris     &lt;- sf::st_point(paris)
-marseille &lt;- sf::st_point(marseille)
-lyon      &lt;- sf::st_point(lyon)
+foix        &lt;- sf::st_point(foix)
+carcassonne &lt;- sf::st_point(carcassonne)
+rodez       &lt;- sf::st_point(rodez)
 ```
 
 --
@@ -235,7 +235,7 @@ Et regroupons-les en un seul _spatial column_ en définissant le CRS :
 
 ```r
 villes &lt;- sf::st_sfc(
-  list(paris, marseille, lyon),
+  list(foix, carcassonne, rodez),
   crs = 4326
 )
 class(villes)
@@ -254,8 +254,8 @@ Ajoutons une table d'attributs et convertissons l'objet en _simple  feature_ :
 
 ```r
 datas &lt;- data.frame(
-  ville      = c("Paris", "Marseille", "Lyon"),
-  population = c(2190327, 862211, 515695)
+  ville      = c("Foix", "Carcassonne", "Rodez"),
+  population = c(9613, 45895, 23739)
 )
 
 villes &lt;- sf::st_sf(datas, geom = villes)
@@ -284,27 +284,87 @@ Bien souvent, vous importerez directement un `data.frame` que vous souhaiterez c
 
 
 ```r
-datas &lt;- data.frame(
-  ville      = c("Paris", "Marseille", "Lyon"),
-  lat        = c(48.8566101, 43.2961743, 45.7578137),
-  lon        = c( 2.3514992,  5.3699525,  4.8320114),
-  population = c(2190327, 862211, 515695)
+## URL et nom du fichier
+url      &lt;- "https://raw.githubusercontent.com/FRBCesab/datatoolbox/master/data/"
+filename &lt;- "occitanie_prefectures.csv"
+
+## Téléchargement du fichier
+download.file(
+  url      = paste0(url, filename),
+  destfile = filename
 )
 
-(villes &lt;- sf::st_as_sf(datas, coords = c("lon", "lat"), crs = 4326))
+## Extraction du ZIP
+unzip(zipfile = filename)
+```
+
+
+
+
+---
+
+## Création de points spatiaux (2)
+
+
+
+```r
+## Ouverture du csv
+(prefectures &lt;- readr::read_csv("~/Desktop/occitanie_prefectures.csv"))
+```
+
+
+```
+## # A tibble: 13 x 5
+##    departement         prefecture  population longitude latitude
+##    &lt;chr&gt;               &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+##  1 Ariège              Foix              9613    1.61       43.0
+##  2 Aude                Carcassonne      45895    2.35       43.2
+##  3 Aveyron             Rodez            23739    2.57       44.4
+##  4 Gard                Nîmes           151001    4.36       43.8
+##  5 Haute-Garonne       Toulouse        475438    1.44       43.6
+##  6 Gers                Auch             21618    0.585      43.6
+##  7 Hérault             Montpellier     281613    3.88       43.6
+##  8 Lot                 Cahors           19405    1.44       44.4
+##  9 Lozère              Mende            11860    3.50       44.5
+## 10 Hautes-Pyrénées     Tarbes           40318    0.0781     43.2
+## 11 Pyrénées-Orientales Perpignan       121875    2.90       42.7
+## 12 Tarn                Albi             49024    2.15       43.9
+## 13 Tarn-et-Garonne     Montauban        60444    1.35       44.0
+```
+
+
+
+---
+
+## Création de points spatiaux (2)
+
+
+
+```r
+prefectures &lt;- sf::st_as_sf(
+  x      = prefectures,
+  coords = c("longitude", "latitude"),
+  crs    = 4326
+)
+prefectures %&gt;% head(6)
 ```
 
 ```
-## Simple feature collection with 3 features and 2 fields
+## Simple feature collection with 6 features and 3 fields
 ## geometry type:  POINT
 ## dimension:      XY
-## bbox:           xmin: 2.351499 ymin: 43.29617 xmax: 5.369952 ymax: 48.85661
+## bbox:           xmin: 0.5850507 ymin: 42.9639 xmax: 4.360069 ymax: 44.35162
 ## epsg (SRID):    4326
 ## proj4string:    +proj=longlat +datum=WGS84 +no_defs
-##       ville population                  geometry
-## 1     Paris    2190327 POINT (2.351499 48.85661)
-## 2 Marseille     862211 POINT (5.369953 43.29617)
-## 3      Lyon     515695 POINT (4.832011 45.75781)
+## # A tibble: 6 x 4
+##   departement   prefecture  population             geometry
+##   &lt;chr&gt;         &lt;chr&gt;            &lt;dbl&gt;          &lt;POINT [°]&gt;
+## 1 Ariège        Foix              9613   (1.605381 42.9639)
+## 2 Aude          Carcassonne      45895  (2.349107 43.21304)
+## 3 Aveyron       Rodez            23739  (2.572842 44.35162)
+## 4 Gard          Nîmes           151001  (4.360069 43.83742)
+## 5 Haute-Garonne Toulouse        475438  (1.444247 43.60446)
+## 6 Gers          Auch             21618 (0.5850507 43.64636)
 ```
 
 
@@ -385,7 +445,7 @@ ggplot(data = world) +
 ggplot(data = world) +
   geom_sf(fill = "#49847b", colour = "#e1ddc0") +
   xlab("Longitude") + ylab("Latitude") + ggtitle("Carte du monde") +
-  geom_sf(data = villes, colour = "black")
+  geom_sf(data = prefectures, colour = "black")
 ```
 
 
@@ -494,7 +554,6 @@ ggplot(data = occitanie) +
   xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE")
 ```
 
-
 ---
 
 &lt;img src="assets/chunks/map5-1.png" width="70%" style="display: block; margin: auto;" /&gt;
@@ -504,8 +563,9 @@ ggplot(data = occitanie) +
 ggplot(data = occitanie) +
   geom_sf(fill = "#49847b", colour = "#e1ddc0") +
   xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE") +
-  geom_sf_label(aes(label = NAME_2))
+  geom_sf(data = prefectures, colour = "#3f3f3f")
 ```
+
 
 
 ---
@@ -517,6 +577,21 @@ ggplot(data = occitanie) +
 ggplot(data = occitanie) +
   geom_sf(fill = "#49847b", colour = "#e1ddc0") +
   xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE") +
+  geom_sf(data = prefectures, colour = "#3f3f3f") +
+  geom_sf_label(aes(label = NAME_2))
+```
+
+
+---
+
+&lt;img src="assets/chunks/map7-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+ggplot(data = occitanie) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE") +
+  geom_sf(data = prefectures, colour = "#3f3f3f") +
   geom_sf_label(aes(label = paste0(NAME_2, " (", CC_2, ")")))
 ```
 
@@ -655,7 +730,7 @@ world_ortho &lt;- world %&gt;%
 
 ---
 
-&lt;img src="assets/chunks/map7-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/map8-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 
 ```r
@@ -665,7 +740,7 @@ ggplot(data = world_ortho) +
 
 ---
 
-&lt;img src="assets/chunks/map8-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/map9-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 
 ```r
