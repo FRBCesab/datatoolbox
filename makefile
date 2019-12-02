@@ -5,7 +5,7 @@
 # part3=sessions/session03/index.html
 # part41=sessions/session04/index01.html
 part5=sessions/session05/index.html
-# part7=sessions/session07/index.html
+part7=sessions/session07/index.html
 
 # exer1=exercises/exercise01/index.html
 # exer2=exercises/exercise02/index.html
@@ -13,7 +13,7 @@ part5=sessions/session05/index.html
 
 index=index.html
 
-all: $(part5) $(index)
+all: $(part5) $(part7) $(index)
 
 # $(theme): template/*
 # 	Rscript -e "source(\"template/xaringan_themer.R\")"
@@ -33,8 +33,8 @@ all: $(part5) $(index)
 $(part5): assets/* sessions/session05/assets/* sessions/session05/*.rmd
 	Rscript -e "rmarkdown::render(input = \"sessions/session05/index.rmd\", output_file = \"index.html\", output_dir = \"sessions/session05\", clean = TRUE, quiet = TRUE)"
 
-# $(part7): assets/* sessions/session07/assets/* sessions/session07/*.rmd
-# 	Rscript -e "rmarkdown::render(input = \"sessions/session07/index.rmd\", output_file = \"index.html\", output_dir = \"sessions/session07\", clean = TRUE, quiet = TRUE)"
+$(part7): assets/* sessions/session07/assets/* sessions/session07/*.rmd
+	Rscript -e "rmarkdown::render(input = \"sessions/session07/index.rmd\", output_file = \"index.html\", output_dir = \"sessions/session07\", clean = TRUE, quiet = TRUE)"
 
 # $(exer1): assets/* exercises/exercise01/assets/* exercises/exercise01/*.rmd
 # 	Rscript -e "rmarkdown::render(input = \"exercises/exercise01/index.rmd\", output_file = \"index.html\", output_dir = \"exercises/exercise01\", clean = TRUE, quiet = TRUE)"

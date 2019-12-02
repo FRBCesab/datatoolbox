@@ -507,15 +507,18 @@ ggplot(data = world) +
 
 ## Quelques opérations spatiales
 
+- Création de buffers : `st_buffer()`
 
 ---
 
 ### st_*
 
-- st_cast()
 - st_crop()
 - st_buffer()
 - st_intersection()
+- st_difference()
+- st_contains()
+- st_boundary()
 - st_union()
 - st_centroid()
 
@@ -523,3 +526,4 @@ ggplot(data = world) +
 
 - scale_fill_viridis()
 - mapView()
+- geom_sf_text()
