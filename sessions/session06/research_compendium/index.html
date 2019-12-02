@@ -1,85 +1,123 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
-    <title>.small[Formation FRB-Cesab &amp; GDR EcoStat]</title>
+    <title>Titre de la présentation</title>
     <meta charset="utf-8" />
-    <meta name="author" content=".verysmall[ Du 2 au 6 décembre 2019 Dans les locaux du Cesab à Montpellier]" />
+    <meta name="author" content="  François Guilhaumon" />
     <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/xaringan-themer.css" type="text/css" />
-    <link rel="stylesheet" href="assets/css/custom.css" type="text/css" />
+    <link rel="stylesheet" href="../../../assets/css/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="../../../assets/css/custom.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: right, middle, title-slide
 
-# .small[Formation FRB-Cesab &amp; GDR EcoStat]
-## .ssmall[Bonnes pratiques pour une recherche reproductible en écologie numérique]
-### .verysmall[<br />Du 2 au 6 décembre 2019<br />Dans les locaux du Cesab à Montpellier]
+# Titre de la présentation
+## <i>sous-titre de la présentation</i>
+### <br /><br />François Guilhaumon
+### Mercredi 4 décembre 2019
 
 ---
 
 
+  class: inverse, center, middle
 
-## Programme
+## Page de transition
 
 
-.pull-left[
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Recherche reproductible**
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Versioning du code**
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Travail collaboratif**
+---
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**API et Web scraping**
+  ## Titre d'une page classique
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Introduction au tidyverse**
+  - Du Markdown **classique**...
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Données spatiales**
+Une image rescalée : ![:scale 2%](assets/img/github.png)
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Research compendium**
+--
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**_drake: a pipeline toolkit_**
+  Et une image centrée :
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Du script au package R**
-]
-
-.pull-right[
-[**[Cours]**](sessions/session01/index.html)
-
-[**[Cours]**](sessions/session02/index.html)
-
-**[Cours]**
-
-[**[Cours]**](sessions/session04/index01.html)
-&amp;nbsp;
-[**[Exo 1]**](exercises/exercise01/index.html)
-
-[**[Cours]**](sessions/session04/index02.html)
-&amp;nbsp;
-[**[Exo 1]**](exercises/exercise02/index.html)
-&amp;nbsp;
-[**[Exo 2]**](exercises/exercise03/index.html)
-
-[**[Cours]**](sessions/session05/index.html)
-&amp;nbsp;
-**[Exo 1]**
-&amp;nbsp;
-**[Exo 2]**
-
-[**[Cours]**](sessions/session06/research_compendium/index.html)
-
-[**[Cours]**](sessions/session06/drake/drake_intro/intro_drake.html)
-
-[**[Cours]**](sessions/session07/index.html)
+  .center[![:scale 25%](assets/img/github.png)]
 
 &lt;br /&gt;
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**[Projets]**
-]
+  Et des icones : <i class="fab  fa-r-project " style="color:#3f3f3f;"></i> avec le package `{icon}`
+
+--
+
+  
+  ```r
+  (x &lt;- 1:10)
+  ```
+  
+  ```
+  ##  [1]  1  2  3  4  5  6  7  8  9 10
+  ```
+
+---
+
+  ## Page à deux colonnes
+
+
+  .pull-left[
+    .center[
+      Contenu de gauche centré
+
+      ![:scale 50%](assets/img/github.png)
+      ]
+
+    &lt;br /&gt;
+
+      #### Input
+
+      (aligné à gauche)
+
+    
+    ```r
+    (x &lt;- 1:10)
+    ```
+    ]
+
+.pull-right[
+  .center[
+    Contenu de droite centré
+
+    ![:scale 50%](assets/img/github.png)
+    ]
+
+  &lt;br /&gt;
+
+    .right[
+      #### Output
+
+      (aligné à droite)
+
+      
+      ```
+      ##  [1]  1  2  3  4  5  6  7  8  9 10
+      ```
+      ]
+  ]
+
+
+
+---
+
+  ## Et une figure générée par <i class="fab  fa-r-project "></i>
+
+  
+  ```r
+  par(bg = "transparent")
+  hist(rnorm(500), col = "#49847b", border = "#294557")
+  ```
+  
+  &lt;img src="assets/chunks/chunkname-1.png" width="50%" style="display: block; margin: auto;" /&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script src="assets/libs/macros.js"></script>
+<script src="../../../assets/libs/macros.js"></script>
 <script>var slideshow = remark.create({
 "ratio": "4:3",
 "highlightStyle": "zenburn",
