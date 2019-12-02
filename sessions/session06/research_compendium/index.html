@@ -4,13 +4,13 @@
     <title>Titre de la présentation</title>
     <meta charset="utf-8" />
     <meta name="author" content="  François Guilhaumon" />
-    <link href="index_files/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link href="index_files/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
-    <link href="index_files/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../../assets/css/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="../../../assets/css/custom.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
-class: center, middle, inverse, title-slide
+class: right, middle, title-slide
 
 # Titre de la présentation
 ## <i>sous-titre de la présentation</i>
@@ -19,7 +19,7 @@ class: center, middle, inverse, title-slide
 
 ---
 
-  
+
   class: inverse, center, middle
 
 ## Page de transition
@@ -28,25 +28,25 @@ class: center, middle, inverse, title-slide
 
 
 ---
-  
+
   ## Titre d'une page classique
-  
+
   - Du Markdown **classique**...
 
 Une image rescalée : ![:scale 2%](assets/img/github.png)
 
 --
-  
+
   Et une image centrée :
-  
+
   .center[![:scale 25%](assets/img/github.png)]
 
 &lt;br /&gt;
-  
+
   Et des icones : <i class="fab  fa-r-project " style="color:#3f3f3f;"></i> avec le package `{icon}`
 
 --
-  
+
   
   ```r
   (x &lt;- 1:10)
@@ -57,23 +57,23 @@ Une image rescalée : ![:scale 2%](assets/img/github.png)
   ```
 
 ---
-  
+
   ## Page à deux colonnes
-  
-  
+
+
   .pull-left[
     .center[
       Contenu de gauche centré
-      
+
       ![:scale 50%](assets/img/github.png)
       ]
-    
+
     &lt;br /&gt;
-      
+
       #### Input
-      
+
       (aligné à gauche)
-    
+
     
     ```r
     (x &lt;- 1:10)
@@ -83,17 +83,17 @@ Une image rescalée : ![:scale 2%](assets/img/github.png)
 .pull-right[
   .center[
     Contenu de droite centré
-    
+
     ![:scale 50%](assets/img/github.png)
     ]
-  
+
   &lt;br /&gt;
-    
+
     .right[
       #### Output
-      
+
       (aligné à droite)
-      
+
       
       ```
       ##  [1]  1  2  3  4  5  6  7  8  9 10
@@ -104,9 +104,9 @@ Une image rescalée : ![:scale 2%](assets/img/github.png)
 
 
 ---
-  
+
   ## Et une figure générée par <i class="fab  fa-r-project "></i>
-  
+
   
   ```r
   par(bg = "transparent")
@@ -117,7 +117,14 @@ Une image rescalée : ![:scale 2%](assets/img/github.png)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script>var slideshow = remark.create();
+<script src="../../../assets/libs/macros.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "4:3",
+"highlightStyle": "zenburn",
+"highlightLines": false,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current% / %total%"
+});
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
 });
