@@ -1,0 +1,35 @@
+---
+title: "Report analysis ursidae"
+date: "2 December 2019"
+bibliography: "bibliography.bib"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+source("../R/packages.R")
+```
+
+## Introduction
+
+Bears are in decline [@cowan1972].
+     
+Here, we investigate the spread and the longevity of bears.  
+
+## Methods  
+We used pantheria and wildfinder.   
+
+## Results   
+
+We made some plots. 
+```{r , echo=FALSE, fig.cap= "Fig. 1"}
+drake::readd(necoregions_plot)
+```
+
+```{r , echo=FALSE, , fig.cap= "Fig. 2"}
+drake::readd(gestation_plot)
+```
+
+# Discussion 
+
+
+# Bibliography
