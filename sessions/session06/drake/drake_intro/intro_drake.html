@@ -4,7 +4,7 @@
     <title>Reproducible workflow with drake</title>
     <meta charset="utf-8" />
     <meta name="author" content="Nina M. D. Schiettekatte" />
-    <meta name="date" content="2019-12-01" />
+    <meta name="date" content="2019-12-03" />
     <script src="libs/htmlwidgets/htmlwidgets.js"></script>
     <link href="libs/vis/vis.css" rel="stylesheet" />
     <script src="libs/vis/vis.min.js"></script>
@@ -17,7 +17,7 @@ class: center, middle, inverse, title-slide
 
 # Reproducible workflow with drake
 ### Nina M. D. Schiettekatte
-### 2019-12-01
+### 2019-12-03
 
 ---
 
@@ -158,8 +158,11 @@ class: inverse, center, middle
      
 - command = function that builds a target (whether or not dependent on other targets)   
      
-- dependency graph = visualization of your plan   
-
+- dependency graph = visualization of your plan  
+--
+.pull-left[
+![](https://media.giphy.com/media/THn4oLorVcFsFTxcKZ/giphy.gif)
+]
 ---
 # Key functions
 
@@ -217,12 +220,12 @@ head(crandata)
 
 ```
 ##         date count package
-## 1 2019-10-31 40498   dplyr
-## 2 2019-11-01 33060   dplyr
-## 3 2019-11-02 22150   dplyr
-## 4 2019-11-03 23426   dplyr
-## 5 2019-11-04 39746   dplyr
-## 6 2019-11-05 43888   dplyr
+## 1 2019-11-02 22150   dplyr
+## 2 2019-11-03 23426   dplyr
+## 3 2019-11-04 39746   dplyr
+## 4 2019-11-05 43888   dplyr
+## 5 2019-11-06 43630   dplyr
+## 6 2019-11-07 40729   dplyr
 ```
 ---
 
@@ -332,11 +335,11 @@ readd(averages_new) #loadd()
 ## # A tibble: 5 x 2
 ##   package mean_downloads
 ##   &lt;chr&gt;            &lt;dbl&gt;
-## 1 dplyr           34229.
-## 2 ggplot2         30259.
-## 3 purrr           27738.
-## 4 stringr         25861.
-## 5 tidyr           23397.
+## 1 dplyr           35889.
+## 2 ggplot2         31632.
+## 3 purrr           28931.
+## 4 stringr         26813.
+## 5 tidyr           24669.
 ```
 
 ```r
@@ -352,8 +355,8 @@ config &lt;- drake_config(plan)
 vis_drake_graph(config, targets_only = TRUE, background = "#e3e3e3")
 ```
 
-<div id="htmlwidget-29edb686fbd744e27ba5" style="width:504px;height:504px;" class="visNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-29edb686fbd744e27ba5">{"x":{"nodes":{"id":["crandata_new","crandata_old","averages_new","plot_new","averages_old","plot_old","averages_combined"],"imported":[false,false,false,false,false,false,false],"label":["crandata_new\n0.654s","crandata_old\n0.41s","averages_new\n0.026s","plot_new\n0.051s","averages_old\n0.071s","plot_old\n0.044s","averages_combined\n0.026s"],"status":["up to date","up to date","up to date","up to date","up to date","up to date","up to date"],"type":["object","object","object","object","object","object","object"],"font.size":[20,20,20,20,20,20,20],"color":["#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22"],"shape":["dot","dot","dot","dot","dot","dot","dot"],"level":[1,1,2,2,2,2,3],"x":[-1,-1,0,0,0,0,1],"y":[-0.555555555555556,0.555555555555555,-1,-0.333333333333333,0.333333333333333,1,-2.22044604925031e-16]},"edges":{"from":["crandata_new","crandata_new","crandata_old","crandata_old","averages_new","averages_old"],"to":["averages_new","plot_new","averages_old","plot_old","averages_combined","averages_combined"],"arrows":["to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"layout":{"hierarchical":{"enabled":true,"direction":"LR"}},"interaction":{"navigationButtons":true}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)"},"main":{"text":"Dependency graph","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"#e3e3e3","highlight":{"enabled":false,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Object"],"color":["#228B22","#888888"],"shape":["dot","dot"],"font.color":["black","black"],"font.size":[20,20],"id":[1,7]},"nodesToDataframe":true},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-64d2b27307048e34d7cd" style="width:504px;height:504px;" class="visNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-64d2b27307048e34d7cd">{"x":{"nodes":{"id":["crandata_new","crandata_old","averages_new","plot_new","averages_old","plot_old","averages_combined"],"imported":[false,false,false,false,false,false,false],"label":["crandata_new\n1.024s","crandata_old\n0.355s","averages_new\n0.032s","plot_new\n0.06s","averages_old\n0.083s","plot_old\n0.055s","averages_combined\n0.037s"],"status":["up to date","up to date","up to date","up to date","up to date","up to date","up to date"],"type":["object","object","object","object","object","object","object"],"font.size":[20,20,20,20,20,20,20],"color":["#228B22","#228B22","#228B22","#228B22","#228B22","#228B22","#228B22"],"shape":["dot","dot","dot","dot","dot","dot","dot"],"level":[1,1,2,2,2,2,3],"x":[-1,-1,0,0,0,0,1],"y":[-0.555555555555556,0.555555555555555,-1,-0.333333333333333,0.333333333333333,1,-2.22044604925031e-16]},"edges":{"from":["crandata_new","crandata_new","crandata_old","crandata_old","averages_new","averages_old"],"to":["averages_new","plot_new","averages_old","plot_old","averages_combined","averages_combined"],"arrows":["to","to","to","to","to","to"]},"nodesToDataframe":true,"edgesToDataframe":true,"options":{"width":"100%","height":"100%","nodes":{"shape":"dot","physics":false},"manipulation":{"enabled":false},"layout":{"hierarchical":{"enabled":true,"direction":"LR"}},"interaction":{"navigationButtons":true}},"groups":null,"width":null,"height":null,"idselection":{"enabled":false,"style":"width: 150px; height: 26px","useLabels":true,"main":"Select by id"},"byselection":{"enabled":false,"style":"width: 150px; height: 26px","multiple":false,"hideColor":"rgba(200,200,200,0.5)"},"main":{"text":"Dependency graph","style":"font-family:Georgia, Times New Roman, Times, serif;font-weight:bold;font-size:20px;text-align:center;"},"submain":null,"footer":null,"background":"#e3e3e3","highlight":{"enabled":false,"hoverNearest":false,"degree":1,"algorithm":"all","hideColor":"rgba(200,200,200,0.5)","labelOnly":true},"collapse":{"enabled":true,"fit":false,"resetHighlight":true,"clusterOptions":null,"keepCoord":true,"labelSuffix":"(cluster)"},"legend":{"width":0.2,"useGroups":false,"position":"left","ncol":1,"stepX":100,"stepY":100,"zoom":true,"nodes":{"label":["Up to date","Object"],"color":["#228B22","#888888"],"shape":["dot","dot"],"font.color":["black","black"],"font.size":[20,20],"id":[1,7]},"nodesToDataframe":true},"tooltipStay":300,"tooltipStyle":"position: fixed;visibility:hidden;padding: 5px;white-space: nowrap;font-family: verdana;font-size:14px;font-color:#000000;background-color: #f5f4ed;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;border: 1px solid #808074;box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);"},"evals":[],"jsHooks":[]}</script>
 ---
 ## drake loves changes
 
@@ -378,9 +381,9 @@ make(plan)
 ```
 ## target plot_old
 ```
----
 
 ]
+--
 .pull-right[
 ![](https://media.giphy.com/media/xT8qBawKWgpsT2Doxq/giphy.gif)
 
@@ -461,6 +464,183 @@ class: inverse, center, middle
 
 
 ---
+# Bear example  
+     
+.center[
+![](https://www.bioexpedition.com/wp-content/uploads/2012/05/bears_intro.jpg)
+]
+
+---
+# Plan   
+
+1) load data   
+2) clean data    
+3) combine data   
+4) summarize data    
+5) plots    
+6) report   
+
+---
+## Let's create a new project   
+
+```
+myproject.Rproj
+|___data/
+|
+|___R/
+|   |___packages.R
+|   |___functions.R
+|   |___plan.R
+|
+|___text/
+|   |___report.Rmd
+|
+|___output/
+|   |___text/
+|   |___plots/
+|
+|___make.R
+
+```
+
+data:       
+- wildfinder-ecoregions_list.csv     
+- wildfinder-ecoregions_species.csv   
+- wildfinder-mammals_list.csv    
+
+
+---
+## packages
+
+```r
+library(drake)
+library(ggplot2)
+library(stringr)
+library(fishualize)
+library(dplyr)
+library(taxize)
+library(tidyr)
+library(readr)
+library(tidyverse)
+library(forcats)
+```
+---
+## 1) load data     
+### functions.R
+
+
+```r
+get_ursidae &lt;- function(){
+  mammals &lt;- read.csv("data/wildfinder-mammals_list.csv")
+  result &lt;- filter(mammals, family == "Ursidae") %&gt;%
+    mutate_all(as.character)
+  return(result)
+}
+
+get_ecoregions &lt;- function(){
+  ecoregions &lt;- read.csv("data/wildfinder-ecoregions_list.csv")
+  return(ecoregions)
+}
+
+get_sp_eco &lt;- function(){
+  sp_eco &lt;- read.csv("data/wildfinder-ecoregions_species.csv")
+  return(sp_eco)
+}
+```
+---
+## 1) load data   
+### plan.R   
+
+```r
+plan &lt;- drake_plan(
+  #### get data ####
+  # Wildfinder data
+  wf_ursidae_raw = get_ursidae(),
+  wf_ecoregions = get_ecoregions(),
+  wf_sp_eco = get_sp_eco())
+```
+
+---
+## 1) load data  
+### make.R    
+
+```r
+# sources
+source("R/packages.R")
+source("R/functions.R")
+source("R/plan.R")
+# make (execute) plan
+
+make(plan, verbose = 2)
+
+# graph
+config &lt;- drake_config(plan)
+vis_drake_graph(config, targets_only = TRUE)
+```
+### load or read
+
+```r
+# all in work environment
+loadd()
+# look at specific target
+readd(wf_ursidae_raw)
+```
+---
+## 2) clean data    
+### Challenge!   
+
+        
+Create a function that uses wf_ursidae_raw and returns accepted class, order, family, and sci_name    
+      
+           
+HINT:    
+
+```r
+taxize::get_uid()  # db = "itis"
+taxize::classification()  # db = "itis"
+```
+
+---
+
+## 2) clean data    
+### functions.R
+
+```r
+correct_classif &lt;- function(data){
+  # collect uids
+  uids &lt;- taxize::get_uid(data$sci_name, db = "itis")
+  # save classification
+  classif &lt;-
+    lapply(uids, function(x){
+    taxize::classification(x, db = "itis")[[1]] %&gt;%
+        filter(rank %in% c("class", "order", "family", "genus",
+                           "species")) %&gt;%
+        select(name, rank) %&gt;%
+        tidyr::pivot_wider(names_from = rank,
+                           values_from = name)
+    }) %&gt;% bind_rows() %&gt;% 
+    rename(sci_name = species) 
+  return(classif)
+}
+```
+
+---
+## 2) clean data   
+### plan.R
+
+```r
+plan &lt;- drake_plan(
+  #### get data ####
+  # Wildfinder data
+  wf_ursidae_raw = get_ursidae(),
+  wf_ecoregions = get_ecoregions(),
+  wf_sp_eco = get_sp_eco(),
+
+  #### correct names ####
+  # Check and correct species names
+  wf_ursidae = correct_classif(wf_ursidae_raw)%&gt;%
+    mutate(species_id = as.integer(wf_ursidae_raw$species_id)))
+```
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
