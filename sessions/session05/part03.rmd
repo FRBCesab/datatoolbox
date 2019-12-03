@@ -1,1 +1,28 @@
-## Title
+## Les packages `r icon::fa("r-project")` - Raster
+
+Package           | Fonctionnalités
+------------------|------------------
+`{raster}`        | Classes et méthodes pour couches matricielles
+`{sf}`            | `{sp}` + `{rdgal}` + `{rgeos}`
+
+<br />
+
+- Raster, objet matriciel, grille
+- Structure de données spatiales qui divise une region en cellules (ou pixel)
+- Stockage plus économique que les formats vectoriels mais dégradation de la qualité lors des zooms
+- 136 formats supportés par la librarie rgdal 
+rgdal::gdalDrivers()
+
+---
+
+## Différentes classes
+
+- Mono-couche
+  - RasterLayer
+- Multicouche
+  - RasterStack : liste d'objets RasterLayer avec la même résolution et étendue spatiale
+  - RasterBrick : objet multicouche faisant référence à un unique fichier comme les images satellites multibandes
+
+.center[![:scale 100%](assets/img/single_multi_raster.png)]
+
+---
