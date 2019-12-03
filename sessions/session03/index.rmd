@@ -1,8 +1,8 @@
 ---
-title: Titre de la présentation
-subtitle: <i>sous-titre de la présentation</i>
+title: Writing dynamic documents
+subtitle: <i>An introduction to (R)markdown</i>
 author: <br /><br />Stéphane DRAY
-date: Mardi 3 décembre 2019
+date: 3/12/2019
 output:
   xaringan::moon_reader:
     css: ["../../assets/css/xaringan-themer.css", "../../assets/css/custom.css"]
@@ -22,85 +22,172 @@ output:
 
 class: inverse, center, middle
 
-## Page de transition
+## Introduction
 
 
 
 
 ---
+## Why you should not use Word (or other WYSIWYG editors)
 
-## Titre d'une page classique
-
-- Du Markdown **classique**...
-
-Une image rescalée : ![:scale 2%](assets/img/github.png)
+** Demo **
+- Create a document with Word
+- Put the file under versioning
+- Update the file and commit
+- Perform a regression model using the `iris` dataset (available in `MASS`)
+---
+## What we need
+- Something that can be easily used in versioning tools
+- Something able to integrate text and analysis
+- Something that is dynamic
 
 --
 
-Et une image centrée :
+.center[![](assets/img/Literate_Programming_book_cover.jpg)]
 
-.center[![:scale 25%](assets/img/github.png)]
+---
+## Literate Programming
 
-<br />
+- Text in human language (English)
+- Code snippet (separated by a primitive markup) included (chunk)
+- Text and code are compiled to produce the final document (tangle, sweave)
 
-Et des icones : `r icon::fa("r-project", color = "#3f3f3f")` avec le package `{icon}`
+<br>
+In R
 
---
+- Sweave (.Rnw) = Latex and R -> .pdf 
+- Rmarkdown (.Rmd) = Mardown and R -> .pdf, .html, etc. (package `rmarkdown`)
 
-```{r echo=TRUE, eval=TRUE}
-(x <- 1:10)
+---
+## RMarkdown
+.center[![](assets/img/schema_rmd.png)
+https://stateofther.github.io/finistR2018/atelier3_advancedrmd.html
+]
+---
+## Strucutre of a RMarkdown document
+.center[![](assets/img/rmd_struc.png)
+https://yongfu.name/2019-fju-rmd-talk/slide/#1
+]
+
+<br>
+** Demo **
+- create a new Rmd file with RStudio
+- Identify the three parts
+
+---
+class: inverse, center, middle
+## The YAML metadata
+---
+## YAML in brief
+
+- It contains the metadta of the document
+- It contains also options for pandoc
+- It starts and ends by three dashes
+- Located at the first line of the document
+---
+## Some examples
+```{md}
+---
+output:
+    pdf_document:
+        toc: true
+        number_sections: true
+        toc_depth: 2
+  
+    html_document:
+        toc: true
+        toc_float: true
+        code_folding: hide
+        css: mystyle.css
+---
+```
+
+```{md}
+---
+abstract: "The abstract of the document is located here"
+bibliography: myrefs.bib
+csl: mystyle.csl
+---
+```
+---
+class: inverse, center, middle
+## The R code
+---
+## Three alternatives
+- inline by
+```{md}
+`rmarkdown`
+```
+- inline evaluated by
+```{md}
+`r pi`
+```
+- bloc (with different available options)
+  - echo
+  - eval
+  - cache
+  - results
+  - etc
+
+---
+class: inverse, center, middle
+## The text
+---
+## Format your text
+
+```{md}
+**bold**
+_italics_
+
+# Header 1
+## Header 2
+### Header 3
+
+^superscript^
+~subscript~
+- Item 1
+  - Sub-Item 1
+
+1. Numbered Item
+  1. Numbered sub-Item
+  
+[link](www.lequipe.fr)
+![title](path/to/image)
+
+$$ \sum_{i = 1}^n x_i $$ 
+
+```
+
+- Indent by a tab of 4 spaces
+- Use a blank line to start a new paragraph
+---
+## Tables
+```{md}
+| header A | header B |
+|---------:|:---------|
+| data     | data     |
+
+Table:title
+
 ```
 
 ---
+## Managing the bibliography
 
-## Page à deux colonnes
-
-
-.pull-left[
-.center[
-Contenu de gauche centré
-
-![:scale 50%](assets/img/github.png)
-]
-
-<br />
-
-#### Input
-
-(aligné à gauche)
-
-```{r echo=TRUE, eval=FALSE}
-(x <- 1:10)
-```
-]
-
-.pull-right[
-.center[
-Contenu de droite centré
-
-![:scale 50%](assets/img/github.png)
-]
-
-<br />
-
-.right[
-#### Output
-
-(aligné à droite)
-
-```{r echo=FALSE, eval=TRUE}
-(x <- 1:10)
-```
-]
-]
-
-
+- Use BiBTex to manage the bibliography
+- Define a CSL to format the bibliography
+- Cite by `[@key]` or `@key` (separate multiple refs by `;`)
+- Add `# References` at the end of the document
 
 ---
+## Acknowledgments
 
-## Et une figure générée par `r icon::fa("r-project")`
+Have a look to the excellent slides of Nico
 
-```{r chunkname, echo=TRUE, eval=TRUE, dpi=300, fig.path="assets/chunks/", fig.width=6, fig.height=6, out.width="50%", fig.align="center"}
-par(bg = "transparent")
-hist(rnorm(500), col = "#49847b", border = "#294557")
-```
+.center[https://nicolascasajus.fr/mastering-markdown/]
+
+<br>
+
+A good summary:
+
+.center[https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf]

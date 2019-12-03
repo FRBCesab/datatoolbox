@@ -87,9 +87,9 @@ library("sf")
 
 
 ```{r echo=TRUE, eval=TRUE}
-paris     <- c(2.3514992, 48.8566101)
-marseille <- c(5.3699525, 43.2961743)
-lyon      <- c(4.8320114, 45.7578137)
+foix        <- c(1.6053807, 42.9638998)
+carcassonne <- c(2.3491069, 43.2130358)
+rodez       <- c(2.5728419, 44.3516207)
 ```
 
 --
@@ -97,9 +97,9 @@ lyon      <- c(4.8320114, 45.7578137)
 Convertissons ces vecteurs en points spatiaux :
 
 ```{r echo=TRUE, eval=TRUE}
-paris     <- sf::st_point(paris)
-marseille <- sf::st_point(marseille)
-lyon      <- sf::st_point(lyon)
+foix        <- sf::st_point(foix)
+carcassonne <- sf::st_point(carcassonne)
+rodez       <- sf::st_point(rodez)
 ```
 
 --
@@ -108,7 +108,7 @@ Et regroupons-les en un seul _spatial column_ en définissant le CRS :
 
 ```{r echo=TRUE, eval=TRUE}
 villes <- sf::st_sfc(
-  list(paris, marseille, lyon),
+  list(foix, carcassonne, rodez),
   crs = 4326
 )
 class(villes)
@@ -122,8 +122,8 @@ Ajoutons une table d'attributs et convertissons l'objet en _simple  feature_ :
 
 ```{r echo=TRUE, eval=TRUE}
 datas <- data.frame(
-  ville      = c("Paris", "Marseille", "Lyon"),
-  population = c(2190327, 862211, 515695)
+  ville      = c("Foix", "Carcassonne", "Rodez"),
+  population = c(9613, 45895, 23739)
 )
 
 villes <- sf::st_sf(datas, geom = villes)
@@ -146,15 +146,55 @@ class(villes)
 
 Bien souvent, vous importerez directement un `data.frame` que vous souhaiterez convertir en _simple feature_
 
-```{r echo=TRUE, eval=TRUE}
-datas <- data.frame(
-  ville      = c("Paris", "Marseille", "Lyon"),
-  lat        = c(48.8566101, 43.2961743, 45.7578137),
-  lon        = c( 2.3514992,  5.3699525,  4.8320114),
-  population = c(2190327, 862211, 515695)
+```{r echo=TRUE, eval=FALSE}
+## URL et nom du fichier
+url      <- "https://raw.githubusercontent.com/FRBCesab/datatoolbox/master/data/"
+filename <- "occitanie_prefectures.csv"
+
+## Téléchargement du fichier
+download.file(
+  url      = paste0(url, filename),
+  destfile = filename
 )
 
-(villes <- sf::st_as_sf(datas, coords = c("lon", "lat"), crs = 4326))
+## Extraction du ZIP
+unzip(zipfile = filename)
+```
+
+
+
+
+---
+
+## Création de points spatiaux (2)
+
+
+```{r echo=TRUE, eval=FALSE}
+## Ouverture du csv
+(prefectures <- readr::read_csv("~/Desktop/occitanie_prefectures.csv"))
+```
+
+```{r echo=FALSE, eval=TRUE, message=FALSE}
+prefectures <- readr::read_csv(
+  file.path("..", "..", "data", "occitanie_prefectures.csv")
+)
+prefectures
+```
+
+
+
+---
+
+## Création de points spatiaux (2)
+
+
+```{r echo=TRUE, eval=TRUE}
+prefectures <- sf::st_as_sf(
+  x      = prefectures,
+  coords = c("longitude", "latitude"),
+  crs    = 4326
+)
+prefectures %>% head(6)
 ```
 
 
@@ -232,14 +272,14 @@ ggplot(data = world) +
 ggplot(data = world) +
   geom_sf(fill = "#49847b", colour = "#e1ddc0") +
   xlab("Longitude") + ylab("Latitude") + ggtitle("Carte du monde") +
-  geom_sf(data = villes, colour = "black")
+  geom_sf(data = prefectures, colour = "black")
 ```
 
 ```{r echo=TRUE, eval=FALSE, fig.width=10, dpi=300, fig.height=5, out.width="100%", fig.path="assets/chunks/"}
 ggplot(data = world) +
   geom_sf(fill = "#49847b", colour = "#e1ddc0") +
   xlab("Longitude") + ylab("Latitude") + ggtitle("Carte du monde") +
-  geom_sf(data = villes, colour = "black")
+  geom_sf(data = prefectures, colour = "black")
 ```
 
 
@@ -328,22 +368,22 @@ ggplot(data = occitanie) +
   xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE")
 ```
 
-
 ---
 
-```{r "map5", echo=FALSE, eval=TRUE, fig.align="center", fig.width=8, dpi=300, fig.height=7, out.width="70%", fig.path="assets/chunks/", warning=FALSE}
+```{r "map5", echo=FALSE, eval=TRUE, fig.align="center", fig.width=8, dpi=300, fig.height=7, out.width="70%", fig.path="assets/chunks/"}
 ggplot(data = occitanie) +
   geom_sf(fill = "#49847b", colour = "#e1ddc0") +
   xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE") +
-  geom_sf_label(aes(label = NAME_2))
+  geom_sf(data = prefectures, colour = "#3f3f3f")
 ```
 
 ```{r echo=TRUE, eval=FALSE}
 ggplot(data = occitanie) +
   geom_sf(fill = "#49847b", colour = "#e1ddc0") +
   xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE") +
-  geom_sf_label(aes(label = NAME_2))
+  geom_sf(data = prefectures, colour = "#3f3f3f")
 ```
+
 
 
 ---
@@ -352,6 +392,26 @@ ggplot(data = occitanie) +
 ggplot(data = occitanie) +
   geom_sf(fill = "#49847b", colour = "#e1ddc0") +
   xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE") +
+  geom_sf(data = prefectures, colour = "#3f3f3f") +
+  geom_sf_label(aes(label = NAME_2))
+```
+
+```{r echo=TRUE, eval=FALSE}
+ggplot(data = occitanie) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE") +
+  geom_sf(data = prefectures, colour = "#3f3f3f") +
+  geom_sf_label(aes(label = NAME_2))
+```
+
+
+---
+
+```{r "map7", echo=FALSE, eval=TRUE, fig.align="center", fig.width=8, dpi=300, fig.height=7, out.width="70%", fig.path="assets/chunks/", warning=FALSE}
+ggplot(data = occitanie) +
+  geom_sf(fill = "#49847b", colour = "#e1ddc0") +
+  xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE") +
+  geom_sf(data = prefectures, colour = "#3f3f3f") +
   geom_sf_label(aes(label = paste0(NAME_2, " (", CC_2, ")")))
 ```
 
@@ -359,6 +419,7 @@ ggplot(data = occitanie) +
 ggplot(data = occitanie) +
   geom_sf(fill = "#49847b", colour = "#e1ddc0") +
   xlab("Longitude") + ylab("Latitude") + ggtitle("OCCITANIE") +
+  geom_sf(data = prefectures, colour = "#3f3f3f") +
   geom_sf_label(aes(label = paste0(NAME_2, " (", CC_2, ")")))
 ```
 
@@ -405,9 +466,9 @@ Au format ESRI<sup>.small[TM]</sup> :
 
 ```{r echo=TRUE, eval=FALSE}
 sf::st_write(
-  obj    = occitanie,
+  obj    = prefectures,
   dsn    = ".",
-  layer  = "occitanie_copie",
+  layer  = "prefectures",
   driver = "ESRI Shapefile"
 )
 ```
@@ -475,7 +536,7 @@ world_ortho <- world %>%
 
 ---
 
-```{r "map7", echo=FALSE, eval=TRUE, fig.align="center", fig.width=6, dpi=300, fig.height=6, out.width="60%", fig.path="assets/chunks/", warning=FALSE}
+```{r "map9", echo=FALSE, eval=TRUE, fig.align="center", fig.width=6, dpi=300, fig.height=6, out.width="60%", fig.path="assets/chunks/", warning=FALSE}
 ggplot(data = world_ortho) +
   geom_sf(fill = "#49847b", colour = "#e1ddc0") +
   theme(panel.border = element_blank())
@@ -488,7 +549,7 @@ ggplot(data = world_ortho) +
 
 ---
 
-```{r "map8", echo=FALSE, eval=TRUE, fig.align="center", fig.width=6, dpi=300, fig.height=6, out.width="60%", fig.path="assets/chunks/", warning=FALSE}
+```{r "map10", echo=FALSE, eval=TRUE, fig.align="center", fig.width=6, dpi=300, fig.height=6, out.width="60%", fig.path="assets/chunks/", warning=FALSE}
 ggplot(data = world) +
   geom_sf(fill = "#49847b", colour = "#e1ddc0") +
   coord_sf(crs = prj) +
@@ -505,22 +566,82 @@ ggplot(data = world) +
 
 ---
 
-## Quelques opérations spatiales
+## Mesures géométriques
 
-- Création de buffers : `st_buffer()`
+Fonction R              | Détails
+------------------------|------------------
+`sf::st_length(x)`      | Longueur de lignes spatiales
+`sf::st_area(x)`        | Superficie de polygones spatiaux
+`sf::st_distance(x, y)` | Distance entre deux couches
+`sf::st_bbox(x)`        | Etentue spatiale (emprise) d'une couche
+
+
+
+---
+
+## Opérations géométriques unitaires
+
+Fonction R              | Détails
+------------------------|------------------
+`sf::st_buffer(x)`      | Buffers autour d'une géométrie
+`sf::st_boundary(x)`    | Limites d'une géométrie
+`sf::st_convex_hull(x)` | Convex hull d'un ensemble de points
+`sf::st_centroid(x)`    | Centroïde d'une géométrie
+
+
+
+---
+
+## Opérations géométriques binaires
+
+`sf::st_intersects(x, y)`, `sf::st_disjoint(x, y)`, `sf::st_contains(x, y)`, `sf::st_overlaps(x, y)`
+
+
+
 
 ---
 
 ### st_*
 
 - st_crop()
-- st_buffer()
 - st_intersection()
 - st_difference()
 - st_contains()
-- st_boundary()
 - st_union()
-- st_centroid()
+
+
+---
+
+## Interactivité
+
+```{r "map11", echo=FALSE, eval=TRUE, fig.align="center", fig.width=6, fig.height=6, out.width="100%", fig.path="assets/chunks/", warning=FALSE}
+mapview::mapview(prefectures)
+```
+
+```{r echo=TRUE, eval=FALSE}
+mapview::mapview(prefectures)
+```
+
+
+
+---
+
+## Interactivité
+
+```{r "map12", echo=FALSE, eval=TRUE, fig.align="center", fig.width=6, fig.height=6, out.width="100%", fig.path="assets/chunks/", warning=FALSE}
+mapview::mapview(occitanie, zcol = "NAME_2", layer.name = "Département") +
+mapview::mapview(prefectures, col.regions = "#3f3f3f", cex = "population")
+```
+```{r echo=TRUE, eval=FALSE}
+mapview::mapview(occitanie, zcol = "NAME_2", layer.name = "Département") +
+mapview::mapview(prefectures, col.regions = "#3f3f3f", cex = "population")
+```
+
+
+
+
+
+---
 
 ### ggplot2
 
