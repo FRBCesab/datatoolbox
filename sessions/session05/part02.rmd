@@ -590,24 +590,40 @@ Fonction R              | Détails
 
 
 
----
-
-## Opérations géométriques binaires
-
-`sf::st_intersects(x, y)`, `sf::st_disjoint(x, y)`, `sf::st_contains(x, y)`, `sf::st_overlaps(x, y)`
-
-
-
 
 ---
 
-### st_*
+### Les autres st_*
 
-- st_crop()
-- st_intersection()
-- st_difference()
-- st_contains()
-- st_union()
+- `sf::st_crop()`
+- `sf::st_intersection()`
+- `sf::st_difference()`
+- `sf::st_contains()`
+- `sf::st_union()`
+- `sf::st_intersects(x, y)`
+- `sf::st_disjoint(x, y)`
+- `sf::st_contains(x, y)`
+- `sf::st_overlaps(x, y)`
+- `...`
+
+```{r eval=FALSE}
+ls("package:sf")
+```
+
+
+---
+
+## Ressources
+
+- [**sf vignettes**](https://r-spatial.github.io/sf/articles/sf1.html)
+
+- [**Geocomputation with R**](https://geocompr.robinlovelace.net)
+
+- [**Sébastien Rochette**](https://statnmap.com/fr/2018-07-14-initiation-a-la-cartographie-avec-sf-et-compagnie/)
+
+- [**gglot2 et sf**](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html)
+
+- [**Très bonne introduction d'Olivier**](https://oliviergimenez.github.io/introspatialR/#1)
 
 
 ---
@@ -636,15 +652,3 @@ mapview::mapview(prefectures, col.regions = "#3f3f3f", cex = "population")
 mapview::mapview(occitanie, zcol = "NAME_2", layer.name = "Département") +
 mapview::mapview(prefectures, col.regions = "#3f3f3f", cex = "population")
 ```
-
-
-
-
-
----
-
-### ggplot2
-
-- scale_fill_viridis()
-- mapView()
-- geom_sf_text()
