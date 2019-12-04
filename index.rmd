@@ -63,6 +63,8 @@ output:
 [**[Cours]**](sessions/session05/index.html)
 &nbsp;
 **[Exo 1]**
+&nbsp;
+[**[Exo 1]**](exercises/exercise04/index.html)
 
 [**[Cours]**](sessions/session06/research_compendium/index.html)
 

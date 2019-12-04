@@ -1,85 +1,41 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
-    <title>.small[Formation FRB-Cesab &amp; GDR EcoStat]</title>
+    <title>Exercice n°4</title>
     <meta charset="utf-8" />
-    <meta name="author" content=".verysmall[ Du 2 au 6 décembre 2019 Dans les locaux du Cesab à Montpellier]" />
-    <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/xaringan-themer.css" type="text/css" />
-    <link rel="stylesheet" href="assets/css/custom.css" type="text/css" />
+    <link rel="stylesheet" href="../../assets/css/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="../../assets/css/custom.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: right, middle, title-slide
 
-# .small[Formation FRB-Cesab &amp; GDR EcoStat]
-## .ssmall[Bonnes pratiques pour une recherche reproductible en écologie numérique]
-### .verysmall[<br />Du 2 au 6 décembre 2019<br />Dans les locaux du Cesab à Montpellier]
+# Exercice n°4
+## <i>Données spatiales</i><br /><br /><br /><br />
 
 ---
 
 
 
-## Programme
 
 
-.pull-left[
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Recherche reproductible**
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Versioning du code**
+## Instructions
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Travail collaboratif**
+1) Faire une carte mondiale de chaque espèce d'ursidé au niveau des écorégions
+  - Télécharger le shapefile des écorégions terrestres du WWF disponible à
+  https://c402277.ssl.cf1.rackcdn.com/publications/15/files/original/official_teow.zip?1349272619
+  - **NOTE** : ne faites pas les cartes avec toutes les écorégions, uniquement avec celles dans lesquelles on retrouve les espèces
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**API et Web scraping**
-
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Introduction au tidyverse**
-
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Données spatiales**
-
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Research compendium**
-
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**_drake: a pipeline toolkit_**
-
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Du script au package R**
-]
-
-.pull-right[
-[**[Cours]**](sessions/session01/index.html)
-
-[**[Cours]**](sessions/session02/index.html)
-
-[**[Cours]**](sessions/session03/index.html)
-
-[**[Cours]**](sessions/session04/index01.html)
-&amp;nbsp;
-[**[Exo 1]**](exercises/exercise01/index.html)
-
-[**[Cours]**](sessions/session04/index02.html)
-&amp;nbsp;
-[**[Exo 1]**](exercises/exercise02/index.html)
-&amp;nbsp;
-[**[Exo 2]**](exercises/exercise03/index.html)
-
-[**[Cours]**](sessions/session05/index.html)
-&amp;nbsp;
-**[Exo 1]**
-&amp;nbsp;
-[**[Exo 1]**](exercises/exercise04/index.html)
-
-[**[Cours]**](sessions/session06/research_compendium/index.html)
-
-[**[Cours]**](sessions/session06/drake/drake_intro/intro_drake.html)
-
-[**[Cours]**](sessions/session07/index.html)
-
-&lt;br /&gt;
-
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**[Projets]**
-]
+2) Dans quelles conditions de température se rencontre chaque espèce ?
+  - Obtenez un raster de température min et max (WorldClim avec `raster::getData()`)
+  - Calculer un raster de température moyenne
+  - Cropper pour chaque espèce avec leurs écorégions ce raster
+  - Faites avec `ggplot2` une densité (histogramme) des valeurs de Tmoy.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script src="assets/libs/macros.js"></script>
+<script src="../../assets/libs/macros.js"></script>
 <script>var slideshow = remark.create({
 "ratio": "4:3",
 "highlightStyle": "zenburn",
