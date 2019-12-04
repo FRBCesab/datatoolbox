@@ -60,15 +60,3 @@ class: inverse, center, middle
 
 ```{r child='part03.rmd'}
 ```
-
-
-
----
-class: inverse, center, middle
-
-## Cartographie
-
----
-
-```{r child='part04.rmd'}
-```

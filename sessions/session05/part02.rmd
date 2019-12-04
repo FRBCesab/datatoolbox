@@ -1,5 +1,7 @@
 ## Les packages `r icon::fa("r-project")` - Vecteurs
 
+<br />
+
 Package           | Fonctionnalités
 ------------------|------------------
 `{sp}`            | Classes et méthodes pour couches vectorielles
@@ -62,6 +64,8 @@ Package           | Fonctionnalités
 
 ## Installation
 
+<br />
+
 ```{r echo=TRUE, eval=-1}
 install.packages("sf")
 
@@ -71,7 +75,7 @@ library("sf")
 
 ---
 
-## Création de points spatiaux (1)
+## Création de points spatiaux
 
 Soit les villes avec les coordonnées suivantes :
 
@@ -116,7 +120,7 @@ class(villes)
 
 ---
 
-## Création de points spatiaux (1)
+## Création de points spatiaux
 
 Ajoutons une table d'attributs et convertissons l'objet en _simple  feature_ :
 
@@ -142,9 +146,13 @@ class(villes)
 
 ---
 
-## Création de points spatiaux (2)
+## Création de points spatiaux
+
+<br />
 
 Bien souvent, vous importerez directement un `data.frame` que vous souhaiterez convertir en _simple feature_
+
+<br />
 
 ```{r echo=TRUE, eval=FALSE}
 ## URL et nom du fichier
@@ -161,13 +169,11 @@ download.file(
 unzip(zipfile = filename)
 ```
 
-
-
-
 ---
 
-## Création de points spatiaux (2)
+## Création de points spatiaux
 
+<br />
 
 ```{r echo=TRUE, eval=FALSE}
 ## Ouverture du csv
@@ -181,12 +187,11 @@ prefectures <- readr::read_csv(
 prefectures
 ```
 
-
-
 ---
 
-## Création de points spatiaux (2)
+## Création de points spatiaux
 
+<br />
 
 ```{r echo=TRUE, eval=TRUE}
 prefectures <- sf::st_as_sf(
@@ -288,6 +293,8 @@ ggplot(data = world) +
 
 ## Importation d'une couche vectorielle
 
+<br />
+
 Dans la plupart des cas, vous devrez importer une couche spatiale déjà prête.
 
 --
@@ -312,6 +319,8 @@ unzip(zipfile = filename)
 ---
 
 ## Importation d'une couche vectorielle
+
+<br />
 
 Que contient la couche ?
 
@@ -349,6 +358,8 @@ occitanie <- sf::st_read(dsn = file.path("..", "..", "data"), layer = "occitanie
 ---
 
 ## Importation d'une couche vectorielle
+
+<br />
 
 ```{r echo=TRUE, eval=TRUE}
 occitanie %>% head(3)
@@ -462,6 +473,8 @@ ESRI Shapefile                  ESRI Shapefile  TRUE FALSE     FALSE      TRUE  
 
 ## Exportation d'une couche vectorielle
 
+<br />
+
 Au format ESRI<sup>.small[TM]</sup> :
 
 ```{r echo=TRUE, eval=FALSE}
@@ -499,9 +512,6 @@ world <- world %>%
 
 sf::st_crs(world)
 ```
-
-
-
 
 ---
 
@@ -562,11 +572,17 @@ ggplot(data = world) +
   coord_sf(crs = prj)
 ```
 
+---
 
+## Manipulations spatiales : sf cheat sheet
+
+.center[![:scale 100%](assets/img/geom_ops.png)]
 
 ---
 
-## Mesures géométriques
+## Manipulations spatiales : sf cheat sheet
+
+Mesures géométriques
 
 Fonction R              | Détails
 ------------------------|------------------
@@ -575,11 +591,7 @@ Fonction R              | Détails
 `sf::st_distance(x, y)` | Distance entre deux couches
 `sf::st_bbox(x)`        | Etentue spatiale (emprise) d'une couche
 
-
-
----
-
-## Opérations géométriques unitaires
+Opérations géométriques unitaires
 
 Fonction R              | Détails
 ------------------------|------------------
@@ -588,26 +600,33 @@ Fonction R              | Détails
 `sf::st_convex_hull(x)` | Convex hull d'un ensemble de points
 `sf::st_centroid(x)`    | Centroïde d'une géométrie
 
-
-
 ---
 
-## Opérations géométriques binaires
+## Manipulations spatiales : sf cheat sheet
 
-`sf::st_intersects(x, y)`, `sf::st_disjoint(x, y)`, `sf::st_contains(x, y)`, `sf::st_overlaps(x, y)`
+Opérations géométriques binaires
 
+- `sf::st_intersects(x, y)`
+- `sf::st_disjoint(x, y)`
+- `sf::st_contains(x, y)`
+- `sf::st_overlaps(x, y)`
+- `...`
 
+<br />
 
+st_*
 
----
+- `st_crop()`
+- `st_intersection()`
+- `st_difference()`
+- `st_contains()`
+- `st_union()`
 
-### st_*
+<br />
 
-- st_crop()
-- st_intersection()
-- st_difference()
-- st_contains()
-- st_union()
+```{r eval=FALSE}
+ls("package:sf")
+```
 
 
 ---
@@ -622,8 +641,6 @@ mapview::mapview(prefectures)
 mapview::mapview(prefectures)
 ```
 
-
-
 ---
 
 ## Interactivité
@@ -635,16 +652,3 @@ mapview::mapview(prefectures, col.regions = "#3f3f3f", cex = "population")
 ```{r echo=TRUE, eval=FALSE}
 mapview::mapview(occitanie, zcol = "NAME_2", layer.name = "Département") +
 mapview::mapview(prefectures, col.regions = "#3f3f3f", cex = "population")
-```
-
-
-
-
-
----
-
-### ggplot2
-
-- scale_fill_viridis()
-- mapView()
-- geom_sf_text()
