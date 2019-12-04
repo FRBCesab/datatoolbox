@@ -22,23 +22,31 @@ class: right, middle, title-slide
 
 class: inverse, center, middle
 
-## Research Compenkoi ?
+## Research Compendium
 
---
-
-"A collection of concise but detailed information about a particular subject"
 
 ---
 
-## Research Compendium (ressources)
+class: inverse, center, middle
 
-- Marwick B, Boettiger C, Mullen L. 2018. Packaging data analytical work reproducibly using R (and friends). PeerJ Preprints 6:e3192v2 https://doi.org/10.7287/peerj.preprints.3192v2
+## Research Compenkoi ?
 
-- https://research-compendium.science/
+---
 
-- https://zenodo.org/communities/research-compendium/about/
+class: inverse, center, middle
+
+## Research Compendium
+
+"A collection of concise but detailed information about a particular subject"
 
 --
+
+Un abrégé, un précis, un recueil. Il synthétise de manière exhaustive votre projet d'analyse de données.
+
+
+---
+
+## Research Compendium
 
 - Quelques règles simples pour organiser son répertoire de travail
 
@@ -48,7 +56,9 @@ class: inverse, center, middle
 
 --
 
-- Un jour vous allez partager votre code, vos données (autant se préparer depuis le début plutôt que de devoir tout refaire ou risquer la honte internationale)
+- Un jour vous allez partager votre code, vos données, vos résultats. Avec vous-même, avec vos étudiants, votre encadrant, vos collègues ou le reste du monde.
+
+- Autant se préparer depuis le début plutôt que de devoir tout refaire ou risquer la honte internationale !
 
 ---
 
@@ -99,9 +109,34 @@ must be specified as well.
 
 --
 
-Utilisez un script "master" (make.R) qui donne et execute les étapes dans l'ordre (c'est le SEUL script R à la racine !)
+Utilisez un script "maître" (make.R) qui donne et execute les étapes dans l'ordre (c'est le SEUL script R à la racine !)
 
 .center[![:scale 40%](assets/img/comp_4.png) ![:scale 40%](assets/img/comp_make.png)]
+
+---
+
+## Principes
+
+- The relationship between which code operates on which data in which order to produce which outputs
+must be specified as well.
+
+Utilisez un script "maître" (make.R) qui donne et execute les étapes dans l'ordre (c'est le SEUL script R à la racine !)
+
+--
+
+&lt;br /&gt;
+&lt;br /&gt;
+.big[Tous les scripts, "tournent" tous à partir de la racine du projet !]
+
+--
+
+&lt;br /&gt;
+&lt;br /&gt;
+.big[Tous les chemins (relatifs) doivent être définis à partir de la racine du projet !]
+
+&lt;br /&gt;
+
+.center[file.path("res",res_dir_01) / file.path("data","fichier.csv")]
 
 ---
 
@@ -167,6 +202,10 @@ Utilisez docker (voir liens session d'intro)
 .center[![:scale 40%](assets/img/comp_7.png)]
 
 
+--
+
+.center[Utilisez les packages rmarkdown, knitr, et rticles, ils sont puissants.]
+
 ---
 
 ## Principes
@@ -174,6 +213,20 @@ Utilisez docker (voir liens session d'intro)
 - Séparons aussi le(s) ressources utiles (biblio, etc ...)
 
 .center[![:scale 40%](assets/img/comp_8.png)]
+
+
+---
+
+## Diffusion / stockage
+
+- Il existe de nombreuses plateformes pour stocker votre supp. mat.
+
+- La plupat sont propriétaires/privées et/ou payantes (e.g. Dryad, https://datadryad.org/)
+
+- Il existe Zenodo (https://zenodo.org/) : Il a été créé par OpenAIRE et le CERN pour fournir aux chercheurs un lieu pour déposer des ensembles de données. Il a été lancé en 2013, permettant à des chercheurs de télécharger des fichiers jusqu'à 50 GO.
+
+.center[![:scale 40%](assets/img/zenodo.png)]
+
 
 
 ---
@@ -186,6 +239,20 @@ Utilisez docker (voir liens session d'intro)
 
 .center[![:scale 40%](assets/img/comp_9.png)]
 
+
+---
+
+## Research Compendium (ressources)
+
+- Marwick B, Boettiger C, Mullen L. 2018. Packaging data analytical work reproducibly using R (and friends). PeerJ Preprints 6:e3192v2 https://doi.org/10.7287/peerj.preprints.3192v2
+
+- https://research-compendium.science/
+
+- https://zenodo.org/communities/research-compendium/about/
+
+- https://github.com/cboettig/template (structure de package)
+
+- https://github.com/benmarwick/rrtools (structure de apckage + intégration docker !!)
 
 ---
 
