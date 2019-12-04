@@ -97,6 +97,12 @@ result <- correct_classif(data) %>%
 return(result)
 }
 
+correct_wf <- function(data){
+  result <- correct_classif(data)%>%
+  mutate(species_id = as.integer(data$species_id))
+  return(result)
+  }
+
 plot_necoregions <- function(data){
  plot <- 
    data %>%

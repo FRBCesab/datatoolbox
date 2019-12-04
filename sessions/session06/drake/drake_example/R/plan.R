@@ -11,9 +11,7 @@ plan <- drake_plan(
   
   #### correct names ####
   # Check and correct species names
-  wf_ursidae = correct_classif(wf_ursidae_raw)%>%
-    mutate(species_id = as.integer(wf_ursidae_raw$species_id)),
-  
+  wf_ursidae = correct_wf(wf_ursidae_raw),
   pan_ursidae = correct_panteria(pan_ursidae_raw),
   
   #### wrangle dataframes ####

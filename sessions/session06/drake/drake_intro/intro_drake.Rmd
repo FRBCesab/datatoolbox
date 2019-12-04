@@ -488,6 +488,72 @@ loadd()
 readd(wf_ursidae_raw)
 ```
 ---
+## 1) load data  
+### pantheria    
+```{r, eval = FALSE}
+url       <- "http://esapubs.org/archive/ecol/E090/184/"
+filename  <- "PanTHERIA_1-0_WR05_Aug2008.txt"
+
+pantheria <- readr::read_delim(file.path(url, filename), delim = "\t")
+```
+
+- Get Ursidae only    
+- Keep columns: sci_name,
+    family, adult_bodymass, dispersal_age, gestation, homerange,
+    litter_size,  longevity      
+
+---
+```{r, eval = FALSE}
+get_pantheria_ursidae <- function(){
+url       <- "http://esapubs.org/archive/ecol/E090/184/"
+filename  <- "PanTHERIA_1-0_WR05_Aug2008.txt"
+
+pantheria <- readr::read_delim(file.path(url, filename), delim = "\t") %>%
+  mutate(                                    # Conversion de type
+    family = (MSW05_Family),
+    sci_name = (MSW05_Binomial)
+  ) %>%
+  rename(                                    # Nom des colonnes
+    adult_bodymass = `5-1_AdultBodyMass_g`,
+    dispersal_age  = `7-1_DispersalAge_d`,
+    gestation      = `9-1_GestationLen_d`,
+    homerange      = `22-2_HomeRange_Indiv_km2`,
+    litter_size    = `16-1_LittersPerYear`,
+    longevity      = `17-1_MaxLongevity_m`
+  ) %>%
+  select(                                    # Sélection de colonnes
+    sci_name,
+    family,
+    adult_bodymass,
+    dispersal_age,
+    gestation,
+    homerange,
+    litter_size,
+    longevity
+  ) %>%
+  na_if(-999) %>%
+  filter(family == "Ursidae")
+return(pantheria)
+}
+
+```
+---
+## 1) load data   
+### plan.R   
+
+```{r, eval = FALSE}
+plan <- drake_plan(
+  #### get data ####
+  # Wildfinder data
+  wf_ursidae_raw = get_ursidae(),
+  wf_ecoregions = get_ecoregions(),
+  wf_sp_eco = get_sp_eco(),
+  # pantheria data
+  pan_ursidae_raw = get_pantheria_ursidae()
+)
+```
+
+---
 ## 2) clean data    
 ### Challenge!   
 
@@ -523,8 +589,29 @@ correct_classif <- function(data){
   return(classif)
 }
 ```
-
 ---
+## 2) clean data    
+### functions.R
+```{r, eval=FALSE}
+correct_panteria <- function(data){
+result <- correct_classif(data) %>%
+  cbind(select(data, adult_bodymass,
+               dispersal_age,
+               gestation,
+               homerange,
+               litter_size,
+               longevity))
+return(result)
+}
+
+correct_wf <- function(data){
+  result <- correct_classif(data)%>%
+  mutate(species_id = as.integer(data$species_id))
+  return(result)
+  }
+```
+---
+
 ## 2) clean data   
 ### plan.R
 ```{r, eval = FALSE}
@@ -537,10 +624,69 @@ plan <- drake_plan(
 
   #### correct names ####
   # Check and correct species names
-  wf_ursidae = correct_classif(wf_ursidae_raw)%>%
-    mutate(species_id = as.integer(wf_ursidae_raw$species_id)))
+  wf_ursidae = correct_wf(wf_ursidae_raw),
+  pan_ursidae = correct_panteria(pan_ursidae_raw)
+ )
 ```
 
+---
+## 3) wrangle data   
+### plan.R
+```{r, eval = FALSE}
+plan <- drake_plan(
+  #### get data ####
+  # Wildfinder data
+  wf_ursidae_raw = get_ursidae(),
+  wf_ecoregions = get_ecoregions(),
+  wf_sp_eco = get_sp_eco(),
+
+  #### correct names ####
+  # Check and correct species names
+  wf_ursidae = correct_wf(wf_ursidae_raw),
+  pan_ursidae = correct_panteria(pan_ursidae_raw),
+  
+  #### wrangle dataframes ####
+  # combine 
+  ursidae_eco = combine_sp_eco(wf_ursidae, wf_sp_eco, wf_ecoregions),
+  # summarize
+  ursidae_spread = get_spread(ursidae_eco),
+  # combine pantheria with region data
+  ursidae_combined = left_join(ursidae_spread, pan_ursidae)
+ )
+```
+
+---
+## 4) plot data   
+### plan.R
+```{r, eval = FALSE}
+  #### plots ####
+  necoregions_plot  = plot_necoregions(ursidae_spread),
+  gestation_plot = plot_gestation(ursidae_combined)
+ 
+```
+
+---
+
+## 5) report   
+### plan.R
+```{r, eval = FALSE}
+    #### plots ####
+    necoregions_plot  = plot_necoregions(ursidae_spread),
+    gestation_plot = plot_gestation(ursidae_combined),
+  
+    #### report ####
+  report = rmarkdown::render(
+    knitr_in("text/report.Rmd"),
+    output_file = file_out("output/text/report.html"),
+    quiet = FALSE,
+    output_dir = "output/text/"
+  )
+```
+
+---
+## bonus 
+
+add map 
 
 
 
