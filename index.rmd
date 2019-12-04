@@ -48,7 +48,7 @@ output:
 
 [**[Cours]**](sessions/session02/index.html)
 
-**[Cours]**
+[**[Cours]**](sessions/session03/index.html)
 
 [**[Cours]**](sessions/session04/index01.html)
 &nbsp;
@@ -64,7 +64,7 @@ output:
 &nbsp;
 **[Exo 1]**
 &nbsp;
-**[Exo 2]**
+[**[Exo 1]**](exercises/exercise04/index.html)
 
 [**[Cours]**](sessions/session06/research_compendium/index.html)
 

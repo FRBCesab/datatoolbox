@@ -341,3 +341,5 @@ Formats d'export de Rmarkdown (pandoc)
 ![](assets/rmarkdown_formats.png){width=50%}
 
 # On y va ?
+
+
