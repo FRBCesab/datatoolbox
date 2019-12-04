@@ -149,7 +149,8 @@ ggplot(terr) +
   scale_color_fish_d(option = "Hypsypops_rubicundus") +
   coord_sf() +
   theme_minimal()
-ggsave(plot, "output/plots/worldmap.pdf", height = 6, width = 8)
+ggsave("output/plots/worldmap.pdf", plot, height = 6, width = 8)
+return(plot)
 }
 
 

@@ -37,20 +37,4 @@ knitr::opts_chunk$set(fig.path = 'assets/chunks/', cache.path = "assets/cache/")
   - Cropper pour chaque espèce avec leurs écorégions ce raster
   - Faites avec `ggplot2` une densité (histogramme) des valeurs de Tmoy.
   
-```{r eval = FALSE}
 
-world <- ne_countries(scale = "medium", returnclass = "sf")
-
-terr <- sf::read_sf("data/wwf_terr_ecos.shp") %>%
-  rename(ecoregion = ECO_NAME) %>%
-  inner_join(ursidae_eco)
-
-ggplot(terr) +
-  geom_sf(data = world) +
-  geom_sf(aes(fill = sci_name, color = sci_name)) +
-  facet_wrap(~sci_name) +
-  scale_fill_fish_d(option = "Hypsypops_rubicundus") +
-  scale_color_fish_d(option = "Hypsypops_rubicundus") +
-  coord_sf() +
-  theme_minimal()
-```
