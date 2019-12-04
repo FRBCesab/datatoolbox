@@ -622,6 +622,12 @@ st_*
 - `st_contains()`
 - `st_union()`
 
+<br />
+
+```{r eval=FALSE}
+ls("package:sf")
+```
+
 
 ---
 
