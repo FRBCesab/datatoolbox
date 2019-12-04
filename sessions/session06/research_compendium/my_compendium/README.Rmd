@@ -24,6 +24,14 @@ This Compendium is full of fishes around the world `r emo::ji("earth_africa")`  
 
 francois.guilhaumon@ird.fr
 
+## Script list
+
+```{r}
+list.files(file.path("R"))
+```
+
+
+
 ## Session info
 
 ```{r}
