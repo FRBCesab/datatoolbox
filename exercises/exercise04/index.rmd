@@ -36,3 +36,5 @@ knitr::opts_chunk$set(fig.path = 'assets/chunks/', cache.path = "assets/cache/")
   - Calculer un raster de température moyenne
   - Cropper pour chaque espèce avec leurs écorégions ce raster
   - Faites avec `ggplot2` une densité (histogramme) des valeurs de Tmoy.
+  
+
