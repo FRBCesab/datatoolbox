@@ -26,6 +26,8 @@ plan <- drake_plan(
   necoregions_plot  = plot_necoregions(ursidae_spread),
   gestation_plot = plot_gestation(ursidae_combined),
   
+  worldmap = get_worldmap(ursidae_eco),
+  
   #### report ####
   report = rmarkdown::render(
     knitr_in("text/report.Rmd"),
