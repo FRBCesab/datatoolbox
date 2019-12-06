@@ -126,11 +126,16 @@ La fonction `getData()` du package `{raster}` permet de récupérer gratuitement
 
 <br />
 
-```{r echo=TRUE, eval=TRUE}
-altFR <- getData(name = "alt", country = "FR")
+```{r echo=TRUE, eval=FALSE}
+altFR <- raster::getData(name = "alt", country = "FR", 
+                         path = "data/")
 altFR
 ```
 
+```{r echo=FALSE, eval=TRUE}
+altFR <- raster("../../data/FRA_msk_alt.grd")
+altFR
+```
 ---
 
 ## Importation d'un objet matriciel
@@ -149,9 +154,16 @@ Ces fonctions réduisent l'utilisation de la mémoire de l'objet et accélèrent
 - `crop()` diminue l'étendue du raster
 - `mask()` remplace par des NA tout ce que est à l'extérieur de la zone d'intérêt
 
-```{r echo=TRUE, eval=TRUE}
+```{r echo=TRUE, eval=FALSE}
 # Récupère le shapefile de l'occitanie
-regionsFR <- raster::getData("GADM", country = "FR", level = 1)
+regionsFR <- raster::getData("GADM", country = "FR", level = 1, path = "data/")
+```
+
+```{r echo=FALSE, eval=TRUE}
+regionsFR <- readRDS("../../data/gadm36_FRA_1_sp.rds")
+```
+
+```{r echo=TRUE, eval=TRUE}
 # Convertion en sf
 library('sf')
 regionsFR <- st_as_sf(regionsFR)
@@ -209,25 +221,25 @@ prefectures
 
 ```{r echo=TRUE, eval=TRUE}
 ## Extrait le profil d'altitude du transect
-transect = cbind(c(0, 4), c(43, 44)) %>%
+transect <- cbind(c(0, 4), c(43, 44)) %>%
   st_linestring() %>%
   st_sfc(crs = projection(alt_occit_crop)) %>%
   st_sf()
 
 ## Retourne une liste contenant une matrice d'identifiants de cellules dans la
 ## première colonne and l'altitude dans la seconde
-transect_alt = raster::extract(alt_occit_crop, transect,
+transect_alt <- raster::extract(alt_occit_crop, transect,
                            along = TRUE, cellnumbers = TRUE)
 
 ## Conversion en data_frame
-transect_df = purrr::map_dfr(transect_alt, as.data.frame, .id = "ID")
+transect_df <- purrr::map_dfr(transect_alt, as.data.frame, .id = "ID")
 
 ## Retourne les coordonnées de chaque cellule extraite
-transect_coords = xyFromCell(alt_occit_crop, transect_df$cell)
+transect_coords <- xyFromCell(alt_occit_crop, transect_df$cell)
 
 ## Calcul les distances associées le long du transect
-pair_dist = geosphere::distGeo(transect_coords)[-nrow(transect_coords)]
-transect_df$dist = c(0, cumsum(pair_dist))
+pair_dist <- geosphere::distGeo(transect_coords)[-nrow(transect_coords)]
+transect_df$dist <- c(0, cumsum(pair_dist))
 ```
 
 ---

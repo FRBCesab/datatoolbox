@@ -177,7 +177,7 @@ unzip(zipfile = filename)
 
 ```{r echo=TRUE, eval=FALSE}
 ## Ouverture du csv
-(prefectures <- readr::read_csv("~/Desktop/occitanie_prefectures.csv"))
+(prefectures <- readr::read_csv("occitanie_prefectures.csv"))
 ```
 
 ```{r echo=FALSE, eval=TRUE, message=FALSE}
