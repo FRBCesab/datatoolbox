@@ -46,7 +46,7 @@ output:
 .pull-right[
 [**[Cours]**](courses/open-sci/index.html)
 
-[**[Cours]**](courses/into-git/index.html)
+[**[Cours]**](courses/intro-git/index.html)
 
 [**[Cours]**](courses/rmarkdown/index.html)
 
@@ -56,9 +56,9 @@ output:
 
 [**[Cours]**](courses/tidyverse/index.html)
 &nbsp;
-[**[Exo 1]**](courses/exercise02/index.html)
+[**[Exo 1]**](exercises/exercise02/index.html)
 &nbsp;
-[**[Exo 2]**](courses/exercise03/index.html)
+[**[Exo 2]**](exercises/exercise03/index.html)
 
 [**[Cours]**](courses/r-spatial/index.html)
 &nbsp;
@@ -69,3 +69,4 @@ output:
 [**[Cours]**](courses/drake/drake_intro/intro_drake.html)
 
 [**[Cours]**](courses/r-packages/index.html)
+]
