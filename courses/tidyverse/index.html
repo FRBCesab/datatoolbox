@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Introduction to the Tidyverse</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Olivier Gimenez" />
+    <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/css/rutgers-tidyverse.css" type="text/css" />
+    <link rel="stylesheet" href="../../assets/css/rutgers-fonts_og.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Introduction to the Tidyverse
+## How to be a tidy data scientist
+### Olivier Gimenez
+### Mardi 3 décembre 2019
+
+---
+
+
+
+
+# **Tidyverse**
+
+- **Ordocosme** in 🇫🇷 with _Tidy_ for "bien rangé" and _verse_ for "univers"
+
+- A collection of R 📦 developed by H. Wickham and others at Rstudio
+
+&lt;img src="assets/img/wickham_president.jpg" width="50%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# **Tidyverse**
+
+* "A framework for managing data that aims at making the cleaning and preparing steps [muuuuuuuch] easier" (Julien Barnier).
+
+* Main characteristics of a tidy dataset:
+    - each variable is a column
+    - each observation is a raw
+    - each value is in a different cell
+
+&lt;img src="assets/img/tidydata.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# **Tidyverse** is a collection of R 📦
+
+
+* `ggplot2` - visualising stuff
+
+* `dplyr`, `tidyr` - data manipulation
+
+* `purrr` - advanced programming
+
+* `readr` - import data
+
+* `tibble` - improved data.frame format
+
+* `forcats` - working w/ factors
+
+* `stringr` - working w/ chain of characters
+
+---
+
+# **Tidyverse** is a collection of R 📦
+
+* [`ggplot2` - visualising stuff](https://ggplot2.tidyverse.org/)
+
+* [`dplyr`, `tidyr` - data manipulation](https://dplyr.tidyverse.org/)
+
+* `purrr` - advanced programming
+
+* [`readr` - import data](https://readr.tidyverse.org/)
+
+* [`tibble` - improved data.frame format](https://tibble.tidyverse.org/)
+
+* [`forcats` - working w/ factors](https://forcats.tidyverse.org/)
+
+* [`stringr` - working w/ chain of characters](https://stringr.tidyverse.org/)
+
+
+
+---
+class: middle
+
+
+# Workflow in data science
+
+&lt;img src="assets/img/data-science-workflow.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+class: middle
+
+# Workflow in data science, with **Tidyverse**
+
+&lt;img src="assets/img/01_tidyverse_data_science.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+---
+background-image: url(https://github.com/rstudio/hex-stickers/raw/master/SVG/tidyverse.svg?sanitize=true)
+background-size: 100px
+background-position: 90% 3%
+
+# Load [tidyverse](www.tidyverse.org) 📦
+
+
+```r
+#install.packages("tidyverse")
+library(tidyverse)
+```
+
+```
+## ── Attaching packages ─────────────────────────────────────── tidyverse 1.2.1 ──
+```
+
+```
+## ✔ ggplot2 3.2.1     ✔ purrr   0.3.3
+## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
+## ✔ tidyr   1.0.0     ✔ stringr 1.4.0
+## ✔ readr   1.3.1     ✔ forcats 0.4.0
+```
+
+```
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+```
+
+---
+class: middle
+
+## Case study:
+# [Using Twitter to predict citation rates of ecological research](https://peerj.com/preprints/3180/)
+
+&lt;img src="assets/img/paper_workflow.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, center, middle
+
+# Import
+
+
+---
+
+# Import data
+
+**readr::read_csv** function:
+
+* keeps input types as is (no conversion to factor)
+
+* creates `tibbles` instead of `data.frame`
+     - no names to rows
+     - allows column names with special characters
+     - more clever on screen display than w/ data.frames
+     - no partial matching on column names
+     - warning if attempt to access unexisting column
+
+* is daaaaaamn fast 🏎
+
+---
+
+# Import data
+
+
+```r
+citations_raw &lt;- read_csv('https://raw.githubusercontent.com/oliviergimenez/intro_tidyverse/master/journal.pone.0166570.s001.CSV')
+citations_raw
+```
+
+```
+## # A tibble: 1,599 x 12
+##    `Journal identi… `5-year journal… `Year published` Volume Issue Authors
+##    &lt;chr&gt;                       &lt;dbl&gt;            &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;  
+##  1 Ecology Letters              16.7             2014     17 12    Morin …
+##  2 Ecology Letters              16.7             2014     17 12    Jucker…
+##  3 Ecology Letters              16.7             2014     17 12    Calcag…
+##  4 Ecology Letters              16.7             2014     17 11    Segre …
+##  5 Ecology Letters              16.7             2014     17 11    Kaufma…
+##  6 Ecology Letters              16.7             2014     17 10    Nasto …
+##  7 Ecology Letters              16.7             2014     17 10    Tschir…
+##  8 Ecology Letters              16.7             2014     17 9     Barnec…
+##  9 Ecology Letters              16.7             2014     17 9     Pinto-…
+## 10 Ecology Letters              16.7             2014     17 9     Clough…
+## # … with 1,589 more rows, and 6 more variables: `Collection date` &lt;chr&gt;,
+## #   `Publication date` &lt;chr&gt;, `Number of tweets` &lt;dbl&gt;, `Number of
+## #   users` &lt;dbl&gt;, `Twitter reach` &lt;dbl&gt;, `Number of Web of Science
+## #   citations` &lt;dbl&gt;
+```
+
+---
+class: inverse, center, middle
+
+# Tidy, transform
+
+---
+
+# Rename columns
+
+
+```r
+citations_temp &lt;- rename(citations_raw,
+       journal = 'Journal identity',
+       impactfactor = '5-year journal impact factor',
+       pubyear = 'Year published',
+       colldate = 'Collection date',
+       pubdate = 'Publication date',
+       nbtweets = 'Number of tweets',
+       woscitations = 'Number of Web of Science citations')
+citations_temp
+```
+
+```
+## # A tibble: 1,599 x 12
+##    journal impactfactor pubyear Volume Issue Authors colldate pubdate nbtweets
+##    &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;
+##  1 Ecolog…         16.7    2014     17 12    Morin … 2/1/2016 9/16/2…       18
+##  2 Ecolog…         16.7    2014     17 12    Jucker… 2/1/2016 10/13/…       15
+##  3 Ecolog…         16.7    2014     17 12    Calcag… 2/1/2016 10/21/…        5
+##  4 Ecolog…         16.7    2014     17 11    Segre … 2/1/2016 8/28/2…        9
+##  5 Ecolog…         16.7    2014     17 11    Kaufma… 2/1/2016 8/28/2…        3
+##  6 Ecolog…         16.7    2014     17 10    Nasto … 2/2/2016 7/28/2…       27
+##  7 Ecolog…         16.7    2014     17 10    Tschir… 2/2/2016 8/6/20…        6
+##  8 Ecolog…         16.7    2014     17 9     Barnec… 2/2/2016 6/17/2…       19
+##  9 Ecolog…         16.7    2014     17 9     Pinto-… 2/2/2016 6/12/2…       26
+## 10 Ecolog…         16.7    2014     17 9     Clough… 2/2/2016 7/17/2…       44
+## # … with 1,589 more rows, and 3 more variables: `Number of users` &lt;dbl&gt;,
+## #   `Twitter reach` &lt;dbl&gt;, woscitations &lt;dbl&gt;
+```
+
+---
+
+# Create (or modify) columns
+
+
+```r
+citations &lt;- mutate(citations_temp, journal = as.factor(journal))
+citations
+```
+
+```
+## # A tibble: 1,599 x 12
+##    journal impactfactor pubyear Volume Issue Authors colldate pubdate nbtweets
+##    &lt;fct&gt;          &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;
+##  1 Ecolog…         16.7    2014     17 12    Morin … 2/1/2016 9/16/2…       18
+##  2 Ecolog…         16.7    2014     17 12    Jucker… 2/1/2016 10/13/…       15
+##  3 Ecolog…         16.7    2014     17 12    Calcag… 2/1/2016 10/21/…        5
+##  4 Ecolog…         16.7    2014     17 11    Segre … 2/1/2016 8/28/2…        9
+##  5 Ecolog…         16.7    2014     17 11    Kaufma… 2/1/2016 8/28/2…        3
+##  6 Ecolog…         16.7    2014     17 10    Nasto … 2/2/2016 7/28/2…       27
+##  7 Ecolog…         16.7    2014     17 10    Tschir… 2/2/2016 8/6/20…        6
+##  8 Ecolog…         16.7    2014     17 9     Barnec… 2/2/2016 6/17/2…       19
+##  9 Ecolog…         16.7    2014     17 9     Pinto-… 2/2/2016 6/12/2…       26
+## 10 Ecolog…         16.7    2014     17 9     Clough… 2/2/2016 7/17/2…       44
+## # … with 1,589 more rows, and 3 more variables: `Number of users` &lt;dbl&gt;,
+## #   `Twitter reach` &lt;dbl&gt;, woscitations &lt;dbl&gt;
+```
+
+---
+
+# Create (or modify) columns
+
+
+```r
+levels(citations$journal)
+```
+
+```
+##  [1] "Animal Conservation"              "Conservation Letters"            
+##  [3] "Diversity and Distributions"      "Ecological Applications"         
+##  [5] "Ecology"                          "Ecology Letters"                 
+##  [7] "Evolution"                        "Evolutionary Applications"       
+##  [9] "Fish and Fisheries"               "Functional Ecology"              
+## [11] "Global Change Biology"            "Global Ecology and Biogeography" 
+## [13] "Journal of Animal Ecology"        "Journal of Applied Ecology"      
+## [15] "Journal of Biogeography"          "Limnology and Oceanography"      
+## [17] "Mammal Review"                    "Methods in Ecology and Evolution"
+## [19] "Molecular Ecology Resources"      "New Phytologist"
+```
+
+---
+class: inverse, center, middle
+
+# Give your code some air
+
+---
+
+# Cleaner code with "pipe" operator `%&gt;%`
+
+
+```r
+citations_raw %&gt;%
+  rename(journal = 'Journal identity',
+       impactfactor = '5-year journal impact factor',
+       pubyear = 'Year published',
+       colldate = 'Collection date',
+       pubdate = 'Publication date',
+       nbtweets = 'Number of tweets',
+       woscitations = 'Number of Web of Science citations') %&gt;%
+  mutate(journal = as.factor(journal))
+```
+
+```
+## # A tibble: 1,599 x 12
+##    journal impactfactor pubyear Volume Issue Authors colldate pubdate nbtweets
+##    &lt;fct&gt;          &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;
+##  1 Ecolog…         16.7    2014     17 12    Morin … 2/1/2016 9/16/2…       18
+##  2 Ecolog…         16.7    2014     17 12    Jucker… 2/1/2016 10/13/…       15
+##  3 Ecolog…         16.7    2014     17 12    Calcag… 2/1/2016 10/21/…        5
+##  4 Ecolog…         16.7    2014     17 11    Segre … 2/1/2016 8/28/2…        9
+##  5 Ecolog…         16.7    2014     17 11    Kaufma… 2/1/2016 8/28/2…        3
+##  6 Ecolog…         16.7    2014     17 10    Nasto … 2/2/2016 7/28/2…       27
+##  7 Ecolog…         16.7    2014     17 10    Tschir… 2/2/2016 8/6/20…        6
+##  8 Ecolog…         16.7    2014     17 9     Barnec… 2/2/2016 6/17/2…       19
+##  9 Ecolog…         16.7    2014     17 9     Pinto-… 2/2/2016 6/12/2…       26
+## 10 Ecolog…         16.7    2014     17 9     Clough… 2/2/2016 7/17/2…       44
+## # … with 1,589 more rows, and 3 more variables: `Number of users` &lt;dbl&gt;,
+## #   `Twitter reach` &lt;dbl&gt;, woscitations &lt;dbl&gt;
+```
+
+---
+
+# Name object
+
+
+```r
+*citations &lt;- citations_raw %&gt;%
+  rename(journal = 'Journal identity',
+       impactfactor = '5-year journal impact factor',
+       pubyear = 'Year published',
+       colldate = 'Collection date',
+       pubdate = 'Publication date',
+       nbtweets = 'Number of tweets',
+       woscitations = 'Number of Web of Science citations') %&gt;%
+  mutate(journal = as.factor(journal))
+```
+
+---
+
+# Syntax with pipe
+
+* Verb(Subject,Complement) replaced by Subject %&gt;% Verb(Complement)
+
+
+* No need to name unimportant intermediate variables
+
+
+* Clear syntax (readability)
+
+&lt;img src="assets/img/logo_pipe.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Base R from [Lise Vaudor's blog](http://perso.ens-lyon.fr/lise.vaudor/)
+
+
+```r
+white_and_yolk &lt;- crack(egg, add_seasoning)
+omelette_batter &lt;- beat(white_and_yolk)
+omelette_with_chives &lt;- cook(omelette_batter,add_chives)
+```
+
+&lt;img src="assets/img/piping_successive.jpg" width="500px" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Piping from [Lise Vaudor's blog](http://perso.ens-lyon.fr/lise.vaudor/)
+
+
+```r
+egg %&gt;%
+  crack(add_seasoning) %&gt;%
+  beat() %&gt;%
+  cook(add_chives) -&gt; omelette_with_chives
+```
+
+&lt;img src="assets/img/piping_piped.png" width="250px" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: inverse, center, middle
+
+# Tidy, transform
+
+---
+
+# Select columns
+
+
+```r
+citations %&gt;%
+  select(journal, impactfactor, nbtweets)
+```
+
+```
+## # A tibble: 1,599 x 3
+##    journal         impactfactor nbtweets
+##    &lt;fct&gt;                  &lt;dbl&gt;    &lt;dbl&gt;
+##  1 Ecology Letters         16.7       18
+##  2 Ecology Letters         16.7       15
+##  3 Ecology Letters         16.7        5
+##  4 Ecology Letters         16.7        9
+##  5 Ecology Letters         16.7        3
+##  6 Ecology Letters         16.7       27
+##  7 Ecology Letters         16.7        6
+##  8 Ecology Letters         16.7       19
+##  9 Ecology Letters         16.7       26
+## 10 Ecology Letters         16.7       44
+## # … with 1,589 more rows
+```
+
+---
+
+# Drop columns
+
+
+```r
+citations %&gt;%
+  select(-Volume, -Issue, -Authors)
+```
+
+```
+## # A tibble: 1,599 x 9
+##    journal impactfactor pubyear colldate pubdate nbtweets `Number of user…
+##    &lt;fct&gt;          &lt;dbl&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;            &lt;dbl&gt;
+##  1 Ecolog…         16.7    2014 2/1/2016 9/16/2…       18               16
+##  2 Ecolog…         16.7    2014 2/1/2016 10/13/…       15               12
+##  3 Ecolog…         16.7    2014 2/1/2016 10/21/…        5                4
+##  4 Ecolog…         16.7    2014 2/1/2016 8/28/2…        9                8
+##  5 Ecolog…         16.7    2014 2/1/2016 8/28/2…        3                3
+##  6 Ecolog…         16.7    2014 2/2/2016 7/28/2…       27               23
+##  7 Ecolog…         16.7    2014 2/2/2016 8/6/20…        6                6
+##  8 Ecolog…         16.7    2014 2/2/2016 6/17/2…       19               18
+##  9 Ecolog…         16.7    2014 2/2/2016 6/12/2…       26               23
+## 10 Ecolog…         16.7    2014 2/2/2016 7/17/2…       44               42
+## # … with 1,589 more rows, and 2 more variables: `Twitter reach` &lt;dbl&gt;,
+## #   woscitations &lt;dbl&gt;
+```
+
+
+---
+
+# Split a column in several columns
+
+
+```r
+citations %&gt;%
+  separate(pubdate,c('month','day','year'),'/')
+```
+
+```
+## # A tibble: 1,599 x 14
+##    journal impactfactor pubyear Volume Issue Authors colldate month day   year 
+##    &lt;fct&gt;          &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+##  1 Ecolog…         16.7    2014     17 12    Morin … 2/1/2016 9     16    2014 
+##  2 Ecolog…         16.7    2014     17 12    Jucker… 2/1/2016 10    13    2014 
+##  3 Ecolog…         16.7    2014     17 12    Calcag… 2/1/2016 10    21    2014 
+##  4 Ecolog…         16.7    2014     17 11    Segre … 2/1/2016 8     28    2014 
+##  5 Ecolog…         16.7    2014     17 11    Kaufma… 2/1/2016 8     28    2014 
+##  6 Ecolog…         16.7    2014     17 10    Nasto … 2/2/2016 7     28    2014 
+##  7 Ecolog…         16.7    2014     17 10    Tschir… 2/2/2016 8     6     2014 
+##  8 Ecolog…         16.7    2014     17 9     Barnec… 2/2/2016 6     17    2014 
+##  9 Ecolog…         16.7    2014     17 9     Pinto-… 2/2/2016 6     12    2014 
+## 10 Ecolog…         16.7    2014     17 9     Clough… 2/2/2016 7     17    2014 
+## # … with 1,589 more rows, and 4 more variables: nbtweets &lt;dbl&gt;, `Number of
+## #   users` &lt;dbl&gt;, `Twitter reach` &lt;dbl&gt;, woscitations &lt;dbl&gt;
+```
+
+---
+
+# Transform in Date format...
+
+
+```r
+library(lubridate)
+citations %&gt;%
+  mutate(pubdate = mdy(pubdate),
+         colldate = mdy(colldate))
+```
+
+```
+## # A tibble: 1,599 x 12
+##    journal impactfactor pubyear Volume Issue Authors colldate   pubdate   
+##    &lt;fct&gt;          &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;date&gt;     &lt;date&gt;    
+##  1 Ecolog…         16.7    2014     17 12    Morin … 2016-02-01 2014-09-16
+##  2 Ecolog…         16.7    2014     17 12    Jucker… 2016-02-01 2014-10-13
+##  3 Ecolog…         16.7    2014     17 12    Calcag… 2016-02-01 2014-10-21
+##  4 Ecolog…         16.7    2014     17 11    Segre … 2016-02-01 2014-08-28
+##  5 Ecolog…         16.7    2014     17 11    Kaufma… 2016-02-01 2014-08-28
+##  6 Ecolog…         16.7    2014     17 10    Nasto … 2016-02-02 2014-07-28
+##  7 Ecolog…         16.7    2014     17 10    Tschir… 2016-02-02 2014-08-06
+##  8 Ecolog…         16.7    2014     17 9     Barnec… 2016-02-02 2014-06-17
+##  9 Ecolog…         16.7    2014     17 9     Pinto-… 2016-02-02 2014-06-12
+## 10 Ecolog…         16.7    2014     17 9     Clough… 2016-02-02 2014-07-17
+## # … with 1,589 more rows, and 4 more variables: nbtweets &lt;dbl&gt;, `Number of
+## #   users` &lt;dbl&gt;, `Twitter reach` &lt;dbl&gt;, woscitations &lt;dbl&gt;
+```
+
+---
+
+# ...for easy manipulation of dates
+
+
+```r
+library(lubridate)
+citations %&gt;%
+  mutate(pubdate = mdy(pubdate),
+         colldate = mdy(colldate),
+*        pubyear2 = year(pubdate))
+```
+
+```
+## # A tibble: 1,599 x 13
+##    journal impactfactor pubyear Volume Issue Authors colldate   pubdate   
+##    &lt;fct&gt;          &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;date&gt;     &lt;date&gt;    
+##  1 Ecolog…         16.7    2014     17 12    Morin … 2016-02-01 2014-09-16
+##  2 Ecolog…         16.7    2014     17 12    Jucker… 2016-02-01 2014-10-13
+##  3 Ecolog…         16.7    2014     17 12    Calcag… 2016-02-01 2014-10-21
+##  4 Ecolog…         16.7    2014     17 11    Segre … 2016-02-01 2014-08-28
+##  5 Ecolog…         16.7    2014     17 11    Kaufma… 2016-02-01 2014-08-28
+##  6 Ecolog…         16.7    2014     17 10    Nasto … 2016-02-02 2014-07-28
+##  7 Ecolog…         16.7    2014     17 10    Tschir… 2016-02-02 2014-08-06
+##  8 Ecolog…         16.7    2014     17 9     Barnec… 2016-02-02 2014-06-17
+##  9 Ecolog…         16.7    2014     17 9     Pinto-… 2016-02-02 2014-06-12
+## 10 Ecolog…         16.7    2014     17 9     Clough… 2016-02-02 2014-07-17
+## # … with 1,589 more rows, and 5 more variables: nbtweets &lt;dbl&gt;, `Number of
+## #   users` &lt;dbl&gt;, `Twitter reach` &lt;dbl&gt;, woscitations &lt;dbl&gt;, pubyear2 &lt;dbl&gt;
+```
+
+* Check out `?lubridate::lubridate` for more functions
+
+---
+
+# How to join tables together?
+
+&lt;blockquote class="twitter-tweet" data-lang="fr"&gt;&lt;p lang="en" dir="ltr"&gt;More &lt;a href="https://twitter.com/hashtag/dplyr?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#dplyr&lt;/a&gt; 🔧 gifs!  It took me a hella long time to wrap my head around the different types of joins when I first started learning them, so here&amp;#39;s a few examples with some excellent mini datasets from &lt;a href="https://twitter.com/hashtag/dplyr?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#dplyr&lt;/a&gt; designed specifically for this purpose! &lt;a href="https://twitter.com/hashtag/rstats?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#rstats&lt;/a&gt; &lt;a href="https://twitter.com/hashtag/tidyverse?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#tidyverse&lt;/a&gt; &lt;a href="https://t.co/G56fWmIZSq"&gt;pic.twitter.com/G56fWmIZSq&lt;/a&gt;&lt;/p&gt;&amp;mdash; Nic Crane (@nic_crane) &lt;a href="https://twitter.com/nic_crane/status/1064237554910806016?ref_src=twsrc%5Etfw"&gt;18 novembre 2018&lt;/a&gt;&lt;/blockquote&gt;
+&lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
+
+&lt;br&gt; &lt;br&gt; &lt;br&gt; &lt;br&gt;
+
+[![Watch the video](assets/mp4/dplyr_join.mp4)](assets/mp4/dplyr_join.mp4)
+
+---
+class: inverse, center, middle
+
+# Easy character manipulation
+
+---
+
+# Select rows corresponding to papers with more than 3 authors
+
+
+```r
+citations %&gt;%
+  filter(str_detect(Authors,'et al'))
+```
+
+```
+## # A tibble: 1,280 x 12
+##    journal impactfactor pubyear Volume Issue Authors colldate pubdate nbtweets
+##    &lt;fct&gt;          &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;
+##  1 Ecolog…         16.7    2014     17 12    Morin … 2/1/2016 9/16/2…       18
+##  2 Ecolog…         16.7    2014     17 12    Jucker… 2/1/2016 10/13/…       15
+##  3 Ecolog…         16.7    2014     17 12    Calcag… 2/1/2016 10/21/…        5
+##  4 Ecolog…         16.7    2014     17 11    Segre … 2/1/2016 8/28/2…        9
+##  5 Ecolog…         16.7    2014     17 11    Kaufma… 2/1/2016 8/28/2…        3
+##  6 Ecolog…         16.7    2014     17 10    Nasto … 2/2/2016 7/28/2…       27
+##  7 Ecolog…         16.7    2014     17 10    Tschir… 2/2/2016 8/6/20…        6
+##  8 Ecolog…         16.7    2014     17 9     Barnec… 2/2/2016 6/17/2…       19
+##  9 Ecolog…         16.7    2014     17 9     Pinto-… 2/2/2016 6/12/2…       26
+## 10 Ecolog…         16.7    2014     17 9     Clough… 2/2/2016 7/17/2…       44
+## # … with 1,270 more rows, and 3 more variables: `Number of users` &lt;dbl&gt;,
+## #   `Twitter reach` &lt;dbl&gt;, woscitations &lt;dbl&gt;
+```
+
+---
+
+# Select rows corresponding to papers with less than 3 authors
+
+
+```r
+citations %&gt;%
+  filter(!str_detect(Authors,'et al'))
+```
+
+```
+## # A tibble: 319 x 12
+##    journal impactfactor pubyear Volume Issue Authors colldate pubdate nbtweets
+##    &lt;fct&gt;          &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;
+##  1 Ecolog…         16.7    2014     17 6     Neutle… 2/15/20… 3/17/2…        8
+##  2 Ecolog…         16.7    2014     17 5     Kellne… 2/15/20… 2/20/2…       18
+##  3 Ecolog…         16.7    2014     17 4     Griffi… 2/15/20… 1/16/2…        4
+##  4 Ecolog…         16.7    2014     17 3     Gremer… 2/15/20… 1/17/2…        4
+##  5 Ecolog…         16.7    2014     17 2     Cavier… 2/15/20… 10/17/…       16
+##  6 Ecolog…         16.7    2014     17 2     Haegma… 2/15/20… 12/5/2…        9
+##  7 Ecolog…         16.7    2013     16 12    Kearney 2/15/20… 10/1/2…       13
+##  8 Ecolog…         16.7    2013     16 9     Locey … 2/15/20… 7/15/2…       28
+##  9 Ecolog…         16.7    2013     16 8     Quinte… 2/15/20… 6/26/2…      120
+## 10 Ecolog…         16.7    2013     16 3     Lesser… 2/15/20… 12/22/…        9
+## # … with 309 more rows, and 3 more variables: `Number of users` &lt;dbl&gt;, `Twitter
+## #   reach` &lt;dbl&gt;, woscitations &lt;dbl&gt;
+```
+
+---
+
+# Select rows corresponding to papers with less than 3 authors in journal with IF &lt; 5
+
+
+```r
+citations %&gt;%
+  filter(!str_detect(Authors,'et al'), impactfactor &lt; 5)
+```
+
+```
+## # A tibble: 77 x 12
+##    journal impactfactor pubyear Volume Issue Authors colldate pubdate nbtweets
+##    &lt;fct&gt;          &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;
+##  1 Molecu…         4.9     2014     14 6     Gautier 2/27/20… 5/14/2…        2
+##  2 Molecu…         4.9     2014     14 5     Gambel… 2/27/20… 3/7/20…        7
+##  3 Molecu…         4.9     2014     14 4     Kekkon… 2/27/20… 3/10/2…        4
+##  4 Molecu…         4.9     2014     14 3     Bhatta… 2/27/20… 12/8/2…        0
+##  5 Molecu…         4.9     2014     14 1     Christ… 2/28/20… 10/25/…        0
+##  6 Molecu…         4.9     2013     13 4     Villar… 2/28/20… 5/2/20…        0
+##  7 Molecu…         4.9     2013     13 4     Wang    2/28/20… 4/25/2…        0
+##  8 Molecu…         4.9     2012     12 1     Joly    2/28/20… 9/7/20…        3
+##  9 Animal…         3.21    2014     17 6     Plavsic 2/9/2016 4/17/2…        9
+## 10 Animal…         3.21    2014     17 Supp… Knox a… 2/11/20… 11/13/…        1
+## # … with 67 more rows, and 3 more variables: `Number of users` &lt;dbl&gt;, `Twitter
+## #   reach` &lt;dbl&gt;, woscitations &lt;dbl&gt;
+```
+
+---
+
+# Convert words to lowercase
+
+
+```r
+citations %&gt;%
+* mutate(authors_lowercase = str_to_lower(Authors)) %&gt;%
+  select(authors_lowercase)
+```
+
+```
+## # A tibble: 1,599 x 1
+##    authors_lowercase  
+##    &lt;chr&gt;              
+##  1 morin et al        
+##  2 jucker et al       
+##  3 calcagno et al     
+##  4 segre et al        
+##  5 kaufman et al      
+##  6 nasto et al        
+##  7 tschirren et al    
+##  8 barnechi et al     
+##  9 pinto-sanchez et al
+## 10 clough et al       
+## # … with 1,589 more rows
+```
+
+---
+
+# Remove all spaces in journal names
+
+
+```r
+citations %&gt;%
+* mutate(journal = str_remove_all(journal," ")) %&gt;%
+  select(journal) %&gt;%
+  unique() %&gt;%
+  head(5)
+```
+
+```
+## # A tibble: 5 x 1
+##   journal                     
+##   &lt;chr&gt;                       
+## 1 EcologyLetters              
+## 2 GlobalChangeBiology         
+## 3 GlobalEcologyandBiogeography
+## 4 MolecularEcologyResources   
+## 5 DiversityandDistributions
+```
+
+
+---
+
+# Explore 📦 stringr and regular expressions
+
+* Check out the [vignette on stringr](https://cran.r-project.org/web/packages/stringr/vignettes/stringr.html) for more examples on character manipulation and pattern matching functions.
+
+* Check out the [vignette on regular expressions](https://stringr.tidyverse.org/articles/regular-expressions.html) which are a concise and flexible tool for describing patterns in strings.
+
+
+---
+class: inverse, center, middle
+
+# Basic exploratory data analysis
+
+---
+
+# Count
+
+
+```r
+citations %&gt;% count(journal, sort = TRUE)
+```
+
+```
+## # A tibble: 20 x 2
+##    journal                              n
+##    &lt;fct&gt;                            &lt;int&gt;
+##  1 New Phytologist                    144
+##  2 Ecology                            108
+##  3 Evolution                          108
+##  4 Global Change Biology              108
+##  5 Global Ecology and Biogeography    108
+##  6 Journal of Biogeography            108
+##  7 Ecology Letters                    106
+##  8 Diversity and Distributions        105
+##  9 Animal Conservation                102
+## 10 Methods in Ecology and Evolution    90
+## 11 Evolutionary Applications           74
+## 12 Functional Ecology                  54
+## 13 Journal of Animal Ecology           54
+## 14 Journal of Applied Ecology          54
+## 15 Limnology and Oceanography          54
+## 16 Molecular Ecology Resources         54
+## 17 Conservation Letters                53
+## 18 Ecological Applications             48
+## 19 Fish and Fisheries                  36
+## 20 Mammal Review                       31
+```
+
+---
+
+# Count
+
+
+```r
+citations %&gt;%
+  count(journal, pubyear) %&gt;%
+  head()
+```
+
+```
+## # A tibble: 6 x 3
+##   journal              pubyear     n
+##   &lt;fct&gt;                  &lt;dbl&gt; &lt;int&gt;
+## 1 Animal Conservation     2012    18
+## 2 Animal Conservation     2013    18
+## 3 Animal Conservation     2014    66
+## 4 Conservation Letters    2012    17
+## 5 Conservation Letters    2013    18
+## 6 Conservation Letters    2014    18
+```
+
+---
+
+# Group by variable to calculate stats
+
+
+```r
+citations %&gt;%
+  group_by(journal) %&gt;%
+  summarise(avg_tweets = mean(nbtweets)) %&gt;%
+  head(10)
+```
+
+```
+## # A tibble: 10 x 2
+##    journal                     avg_tweets
+##    &lt;fct&gt;                            &lt;dbl&gt;
+##  1 Animal Conservation              12.4 
+##  2 Conservation Letters             10.2 
+##  3 Diversity and Distributions       1.90
+##  4 Ecological Applications           2.60
+##  5 Ecology                           3.10
+##  6 Ecology Letters                  14.5 
+##  7 Evolution                         3.10
+##  8 Evolutionary Applications         3.22
+##  9 Fish and Fisheries                7.25
+## 10 Functional Ecology                2.87
+```
+
+
+---
+
+# Order stuff
+
+
+```r
+citations %&gt;%
+  group_by(journal) %&gt;%
+  summarise(avg_tweets = mean(nbtweets)) %&gt;%
+* arrange(desc(avg_tweets)) %&gt;% # decreasing order (wo desc for increasing)
+  head(10)
+```
+
+```
+## # A tibble: 10 x 2
+##    journal                          avg_tweets
+##    &lt;fct&gt;                                 &lt;dbl&gt;
+##  1 Journal of Applied Ecology            18.7 
+##  2 Ecology Letters                       14.5 
+##  3 Animal Conservation                   12.4 
+##  4 Conservation Letters                  10.2 
+##  5 Methods in Ecology and Evolution       7.77
+##  6 Fish and Fisheries                     7.25
+##  7 Journal of Animal Ecology              5.98
+##  8 Global Change Biology                  5.68
+##  9 Mammal Review                          5.35
+## 10 New Phytologist                        3.53
+```
+
+
+---
+
+# Group by variables to calculate stats
+
+
+```r
+citations %&gt;%
+  group_by(journal, pubyear) %&gt;%
+  summarise(avg_tweets_year = mean(nbtweets))
+```
+
+```
+## # A tibble: 59 x 3
+## # Groups:   journal [20]
+##    journal                     pubyear avg_tweets_year
+##    &lt;fct&gt;                         &lt;dbl&gt;           &lt;dbl&gt;
+##  1 Animal Conservation            2012           3.72 
+##  2 Animal Conservation            2013           5.83 
+##  3 Animal Conservation            2014          16.6  
+##  4 Conservation Letters           2012           6.76 
+##  5 Conservation Letters           2013          11.6  
+##  6 Conservation Letters           2014          12.2  
+##  7 Diversity and Distributions    2012           0.667
+##  8 Diversity and Distributions    2013           1    
+##  9 Diversity and Distributions    2014           3.97 
+## 10 Ecological Applications        2012           0.917
+## # … with 49 more rows
+```
+
+---
+
+# There are so many more things to explore
+
+* **mutate_all()**, **select_if()** and **summarise_at()** or scoped verbs where _scoped_ means that these functions operate only on a selection of variables; see [here](http://www.rebeccabarter.com/blog/2019-01-23_scoped-verbs/) for example
+
+* **pivot_longer()** and **pivot_wider()** from package `tidyr` to reshape tibbles; see [here](https://www.fromthebottomoftheheap.net/2019/10/25/pivoting-tidily/) for example
+
+
+&lt;img src="assets/img/01_tidyverse_data_science.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+class: inverse, center, middle
+
+# Visualize
+
+
+---
+
+# Visualization with ggplot2
+
+* The package ggplot2 implements a **g**rammar of **g**raphics
+
+* Operates on data.frames or tibbles, not vectors like base R
+
+* Explicitly differentiates between the data and its representation
+
+&lt;img src="assets/img/ggplot2_logo.jpg" width="30%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# The ggplot2 grammar
+
+
+ Grammar element   | What it is
+ :---------------- | :-----------------------------
+ **Data**          | The data frame being plotted
+ **Geometrics**    | The geometric shape that will represent the data
+                   | (e.g., point, boxplot, histogram)
+ **Aesthetics**    | The aesthetics of the geometric object
+                   | (e.g., color, size, shape)
+
+
+&lt;img src="assets/img/ggplot2_logo.jpg" width="30%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Scatterplots
+
+
+```r
+citations %&gt;%
+  ggplot() +
+  aes(x = nbtweets, y = woscitations) +
+  geom_point()
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-36-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Scatterplots
+
+
+```r
+*citations %&gt;%
+* ggplot() +
+  aes(x = nbtweets, y = woscitations) +
+  geom_point()
+```
+* Pass in the data frame as your first argument
+
+---
+
+# Scatterplots
+
+
+```r
+citations %&gt;%
+  ggplot() +
+* aes(x = nbtweets, y = woscitations) +
+  geom_point()
+```
+* Pass in the data frame as your first argument
+* Aesthetics maps the data onto plot characteristics, here x and y axes
+
+---
+
+# Scatterplots
+
+
+```r
+citations %&gt;%
+  ggplot() +
+  aes(x = nbtweets, y = woscitations) +
+* geom_point()
+```
+* Pass in the data frame as your first argument
+* Aesthetics maps the data onto plot characteristics, here x and y axes
+* Display the data geometrically as points
+
+
+---
+
+# Scatterplots, with colors
+
+
+```r
+citations %&gt;%
+  ggplot() +
+  aes(x = nbtweets, y = woscitations) +
+* geom_point(color = "red")
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-40-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Scatterplots, with species-specific colors
+
+
+```r
+citations %&gt;%
+  ggplot() +
+* aes(x = nbtweets, y = woscitations, color = journal) +
+  geom_point()
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-41-1.png" style="display: block; margin: auto;" /&gt;
+
+* Placing color inside aesthetic maps it to the data
+
+
+---
+
+# Pick a few journals
+
+
+```r
+citations_ecology &lt;- citations %&gt;%
+  mutate(journal = str_to_lower(journal)) %&gt;% # all journals names lowercase
+  filter(journal %in%
+           c('journal of animal ecology','journal of applied ecology','ecology')) # filter
+citations_ecology
+```
+
+```
+## # A tibble: 216 x 12
+##    journal impactfactor pubyear Volume Issue Authors colldate pubdate nbtweets
+##    &lt;chr&gt;          &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;chr&gt;      &lt;dbl&gt;
+##  1 ecology         6.16    2014     95 12    Maglia… 3/19/20… 12/1/2…        1
+##  2 ecology         6.16    2014     95 12    Soinen  3/19/20… 12/1/2…        6
+##  3 ecology         6.16    2014     95 12    Graham… 3/19/20… 12/1/2…        1
+##  4 ecology         6.16    2014     95 11    White … 3/19/20… 11/1/2…        9
+##  5 ecology         6.16    2014     95 11    Einars… 3/19/20… 11/1/2…       15
+##  6 ecology         6.16    2014     95 11    Haav a… 3/19/20… 11/1/2…        2
+##  7 ecology         6.16    2014     95 10    Dodds … 3/19/20… 10/1/2…        1
+##  8 ecology         6.16    2014     95 10    Brown … 3/19/20… 10/1/2…        1
+##  9 ecology         6.16    2014     95 10    Wright… 3/19/20… 10/1/2…        0
+## 10 ecology         6.16    2014     95 9     Ramahl… 3/19/20… 9/1/20…       27
+## # … with 206 more rows, and 3 more variables: `Number of users` &lt;dbl&gt;, `Twitter
+## #   reach` &lt;dbl&gt;, woscitations &lt;dbl&gt;
+```
+
+
+---
+
+# Scatterplots, with species-specific shapes
+
+
+```r
+citations_ecology %&gt;%
+  ggplot() +
+* aes(x = nbtweets, y = woscitations, shape = journal) +
+  geom_point(size=2)
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-43-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Scatterplots, lines instead of points
+
+
+```r
+citations_ecology %&gt;%
+  ggplot() +
+  aes(x = nbtweets, y = woscitations) +
+* geom_line() +
+  scale_x_log10()
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-44-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Scatterplots, add points
+
+
+```r
+citations_ecology %&gt;%
+  ggplot() +
+  aes(x = nbtweets, y = woscitations) +
+  geom_line() +
+* geom_point() +
+  scale_x_log10()
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Scatterplots, add smoother
+
+
+```r
+citations_ecology %&gt;%
+  ggplot() +
+  aes(x = nbtweets, y = woscitations) +
+  geom_point() +
+* geom_smooth() +
+  scale_x_log10()
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-46-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# aes or not aes?
+
+* If we are to establish a link between the values of a variable and a graphical feature, ie a mapping, then we need an aes().
+
+* Otherwise, the graphical feature is modified irrespective of the data, then we do not need an aes().
+
+&lt;img src="assets/img/ggplot2_logo.jpg" width="30%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Histograms
+
+
+```r
+citations_ecology %&gt;%
+  ggplot() +
+  aes(x = nbtweets) +
+* geom_histogram()
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-48-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Histograms, with colors
+
+
+```r
+citations_ecology %&gt;%
+  ggplot() +
+  aes(x = nbtweets) +
+* geom_histogram(fill = "orange")
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-49-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Histograms, with colors
+
+
+```r
+citations_ecology %&gt;%
+  ggplot() +
+  aes(x = nbtweets) +
+* geom_histogram(fill = "orange", color = "brown")
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-50-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Histograms, with labels and title
+
+
+```r
+citations_ecology %&gt;%
+  ggplot() +
+  aes(x = nbtweets) +
+  geom_histogram(fill = "orange", color = "brown") +
+* xlab("Number of tweets") +
+* ylab("Count") +
+* ggtitle("Histogram of the number of tweets")
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-51-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Histograms, by species
+
+
+```r
+citations_ecology %&gt;%
+  ggplot() +
+  aes(x = nbtweets) +
+  geom_histogram(fill = "orange", color = "brown") +
+* xlab("Number of tweets") +
+* ylab("Count") +
+  ggtitle("Histogram of the number of tweets") +
+* facet_wrap(vars(journal))
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-52-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Boxplots
+
+
+```r
+citations_ecology %&gt;%
+  ggplot() +
+  aes(x = "", y = nbtweets) +
+* geom_boxplot() +
+  scale_y_log10()
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-53-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Boxplots with colors
+
+
+```r
+citations_ecology %&gt;%
+  ggplot() +
+  aes(x = "", y = nbtweets) +
+* geom_boxplot(fill = "green") +
+  scale_y_log10()
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-54-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Boxplots with colors by species
+
+
+```r
+citations_ecology %&gt;%
+  ggplot() +
+* aes(x = journal, y = nbtweets, fill = journal) +
+  geom_boxplot() +
+  scale_y_log10()
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-55-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Boxplots, user-specified colors by species
+
+
+```r
+citations_ecology %&gt;%
+  ggplot() +
+  aes(x = journal, y = nbtweets, fill = journal) +
+  geom_boxplot() +
+  scale_y_log10() +
+* scale_fill_manual(
+*   values=c("red", "blue", "purple"))
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-56-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Boxplots, change legend settings
+
+
+```r
+citations_ecology %&gt;%
+  ggplot() +
+  aes(x = journal, y = nbtweets, fill = journal) +
+  geom_boxplot() +
+  scale_y_log10() +
+* scale_fill_manual(
+    values=c("red", "blue", "purple"),
+*   name = "Journal name",
+*   labels=c("Ecology", "J Animal Ecology", "J Applied Ecology"))
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-57-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Ugly bar plots
+
+
+```r
+citations %&gt;%
+  count(journal) %&gt;%
+  ggplot() +
+  aes(x = journal, y = n) +
+* geom_col()
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-58-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Idem, with factors reordering and flipping
+
+
+```r
+citations %&gt;%
+  count(journal) %&gt;%
+  ggplot() +
+* aes(x = fct_reorder(journal, n), y = n) +
+  geom_col() +
+* coord_flip()
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-59-1.png" style="display: block; margin: auto;" /&gt;
+
+* More about how to (tidy) work with factors [here](https://stat545.com/block029_factors.html) and [here](https://thinkr.fr/forcats-forcats-vous-avez-dit-forcats/).
+
+
+---
+
+# Density plots
+
+
+```r
+citations_ecology %&gt;%
+  ggplot() +
+  aes(x = nbtweets, fill = journal) +
+* geom_density() +
+  scale_x_log10()
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-60-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Density plots, control transparency
+
+
+```r
+citations_ecology %&gt;%
+  ggplot() +
+  aes(x = nbtweets, fill = journal) +
+* geom_density(alpha = 0.5) +
+  scale_x_log10()
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-61-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Change default background theme 1/3
+
+
+```r
+citations_ecology %&gt;%
+  ggplot() +
+  aes(x = nbtweets, fill = journal) +
+  geom_density(alpha = 0.5) +
+  scale_x_log10() +
+* theme_bw()
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-62-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Change default background theme 2/3
+
+
+```r
+citations_ecology %&gt;%
+  ggplot() +
+  aes(x = nbtweets, fill = journal) +
+  geom_density(alpha = 0.5) +
+  scale_x_log10() +
+* theme_classic()
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-63-1.png" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Change default background theme 3/3
+
+
+```r
+citations_ecology %&gt;%
+  ggplot() +
+  aes(x = nbtweets, fill = journal) +
+  geom_density(alpha = 0.5) +
+  scale_x_log10() +
+* theme_dark()
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-64-1.png" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# More on data visualisation with ggplot2
+
+
+* [Portfolio](https://www.r-graph-gallery.com/portfolio/ggplot2-package/) of ggplot2 plots
+
+
+* [Top](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html) ggplot2 visualizations
+
+
+* [Interactive](https://github.com/dreamRs/esquisse) ggplot2 visualizations
+
+
+&lt;img src="assets/img/ggplot2_logo.jpg" width="30%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+background-image: url(https://github.com/rstudio/hex-stickers/raw/master/SVG/tidyverse.svg?sanitize=true)
+background-size: 550px
+background-position: 50% 50%
+
+
+---
+
+# To dive even deeper in the tidyverse
+
+* [Learn the tidyverse](https://www.tidyverse.org/learn/): books, workshops and online courses
+
+
+* My selection of books:
+   - [R for Data Science](https://r4ds.had.co.nz/) et [Advanced R](http://adv-r.had.co.nz/)
+   - [Introduction à R et au tidyverse](https://juba.github.io/tidyverse/)
+   - [Fundamentals of Data visualization](https://serialmentor.com/dataviz/)
+   - [Data Visualization: A practical introduction](http://socviz.co/)
+
+
+* [Tidy Tuesdays videos](https://www.youtube.com/user/safe4democracy/videos) by D. Robinson chief data scientist at DataCamp
+
+
+* Material of the [2-day workshop Data Science in the tidyverse](https://github.com/cwickham/data-science-in-tidyverse) held at the RStudio 2019 conference
+
+
+* Material of the stat545 course on [Data wrangling, exploration, and analysis with R](https://stat545.com/) at the University of British Columbia
+
+
+* List of best R packages (with their description) on [data import, wrangling and visualization](https://www.computerworld.com/article/2921176/business-intelligence/great-r-packages-for-data-import-wrangling-visualization.html)
+
+---
+
+# [How to switch from base R to tidyverse?](https://www.significantdigits.org/2017/10/switching-from-base-r-to-tidyverse/)
+
+&lt;img src="assets/img/switch_baseR_tidyverse.png" width="800px" style="display: block; margin: auto;" /&gt;
+
+---
+
+# The [RStudio Cheat Sheets](https://www.rstudio.com/resources/cheatsheets/)
+
+&lt;img src="assets/img/cheatsheet_dplyr.png" width="600px" style="display: block; margin: auto;" /&gt;
+
+
+---
+class: title-slide-final, middle
+background-size: 55px
+background-position: 9% 15%
+
+# Thanks!
+
+### I created these slides with [xaringan](https://github.com/yihui/xaringan) and [RMarkdown](https://rmarkdown.rstudio.com/) using the [rutgers css](https://github.com/jvcasillas/ru_xaringan) that I slightly modified.
+
+### Credit: I used material from [Cécile Sauder](https://github.com/cecilesauder/RLadiesTidyverse), [Stephanie J. Spielman](http://sjspielman.org/bio5312_fall2017/) and [Julien Barnier](https://juba.github.io/tidyverse/).
+
+
+|                                                                                                            |                                   |
+| :--------------------------------------------------------------------------------------------------------- | :-------------------------------- |
+| <i class="fas  fa-envelope "></i> | **olivier.gimenez@cefe.cnrs.fr**       |
+| <i class="fas  fa-home "></i> | [**https://oliviergimenez.github.io/**](https://oliviergimenez.github.io/) |
+| <i class="fab  fa-twitter "></i> | [**@oaggimenez**](https://twitter.com/oaggimenez)                         |
+| <i class="fab  fa-github "></i> | [**@oliviergimenez**](https://github.com/oliviergimenez)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

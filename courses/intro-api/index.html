@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Acquisition de données</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Nicolas CASAJUS .inst[{{ Data scientist FRB-Cesab }}]" />
+    <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/css/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="../../assets/css/custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: right, middle, title-slide
+
+# Acquisition de données
+## API &amp; web scraping
+### <br /><br />Nicolas CASAJUS<br />.inst[{{ Data scientist FRB-Cesab }}]
+### .inst[Mardi 3 décembre 2019]
+
+---
+
+
+
+class: inverse, center, middle
+
+# Les API
+
+
+
+---
+
+
+## Qu'est-ce qu'une API ?
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Interface de Programmation Applicative
+
+
+
+---
+
+## Qu'est-ce qu'une API ?
+
+- Protocole HTTP(S) : Affichage d'une page web
+
+--
+
+&lt;br /&gt;
+
+.center[![:scale 85%](assets/img/api-01.png)]
+
+
+
+---
+
+## Qu'est-ce qu'une API ?
+
+- Protocole HTTP(S) : Affichage d'une page web
+
+&lt;br /&gt;
+
+.center[![:scale 85%](assets/img/api-02.png)]
+
+
+
+---
+
+## Qu'est-ce qu'une API ?
+
+- Requête via API
+
+&lt;br /&gt;
+
+.center[![:scale 85%](assets/img/api-03.png)]
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Accès via interfaces en ligne de commande :
+<i class="fab  fa-r-project "></i>
+&amp;nbsp;/&amp;nbsp;
+<i class="fab  fa-python "></i>
+&amp;nbsp;/&amp;nbsp;
+<i class="fab  fa-js "></i>
+&amp;nbsp;/&amp;nbsp;
+<i class="fas  fa-terminal "></i>
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#e1ddc0;"></i> &amp;nbsp;Automatisation &amp; Reproductibilité
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#e1ddc0;"></i> &amp;nbsp;Différents formats de données (xml, (geo)json, yaml, texte, etc.)
+
+
+
+---
+
+## Qu'est-ce qu'une API ?
+
+- Pas de protocole standardisé
+
+- Termes et conditions d'utilisation propres
+
+- Requiert souvent une clé d'authentification (**token**)
+
+- Dans certains cas, quelques limitations (sur-sollicitations, # requêtes, # résultats, etc.)
+
+---
+
+## Sous <i class="fab  fa-r-project "></i> de nombreux packages
+
+Package           | Type de données
+------------------|------------------
+`{taxize}`        | Taxonomie
+`{spocc}`         | Occurrences d'espèces
+`{rcites}`        | Espèces protégées mondiales
+`{rfishbase}`     | Informations sur les poissons
+`{rredlist}`      | Accès à IUCN liste rouge
+`{treebase}`      | Données phylogénétiques
+`{traits}`        | Traits d'espèces
+`{rnaturalearth}` | Données vectorielles spatiales
+`{raster}`        | Données climatiques, altitude, etc.
+`...`             | ...
+
+--
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Pour aller plus loin :
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+[**[ rOpenSci ]**](https://ropensci.org/packages/)
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+[**[ Open Data ]**](https://github.com/ropensci/opendata/blob/master/README.md)
+
+
+
+---
+
+## Zoom sur le package `{taxize}`
+
+- _A taxonomic toolbelt for R_
+
+--
+
+- Permet notamment :
+  - vérifier les noms d'espèces
+  - obtenir les synonymes
+  - obtenir les noms communs (🇬🇧 / 🇫🇷 / 🇪🇸 / 🇨🇳)
+  - obtenir la classification taxonomique
+  - ...
+
+--
+
+- Couvre de nombreuses bases de données taxonomiques :
+  - Encyclopedia of Life (EOL)
+  - Integrated Taxonomic Information Service (ITIS)
+  - National Center for Biotechnology Information (NCBI)
+  - IUCN Red List
+  - World Register of Marine Species (WoRMS)
+  - Global Names Resolver
+  - ...
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;L'accès à certaines bases de données nécessite un token
+
+
+
+---
+
+## Zoom sur le package `{taxize}`
+
+&lt;br /&gt;
+
+.left[![:scale 70%](assets/img/acanthurus-lineatus.jpg)]
+
+_Acanthurus lineatus_
+
+
+
+---
+
+## Zoom sur le package `{taxize}`
+
+<i class="fas  fa-question-circle "></i> &amp;nbsp;Le nom d'espèce est-il bien orthographié ?
+
+
+```r
+species_name &lt;- "Acanthuurus lineatus"
+```
+
+--
+
+&lt;br /&gt;
+
+
+```r
+taxize::gnr_resolve(names = species_name)
+```
+
+```
+##           submitted_name          matched_name      data_source_title   score
+## 1   Acanthuurus lineatus   Acanthurus lineatus                   NCBI    0.75
+## 2   Acanthuurus lineatus   Acanthurus lineatus               Freebase    0.75
+## 3   Acanthuurus lineatus   Acanthurus lineatus   Encyclopedia of Life    0.75
+## 4   Acanthuurus lineatus   Acanthurus lineatus            iNaturalist    0.75
+## ...
+```
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Bonne orthographe : **_Acanthurus lineatus_**
+
+
+
+---
+
+## Zoom sur le package `{taxize}`
+
+<i class="fas  fa-question-circle "></i> &amp;nbsp;Quel est le nom accepté ?
+
+
+```r
+species_name &lt;- "Acanthurus lineatus"
+```
+
+--
+
+&lt;br /&gt;
+
+
+```r
+taxize::tnrs(query = species_name)
+```
+
+```
+##           submittedname        acceptedname sourceid score         matchedname
+## 1   Acanthurus lineatus Acanthurus lineatus     NCBI     1 Acanthurus lineatus
+```
+
+&lt;br /&gt;
+
+
+```r
+taxize::tnrs(query = species_name)$acceptedname
+```
+```
+## [1] "Acanthurus lineatus"
+```
+
+
+
+---
+
+
+## Zoom sur le package `{taxize}`
+
+<i class="fas  fa-question-circle "></i> &amp;nbsp;Quelle est sa classification taxonomique ?
+
+
+```r
+taxize::classification(x = species_name, db = "itis")
+```
+
+--
+
+```
+● Total: 1
+● Found: 1
+● Not Found: 0
+$`Acanthurus lineatus`
+                  name         rank     id
+1             Animalia      kingdom 202423
+2            Bilateria   subkingdom 914154
+3        Deuterostomia infrakingdom 914156
+4             Chordata       phylum 158852
+5           Vertebrata    subphylum 331030
+6        Gnathostomata  infraphylum 914179
+7       Actinopterygii   superclass 161061
+8            Teleostei        class 161105
+9      Acanthopterygii   superorder 166082
+10         Perciformes        order 167640
+11       Acanthuroidei     suborder 172249
+12        Acanthuridae       family 172250
+13          Acanthurus        genus 172251
+14 Acanthurus lineatus      species 172271
+```
+
+
+
+---
+
+
+## Zoom sur le package `{taxize}`
+
+<i class="fas  fa-question-circle "></i> &amp;nbsp;Quels sont ses synonymes ?
+
+
+```r
+synonyms &lt;- taxize::synonyms(species_name, db = "worms")
+```
+```
+✔  Found:  Acanthurus lineatus
+══  Results  ═════════════════
+
+● Total: 1
+● Found: 1
+● Not Found: 0
+```
+
+--
+
+&lt;br /&gt;
+
+
+```r
+synonyms &lt;- as.data.frame(synonyms[[species_name]])
+synonyms[ , c("scientificname", "status", "valid_name", "order")]
+```
+
+```
+##             scientificname       status            valid_name         order
+## 1      Acanthurus vittatus   unaccepted   Acanthurus lineatus   Perciformes
+## 2       Chaetodon lineatus   unaccepted   Acanthurus lineatus   Perciformes
+## 3        Ctenodon lineatus   unaccepted   Acanthurus lineatus   Perciformes
+## 4        Harpurus lineatus   unaccepted   Acanthurus lineatus   Perciformes
+## 5         Hepatus lineatus   unaccepted   Acanthurus lineatus   Perciformes
+## 6     Rhombotides lineatus   unaccepted   Acanthurus lineatus   Perciformes
+## 7         Teuthis lineatus   unaccepted   Acanthurus lineatus   Perciformes
+```
+
+
+
+---
+
+## Zoom sur le package `{taxize}`
+
+<i class="fas  fa-question-circle "></i> &amp;nbsp;Quels sont ses noms communs ?
+
+
+```r
+taxize::sci2comm(species_name, db = "ncbi")
+```
+
+```
+## [1] "lined surgeonfish"
+```
+
+&lt;br /&gt;
+
+
+```r
+taxize::sci2comm(species_name, db = "itis")
+```
+
+```
+## [1] "lined surgeonfish"
+```
+
+&lt;br /&gt;
+
+
+```r
+taxize::sci2comm(species_name, db = "worms")
+```
+
+```
+## [1] "lined surgeonfish" "ニジハギ"
+```
+
+--
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;En 🇫🇷  : le **Poisson chirurgien rayé** ou **Poisson chirurgien clown**
+
+
+
+---
+
+## Construction d'un client R
+
+_Que faire si aucun package R n'a été développé mais qu'il existe une API ?_
+
+--
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Construire soi-même un client R (c.-à-d. écrire soi-même les requêtes à envoyer à l'API)
+
+--
+
+&lt;br /&gt;
+
+Sous <i class="fab  fa-r-project "></i> il existe de nombreux packages pour communiquer
+avec les services Web (`{httr}`, `{curl}`, etc.)
+
+--
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;
+[**Getting started with httr**](https://cran.r-project.org/web/packages/httr/vignettes/quickstart.html)
+
+<i class="fas  fa-hand-point-right " style="color:#e1ddc0;"></i> &amp;nbsp;
+[**Best practices for API packages**](https://cran.r-project.org/web/packages/httr/vignettes/api-packages.html)
+
+<i class="fas  fa-hand-point-right " style="color:#e1ddc0;"></i> &amp;nbsp;
+[**Managing secrets**](https://cran.r-project.org/web/packages/httr/vignettes/secrets.html)
+
+--
+
+&lt;br /&gt;
+
+Voyons deux exemples illustrant l'utilisation de `{httr}`
+
+
+
+---
+
+## IUCN Red list API
+
+.center[[![:scale 20%](assets/img/redlist_logo.png)](https://apiv3.iucnredlist.org/api/v3/docs)]
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Conditions d'utilisation disponibles [**ici**](https://www.iucnredlist.org/terms/terms-of-use)
+
+&lt;br /&gt;
+
+Cette API permet d'obtenir différentes informations sur les espèces en danger à l'échelle globale
+- Listes d'espèces par catégorie IUCN
+- Listes d'espèces par pays
+- Les habitats, menaces pour chaque espèce
+- _et bien d'autres..._
+
+Elle requière un [**token**](https://apiv3.iucnredlist.org/api/v3/token)
+
+
+
+---
+
+## IUCN Red list API
+
+Pour la démonstration, nous utiliserons le token fourni dans la documentation de l'API
+
+&lt;br /&gt;
+
+.center[<i class="fas  fa-universal-access fa-5x " style="color:#3f3f3f;"></i>]
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Si vous voulez utiliser cette API, **SVP** obtenez votre propre [**token**](https://apiv3.iucnredlist.org/api/v3/token)
+
+
+
+
+---
+
+## IUCN Red list API
+
+- Stockons le token comme variable d'environnement dans le fichier `.Renviron`
+
+
+```r
+usethis::edit_r_environ()                       # Ouverture du fichier `.Renviron`
+```
+
+- Et ajoutons cette ligne (en adaptant la valeur)
+
+
+```r
+IUCN_KEY=9bb4facb6...
+```
+
+--
+
+&lt;br /&gt;
+
+- Vérifions que le PAT est bien stocké (après un redémarrage de <i class="fab  fa-r-project "></i>)
+
+
+```r
+Sys.getenv("IUCN_KEY")
+```
+
+```
+## [1] "9bb4facb6..."
+```
+
+
+
+---
+
+## IUCN Red list API
+
+<i class="fas  fa-question-circle "></i> &amp;nbsp;Combien d'espèces de chaque catégorie IUCN y a-t-il en France ?
+
+--
+
+- Ecrivons la requête
+
+
+```r
+api_url    &lt;- "https://apiv3.iucnredlist.org/api/v3/"
+query      &lt;- "country/getspecies/"
+country    &lt;- "FR"
+iucn_token &lt;- Sys.getenv("IUCN_KEY")
+
+request &lt;- paste0(
+  api_url,
+  query,
+  country,
+  "?token=",
+  iucn_token
+)
+```
+```
+## [1] "https://apiv3.iucnredlist.org/api/v3/country/getspecies/FR?token=9bb4fac...
+```
+
+
+
+---
+
+## IUCN Red list API
+
+- Envoyons la requête à l'API et récupérons le résultat
+
+
+```r
+response &lt;- httr::GET(request)
+```
+
+--
+
+- Affichons le statut de la réponse
+
+
+```r
+httr::http_status(response)
+```
+
+```
+## $category
+## [1] "Success"
+## 
+## $reason
+## [1] "OK"
+## 
+## $message
+## [1] "Success: (200) OK"
+```
+
+--
+
+- Sous quel format sont retournées les données ?
+
+
+```r
+httr::http_type(response)
+```
+
+```
+## [1] "application/json"
+```
+
+
+
+---
+
+## IUCN Red list API
+
+- Accédons au contenu de la réponse (données)
+
+
+```r
+datas &lt;- httr::content(response, as = "text")
+```
+
+```
+{
+  "count":3897,
+  "country":"FR",
+  "result":[
+    {
+      "taxonid":190498,
+      "scientific_name":"Abida ateni",
+      "subspecies":null,
+      "subpopulation":null,
+      "category":"VU"
+    },
+    {
+      "taxonid":156905,
+      "scientific_name":"Abida attenuata",
+      "subspecies":null,
+      "subpopulation":null,
+      "category":"LC"
+    }
+    ...
+  ]
+}
+```
+
+
+
+---
+
+## IUCN Red list API
+
+- Convertissons (_parse_) ce format JSON en objet R (package `{jsonlite}`)
+
+
+```r
+results &lt;- jsonlite::fromJSON(datas)
+```
+
+--
+
+&lt;br /&gt;
+
+- Quel est le format retourné ?
+
+
+```r
+str(results)
+```
+
+```
+## List of 3
+##  $ count  : int 3897
+##  $ country: chr "FR"
+##  $ result :'data.frame':	3897 obs. of  6 variables:
+##   ..$ taxonid        : int [1:3897] 190498 156905 156761 156390 156989  ...
+##   ..$ scientific_name: chr [1:3897] "Abida ateni" "Abida attenuata"     ...
+##   ..$ subspecies     : chr [1:3897] NA NA NA NA ...
+##   ..$ rank           : chr [1:3897] NA NA NA NA ...
+##   ..$ subpopulation  : chr [1:3897] NA NA NA NA ...
+##   ..$ category       : chr [1:3897] "VU" "LC" "LC" "LC" ...
+```
+
+
+
+---
+
+## IUCN Red list API
+
+- Extrayons les données qui nous intéressent
+
+
+```r
+species_fr &lt;- results$result
+head(species_fr)
+```
+
+```
+##   taxonid     scientific_name subspecies rank subpopulation category
+## 1  190498         Abida ateni       &lt;NA&gt; &lt;NA&gt;          &lt;NA&gt;       VU
+## 2  156905     Abida attenuata       &lt;NA&gt; &lt;NA&gt;          &lt;NA&gt;       LC
+## 3  156761   Abida bigerrensis       &lt;NA&gt; &lt;NA&gt;          &lt;NA&gt;       LC
+## 4  156390    Abida cylindrica       &lt;NA&gt; &lt;NA&gt;          &lt;NA&gt;       LC
+## 5  156989 Abida gittenbergeri       &lt;NA&gt; &lt;NA&gt;          &lt;NA&gt;       NT
+## 6  156823  Abida occidentalis       &lt;NA&gt; &lt;NA&gt;          &lt;NA&gt;       LC
+```
+
+--
+
+- Nombre d'espèces par catégorie listées par l'IUCN
+
+
+```r
+table(species_fr[ , "category"])
+```
+
+```
+## 
+##    CR    DD    EN    EW    EX    LC LR/cd LR/lc LR/nt    NT    VU 
+##    40   345    99     1     8  2915     1     3    16   219   250
+```
+
+--
+
+.right[<i class="fas  fa-hand-point-right "></i> &amp;nbsp; Package R ` {rredlist}`]
+
+
+
+---
+
+## OpenStreetMap Nominatim
+
+.center[[![:scale 20%](assets/img/osm-logo.png)](http://nominatim.openstreetmap.org/search/)]
+
+--
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Conditions d'utilisation disponibles [**ici**](https://operations.osmfoundation.org/policies/nominatim/)
+
+&lt;br /&gt;
+
+Cette API permet d'obtenir les coordonnées géographiques de lieux (villes, bâtiment, numéros de rue, etc.)
+
+Elle ne requière aucun token. Cependant, le nombre de requêtes est limitée à 1/s
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;`Sys.sleep()`
+
+
+---
+
+## OpenStreetMap Nominatim
+
+- Ecrivons le requête de base
+
+```
+http://nominatim.openstreetmap.org/search/{{@}}?format=json&amp;addressdetails=0&amp;limit=1
+```
+
+
+```r
+api_url &lt;- "http://nominatim.openstreetmap.org/search/"
+
+params  &lt;- list(
+  format  = "json",                               # Format des données retournées
+  details = 0,                                    # Recommendé par l'API
+  limit   = 1                                     # Un seul résultat par requête
+)
+```
+
+--
+
+&lt;br /&gt;
+
+- Pour quelle entité géographique (`{{@}}`) ?
+
+
+```r
+location &lt;- "5 rue de l'école de médecine, Montpellier, France"
+location &lt;- gsub("\\s+", "%20", location)
+```
+
+```
+## [1] "5%20rue%20de%20l'école%20de%20médecine,%20Montpellier,%20France"
+```
+
+
+
+---
+
+## OpenStreetMap Nominatim
+
+- Ecrivons le requête complète
+
+
+
+```r
+request &lt;- paste0(api_url, location)
+```
+```
+## "http://nominatim.openstreetmap.org/search/5%20rue%20de%20l'école%20de%20méd..."
+```
+
+--
+
+- Envoyons la requête à l'API (avec paramètres) et récupérons le résultat
+
+
+```r
+response &lt;- httr::GET(request, query = params)
+```
+
+--
+
+- Affichons le statut de la réponse
+
+
+```r
+httr::http_status(response)
+```
+
+```
+## $category
+## [1] "Success"
+## 
+## $reason
+## [1] "OK"
+## 
+## $message
+## [1] "Success: (200) OK"
+```
+
+
+
+---
+
+## OpenStreetMap Nominatim
+
+- Sous quel format sont retournées les données ?
+
+
+```r
+httr::http_type(response)
+```
+
+```
+## [1] "application/json"
+```
+
+--
+
+- Accédons au contenu de la réponse (données)
+
+
+```r
+datas &lt;- httr::content(response, as = "text")
+```
+
+```
+[
+  {
+    "place_id":259115419,
+    "licence":"Data © OpenStreetMap contributors, ODbL 1.0. https://osm.org/copyright",
+    "osm_type":"node",
+    "osm_id":6405038665,
+    "boundingbox":["43.6127241","43.6128241","3.8734359","3.8735359"],
+    "lat":"43.6127741",
+    "lon":"3.8734859",
+    "display_name":"5, Rue de l'École de Médecine, Centre Historique, Montpellier, Hérault...",
+    "class":"place",
+    "type":"house",
+    "importance":0.831
+  }
+]
+```
+
+
+
+---
+
+## OpenStreetMap Nominatim
+
+- Convertissons (parse) ce format JSON en objet R
+
+
+```r
+results &lt;- jsonlite::fromJSON(datas)
+```
+
+--
+
+- Quel est le format retourné ?
+
+
+```r
+class(results)
+```
+
+```
+## [1] "data.frame"
+```
+
+--
+
+&lt;br /&gt;
+
+- Extrayons les données qui nous intéressent
+
+
+```r
+(xy &lt;- results[ , c("lon", "lat")])
+```
+
+```
+##         lon        lat
+## 1 3.8734859 43.6127741
+```
+
+
+
+---
+
+## OpenStreetMap Nominatim
+
+- Fiabilité du résultat ?
+
+.pull-left[
+
+```r
+## Fond de carte    -----
+
+maps::map(
+  region = "France",
+  fill   = TRUE,
+  col    = "#294557",
+  border = "white"
+)
+
+
+## Ajout du point   -----
+
+points(
+  xy,
+  pch = 17,
+  col = "#a52a2a",
+  cex = 2
+)
+```
+]
+
+.pull-right[
+.center[
+![](assets/chunks/map1-1.png)&lt;!-- --&gt;
+]
+]
+
+
+
+---
+class: inverse, center, middle
+
+# Web scraping
+
+
+
+---
+
+
+## Quésaco ?
+
+- Extraction via des programmes informatiques (Robots) du contenu de pages Web en vue de son utilisation
+
+- La question de la légalité : le cas Google (le gros foutage de gueule)
+
+--
+
+&lt;br /&gt;
+
+- Est-ce que tout peut-être scrapé ?
+  - Compte utilisateur
+  - Captchas
+  - Bannissement d'IP
+
+&lt;br /&gt;
+
+--
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;[**Be polite!**](http://www.user2019.fr/static/pres/lt257430.pdf) with [`{polite}`](https://github.com/dmi3kno/polite/)
+
+--
+
+&lt;br /&gt;
+
+Sous <i class="fab  fa-r-project "></i>, deux approches  :
+  1. L'approche brutale (`readLines()` + `regular expressions`)
+  1. Le package R : `{rvest}`
+
+
+
+---
+
+## Extraction de texte
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Source : [**Wikipédia**](https://fr.wikipedia.org/wiki/Liste_des_communes_de_France_les_plus_peuplées)
+
+- Construisons l'URL de la page
+
+
+```r
+base_url &lt;- "https://fr.wikipedia.org/wiki/"
+article  &lt;- "Acanthurus_lineatus"
+
+request  &lt;- paste0(base_url, article)
+```
+
+--
+
+&lt;br /&gt;
+
+- Ouverture d'une session HTML
+
+
+```r
+html   &lt;- rvest::html_session(request)
+```
+
+
+
+---
+
+## Extraction de texte
+
+- Extrayons le titre de la page
+
+
+```r
+html %&gt;%
+  rvest::html_nodes(css = ".firstHeading") %&gt;%
+  rvest::html_text()
+```
+
+```
+## [1] "Acanthurus lineatus"
+```
+
+
+---
+
+## Téléchargement d'une image
+
+- Extrayons l'URL de la troisième image sur la même page
+
+
+```r
+img_url &lt;- html %&gt;%
+  rvest::html_nodes(xpath = '//*/img') %&gt;%
+  rvest::html_attr("src") %&gt;%
+  .[3]
+```
+
+```
+## [1] "//upload.wikimedia.org/wikipedia/commons/thumb/5/59/Acanthurus_lineatus_2...
+```
+
+--
+
+&lt;br /&gt;
+
+- Téléchargeons l'image
+
+
+```r
+download.file(
+  url      = paste0("https:", img_url),
+  destfile = "acanthurus_lineatus.jpg"
+)
+```
+
+```
+essai de l'URL 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Acanthu...
+Content type 'image/jpeg' length 24891 bytes (24 KB)
+==================================================
+downloaded 24 KB
+```
+
+
+
+---
+
+## Extraction d'un tableau html
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Obtenir le nombre d'habitants des 10 communes les plus peuplées de France (source [**Wikipédia**](https://fr.wikipedia.org/wiki/Liste_des_communes_de_France_les_plus_peuplées))
+
+- Construisons l'URL de la page
+
+
+```r
+base_url &lt;- "https://fr.wikipedia.org/wiki/"
+article  &lt;- "Liste_des_communes_de_France_les_plus_peuplées"
+
+request  &lt;- paste0(base_url, article)
+```
+
+--
+
+&lt;br /&gt;
+
+- Ouverture d'une session HTML
+
+
+```r
+html   &lt;- rvest::html_session(request)
+```
+
+
+
+---
+
+## Extraction d'un tableau html
+
+- Extrayons tous les tableaux HTML de la page
+
+
+```r
+tables &lt;- rvest::html_table(html)
+```
+
+--
+
+- Combien en a-t-on ?
+
+
+```r
+length(tables)
+```
+
+```
+## [1] 4
+```
+
+--
+
+- Seul le premier nous intéresse avec les colonnes `Commune` et `2016`
+
+
+```r
+cities &lt;- tables[[1]]
+cities &lt;- cities[ , c(2, 5)]
+cities &lt;- cities[1:10, ]
+```
+
+
+
+---
+
+## Extraction d'un tableau html
+
+- Affichons les données
+
+```
+##        Commune     2016[5]
+## 1        Paris +2 190 327,
+## 2    Marseille  +0862 211,
+## 3         Lyon  +0515 695,
+## 4     Toulouse  +0475 438,
+## 5         Nice  +0342 637,
+## 6       Nantes  +0306 694,
+## 7  Montpellier  +0281 613,
+## 8   Strasbourg  +0279 284,
+## 9     Bordeaux  +0252 040,
+## 10   Lille[19]  +0232 440,
+```
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Un peu de nettoyage est nécessaire
+
+
+
+---
+
+## Extraction d'un tableau html
+
+- Renommons les colonnes
+
+
+```r
+colnames(cities) &lt;- c("city", "pop2016")
+```
+
+--
+
+&lt;br /&gt;
+
+- Supprimons les notes (`[19]`) dans le nom des villes
+
+
+```
+##  [1] "Paris"       "Marseille"   "Lyon"        "Toulouse"    "Nice"       
+##  [6] "Nantes"      "Montpellier" "Strasbourg"  "Bordeaux"    "Lille[19]"
+```
+
+```r
+cities$city &lt;- gsub("\\[[0-9]{1,}\\]", "", cities$city)
+```
+
+```
+##  [1] "Paris"       "Marseille"   "Lyon"        "Toulouse"    "Nice"       
+##  [6] "Nantes"      "Montpellier" "Strasbourg"  "Bordeaux"    "Lille"
+```
+
+
+
+---
+
+## Extraction d'un tableau html
+
+- Nettoyons le nombre d'habitants
+
+```
+##  [1] "+2 190 327," "+0862 211,"  "+0515 695,"  "+0475 438,"  "+0342 637,"
+##  [6] "+0306 694,"  "+0281 613,"  "+0279 284,"  "+0252 040,"  "+0232 440,"
+
+```
+
+```r
+cities$pop2016 &lt;- gsub("[[:punct:]]|[[:space:]]", "", cities$pop2016)
+cities$pop2016 &lt;- as.numeric(cities$pop2016)
+```
+
+```
+##           city pop2016
+## 1        Paris 2190327
+## 2    Marseille  862211
+## 3         Lyon  515695
+## 4     Toulouse  475438
+## 5         Nice  342637
+## 6       Nantes  306694
+## 7  Montpellier  281613
+## 8   Strasbourg  279284
+## 9     Bordeaux  252040
+## 10       Lille  232440
+```
+
+
+
+---
+
+## Bonus : Une bubble map
+
+
+
+```r
+api_url   &lt;- "http://nominatim.openstreetmap.org/search/"
+params    &lt;- list(format = "json", details = 0, limit = 1)
+
+(locations &lt;- paste0(cities$city, ",%20France"))
+```
+
+```
+##  [1] "Paris,%20France"       "Marseille,%20France"   "Lyon,%20France"       
+##  [4] "Toulouse,%20France"    "Nice,%20France"        "Nantes,%20France"     
+##  [7] "Montpellier,%20France" "Strasbourg,%20France"  "Bordeaux,%20France"   
+## [10] "Lille,%20France"
+```
+
+
+```r
+xy &lt;- data.frame()
+
+for (location in locations) {
+
+  request  &lt;- paste0(api_url, location)
+  response &lt;- httr::GET(request, query = params)
+
+  datas    &lt;- httr::content(response, as = "text")
+  results  &lt;- jsonlite::fromJSON(datas)
+
+  tmp &lt;- results[ , c("lon", "lat")]
+  xy  &lt;- rbind(xy, tmp)
+
+  Sys.sleep(1)
+}
+```
+
+
+
+
+
+---
+
+## Bonus : Une bubble map
+
+
+```r
+(xy &lt;- cbind(cities, xy))
+```
+
+```
+##           city pop2016        lon      lat
+## 1        Paris 2190327  2.3514992 48.85661
+## 2    Marseille  862211  5.3699525 43.29617
+## 3         Lyon  515695  4.8320114 45.75781
+## 4     Toulouse  475438  1.4442469 43.60446
+## 5         Nice  342637  7.2683912 43.70094
+## 6       Nantes  306694 -1.5541362 47.21864
+## 7  Montpellier  281613  3.8767337 43.61124
+## 8   Strasbourg  279284  7.7507127 48.58461
+## 9     Bordeaux  252040 -0.5800364 44.84123
+## 10       Lille  232440  3.0635282 50.63657
+```
+
+
+
+---
+class: middle
+
+.pull-left[
+
+```r
+## Fond de carte        -----
+maps::map(
+  region = "France",
+  fill   = TRUE,
+  col    = "#294557",
+  border = "white"
+)
+
+
+## Ajout des points     -----
+points(
+  x   = xy$lon,
+  y   = xy$lat,
+  pch = 19,
+  col = "#a52a2a88",
+  cex = sqrt(cities$pop2016)/(100*pi)
+)
+
+## Ajout des villes     -----
+text(
+  x      = xy$lon,
+  y      = xy$lat,
+  labels = xy$city,
+  col    = "white",
+  pos    = 3,
+  cex    = 0.75
+)
+```
+]
+
+.pull-right[
+.center[
+![](assets/chunks/map2-1.png)&lt;!-- --&gt;
+]
+]
+
+
+
+---
+class: inverse, center, middle
+
+# Pratique
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="../../assets/libs/macros.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "4:3",
+"highlightStyle": "zenburn",
+"highlightLines": false,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current% / %total%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

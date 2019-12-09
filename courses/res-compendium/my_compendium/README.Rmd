@@ -1,0 +1,40 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# `r emo::ji("tropical_fish")`  `r emo::ji("fish")` My Compendium `r emo::ji("fish")` `r emo::ji("tropical_fish")`    
+
+This Compendium is full of fishes around the world `r emo::ji("earth_africa")`  `r emo::ji("earth_asia")`  `r emo::ji("tropical_fish")`.
+
+## Authors
+
+- François Guilhaumon
+
+## Contact
+
+francois.guilhaumon@ird.fr
+
+## Script list
+
+```{r}
+list.files(file.path("R"))
+```
+
+
+
+## Session info
+
+```{r}
+sessionInfo()
+```
+

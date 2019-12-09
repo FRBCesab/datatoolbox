@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+  <head>
+    <title>Writing dynamic documents</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Stéphane DRAY" />
+    <link rel="stylesheet" href="../../assets/css/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="../../assets/css/custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: right, middle, title-slide
+
+# Writing dynamic documents
+## <i>An introduction to (R)markdown</i>
+### <br /><br />Stéphane DRAY
+### 3/12/2019
+
+---
+
+
+class: inverse, center, middle
+
+## Introduction
+
+
+
+
+---
+## Why you should not use Word (or other WYSIWYG editors)
+
+** Demo **
+- Create a document with Word
+- Put the file under versioning
+- Update the file and commit
+- Perform a regression model using the `iris` dataset (available in `MASS`)
+---
+## What we need
+- Something that can be easily used in versioning tools
+- Something able to integrate text and analysis
+- Something that is dynamic
+
+--
+
+.center[![](assets/img/Literate_Programming_book_cover.jpg)]
+
+---
+## Literate Programming
+
+- Text in human language (English)
+- Code snippet (separated by a primitive markup) included (chunk)
+- Text and code are compiled to produce the final document (tangle, sweave)
+
+&lt;br&gt;
+In R
+
+- Sweave (.Rnw) = Latex and R -&gt; .pdf 
+- Rmarkdown (.Rmd) = Mardown and R -&gt; .pdf, .html, etc. (pa&amp;ckage `rmarkdown`)
+
+---
+## RMarkdown
+.center[![](assets/img/schema_rmd.png)
+https://stateofther.github.io/finistR2018/atelier3_advancedrmd.html
+]
+---
+## Strucutre of a RMarkdown document
+.center[![](assets/img/rmd_struc.png)
+https://yongfu.name/2019-fju-rmd-talk/slide/#1
+]
+
+&lt;br&gt;
+** Demo **
+- create a new Rmd file with RStudio
+- Identify the three parts
+
+---
+class: inverse, center, middle
+## The YAML metadata
+---
+## YAML in brief
+
+- It contains the metadta of the document
+- It contains also options for pandoc
+- It starts and ends by three dashes
+- Located at the first line of the document
+---
+## Some examples
+
+```md
+---
+output:
+    pdf_document:
+        toc: true
+        number_sections: true
+        toc_depth: 2
+  
+    html_document:
+        toc: true
+        toc_float: true
+        code_folding: hide
+        css: mystyle.css
+---
+```
+
+
+```md
+---
+abstract: "The abstract of the document is located here"
+bibliography: myrefs.bib
+csl: mystyle.csl
+---
+```
+---
+class: inverse, center, middle
+## The R code
+---
+## Three alternatives
+- inline by
+
+```md
+`rmarkdown`
+```
+- inline evaluated by
+
+```md
+`r pi`
+```
+- bloc (with different available options)
+  - echo
+  - eval
+  - cache
+  - results
+  - etc
+
+---
+class: inverse, center, middle
+## The text
+---
+## Format your text
+
+
+```md
+**bold**
+_italics_
+
+# Header 1
+## Header 2
+### Header 3
+
+^superscript^
+~subscript~
+- Item 1
+  - Sub-Item 1
+
+1. Numbered Item
+  1. Numbered sub-Item
+  
+[link](www.lequipe.fr)
+![title](path/to/image)
+
+$$ \sum_{i = 1}^n x_i $$ 
+
+```
+
+- Indent by a tab of 4 spaces
+- Use a blank line to start a new paragraph
+---
+## Tables
+
+```md
+| header A | header B |
+|---------:|:---------|
+| data     | data     |
+
+Table:title
+
+```
+
+---
+## Managing the bibliography
+
+- Use BiBTex to manage the bibliography
+- Define a CSL to format the bibliography
+- Cite by `[@key]` or `@key` (separate multiple refs by `;`)
+- Add `# References` at the end of the document
+
+---
+## Acknowledgments
+
+Have a look to the excellent slides of Nico
+
+.center[https://nicolascasajus.fr/mastering-markdown/]
+
+&lt;br&gt;
+
+A good summary:
+
+.center[https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="../../assets/libs/macros.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "4:3",
+"highlightStyle": "zenburn",
+"highlightLines": false,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current% / %total%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

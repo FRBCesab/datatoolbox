@@ -1,0 +1,15 @@
+Package: pkgmin
+Title: Structure d'un package simple sous R
+Version: 0.0.0.9000
+Authors@R:
+    person(
+        given  = "Nicolas",
+        family = "Casajus",
+        role   = c("aut", "cre"),
+        email  = "nicolas.casajus@fondationbiodiversite.fr"
+    )
+Description: Le package \code{pkgmin} illustre la structure d'un package...
+Depends: R (>= 3.6.0)
+License: What license it uses
+Encoding: UTF-8
+LazyData: true
