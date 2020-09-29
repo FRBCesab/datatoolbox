@@ -1,10 +1,8 @@
-# Formation FRB-Cesab/GDR EcoStat
-
-Bonnes pratiques pour une recherche reproductible en écologie numérique – **Edition 2020**
+# Formation FRB-Cesab/GDR EcoStat - Edition 2020
 
 Le Cesab de la FRB et le GDR EcoStat proposent la seconde édition de la formation « Bonnes pratiques pour une recherche reproductible en écologie numérique ». Cette formation de cinq jours a pour objectif de former de jeunes chercheurs / chercheuses aux outils de reproductibilité, de développement logiciel et de gestion de versions (e.g. R, git, markdown, tidyverse, docker) appliqués à la recherche en biodiversité.
 
-En raison des conditions sanitaires dues à la crise de la Covid-19, la formation, dispensée en français, se déroulera du 2 au 6 novembre 2020 en distanciel.
+:construction_worker: **En raison des conditions sanitaires dues à la crise de la Covid-19, la formation, dispensée en français, se déroulera du 2 au 6 novembre 2020 en distanciel**.
 
 
 
@@ -56,4 +54,4 @@ En raison des conditions sanitaires dues à la crise de la Covid-19, la formatio
 
 
 
-[More information (in french)](https://www.fondationbiodiversite.fr/evenement/frb-cesab-formation-reproductibilite-2020/)
+[Page de l'événement](https://www.fondationbiodiversite.fr/evenement/frb-cesab-formation-reproductibilite-2020/)
