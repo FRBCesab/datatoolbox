@@ -54,4 +54,6 @@ Le Cesab de la FRB et le GDR EcoStat proposent la seconde édition de la formati
 
 
 
-[Page de l'événement](https://www.fondationbiodiversite.fr/evenement/frb-cesab-formation-reproductibilite-2020/)
+Page de l'événement [:globe_with_meridians:](https://www.fondationbiodiversite.fr/evenement/frb-cesab-formation-reproductibilite-2020/)
+
+Dépôt des exercices [:octocat:](https://github.com/FRBCesab/datatoolbox-db)
