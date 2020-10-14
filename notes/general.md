@@ -82,6 +82,6 @@ Le Cesab de la FRB et le GDR EcoStat proposent la seconde édition de la formati
 
 :point_right: [Dépôt GitHub de la formation](https://github.com/FRBCesab/datatoolbox)
 
-:point_right: [Dépôt GitHub des exercices](https://github.com/FRBCesab/datatoolbox-db)
+:point_right: [Dépôt GitHub des exercices](https://github.com/FRBCesab/datatoolbox-exos)
 
 :point_right: [Diapositives des cours](https://frbcesab.github.io/datatoolbox/)
