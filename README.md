@@ -2,6 +2,7 @@
 
 [![Course Informations](https://img.shields.io/badge/Informations-go-red?style=flat&logo=github)](https://hackmd.io/kMboCUzyQNmReObNDYoQ6A)
 [![Introduce Yourself](https://img.shields.io/badge/Who%20are%20you%3F-go-brightgreen?style=flat&logo=atom)](https://hackmd.io/F-mjO0adRSuuhf93lf39Zg)
+[![Let's Chat!](https://img.shields.io/badge/Let's%20Chat!-go-yellowgreen?style=flat&logo=markdown)](https://hackmd.io/TXGHRIFVSm--9b8Y7yWKrw)
 
 Le Cesab de la FRB et le GDR EcoStat proposent la seconde édition de la formation « Bonnes pratiques pour une recherche reproductible en écologie numérique ». Cette formation de cinq jours a pour objectif de former de jeunes chercheurs / chercheuses aux outils de reproductibilité, de développement logiciel et de gestion de versions (e.g. R, git, markdown, tidyverse, docker) appliqués à la recherche en biodiversité.
 
