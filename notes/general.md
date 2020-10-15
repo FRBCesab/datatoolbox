@@ -75,6 +75,17 @@ Le Cesab de la FRB et le GDR EcoStat proposent la seconde édition de la formati
 <br />
 
 
+## Déroulement
+
+- Salle principale dédiée aux cours
+- Salles de répartition (attribution aléatoire) pour les exercices (6 salles : 4 groupes de 4 + 2 groupes de 5)
+- Salles de répartition (attribution selon projet) pour les projets (pas plus de 3-4 participants par projet)
+
+
+
+<br />
+
+
 
 ## Ressources
 
