@@ -2,7 +2,7 @@
 title: "Introduction to the Tidyverse"
 subtitle: "How to be a tidy data scientist"
 author: "Olivier Gimenez"
-date: "Mardi 3 décembre 2019"
+date: "Novembre 2020"
 output:
   xaringan::moon_reader:
     css: ["../../assets/css/rutgers-tidyverse.css", "../../assets/css/rutgers-fonts_og.css"]
@@ -16,7 +16,12 @@ output:
 ---
 
 ```{r global_options, include=FALSE}
-knitr::opts_chunk$set(fig.path = 'assets/chunks/', cache.path = "assets/cache/")
+knitr::opts_chunk$set(fig.path = 'assets/chunks/', cache.path = "assets/cache/", dpi = 300)
+library(tidyverse)
+theme_set(theme_grey(base_size = 16))
+library(emo)
+#devtools::install_github("ropenscilabs/icon")
+#devtools::install_github("hadley/emo")
 ```
 
 # **Tidyverse**
@@ -120,7 +125,7 @@ library(tidyverse)
 class: middle
 
 ## Case study:
-# [Using Twitter to predict citation rates of ecological research](https://peerj.com/preprints/3180/)
+# [Using Twitter to predict citation rates of ecological research](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0166570)
 
 ```{r, echo=FALSE, out.width = '85%', fig.align="center"}
 knitr::include_graphics("assets/img/paper_workflow.png")
@@ -138,13 +143,13 @@ class: inverse, center, middle
 
 **readr::read_csv** function:
 
-* keeps input types as is (no conversion to factor)
+* ~~keeps input types as is (no conversion to factor)~~ (since `R` 4.0.0)
 
 * creates `tibbles` instead of `data.frame`
      - no names to rows
-     - allows column names with special characters
-     - more clever on screen display than w/ data.frames
-     - no partial matching on column names
+     - allows column names with special characters (see next slide)
+     - more clever on screen display than w/ data.frames (see next slide)
+     - [no partial matching on column names](https://stackoverflow.com/questions/58513997/how-to-make-r-stop-accepting-partial-matches-for-column-names)
      - warning if attempt to access unexisting column
 
 * is daaaaaamn fast `r emo::ji("racing_car")`
@@ -153,7 +158,7 @@ class: inverse, center, middle
 
 # Import data
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, cache=TRUE}
+```{r message=FALSE, warning=FALSE}
 citations_raw <- read_csv('https://raw.githubusercontent.com/oliviergimenez/intro_tidyverse/master/journal.pone.0166570.s001.CSV')
 citations_raw
 ```
@@ -345,9 +350,20 @@ citations %>%
 <blockquote class="twitter-tweet" data-lang="fr"><p lang="en" dir="ltr">More <a href="https://twitter.com/hashtag/dplyr?src=hash&amp;ref_src=twsrc%5Etfw">#dplyr</a> 🔧 gifs!  It took me a hella long time to wrap my head around the different types of joins when I first started learning them, so here&#39;s a few examples with some excellent mini datasets from <a href="https://twitter.com/hashtag/dplyr?src=hash&amp;ref_src=twsrc%5Etfw">#dplyr</a> designed specifically for this purpose! <a href="https://twitter.com/hashtag/rstats?src=hash&amp;ref_src=twsrc%5Etfw">#rstats</a> <a href="https://twitter.com/hashtag/tidyverse?src=hash&amp;ref_src=twsrc%5Etfw">#tidyverse</a> <a href="https://t.co/G56fWmIZSq">pic.twitter.com/G56fWmIZSq</a></p>&mdash; Nic Crane (@nic_crane) <a href="https://twitter.com/nic_crane/status/1064237554910806016?ref_src=twsrc%5Etfw">18 novembre 2018</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
-<br> <br> <br> <br>
 
 [![Watch the video](assets/mp4/dplyr_join.mp4)](assets/mp4/dplyr_join.mp4)
+
+
+---
+
+## <https://www.garrickadenbuie.com/project/tidyexplain/>
+
+```{r echo=FALSE, out.width = "70%", fig.align="center"}
+knitr::include_graphics("assets/img/left-join.gif")
+```
+
+
+
 
 ---
 class: inverse, center, middle
@@ -360,8 +376,19 @@ class: inverse, center, middle
 
 ```{r message=FALSE, warning=FALSE, paged.print=FALSE}
 citations %>%
-  filter(str_detect(Authors,'et al'))
+  filter(str_detect(Authors,'et al')) #<<
 ```
+
+---
+
+# Get column with rows corresponding to papers with more than 3 authors
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+citations %>%
+  filter(str_detect(Authors,'et al')) %>% #<<
+  select(Authors) #<<
+```
+
 
 ---
 
@@ -369,8 +396,32 @@ citations %>%
 
 ```{r message=FALSE, warning=FALSE, paged.print=FALSE}
 citations %>%
-  filter(!str_detect(Authors,'et al'))
+  filter(!str_detect(Authors,'et al')) #<<
 ```
+
+
+---
+
+# Get column with rows corresponding to papers with less than 3 authors
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+citations %>%
+  filter(!str_detect(Authors,'et al')) %>% #<<
+  select(Authors) #<<
+```
+
+
+---
+
+# Get column with rows corresponding to papers with less than 3 authors
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+citations %>%
+  filter(!str_detect(Authors,'et al')) %>%
+  pull(Authors) %>% #<<
+  head(10)
+```
+
 
 ---
 
@@ -378,7 +429,7 @@ citations %>%
 
 ```{r message=FALSE, warning=FALSE, paged.print=FALSE}
 citations %>%
-  filter(!str_detect(Authors,'et al'), impactfactor < 5)
+  filter(!str_detect(Authors,'et al'), impactfactor < 5) #<<
 ```
 
 ---
@@ -438,12 +489,21 @@ citations %>%
 
 ---
 
+# Count sum of tweets per journal
+
+```{r}
+citations %>%
+  count(journal, wt = nbtweets, sort = TRUE)
+```
+
+---
+
 # Group by variable to calculate stats
 
 ```{r message=FALSE, warning=FALSE, paged.print=FALSE}
 citations %>%
-  group_by(journal) %>%
-  summarise(avg_tweets = mean(nbtweets)) %>%
+  group_by(journal) %>% #<<
+  summarise(avg_tweets = mean(nbtweets)) %>% #<<
   head(10)
 ```
 
@@ -463,26 +523,49 @@ citations %>%
 
 ---
 
-# Group by variables to calculate stats
+# What if we want to work on several columns?
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE}
-citations %>%
-  group_by(journal, pubyear) %>%
-  summarise(avg_tweets_year = mean(nbtweets))
+```{r echo=FALSE, out.width = "85%", fig.align="center"}
+knitr::include_graphics("assets/img/dplyr_across.png")
 ```
 
 ---
 
-# There are so many more things to explore
+# Compute mean across all numeric columns for each journal
 
-* **mutate_all()**, **select_if()** and **summarise_at()** or scoped verbs where _scoped_ means that these functions operate only on a selection of variables; see [here](http://www.rebeccabarter.com/blog/2019-01-23_scoped-verbs/) for example
-
-* **pivot_longer()** and **pivot_wider()** from package `tidyr` to reshape tibbles; see [here](https://www.fromthebottomoftheheap.net/2019/10/25/pivoting-tidily/) for example
-
-
-```{r echo=FALSE, out.width = "50%", fig.align="center"}
-knitr::include_graphics("assets/img/01_tidyverse_data_science.png")
+```{r}
+citations %>%
+  group_by(journal) %>% #<<
+  summarize(across(where(is.numeric), mean)) %>% #<<
+  head()
 ```
+
+---
+
+## <https://github.com/courtiol/Rguides>
+
+```{r echo=FALSE, out.width = "85%", fig.align="center"}
+knitr::include_graphics("assets/img/dplyr_guide_for_one_table_part2.png")
+```
+
+
+
+---
+
+# Tidying tibbles 
+
+```{r echo=FALSE, out.width = "70%", fig.align="center"}
+knitr::include_graphics("assets/img/original-dfs-tidy.png")
+```
+
+---
+
+## Going from **long** to **wide** format and vice-versa
+
+```{r echo=FALSE, out.width = "70%", fig.align="center"}
+knitr::include_graphics("assets/img/tidyr-longer-wider.gif")
+```
+
 
 ---
 class: inverse, center, middle
@@ -527,18 +610,7 @@ knitr::include_graphics("assets/img/ggplot2_logo.jpg")
 
 # Scatterplots
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
-citations %>%
-  ggplot() +
-  aes(x = nbtweets, y = woscitations) +
-  geom_point()
-```
-
----
-
-# Scatterplots
-
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 4, fig.width = 4, fig.align = "center", eval=FALSE}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '400cm', out.height='400cm', fig.align = "center", eval=FALSE}
 citations %>%  #<<
   ggplot() + #<<
   aes(x = nbtweets, y = woscitations) +
@@ -550,7 +622,7 @@ citations %>%  #<<
 
 # Scatterplots
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 4, fig.width = 4, fig.align = "center", eval=FALSE}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '400cm', out.height='400cm',  fig.align = "center", eval=FALSE}
 citations %>%
   ggplot() +
   aes(x = nbtweets, y = woscitations) + #<<
@@ -563,7 +635,7 @@ citations %>%
 
 # Scatterplots
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 4, fig.width = 4, fig.align = "center", eval=FALSE}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '400cm', out.height='400cm',  fig.align = "center", eval=FALSE}
 citations %>%
   ggplot() +
   aes(x = nbtweets, y = woscitations) +
@@ -576,9 +648,21 @@ citations %>%
 
 ---
 
+# Scatterplots
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '400cm', out.height='400cm', fig.align = "center"}
+citations %>%
+  ggplot() +
+  aes(x = nbtweets, y = woscitations) +
+  geom_point()
+```
+
+
+---
+
 # Scatterplots, with colors
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '400cm', out.height='400cm',  fig.align = "center"}
 citations %>%
   ggplot() +
   aes(x = nbtweets, y = woscitations) +
@@ -589,7 +673,7 @@ citations %>%
 
 # Scatterplots, with species-specific colors
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 8, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '400cm', out.height='400cm',  fig.align = "center"}
 citations %>%
   ggplot() +
   aes(x = nbtweets, y = woscitations, color = journal) + #<<
@@ -603,7 +687,7 @@ citations %>%
 
 # Pick a few journals
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '400cm', out.height='400cm',  fig.align = "center"}
 citations_ecology <- citations %>%
   mutate(journal = str_to_lower(journal)) %>% # all journals names lowercase
   filter(journal %in%
@@ -616,7 +700,7 @@ citations_ecology
 
 # Scatterplots, with species-specific shapes
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 8, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '400cm', out.height='400cm',  fig.align = "center"}
 citations_ecology %>%
   ggplot() +
   aes(x = nbtweets, y = woscitations, shape = journal) + #<<
@@ -627,7 +711,7 @@ citations_ecology %>%
 
 # Scatterplots, lines instead of points
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '350cm', out.height='350cm',  fig.align = "center"}
 citations_ecology %>%
   ggplot() +
   aes(x = nbtweets, y = woscitations) +
@@ -637,9 +721,22 @@ citations_ecology %>%
 
 ---
 
+# Scatterplots, lines with sorting beforehand
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '350cm', out.height='350cm',  fig.align = "center"}
+citations_ecology %>%
+  arrange(woscitations) %>% #<<
+  ggplot() +
+  aes(x = nbtweets, y = woscitations) +
+  geom_line() +
+  scale_x_log10()
+```
+
+---
+
 # Scatterplots, add points
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '350cm', out.height='350cm',  fig.align = "center"}
 citations_ecology %>%
   ggplot() +
   aes(x = nbtweets, y = woscitations) +
@@ -650,9 +747,22 @@ citations_ecology %>%
 
 ---
 
+# Scatterplots, add linear trend
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '350cm', out.height='350cm',  fig.align = "center"}
+citations_ecology %>%
+  ggplot() +
+  aes(x = nbtweets, y = woscitations) +
+  geom_point() +
+  geom_smooth(method = "lm") + #<<
+  scale_x_log10()
+```
+
+---
+
 # Scatterplots, add smoother
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '350cm', out.height='350cm',  fig.align = "center"}
 citations_ecology %>%
   ggplot() +
   aes(x = nbtweets, y = woscitations) +
@@ -677,7 +787,7 @@ knitr::include_graphics("assets/img/ggplot2_logo.jpg")
 
 # Histograms
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '400cm', out.height='400cm',  fig.align = "center"}
 citations_ecology %>%
   ggplot() +
   aes(x = nbtweets) +
@@ -688,7 +798,7 @@ citations_ecology %>%
 
 # Histograms, with colors
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '400cm', out.height='400cm',  fig.align = "center"}
 citations_ecology %>%
   ggplot() +
   aes(x = nbtweets) +
@@ -699,7 +809,7 @@ citations_ecology %>%
 
 # Histograms, with colors
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '400cm', out.height='400cm',  fig.align = "center"}
 citations_ecology %>%
   ggplot() +
   aes(x = nbtweets) +
@@ -710,28 +820,28 @@ citations_ecology %>%
 
 # Histograms, with labels and title
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 4, fig.width = 5, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '350cm', out.height='350cm',  fig.align = "center"}
 citations_ecology %>%
   ggplot() +
   aes(x = nbtweets) +
   geom_histogram(fill = "orange", color = "brown") +
-  xlab("Number of tweets") + #<<
-  ylab("Count") + #<<
-  ggtitle("Histogram of the number of tweets") #<<
+  labs(x = "Number of tweets", #<<
+       y = "Count", #<<
+       title = "Histogram of the number of tweets") #<<
 ```
 
 ---
 
 # Histograms, by species
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 4, fig.width = 7, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '300cm', out.height='300cm',  fig.align = "center"}
 citations_ecology %>%
   ggplot() +
   aes(x = nbtweets) +
   geom_histogram(fill = "orange", color = "brown") +
-  xlab("Number of tweets") + #<<
-  ylab("Count") + #<<
-  ggtitle("Histogram of the number of tweets") +
+  labs(x = "Number of tweets",
+       y = "Count",
+       title = "Histogram of the number of tweets") + 
   facet_wrap(vars(journal)) #<<
 ```
 
@@ -739,7 +849,7 @@ citations_ecology %>%
 
 # Boxplots
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '350cm', out.height='350cm',  fig.align = "center"}
 citations_ecology %>%
   ggplot() +
   aes(x = "", y = nbtweets) +
@@ -751,7 +861,7 @@ citations_ecology %>%
 
 # Boxplots with colors
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 5, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '350cm', out.height='350cm',  fig.align = "center"}
 citations_ecology %>%
   ggplot() +
   aes(x = "", y = nbtweets) +
@@ -763,7 +873,7 @@ citations_ecology %>%
 
 # Boxplots with colors by species
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 8, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '300cm', out.height='300cm',  fig.align = "center"}
 citations_ecology %>%
   ggplot() +
   aes(x = journal, y = nbtweets, fill = journal) + #<<
@@ -771,34 +881,55 @@ citations_ecology %>%
   scale_y_log10()
 ```
 
+
+---
+
+# Get rid of the ticks on x axis
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '300cm', out.height='300cm',  fig.align = "center"}
+citations_ecology %>%
+  ggplot() +
+  aes(x = journal, y = nbtweets, fill = journal) +
+  geom_boxplot() +
+  scale_y_log10() + 
+  theme(axis.text.x = element_blank()) + #<<
+  labs(x = "") #<<
+```
+
+
 ---
 
 # Boxplots, user-specified colors by species
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 4, fig.width = 8, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '300cm', out.height='300cm',  fig.align = "center"}
 citations_ecology %>%
   ggplot() +
   aes(x = journal, y = nbtweets, fill = journal) +
   geom_boxplot() +
   scale_y_log10() +
   scale_fill_manual( #<<
-    values=c("red", "blue", "purple")) #<<
+    values = c("red", "blue", "purple")) + #<<
+  theme(axis.text.x = element_blank()) +
+  labs(x = "")
+
 ```
 
 ---
 
 # Boxplots, change legend settings
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 4, fig.width = 8, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '270cm', out.height='270cm',  fig.align = "center"}
 citations_ecology %>%
   ggplot() +
   aes(x = journal, y = nbtweets, fill = journal) +
   geom_boxplot() +
   scale_y_log10() +
   scale_fill_manual( #<<
-    values=c("red", "blue", "purple"),
+    values = c("red", "blue", "purple"),
     name = "Journal name", #<<
-    labels=c("Ecology", "J Animal Ecology", "J Applied Ecology"))#<<
+    labels = c("Ecology", "J Animal Ecology", "J Applied Ecology")) + #<<
+  theme(axis.text.x = element_blank()) +
+  labs(x = "")
 ```
 
 
@@ -806,7 +937,7 @@ citations_ecology %>%
 
 # Ugly bar plots
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 4, fig.width = 8, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '350cm', out.height='350cm',  fig.align = "center"}
 citations %>%
   count(journal) %>%
   ggplot() +
@@ -816,25 +947,57 @@ citations %>%
 
 ---
 
-# Idem, with factors reordering and flipping
+# Idem, with flipping
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 4, fig.width = 8, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '350cm', out.height='350cm',  fig.align = "center"}
 citations %>%
   count(journal) %>%
   ggplot() +
-  aes(x = fct_reorder(journal, n), y = n) + #<<
-  geom_col() +
-  coord_flip() #<<
+  aes(x = n, y = journal) + #<<
+  geom_col()
 ```
 
-* More about how to (tidy) work with factors [here](https://stat545.com/block029_factors.html) and [here](https://thinkr.fr/forcats-forcats-vous-avez-dit-forcats/).
+
+---
+
+# Idem, with factors reordering and flipping
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '350cm', out.height='350cm',  fig.align = "center"}
+citations %>%
+  count(journal) %>%
+  ggplot() +
+  aes(x = n, y = fct_reorder(journal, n)) + #<<
+  geom_col()
+```
+
+
+---
+
+# Further cleaning
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '350cm', out.height='350cm',  fig.align = "center"}
+citations %>%
+  count(journal) %>%
+  ggplot() +
+  aes(x = n, y = fct_reorder(journal, n)) +
+  geom_col() + 
+  labs(x = "counts", y = "")
+```
+
+
+---
+
+# More about how to (tidy) work with factors 
+
+* [Be the boss of your factors](https://stat545.com/block029_factors.html) and 
+* [forcats, forcats, vous avez dit forcats ?](https://thinkr.fr/forcats-forcats-vous-avez-dit-forcats/).
 
 
 ---
 
 # Density plots
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 8, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '350cm', out.height='350cm',  fig.align = "center"}
 citations_ecology %>%
   ggplot() +
   aes(x = nbtweets, fill = journal) +
@@ -846,7 +1009,7 @@ citations_ecology %>%
 
 # Density plots, control transparency
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 8, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '350cm', out.height='350cm',  fig.align = "center"}
 citations_ecology %>%
   ggplot() +
   aes(x = nbtweets, fill = journal) +
@@ -856,9 +1019,9 @@ citations_ecology %>%
 
 ---
 
-# Change default background theme 1/3
+# Change default background `B & W theme` 
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 8, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '300cm', out.height='300cm',  fig.align = "center"}
 citations_ecology %>%
   ggplot() +
   aes(x = nbtweets, fill = journal) +
@@ -869,9 +1032,9 @@ citations_ecology %>%
 
 ---
 
-# Change default background theme 2/3
+# Change default background theme `classic theme`
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 8, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '300cm', out.height='300cm',  fig.align = "center"}
 citations_ecology %>%
   ggplot() +
   aes(x = nbtweets, fill = journal) +
@@ -882,9 +1045,9 @@ citations_ecology %>%
 
 ---
 
-# Change default background theme 3/3
+# Change default background theme `dark theme`
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE, fig.height = 5, fig.width = 8, fig.align = "center"}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE, out.width = '300cm', out.height='300cm',  fig.align = "center"}
 citations_ecology %>%
   ggplot() +
   aes(x = nbtweets, fill = journal) +
@@ -901,11 +1064,12 @@ citations_ecology %>%
 
 * [Portfolio](https://www.r-graph-gallery.com/portfolio/ggplot2-package/) of ggplot2 plots
 
+* [Cédric Scherer's portfolio](https://cedricscherer.netlify.app/top/dataviz/) of data visualisations
 
 * [Top](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html) ggplot2 visualizations
 
 
-* [Interactive](https://github.com/dreamRs/esquisse) ggplot2 visualizations
+* [Interactive](https://dreamrs.github.io/esquisse/) ggplot2 visualizations
 
 
 ```{r echo=FALSE, out.width = "30%", fig.align="center"}
@@ -930,7 +1094,7 @@ background-position: 50% 50%
 * My selection of books:
    - [R for Data Science](https://r4ds.had.co.nz/) et [Advanced R](http://adv-r.had.co.nz/)
    - [Introduction à R et au tidyverse](https://juba.github.io/tidyverse/)
-   - [Fundamentals of Data visualization](https://serialmentor.com/dataviz/)
+   - [Fundamentals of Data visualization](https://clauswilke.com/dataviz/)
    - [Data Visualization: A practical introduction](http://socviz.co/)
 
 

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>Introduction to the Tidyverse</title>
     <meta charset="utf-8" />
     <meta name="author" content="Olivier Gimenez" />
+    <script src="assets/libs/header-attrs-2.3/header-attrs.js"></script>
     <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../assets/css/rutgers-tidyverse.css" type="text/css" />
     <link rel="stylesheet" href="../../assets/css/rutgers-fonts_og.css" type="text/css" />
@@ -15,7 +16,7 @@ class: center, middle, inverse, title-slide
 # Introduction to the Tidyverse
 ## How to be a tidy data scientist
 ### Olivier Gimenez
-### Mardi 3 décembre 2019
+### Novembre 2020
 
 ---
 
@@ -112,28 +113,11 @@ background-position: 90% 3%
 library(tidyverse)
 ```
 
-```
-## ── Attaching packages ─────────────────────────────────────── tidyverse 1.2.1 ──
-```
-
-```
-## ✔ ggplot2 3.2.1     ✔ purrr   0.3.3
-## ✔ tibble  2.1.3     ✔ dplyr   0.8.3
-## ✔ tidyr   1.0.0     ✔ stringr 1.4.0
-## ✔ readr   1.3.1     ✔ forcats 0.4.0
-```
-
-```
-## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-## ✖ dplyr::filter() masks stats::filter()
-## ✖ dplyr::lag()    masks stats::lag()
-```
-
 ---
 class: middle
 
 ## Case study:
-# [Using Twitter to predict citation rates of ecological research](https://peerj.com/preprints/3180/)
+# [Using Twitter to predict citation rates of ecological research](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0166570)
 
 &lt;img src="assets/img/paper_workflow.png" width="85%" style="display: block; margin: auto;" /&gt;
 
@@ -149,13 +133,13 @@ class: inverse, center, middle
 
 **readr::read_csv** function:
 
-* keeps input types as is (no conversion to factor)
+* ~~keeps input types as is (no conversion to factor)~~ (since `R` 4.0.0)
 
 * creates `tibbles` instead of `data.frame`
      - no names to rows
-     - allows column names with special characters
-     - more clever on screen display than w/ data.frames
-     - no partial matching on column names
+     - allows column names with special characters (see next slide)
+     - more clever on screen display than w/ data.frames (see next slide)
+     - [no partial matching on column names](https://stackoverflow.com/questions/58513997/how-to-make-r-stop-accepting-partial-matches-for-column-names)
      - warning if attempt to access unexisting column
 
 * is daaaaaamn fast 🏎
@@ -538,9 +522,18 @@ citations %&gt;%
 &lt;blockquote class="twitter-tweet" data-lang="fr"&gt;&lt;p lang="en" dir="ltr"&gt;More &lt;a href="https://twitter.com/hashtag/dplyr?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#dplyr&lt;/a&gt; 🔧 gifs!  It took me a hella long time to wrap my head around the different types of joins when I first started learning them, so here&amp;#39;s a few examples with some excellent mini datasets from &lt;a href="https://twitter.com/hashtag/dplyr?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#dplyr&lt;/a&gt; designed specifically for this purpose! &lt;a href="https://twitter.com/hashtag/rstats?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#rstats&lt;/a&gt; &lt;a href="https://twitter.com/hashtag/tidyverse?src=hash&amp;amp;ref_src=twsrc%5Etfw"&gt;#tidyverse&lt;/a&gt; &lt;a href="https://t.co/G56fWmIZSq"&gt;pic.twitter.com/G56fWmIZSq&lt;/a&gt;&lt;/p&gt;&amp;mdash; Nic Crane (@nic_crane) &lt;a href="https://twitter.com/nic_crane/status/1064237554910806016?ref_src=twsrc%5Etfw"&gt;18 novembre 2018&lt;/a&gt;&lt;/blockquote&gt;
 &lt;script async src="https://platform.twitter.com/widgets.js" charset="utf-8"&gt;&lt;/script&gt;
 
-&lt;br&gt; &lt;br&gt; &lt;br&gt; &lt;br&gt;
 
 [![Watch the video](assets/mp4/dplyr_join.mp4)](assets/mp4/dplyr_join.mp4)
+
+
+---
+
+## &lt;https://www.garrickadenbuie.com/project/tidyexplain/&gt;
+
+&lt;img src="assets/img/left-join.gif" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+
 
 ---
 class: inverse, center, middle
@@ -554,7 +547,7 @@ class: inverse, center, middle
 
 ```r
 citations %&gt;%
-  filter(str_detect(Authors,'et al'))
+* filter(str_detect(Authors,'et al'))
 ```
 
 ```
@@ -577,12 +570,41 @@ citations %&gt;%
 
 ---
 
+# Get column with rows corresponding to papers with more than 3 authors
+
+
+```r
+citations %&gt;%
+* filter(str_detect(Authors,'et al')) %&gt;%
+* select(Authors)
+```
+
+```
+## # A tibble: 1,280 x 1
+##    Authors            
+##    &lt;chr&gt;              
+##  1 Morin et al        
+##  2 Jucker et al       
+##  3 Calcagno et al     
+##  4 Segre et al        
+##  5 Kaufman et al      
+##  6 Nasto et al        
+##  7 Tschirren et al    
+##  8 Barnechi et al     
+##  9 Pinto-Sanchez et al
+## 10 Clough et al       
+## # … with 1,270 more rows
+```
+
+
+---
+
 # Select rows corresponding to papers with less than 3 authors
 
 
 ```r
 citations %&gt;%
-  filter(!str_detect(Authors,'et al'))
+* filter(!str_detect(Authors,'et al'))
 ```
 
 ```
@@ -603,6 +625,56 @@ citations %&gt;%
 ## #   reach` &lt;dbl&gt;, woscitations &lt;dbl&gt;
 ```
 
+
+---
+
+# Get column with rows corresponding to papers with less than 3 authors
+
+
+```r
+citations %&gt;%
+* filter(!str_detect(Authors,'et al')) %&gt;%
+* select(Authors)
+```
+
+```
+## # A tibble: 319 x 1
+##    Authors           
+##    &lt;chr&gt;             
+##  1 Neutle and Thorne 
+##  2 Kellner and Asner 
+##  3 Griffin and Willi 
+##  4 Gremer and Venable
+##  5 Cavieres          
+##  6 Haegman and Loreau
+##  7 Kearney           
+##  8 Locey and White   
+##  9 Quintero and Weins
+## 10 Lesser and Jackson
+## # … with 309 more rows
+```
+
+
+---
+
+# Get column with rows corresponding to papers with less than 3 authors
+
+
+```r
+citations %&gt;%
+  filter(!str_detect(Authors,'et al')) %&gt;%
+* pull(Authors) %&gt;%
+  head(10)
+```
+
+```
+##  [1] "Neutle and Thorne"  "Kellner and Asner"  "Griffin and Willi" 
+##  [4] "Gremer and Venable" "Cavieres"           "Haegman and Loreau"
+##  [7] "Kearney"            "Locey and White"    "Quintero and Weins"
+## [10] "Lesser and Jackson"
+```
+
+
 ---
 
 # Select rows corresponding to papers with less than 3 authors in journal with IF &lt; 5
@@ -610,7 +682,7 @@ citations %&gt;%
 
 ```r
 citations %&gt;%
-  filter(!str_detect(Authors,'et al'), impactfactor &lt; 5)
+* filter(!str_detect(Authors,'et al'), impactfactor &lt; 5)
 ```
 
 ```
@@ -758,13 +830,49 @@ citations %&gt;%
 
 ---
 
+# Count sum of tweets per journal
+
+
+```r
+citations %&gt;%
+  count(journal, wt = nbtweets, sort = TRUE)
+```
+
+```
+## # A tibble: 20 x 2
+##    journal                              n
+##    &lt;fct&gt;                            &lt;dbl&gt;
+##  1 Ecology Letters                   1538
+##  2 Animal Conservation               1268
+##  3 Journal of Applied Ecology        1012
+##  4 Methods in Ecology and Evolution   699
+##  5 Global Change Biology              613
+##  6 Conservation Letters               542
+##  7 New Phytologist                    509
+##  8 Global Ecology and Biogeography    379
+##  9 Ecology                            335
+## 10 Evolution                          335
+## 11 Journal of Animal Ecology          323
+## 12 Fish and Fisheries                 261
+## 13 Evolutionary Applications          238
+## 14 Journal of Biogeography            209
+## 15 Diversity and Distributions        200
+## 16 Mammal Review                      166
+## 17 Functional Ecology                 155
+## 18 Molecular Ecology Resources        139
+## 19 Ecological Applications            125
+## 20 Limnology and Oceanography           0
+```
+
+---
+
 # Group by variable to calculate stats
 
 
 ```r
 citations %&gt;%
-  group_by(journal) %&gt;%
-  summarise(avg_tweets = mean(nbtweets)) %&gt;%
+* group_by(journal) %&gt;%
+* summarise(avg_tweets = mean(nbtweets)) %&gt;%
   head(10)
 ```
 
@@ -817,43 +925,59 @@ citations %&gt;%
 
 ---
 
-# Group by variables to calculate stats
+# What if we want to work on several columns?
+
+&lt;img src="assets/img/dplyr_across.png" width="85%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Compute mean across all numeric columns for each journal
 
 
 ```r
 citations %&gt;%
-  group_by(journal, pubyear) %&gt;%
-  summarise(avg_tweets_year = mean(nbtweets))
+* group_by(journal) %&gt;%
+* summarize(across(where(is.numeric), mean)) %&gt;%
+  head()
 ```
 
 ```
-## # A tibble: 59 x 3
-## # Groups:   journal [20]
-##    journal                     pubyear avg_tweets_year
-##    &lt;fct&gt;                         &lt;dbl&gt;           &lt;dbl&gt;
-##  1 Animal Conservation            2012           3.72 
-##  2 Animal Conservation            2013           5.83 
-##  3 Animal Conservation            2014          16.6  
-##  4 Conservation Letters           2012           6.76 
-##  5 Conservation Letters           2013          11.6  
-##  6 Conservation Letters           2014          12.2  
-##  7 Diversity and Distributions    2012           0.667
-##  8 Diversity and Distributions    2013           1    
-##  9 Diversity and Distributions    2014           3.97 
-## 10 Ecological Applications        2012           0.917
-## # … with 49 more rows
+## `summarise()` ungrouping output (override with `.groups` argument)
+```
+
+```
+## # A tibble: 6 x 8
+##   journal impactfactor pubyear Volume nbtweets `Number of user… `Twitter reach`
+##   &lt;fct&gt;          &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;            &lt;dbl&gt;           &lt;dbl&gt;
+## 1 Animal…         3.21   2013.  16.5     12.4              9.71          28345.
+## 2 Conser…         6.4    2013.   6.02    10.2              8.85          23234.
+## 3 Divers…         5.4    2013   19        1.90             1.77           2350.
+## 4 Ecolog…         5.06   2013   23        2.60             2.5            5727.
+## 5 Ecology         6.16   2013   94        3.10             2.87           6176.
+## 6 Ecolog…        16.7    2013.  16.0     14.5             14.0           44748.
+## # … with 1 more variable: woscitations &lt;dbl&gt;
 ```
 
 ---
 
-# There are so many more things to explore
+## &lt;https://github.com/courtiol/Rguides&gt;
 
-* **mutate_all()**, **select_if()** and **summarise_at()** or scoped verbs where _scoped_ means that these functions operate only on a selection of variables; see [here](http://www.rebeccabarter.com/blog/2019-01-23_scoped-verbs/) for example
-
-* **pivot_longer()** and **pivot_wider()** from package `tidyr` to reshape tibbles; see [here](https://www.fromthebottomoftheheap.net/2019/10/25/pivoting-tidily/) for example
+&lt;img src="assets/img/dplyr_guide_for_one_table_part2.png" width="85%" style="display: block; margin: auto;" /&gt;
 
 
-&lt;img src="assets/img/01_tidyverse_data_science.png" width="50%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Tidying tibbles 
+
+&lt;img src="assets/img/original-dfs-tidy.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+---
+
+## Going from **long** to **wide** format and vice-versa
+
+&lt;img src="assets/img/tidyr-longer-wider.gif" width="70%" style="display: block; margin: auto;" /&gt;
+
 
 ---
 class: inverse, center, middle
@@ -889,20 +1013,6 @@ class: inverse, center, middle
 
 &lt;img src="assets/img/ggplot2_logo.jpg" width="30%" style="display: block; margin: auto;" /&gt;
 
-
----
-
-# Scatterplots
-
-
-```r
-citations %&gt;%
-  ggplot() +
-  aes(x = nbtweets, y = woscitations) +
-  geom_point()
-```
-
-&lt;img src="assets/chunks/unnamed-chunk-36-1.png" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -949,6 +1059,21 @@ citations %&gt;%
 
 ---
 
+# Scatterplots
+
+
+```r
+citations %&gt;%
+  ggplot() +
+  aes(x = nbtweets, y = woscitations) +
+  geom_point()
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-47-1.png" width="400cm" height="400cm" style="display: block; margin: auto;" /&gt;
+
+
+---
+
 # Scatterplots, with colors
 
 
@@ -959,7 +1084,7 @@ citations %&gt;%
 * geom_point(color = "red")
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-40-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-48-1.png" width="400cm" height="400cm" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -973,7 +1098,7 @@ citations %&gt;%
   geom_point()
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-41-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-49-1.png" width="400cm" height="400cm" style="display: block; margin: auto;" /&gt;
 
 * Placing color inside aesthetic maps it to the data
 
@@ -1022,7 +1147,7 @@ citations_ecology %&gt;%
   geom_point(size=2)
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-43-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-51-1.png" width="400cm" height="400cm" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1037,7 +1162,23 @@ citations_ecology %&gt;%
   scale_x_log10()
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-44-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-52-1.png" width="350cm" height="350cm" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Scatterplots, lines with sorting beforehand
+
+
+```r
+citations_ecology %&gt;%
+* arrange(woscitations) %&gt;%
+  ggplot() +
+  aes(x = nbtweets, y = woscitations) +
+  geom_line() +
+  scale_x_log10()
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-53-1.png" width="350cm" height="350cm" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1053,7 +1194,23 @@ citations_ecology %&gt;%
   scale_x_log10()
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-45-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-54-1.png" width="350cm" height="350cm" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Scatterplots, add linear trend
+
+
+```r
+citations_ecology %&gt;%
+  ggplot() +
+  aes(x = nbtweets, y = woscitations) +
+  geom_point() +
+* geom_smooth(method = "lm") +
+  scale_x_log10()
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-55-1.png" width="350cm" height="350cm" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1069,7 +1226,7 @@ citations_ecology %&gt;%
   scale_x_log10()
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-46-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-56-1.png" width="350cm" height="350cm" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1093,7 +1250,7 @@ citations_ecology %&gt;%
 * geom_histogram()
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-48-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-58-1.png" width="400cm" height="400cm" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1107,7 +1264,7 @@ citations_ecology %&gt;%
 * geom_histogram(fill = "orange")
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-49-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-59-1.png" width="400cm" height="400cm" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1121,7 +1278,7 @@ citations_ecology %&gt;%
 * geom_histogram(fill = "orange", color = "brown")
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-50-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-60-1.png" width="400cm" height="400cm" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1133,12 +1290,12 @@ citations_ecology %&gt;%
   ggplot() +
   aes(x = nbtweets) +
   geom_histogram(fill = "orange", color = "brown") +
-* xlab("Number of tweets") +
-* ylab("Count") +
-* ggtitle("Histogram of the number of tweets")
+* labs(x = "Number of tweets",
+*      y = "Count",
+*      title = "Histogram of the number of tweets")
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-51-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-61-1.png" width="350cm" height="350cm" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1150,13 +1307,13 @@ citations_ecology %&gt;%
   ggplot() +
   aes(x = nbtweets) +
   geom_histogram(fill = "orange", color = "brown") +
-* xlab("Number of tweets") +
-* ylab("Count") +
-  ggtitle("Histogram of the number of tweets") +
+  labs(x = "Number of tweets",
+       y = "Count",
+       title = "Histogram of the number of tweets") + 
 * facet_wrap(vars(journal))
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-52-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-62-1.png" width="300cm" height="300cm" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1171,7 +1328,7 @@ citations_ecology %&gt;%
   scale_y_log10()
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-53-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-63-1.png" width="350cm" height="350cm" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1186,7 +1343,7 @@ citations_ecology %&gt;%
   scale_y_log10()
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-54-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-64-1.png" width="350cm" height="350cm" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1201,7 +1358,26 @@ citations_ecology %&gt;%
   scale_y_log10()
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-55-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-65-1.png" width="300cm" height="300cm" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Get rid of the ticks on x axis
+
+
+```r
+citations_ecology %&gt;%
+  ggplot() +
+  aes(x = journal, y = nbtweets, fill = journal) +
+  geom_boxplot() +
+  scale_y_log10() + 
+* theme(axis.text.x = element_blank()) +
+* labs(x = "")
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-66-1.png" width="300cm" height="300cm" style="display: block; margin: auto;" /&gt;
+
 
 ---
 
@@ -1215,10 +1391,12 @@ citations_ecology %&gt;%
   geom_boxplot() +
   scale_y_log10() +
 * scale_fill_manual(
-*   values=c("red", "blue", "purple"))
+*   values = c("red", "blue", "purple")) +
+  theme(axis.text.x = element_blank()) +
+  labs(x = "")
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-56-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-67-1.png" width="300cm" height="300cm" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1232,12 +1410,14 @@ citations_ecology %&gt;%
   geom_boxplot() +
   scale_y_log10() +
 * scale_fill_manual(
-    values=c("red", "blue", "purple"),
+    values = c("red", "blue", "purple"),
 *   name = "Journal name",
-*   labels=c("Ecology", "J Animal Ecology", "J Applied Ecology"))
+*   labels = c("Ecology", "J Animal Ecology", "J Applied Ecology")) +
+  theme(axis.text.x = element_blank()) +
+  labs(x = "")
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-57-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-68-1.png" width="270cm" height="270cm" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1253,7 +1433,23 @@ citations %&gt;%
 * geom_col()
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-58-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-69-1.png" width="350cm" height="350cm" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Idem, with flipping
+
+
+```r
+citations %&gt;%
+  count(journal) %&gt;%
+  ggplot() +
+* aes(x = n, y = journal) +
+  geom_col()
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-70-1.png" width="350cm" height="350cm" style="display: block; margin: auto;" /&gt;
+
 
 ---
 
@@ -1264,14 +1460,36 @@ citations %&gt;%
 citations %&gt;%
   count(journal) %&gt;%
   ggplot() +
-* aes(x = fct_reorder(journal, n), y = n) +
-  geom_col() +
-* coord_flip()
+* aes(x = n, y = fct_reorder(journal, n)) +
+  geom_col()
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-59-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-71-1.png" width="350cm" height="350cm" style="display: block; margin: auto;" /&gt;
 
-* More about how to (tidy) work with factors [here](https://stat545.com/block029_factors.html) and [here](https://thinkr.fr/forcats-forcats-vous-avez-dit-forcats/).
+
+---
+
+# Further cleaning
+
+
+```r
+citations %&gt;%
+  count(journal) %&gt;%
+  ggplot() +
+  aes(x = n, y = fct_reorder(journal, n)) +
+  geom_col() + 
+  labs(x = "counts", y = "")
+```
+
+&lt;img src="assets/chunks/unnamed-chunk-72-1.png" width="350cm" height="350cm" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# More about how to (tidy) work with factors 
+
+* [Be the boss of your factors](https://stat545.com/block029_factors.html) and 
+* [forcats, forcats, vous avez dit forcats ?](https://thinkr.fr/forcats-forcats-vous-avez-dit-forcats/).
 
 
 ---
@@ -1287,7 +1505,7 @@ citations_ecology %&gt;%
   scale_x_log10()
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-60-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-73-1.png" width="350cm" height="350cm" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -1302,11 +1520,11 @@ citations_ecology %&gt;%
   scale_x_log10()
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-61-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-74-1.png" width="350cm" height="350cm" style="display: block; margin: auto;" /&gt;
 
 ---
 
-# Change default background theme 1/3
+# Change default background `B &amp; W theme` 
 
 
 ```r
@@ -1318,11 +1536,11 @@ citations_ecology %&gt;%
 * theme_bw()
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-62-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-75-1.png" width="300cm" height="300cm" style="display: block; margin: auto;" /&gt;
 
 ---
 
-# Change default background theme 2/3
+# Change default background theme `classic theme`
 
 
 ```r
@@ -1334,11 +1552,11 @@ citations_ecology %&gt;%
 * theme_classic()
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-63-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-76-1.png" width="300cm" height="300cm" style="display: block; margin: auto;" /&gt;
 
 ---
 
-# Change default background theme 3/3
+# Change default background theme `dark theme`
 
 
 ```r
@@ -1350,7 +1568,7 @@ citations_ecology %&gt;%
 * theme_dark()
 ```
 
-&lt;img src="assets/chunks/unnamed-chunk-64-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="assets/chunks/unnamed-chunk-77-1.png" width="300cm" height="300cm" style="display: block; margin: auto;" /&gt;
 
 
 ---
@@ -1360,11 +1578,12 @@ citations_ecology %&gt;%
 
 * [Portfolio](https://www.r-graph-gallery.com/portfolio/ggplot2-package/) of ggplot2 plots
 
+* [Cédric Scherer's portfolio](https://cedricscherer.netlify.app/top/dataviz/) of data visualisations
 
 * [Top](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html) ggplot2 visualizations
 
 
-* [Interactive](https://github.com/dreamRs/esquisse) ggplot2 visualizations
+* [Interactive](https://dreamrs.github.io/esquisse/) ggplot2 visualizations
 
 
 &lt;img src="assets/img/ggplot2_logo.jpg" width="30%" style="display: block; margin: auto;" /&gt;
@@ -1387,7 +1606,7 @@ background-position: 50% 50%
 * My selection of books:
    - [R for Data Science](https://r4ds.had.co.nz/) et [Advanced R](http://adv-r.had.co.nz/)
    - [Introduction à R et au tidyverse](https://juba.github.io/tidyverse/)
-   - [Fundamentals of Data visualization](https://serialmentor.com/dataviz/)
+   - [Fundamentals of Data visualization](https://clauswilke.com/dataviz/)
    - [Data Visualization: A practical introduction](http://socviz.co/)
 
 
@@ -1480,6 +1699,32 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
 // adds .remark-code-has-line-highlighted class to <pre> parent elements
 // of code chunks containing highlighted lines with class .remark-code-line-highlighted
 (function(d) {
@@ -1497,17 +1742,6 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
-
-<script>
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-</script>
 
 <script>
 slideshow._releaseMath = function(el) {
