@@ -1,167 +1,191 @@
 ---
-title: Writing dynamic documents
-subtitle: <i>An introduction to (R)markdown</i>
-author: <br /><br />Stéphane DRAY
-date: 3/12/2019
+title: "Writing dynamic and reproducible documents"
+subtitle: "An introduction to R Markdown"
+author: "Olivier Gimenez"
+date: "November 2020"
 output:
   xaringan::moon_reader:
-    css: ["../../assets/css/xaringan-themer.css", "../../assets/css/custom.css"]
+    css: ["../../assets/css/rutgers-rmarkdown.css", "../../assets/css/rutgers-fonts_og.css"]
     lib_dir: "assets/libs"
-    seal: true
-    yolo: false
-    self_contained: false
     nature:
-      ratio: "4:3"
-      titleSlideClass: ["right", "middle"]
-      highlightStyle: 'zenburn'
-      highlightLines: false
+      highlightStyle: github
+      highlightLines: true
       countIncrementalSlides: false
-      slideNumberFormat: "%current% / %total%"
-      beforeInit: "../../assets/libs/macros.js"
 ---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(fig.path = 'assets/chunks/', cache.path = "assets/cache/", dpi = 300)
+library(tidyverse)
+theme_set(theme_grey(base_size = 16))
+library(emo)
+```
 
 class: inverse, center, middle
+# Motivation
 
-## Introduction
+---
+<iframe width="1300" height="600" src="https://www.youtube.com/embed/s3JldKoA0zw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+Credit: [Ignasi Bartomeus, PhD](https://bartomeuslab.com/)
 
+---
+# 
+
+.center[![](assets/img/phd031214s.png)]
+
+---
+# How can you reproduce results?
+
+.center[![](assets/img/ctrlcctrlv.png)]
 
 
 ---
-## Why you should not use Word (or other WYSIWYG editors)
+# What do we need to make research reproducible?
 
-** Demo **
-- Create a document with Word
-- Put the file under versioning
-- Update the file and commit
-- Perform a regression model using the `iris` dataset (available in `MASS`)
----
-## What we need
+- Something to integrate text, figures and code 
+     * `R`, `Python`, etc
+
+
+- Something that can be continuously edited and updated 
+     * Living or dynamic document
+
+
 - Something that can be easily used in versioning tools
-- Something able to integrate text and analysis
-- Something that is dynamic
-
---
-
-.center[![](assets/img/Literate_Programming_book_cover.jpg)]
+     * Git
 
 ---
-## Literate Programming
 
-- Text in human language (English)
-- Code snippet (separated by a primitive markup) included (chunk)
-- Text and code are compiled to produce the final document (tangle, sweave)
+.center[![](assets/img/trio.jpg)]
 
-<br>
-In R
 
-- Sweave (.Rnw) = Latex and R -> .pdf 
-- Rmarkdown (.Rmd) = Mardown and R -> .pdf, .html, etc. (package `rmarkdown`)
 
 ---
-## RMarkdown
-.center[![](assets/img/schema_rmd.png)
-https://stateofther.github.io/finistR2018/atelier3_advancedrmd.html
-]
+# R Markdown workflow
+
+.center[![](assets/img/rmarkdown_workflow.png)]
+
+
+
 ---
-## Strucutre of a RMarkdown document
+# Structure of a R Markdown document
 .center[![](assets/img/rmd_struc.png)
 https://yongfu.name/2019-fju-rmd-talk/slide/#1
 ]
 
-<br>
-** Demo **
-- create a new Rmd file with RStudio
-- Identify the three parts
+
 
 ---
 class: inverse, center, middle
-## The YAML metadata
----
-## YAML in brief
+# Demo
 
-- It contains the metadta of the document
-- It contains also options for pandoc
-- It starts and ends by three dashes
-- Located at the first line of the document
----
-## Some examples
-```{md}
----
-output:
-    pdf_document:
-        toc: true
-        number_sections: true
-        toc_depth: 2
-  
-    html_document:
-        toc: true
-        toc_float: true
-        code_folding: hide
-        css: mystyle.css
----
-```
+Open RStudio
 
-```{md}
+Create a new Rmd file
+
+Identify 3 components (frontmatter, content, chunks) 
+
 ---
-abstract: "The abstract of the document is located here"
-bibliography: myrefs.bib
-csl: mystyle.csl
+
+.center[![](assets/img/3components.png)]
+
 ---
-```
+
+.center[![](assets/img/3componentson.png)]
+
+
 ---
-class: inverse, center, middle
-## The R code
+# Structure of a R Markdown document
+.center[![](assets/img/rmd_struc.png)]
+
+
 ---
-## Three alternatives
-- inline by
-```{md}
-`rmarkdown`
-```
-- inline evaluated by
-```{md}
-`r pi`
-```
-- bloc (with different available options)
-  - echo
-  - eval
-  - cache
-  - results
-  - etc
+# Structure of a R Markdown document
+.center[![](assets/img/rmd_struc_markdown.png)]
+
+
 
 ---
 class: inverse, center, middle
-## The text
+# Format your text with Markdown
+
 ---
-## Format your text
+# What is Markdown?
 
-```{md}
-**bold**
-_italics_
+- A way to write stuff
+- Mostly plain words, with some formating
 
-# Header 1
-## Header 2
-### Header 3
+.center[![](assets/img/md.png)]
 
-^superscript^
-~subscript~
-- Item 1
-  - Sub-Item 1
-
-1. Numbered Item
-  1. Numbered sub-Item
-  
-[link](www.lequipe.fr)
-![title](path/to/image)
-
-$$ \sum_{i = 1}^n x_i $$ 
-
-```
-
-- Indent by a tab of 4 spaces
-- Use a blank line to start a new paragraph
 ---
-## Tables
+# Websites that use Markdown
+
+- GitHub <https://github.com/>
+- StackOverflow <https://stackoverflow.com/>
+- HackMD <https://hackmd.io>
+- Many more
+
+
+---
+# Headers
+
+- Use # to create headers
+- Multiple #'s create lower level headers
+
+.center[![](assets/img/headers.png)]
+
+
+---
+# Text
+
+- Text is rendered as plain text
+
+.center[![](assets/img/text.png)]
+
+
+---
+# Lists
+
+- Use asterisks to make bullet points
+- Use numbers to make numbered lists
+- Use 4 spaces or 1 tab for indentation
+
+.center[![](assets/img/lists.png)]
+
+
+---
+# Hyperlinks
+
+- To add a hyperlink, put your text between brackets
+- Then place the URL between parentheses
+
+.center[![](assets/img/url.png)]
+
+---
+# Equations
+
+- Write equations with Latex syntax
+
+.center[![](assets/img/eqns.png)]
+
+---
+# Equation blocks
+
+.center[![](assets/img/eqns2.png)]
+
+---
+# Images
+
+- Use a link preceded by an ! to insert an image
+- The link text should be
+    - a URL if the image is hosted online
+    - a file path if the image is saved on your computer
+
+.center[![](assets/img/images.png)]
+
+
+---
+# Tables
+
 ```{md}
 | header A | header B |
 |---------:|:---------|
@@ -171,23 +195,376 @@ Table:title
 
 ```
 
+- A bit of a hassle...
+
+
+- Use a [generator of Tables for Markdown](https://www.tablesgenerator.com/markdown_tables)
+
+
+- Wait for next section to learn how to generate tables from `R`
+
 ---
-## Managing the bibliography
+# R Markdown Reference Guide
 
-- Use BiBTex to manage the bibliography
-- Define a CSL to format the bibliography
-- Cite by `[@key]` or `@key` (separate multiple refs by `;`)
-- Add `# References` at the end of the document
+<https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf> 
+
+.center[![](assets/img/refguide.png)]
+
 
 ---
-## Acknowledgments
+# Structure of a R Markdown document
+.center[![](assets/img/rmd_struc.png)]
 
-Have a look to the excellent slides of Nico
 
-.center[https://nicolascasajus.fr/mastering-markdown/]
+---
+# Structure of a R Markdown document
+.center[![](assets/img/rmd_struc_chunks.png)]
 
-<br>
 
-A good summary:
+---
+class: inverse, center, middle
+## Code, figures and tables
 
-.center[https://rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf]
+
+---
+# Embed code
+
+- Insert chunk of `R` code
+- R Markdown runs code and includes results.
+
+.center[![](assets/img/embed.png)]
+
+---
+# Inline code
+
+- Place code in a sentence with `r #code`
+- R Markdown replaces code with results
+
+.center[![](assets/img/inline.png)]
+
+---
+# Chunk options
+ 
+- By default, R markdown includes both code and results
+
+.center[![](assets/img/chunk_options.png)]
+
+---
+# echo
+
+- Add options between brackets after `r`.
+- `echo = FALSE` hides code.
+
+.center[![](assets/img/echo.png)]
+
+---
+# echo
+
+- Add options between brackets after `r`.
+- `echo = FALSE` hides code.
+
+.center[![](assets/img/echo2.png)]
+
+---
+# eval
+
+- `eval = FALSE` prevents code from being run  
+- No results is displayed, only code
+
+.center[![](assets/img/eval.png)]
+
+---
+# fig.height, fig.width
+
+- Specify dimension of plots (in inches) with fig.width and fig.height
+- Separate multiple arguments with commas.
+
+.center[![](assets/img/figheightfigwidth.png)]
+
+
+---
+# message
+
+- `message = FALSE` prevents messages from appearing
+in output
+
+.center[![](assets/img/message.png)]
+
+
+---
+# Default chunk options
+
+- Repeating chunk options can be painful
+
+
+- If you have `echo = FALSE` in every single chunk, how to set the default chunk option to `echo = FALSE` ?
+
+
+- Use `knitr::opts_chunk$set(echo = FALSE)`
+
+
+- You may overwrite the default for each chunk
+
+
+- For chunk options, check out <https://yihui.name/knitr/options/>
+
+
+---
+# Including tables
+
+```{r}
+# cars is a built-in-to-R data set of cars
+# and their stopping distances
+cars %>% 
+  head(5) %>% 
+  knitr::kable(format = "html", caption = "A kable table")
+```
+
+- The [`kable`](https://www.rdocumentation.org/packages/knitr/versions/1.21/topics/kable) package is often used with the [`kableExtra`](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html) package
+- A number of other packages are available for making pretty tables, see [rmarkdown.rstudio.com](https://rmarkdown.rstudio.com/lesson-7.html)
+
+
+---
+# R Markdown Reference Guide
+
+<https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf> 
+
+.center[![](assets/img/knitr.png)]
+
+
+---
+# Structure of a R Markdown document
+.center[![](assets/img/rmd_struc.png)]
+
+
+---
+# Structure of a R Markdown document
+.center[![](assets/img/rmd_struc_yaml.png)]
+
+
+
+---
+class: inverse, center, middle
+# YAML Yet Another Markup Language 
+
+---
+# YAML in brief
+
+- Contains the metadata of the document
+
+- Starts and ends by three dashes
+
+- Comes first in the document
+
+---
+# Simplest example
+
+.center[![](assets/img/yaml.png)]
+
+
+
+---
+# Appearance and style
+
+- In HTML output, you can use `theme` or a custom **.css** style sheet
+
+- `theme` options ([bootswatch.com](https://bootswatch.com/)) : *“cerulean”, “journal”, “flatly”, “darkly”, “readable”, “spacelab”, “united”, “cosmo”, “lumen”, “paper”, “sandstone”, “simplex”, “yeti”*
+
+- You may also use LaTeX templates with R Markdown, and write [reproducible scientific paper](https://github.com/rstudio/rticles)
+
+- You can also [use Word templates in R Markdown](http://rmarkdown.rstudio.com/articles_docx.html) (see also [this short video](https://vimeo.com/110804387))
+
+
+---
+# Managing bibliography
+
+--
+<ol>
+<li> Put references in a plain text file with the extension **.bib**, in **BibTex** format (my advice: use [Zotero](https://www.zotero.org))
+</ol>
+```bibtex
+*@article{Shea2014,
+  author =        {Shea, Nicholas and Boldt, Annika},
+  journal =       {Trends in Cognitive Sciences},
+  pages =         {186--193},
+  title =         {{Supra-personal cognitive control}},
+  volume =        {18},
+  year =          {2014},
+  doi =           {10.1016/j.tics.2014.01.006},
+}
+```
+
+--
+<ol start = 2>
+<li>Reference this file in your YAML header
+</ol>
+```yaml
+---
+title: "Citation test"
+*bibliography: example.bib
+output: html_document
+---
+```
+
+---
+# Citations
+<ol start = 3>
+<li>In your text, citations go inside brackets and separated by semicolons
+</ol>
+
+--
+.pull-left[
+### This...
+Blah blah [@Shea2014; @Lottridge2012].
+]
+
+.pull-right[
+### turns into this...
+  
+Blah blah (Shea et al. 2014; Lottridge et al. 2012).
+]
+---
+class: larger-body
+# Citations
+<ol start = 3>
+<li>In your text, citations go inside brackets and separated by semicolons
+</ol>
+
+
+.pull-left[
+### This...
+Blah blah [@Shea2014; @Lottridge2012].
+
+@Shea2014 says blah.
+
+Blah blah [see @Shea2014, pp. 33-35; also @Wu2016, ch. 1].
+]
+
+.pull-right[
+### turns into this...
+  
+Blah blah (Shea et al. 2014; Lottridge et al. 2012).
+
+Shea et al. (2014) says blah.
+
+Blah blah (see Shea et al. 2014, 33–35; also Wu 2016, ch. 1).
+]
+
+
+---
+class: larger-body
+# Citations
+<ol start = 3>
+<li>In your text, citations go inside brackets and separated by semicolons
+</ol>
+
+
+.pull-left[
+### This...
+Blah blah [@Shea2014; @Lottridge2012].
+  
+@Shea2014 says blah.
+
+Blah blah [see @Shea2014, pp. 33-35; also @Wu2016, ch. 1].
+]
+
+.pull-right[
+### turns into this...
+  
+Blah blah (Shea et al. 2014; Lottridge et al. 2012).
+
+Shea et al. (2014) says blah.
+
+Blah blah (see Shea et al. 2014, 33–35; also Wu 2016, ch. 1).
+]
+
+- Add e.g `csl: my-style.csl` in the YAML header to change to other formats
+- Browse through and download styles at [zotero.org/styles](https://www.zotero.org/styles)
+
+---
+# Citations
+
+For an easy way to insert citations, try the [`citr`](https://github.com/crsh/citr) RStudio add-in.
+
+
+```{r, out.width="75%", echo = FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/crsh/citr/master/tools/images/addin_demo.gif")
+```
+
+---
+# R Markdown Reference Guide
+
+<https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf> 
+
+.center[![](assets/img/pandoc.png)]
+
+
+
+---
+
+.center[![](assets/img/sorcerers.jpg)]
+
+
+
+---
+class: inverse, center, middle
+## What else can we reproduce with R Markdown?
+
+---
+# Let's have a tour: [R Markdown gallery](https://rmarkdown.rstudio.com/gallery.html)
+
+.center[![](assets/img/gallery.png)]
+
+
+---
+# Websites
+
+- Use package `blogdown` <https://bookdown.org/yihui/blogdown/>
+
+- Customize with Hugo <https://themes.gohugo.io/>
+
+- Deploy via GitHub pages or Netlify
+
+
+---
+class: inverse, center, middle
+# Live demo
+## Build your own website in a few minutes
+
+
+---
+## 
+
+.center[![](assets/img/repro_rmarkdown.jpg)]
+
+
+
+---
+class: inverse, center, middle
+## To go further
+
+---
+# Books
+
+![](assets/img/books.png)
+
+
+
+---
+class: title-slide-final, middle
+background-size: 55px
+background-position: 9% 15%
+
+# Thanks!
+
+### I created these slides with [xaringan](https://github.com/yihui/xaringan) and [R Markdown](https://rmarkdown.rstudio.com/) using the [rutgers css](https://github.com/jvcasillas/ru_xaringan) that I slightly modified.
+
+### Credit: I borrowed slides from [Garrett Grolemund](https://rstudio.com/speakers/garrett-grolemund/) and [Ulrik Lyngs](https://ulriklyngs.com/). I also used the beautiful illustrations shared by [Allison Horst](https://github.com/allisonhorst/stats-illustrations).
+
+
+|                                                                                                            |                                   |
+| :--------------------------------------------------------------------------------------------------------- | :-------------------------------- |
+| `r icon::fa("envelope")` | **olivier.gimenez@cefe.cnrs.fr**       |
+| `r icon::fa("home")` | [**https://oliviergimenez.github.io/**](https://oliviergimenez.github.io/) |
+| `r icon::fa_twitter()` | [**@oaggimenez**](https://twitter.com/oaggimenez)                         |
+| `r icon::fa_github()` | [**@oliviergimenez**](https://github.com/oliviergimenez)
