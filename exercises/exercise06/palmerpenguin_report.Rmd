@@ -1,0 +1,74 @@
+---
+title: "Exploration des données palmerpenguins"
+author: "Olivier Gimenez"
+date: "10/25/2020"
+output:
+  word_document: default
+  pdf_document: default
+  html_document: default
+bibliography: mabiblio.bib
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+```
+
+# Exploration des données
+
+## Motivation
+
+Dans cette section, on se propose d'**explorer** les données du package `palmerpenguins`. Une publication récente de la chercheuse, Dr Kristen Gorman, qui a partagé ces données est @Connors2020.
+
+```{r echo = FALSE}
+library(palmerpenguins)
+library(tidyverse)
+```
+
+## Données
+
+Les données se présentent sous la forme suivante (10 premières lignes) : 
+```{r}
+penguins %>% 
+  slice(1:10) %>%
+  knitr::kable()
+```
+
+## Exploration numérique
+
+Il y a `r nrow(penguins)` manchots dans le jeu de données, et `r length(unique(penguins$species))` espèces différentes. Les données ont été récoltées dans `r length(unique(penguins$island))` îles de l'archipel Palmer en Antarctique. 
+
+La moyenne par espèce des traits mesurés sur les manchots est la suivante :
+```{r echo = FALSE}
+penguins %>% 
+  group_by(species) %>% 
+  summarize(across(where(is.numeric), mean, na.rm = TRUE))
+```
+
+
+## Exploration graphique
+
+Un histogramme de la masse des manchots par espèce :
+```{r}
+penguins %>%
+  ggplot() +
+  aes(x = body_mass_g) + 
+  geom_histogram(aes(fill = species), 
+                 alpha = 0.5, 
+                 position = "identity") +
+  scale_fill_manual(values = c("darkorange","purple","cyan4")) +
+  theme_minimal() +
+  labs(x = "Body mass (g)",
+       y = "Frequency",
+       title = "Penguin body mass")
+```
+
+
+## Image de la fin
+
+Les trois espèces de manchots considérées : 
+
+![](lter_penguins.png)
+
+
+
+## Références
