@@ -52,15 +52,15 @@ output:
 
 .btn-xs[[**Cours**](courses/r-pkg/index.html)]
 
-.btn-xs[[**Cours**](courses/res-compendium/index.html)]
+.btn-xs[[**Cours**](courses/res-compendium/index.html)]&nbsp;.btn-xs[[**Exo 3**](exercises/rescomp/index.html)]
 
-.btn-xs[[**Cours**](courses/tidyverse/index.html)]&nbsp;.btn-xs[[**Exo 3**](exercises/dplyr/index.html)]&nbsp;.btn-xs[[**Exo 4**](exercises/ggplot2/index.html)]
+.btn-xs[[**Cours**](courses/tidyverse/index.html)]&nbsp;.btn-xs[[**Exo 4**](exercises/dplyr/index.html)]&nbsp;.btn-xs[[**Exo 5**](exercises/ggplot2/index.html)]
 
-.btn-xs[[**Cours**](courses/r-spatial/index.html)]&nbsp;.btn-xs[[**Exo 5**](exercises/spatial/index.html)]
+.btn-xs[[**Cours**](courses/r-spatial/index.html)]&nbsp;.btn-xs[[**Exo 6**](exercises/spatial/index.html)]
 
-.btn-xs[[**Cours**](courses/drake/drake_intro/intro_drake.html)]
+.btn-xs[[**Cours**](courses/drake/drake_intro/intro_drake.html)]&nbsp;.btn-xs[[**Exo 7**](courses/drake/drake_intro/intro_drake.html#34)]
 
-.btn-xs[[**Cours**](courses/docker/index.html)]
+.btn-xs[[**Cours**](courses/docker/index.html)]&nbsp;.btn-xs[[**Exo 8**](exercises/rescomp/index.html)]
 ]
 
 
