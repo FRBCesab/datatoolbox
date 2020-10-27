@@ -1,5 +1,5 @@
 ---
-title: Exercice n°4
+title: Exercice Spatial
 subtitle: <i>Données spatiales</i><br /><br /><br /><br />
 output:
   xaringan::moon_reader:
@@ -27,14 +27,11 @@ knitr::opts_chunk$set(fig.path = 'assets/chunks/', cache.path = "assets/cache/")
 ## Instructions
 
 1) Faire une carte mondiale de chaque espèce d'ursidé au niveau des écorégions
-  - Télécharger le shapefile des écorégions terrestres du WWF disponible à
-  https://c402277.ssl.cf1.rackcdn.com/publications/15/files/original/official_teow.zip?1349272619
-  - **NOTE** : ne faites pas les cartes avec toutes les écorégions, uniquement avec celles dans lesquelles on retrouve les espèces
+  - Importez la couche vectorielle stockée dans `data/wwf-ecoregions-layers/`
+  - **NOTE** : ne faites pas les cartes avec toutes les écorégions, uniquement avec celles dans lesquelles on retrouve les espèces (une carte par espèce)
 
 2) Dans quelles conditions de température se rencontre chaque espèce ?
-  - Obtenez un raster de température min et max (WorldClim avec `raster::getData()`)
-  - Calculer un raster de température moyenne
-  - Cropper pour chaque espèce avec leurs écorégions ce raster
-  - Faites avec `ggplot2` une densité (histogramme) des valeurs de Tmoy.
-  
-
+  - Calculez un raster mondial de température min et max **annuel** (à partir des rasters stockés dans `data/worldclim/`)
+  - Calculez un raster mondial de température moyenne
+  - Croppez ce raster avec les écorégions de chaque espèce
+  - Faites avec `{ggplot2}` une densité (histogramme) des valeurs de Tmoy pour chaque espèce

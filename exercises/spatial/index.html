@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
-    <title>Exercice n°4</title>
+    <title>Exercice Spatial</title>
     <meta charset="utf-8" />
+    <script src="assets/libs/header-attrs-2.5/header-attrs.js"></script>
     <link rel="stylesheet" href="../../assets/css/xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="../../assets/css/custom.css" type="text/css" />
   </head>
@@ -10,7 +11,7 @@
     <textarea id="source">
 class: right, middle, title-slide
 
-# Exercice n°4
+# Exercice Spatial
 ## <i>Données spatiales</i><br /><br /><br /><br />
 
 ---
@@ -23,15 +24,14 @@ class: right, middle, title-slide
 ## Instructions
 
 1) Faire une carte mondiale de chaque espèce d'ursidé au niveau des écorégions
-  - Télécharger le shapefile des écorégions terrestres du WWF disponible à
-  https://c402277.ssl.cf1.rackcdn.com/publications/15/files/original/official_teow.zip?1349272619
-  - **NOTE** : ne faites pas les cartes avec toutes les écorégions, uniquement avec celles dans lesquelles on retrouve les espèces
+  - Importez la couche vectorielle stockée dans `data/wwf-ecoregions-layers/`
+  - **NOTE** : ne faites pas les cartes avec toutes les écorégions, uniquement avec celles dans lesquelles on retrouve les espèces (une carte par espèce)
 
 2) Dans quelles conditions de température se rencontre chaque espèce ?
-  - Obtenez un raster de température min et max (WorldClim avec `raster::getData()`)
-  - Calculer un raster de température moyenne
-  - Cropper pour chaque espèce avec leurs écorégions ce raster
-  - Faites avec `ggplot2` une densité (histogramme) des valeurs de Tmoy.
+  - Calculez un raster mondial de température min et max **annuel** (à partir des rasters stockés dans `data/worldclim/`)
+  - Calculez un raster mondial de température moyenne
+  - Croppez ce raster avec les écorégions de chaque espèce
+  - Faites avec `{ggplot2}` une densité (histogramme) des valeurs de Tmoy pour chaque espèce
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -81,9 +81,25 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
-
-<script>
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
 (function() {
   var links = document.getElementsByTagName('a');
   for (var i = 0; i < links.length; i++) {
@@ -91,8 +107,7 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
       links[i].target = '_blank';
     }
   }
-})();
-</script>
+})();</script>
 
 <script>
 slideshow._releaseMath = function(el) {
