@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Exercice n°5</title>
+    <title>Exercice <i class="fab  fa-git "></i></title>
     <meta charset="utf-8" />
-    <link href="assets/libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
-    <script src="assets/libs/anchor-sections-1.0/anchor-sections.js"></script>
+    <meta name="author" content="  " />
+    <script src="assets/libs/header-attrs-2.5/header-attrs.js"></script>
+    <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../assets/css/xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="../../assets/css/custom.css" type="text/css" />
   </head>
@@ -12,8 +13,9 @@
     <textarea id="source">
 class: right, middle, title-slide
 
-# Exercice n°5
-## <i>Faire une recette de pizza collaborative avec git </i><br /><br /><br /><br />
+# Exercice <i class="fab  fa-git "></i>
+## Faire une recette de pizza collaborative avec <i class="fab  fa-git "></i>
+### <br /><br />
 
 ---
 
@@ -24,16 +26,16 @@ class: right, middle, title-slide
 
 ## Instructions
 
-Mettez vous par groupe de 4 personnes. Chacun se crée un nouveau dépôt sur GitHub. Dans ce dépôt, ajoutez un fichier `.txt` qui contient votre recette de pizza. Le suivre, faire des changements, etc.
+Mettez-vous par groupe de 4 personnes. Chacun se crée un nouveau dépôt sur GitHub. Dans ce dépôt, ajoutez un fichier `.txt` qui contient votre recette de pizza. Le suivre, faire des changements, etc.
 
 Sur GitHub, ajoutez une personne de votre groupe comme collaborateur de votre projet (les recettes à deux c'est mieux)
 
 Horreur, vous vous rendez compte que les autres membres de votre groupe ont oublié des ingrédients importants dans leur recette : les olives noires, les anchois marinés et le gorgonzola. Mettez en oeuvre 3 solutions pour interagir et leur faire remarquer que leur recette peut être améliorée. En fonction de votre statut dans le projet et votre souhait de vous impliquer :
 
 - utilisez les issues pour dire au développeur que sa recette peut être améliorée
-- si vous êtes collaborateur, cloner le dépôt, faire les modifications et les envoyer
+- si vous êtes collaborateur, clonez le dépôt, faites les modifications et envoyez-les
 - si vous ne l'êtes pas, forkez, clonez, et essayez la pull request
-    
+
 ---
 
 ## Ressources
@@ -90,9 +92,25 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
-
-<script>
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
 (function() {
   var links = document.getElementsByTagName('a');
   for (var i = 0; i < links.length; i++) {
@@ -100,8 +118,7 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
       links[i].target = '_blank';
     }
   }
-})();
-</script>
+})();</script>
 
 <script>
 slideshow._releaseMath = function(el) {
