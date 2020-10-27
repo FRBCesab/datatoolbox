@@ -2,7 +2,7 @@
 title: "Practical on data visualization"
 subtitle: "Playing around with ggplot2"
 author: "Olivier Gimenez"
-date: "3 décembre 2019"
+date: ""
 output:
   xaringan::moon_reader:
     css: ["rutgers-tidyverse.css","rutgers-fonts_og.css"]
@@ -25,15 +25,6 @@ knitr::opts_chunk$set(fig.path = 'assets/chunks/', cache.path = "assets/cache/")
 knitr::include_graphics("assets/img/esa.png")
 ```
 
----
-
-# Read in the data
-
-* Check out http://esapubs.org/archive/ecol/E090/184/
-
-* Read in PanTHERIA_1-0_WR05_Aug2008.txt
-
-* Hint: Check out the tidy function `read_table2`
 
 ---
 
@@ -47,13 +38,17 @@ library(tidyverse)
 
 # Read in data
 
-```{r cache = TRUE, message=FALSE, echo=-5}
-url       <- "http://esapubs.org/archive/ecol/E090/184/"
-filename  <- "PanTHERIA_1-0_WR05_Aug2008.txt"
 
-pantheria <- readr::read_delim(file.path(url, filename), delim = "\t")
+```{r eval=FALSE}
+pantheria <- readr::read_delim("data/pantheria-traits/PanTHERIA_1-0_WR05_Aug2008.txt", delim = "\t")
+```
+
+```{r message=FALSE, echo=FALSE}
+pantheria <- readr::read_delim(file.path("..", "..", "data", "PanTHERIA_1-0_WR05_Aug2008.txt"), delim = "\t")
 pantheria
 ```
+
+
 
 ---
 
