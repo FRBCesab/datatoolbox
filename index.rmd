@@ -60,7 +60,7 @@ output:
 
 .btn-xs[[**Cours**](courses/drake/drake_intro/intro_drake.html)]
 
-<!-- .btn-xs[[**Cours**](courses/r-pkg/index.html)] -->
+.btn-xs[[**Cours**](courses/docker/index.html)]
 ]
 
 

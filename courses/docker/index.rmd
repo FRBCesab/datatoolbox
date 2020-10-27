@@ -1,0 +1,30 @@
+---
+title: Introduction to Docker
+subtitle: <i>the hardest part </i>&nbsp;`r icon::fa("sad-cry")`
+author: <br /><br />Nicolas CASAJUS<br />.inst[{{ Data scientist FRB-Cesab }}]
+date: .inst[Mercredi 4 novembre 2020]
+output:
+  xaringan::moon_reader:
+    css: ["../../assets/css/xaringan-themer.css", "../../assets/css/custom.css"]
+    lib_dir: "assets/libs"
+    seal: true
+    yolo: false
+    self_contained: false
+    nature:
+      ratio: "4:3"
+      titleSlideClass: ["right", "middle"]
+      highlightStyle: 'zenburn'
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: "%current% / %total%"
+      beforeInit: "../../assets/libs/macros.js"
+---
+
+
+class: inverse, center, middle
+
+## Work in progress...
+
+<br />
+
+![](assets/img/ahhhh.gif)
