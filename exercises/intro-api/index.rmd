@@ -1,5 +1,5 @@
 ---
-title: Exercice n°1
+title: Exercice API
 subtitle: <i>Acquisition de données avec `r icon::fa("r-project")`</i><br /><br /><br /><br />
 output:
   xaringan::moon_reader:
@@ -30,7 +30,7 @@ Tout au long de la semaine, nous allons utiliser deux jeux de données sur les m
 
 <br />
 
-Pour ce premier exercice, nous nous contenterons des données du **Wildfinder** (déjà nettoyées pour vous `r emo::ji("smile")`).
+Pour ce premier exercice, nous nous contenterons des données du **Wildfinder** (déjà nettoyées pour vous).
 
 
 
