@@ -66,4 +66,4 @@ output:
 
 <!-- .right[[![:scale 10%](assets/img/github.png)](https://github.com/FRBCesab/datatoolbox)] -->
 
-.right[[`r icon::fa("github", color = "#294557", size = 3)`](https://github.com/FRBCesab/datatoolbox)]
+.right[.github[[`r icon::fa("github", size = 3)`](https://github.com/FRBCesab/datatoolbox)]]
