@@ -1,8 +1,8 @@
 ---
 title: Versioning your code (and more)
-subtitle: <i>An illustration with git</i>
+subtitle: <i>An illustration with `r icon::fa("git")`</i>
 author: <br /><br />Stéphane DRAY
-date: 2/12/2019
+date: .inst[Lundi 2 novembre 2020]
 output:
   xaringan::moon_reader:
     css: ["../../assets/css/xaringan-themer.css", "../../assets/css/custom.css"]
@@ -108,7 +108,7 @@ Especially useful when developing software, writing papers. . .
 - **repository**: a directory including with a `.git` directory
 - **commit**: a snapchot of the repository (a date, an author, a description, a parent)
 - **working copy**: a version of the files of the repository on your computer
-- **index**: a temporary space including the modficiations to be commited 
+- **index**: a temporary space including the modficiations to be commited
 
 <br>
 
@@ -359,7 +359,7 @@ https://learngitbranching.js.org/?NODEMO
 git branch BRANCH_NAME
 ```
 The new branch is located at the same location than the current branch. Commits act on the current branch
-- It is possible to switch to a branch by 
+- It is possible to switch to a branch by
 ```{bash, eval = FALSE}
 git checkout BRANCH_NAME
 ```
@@ -367,13 +367,13 @@ Current branch (and the working directory) is updated to reflect the state of th
 ---
 ## Branches in practice
 
-- A branch can be deleted by 
+- A branch can be deleted by
 ```{bash, eval = FALSE}
 git branch -d BRANCH_NAME
 ```
 Only the pointer is deleted, not the pointed commits but commit may be hard to find after branch deletion.
 
-- Two branches can be merged by 
+- Two branches can be merged by
 ```{bash, eval = FALSE}
 git merge BRANCH_NAME
 ```
@@ -392,7 +392,7 @@ class: inverse, center, middle
 .img-source-tiny[https://miro.medium.com/max/1698/1*GgaGcwh5L246YcU5NVDA5A.png]
 ---
 ## Dealing with conflicts
-What happens if someone push before me? A conflict. 
+What happens if someone push before me? A conflict.
 
 Two commits are in conflict when they contain different updates to the same area of a file. They should be resolved manually after merging
 
@@ -423,4 +423,3 @@ A good summary:
 
 .center[
 https://github.github.com/training-kit/downloads/fr/github-git-cheat-sheet.pdf]
-

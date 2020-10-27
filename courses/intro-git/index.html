@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>Versioning your code (and more)</title>
     <meta charset="utf-8" />
     <meta name="author" content="  Stéphane DRAY" />
+    <script src="assets/libs/header-attrs-2.5/header-attrs.js"></script>
+    <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../assets/css/xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="../../assets/css/custom.css" type="text/css" />
   </head>
@@ -12,9 +14,9 @@
 class: right, middle, title-slide
 
 # Versioning your code (and more)
-## <i>An illustration with git</i>
+## <i>An illustration with <i class="fab  fa-git "></i></i>
 ### <br /><br />Stéphane DRAY
-### 2/12/2019
+### .inst[Lundi 2 novembre 2020]
 
 ---
 
@@ -107,7 +109,7 @@ Especially useful when developing software, writing papers. . .
 - **repository**: a directory including with a `.git` directory
 - **commit**: a snapchot of the repository (a date, an author, a description, a parent)
 - **working copy**: a version of the files of the repository on your computer
-- **index**: a temporary space including the modficiations to be commited 
+- **index**: a temporary space including the modficiations to be commited
 
 &lt;br&gt;
 
@@ -370,7 +372,7 @@ https://learngitbranching.js.org/?NODEMO
 git branch BRANCH_NAME
 ```
 The new branch is located at the same location than the current branch. Commits act on the current branch
-- It is possible to switch to a branch by 
+- It is possible to switch to a branch by
 
 ```bash
 git checkout BRANCH_NAME
@@ -379,14 +381,14 @@ Current branch (and the working directory) is updated to reflect the state of th
 ---
 ## Branches in practice
 
-- A branch can be deleted by 
+- A branch can be deleted by
 
 ```bash
 git branch -d BRANCH_NAME
 ```
 Only the pointer is deleted, not the pointed commits but commit may be hard to find after branch deletion.
 
-- Two branches can be merged by 
+- Two branches can be merged by
 
 ```bash
 git merge BRANCH_NAME
@@ -406,7 +408,7 @@ class: inverse, center, middle
 .img-source-tiny[https://miro.medium.com/max/1698/1*GgaGcwh5L246YcU5NVDA5A.png]
 ---
 ## Dealing with conflicts
-What happens if someone push before me? A conflict. 
+What happens if someone push before me? A conflict.
 
 Two commits are in conflict when they contain different updates to the same area of a file. They should be resolved manually after merging
 
@@ -486,9 +488,25 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
-
-<script>
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
 (function() {
   var links = document.getElementsByTagName('a');
   for (var i = 0; i < links.length; i++) {
@@ -496,8 +514,7 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
       links[i].target = '_blank';
     }
   }
-})();
-</script>
+})();</script>
 
 <script>
 slideshow._releaseMath = function(el) {
