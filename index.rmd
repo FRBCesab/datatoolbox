@@ -1,7 +1,7 @@
 ---
 title: .small[Formation FRB-Cesab & GDR EcoStat]
 subtitle: .ssmall[Bonnes pratiques pour une recherche reproductible en écologie numérique]
-author: .verysmall[<br />Du 2 au 6 décembre 2019<br />Dans les locaux du Cesab à Montpellier]
+author: .verysmall[<br />Du 2 au 6 novembre 2020<br />Dispensée en virtuel]
 output:
   xaringan::moon_reader:
     css: ["assets/css/xaringan-themer.css", "assets/css/custom.css"]
@@ -24,49 +24,41 @@ output:
 
 
 .pull-left[
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Recherche reproductible**
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Reproductibilité**
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Versioning du code**
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**git & GitHub**
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Travail collaboratif**
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Rmarkdown**
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**API et Web scraping**
-
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Introduction au tidyverse**
-
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Données spatiales**
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**R Package**
 
 `r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Research compendium**
 
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Tidyverse**
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Spatial**
+
 `r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**_drake: a pipeline toolkit_**
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Du script au package R**
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Docker**
 ]
 
 .pull-right[
 [**[Cours]**](courses/open-sci/index.html)
 
-[**[Cours]**](courses/intro-git/index.html)
+[**[Cours]**](courses/intro-git/index.html)&nbsp;[**[Exo 1]**](exercises/exercise05/index.html)
 
-[**[Cours]**](courses/rmarkdown/index.html)
+[**[Cours]**](courses/rmarkdown/index.html)&nbsp;[**[Exo 2]**](exercises/exercise06/index.html)
 
-[**[Cours]**](courses/intro-api/index.html)
-&nbsp;
-[**[Exo 1]**](exercises/exercise01/index.html)
-
-[**[Cours]**](courses/tidyverse/index.html)
-&nbsp;
-[**[Exo 1]**](exercises/exercise02/index.html)
-&nbsp;
-[**[Exo 2]**](exercises/exercise03/index.html)
-
-[**[Cours]**](courses/r-spatial/index.html)
-&nbsp;
-[**[Exo 1]**](exercises/exercise04/index.html)
+[**[Cours]**](courses/r-pkg/index.html)
 
 [**[Cours]**](courses/res-compendium/index.html)
 
+[**[Cours]**](courses/tidyverse/index.html)&nbsp;[**[Exo 3]**](exercises/exercise02/index.html)&nbsp;[**[Exo 4]**](exercises/exercise03/index.html)
+
+[**[Cours]**](courses/r-spatial/index.html)&nbsp;[**[Exo 5]**](exercises/exercise04/index.html)
+
 [**[Cours]**](courses/drake/drake_intro/intro_drake.html)
 
-[**[Cours]**](courses/r-packages/index.html)
+<!-- [**[Cours]**](courses/r-pkg/index.html) -->
 ]

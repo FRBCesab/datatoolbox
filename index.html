@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>.small[Formation FRB-Cesab &amp; GDR EcoStat]</title>
     <meta charset="utf-8" />
-    <meta name="author" content=".verysmall[ Du 2 au 6 décembre 2019 Dans les locaux du Cesab à Montpellier]" />
+    <meta name="author" content=".verysmall[ Du 2 au 6 novembre 2020 Dispensée en virtuel]" />
+    <script src="assets/libs/header-attrs-2.5/header-attrs.js"></script>
     <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="assets/css/custom.css" type="text/css" />
@@ -14,7 +15,7 @@ class: right, middle, title-slide
 
 # .small[Formation FRB-Cesab &amp; GDR EcoStat]
 ## .ssmall[Bonnes pratiques pour une recherche reproductible en écologie numérique]
-### .verysmall[<br />Du 2 au 6 décembre 2019<br />Dans les locaux du Cesab à Montpellier]
+### .verysmall[<br />Du 2 au 6 novembre 2020<br />Dispensée en virtuel]
 
 ---
 
@@ -24,51 +25,43 @@ class: right, middle, title-slide
 
 
 .pull-left[
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Recherche reproductible**
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Reproductibilité**
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Versioning du code**
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**git &amp; GitHub**
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Travail collaboratif**
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Rmarkdown**
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**API et Web scraping**
-
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Introduction au tidyverse**
-
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Données spatiales**
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**R Package**
 
 <i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Research compendium**
 
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Tidyverse**
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Spatial**
+
 <i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**_drake: a pipeline toolkit_**
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Du script au package R**
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Docker**
 ]
 
 .pull-right[
 [**[Cours]**](courses/open-sci/index.html)
 
-[**[Cours]**](courses/intro-git/index.html)
+[**[Cours]**](courses/intro-git/index.html)&amp;nbsp;[**[Exo 1]**](exercises/exercise05/index.html)
 
-[**[Cours]**](courses/rmarkdown/index.html)
+[**[Cours]**](courses/rmarkdown/index.html)&amp;nbsp;[**[Exo 2]**](exercises/exercise06/index.html)
 
-[**[Cours]**](courses/intro-api/index.html)
-&amp;nbsp;
-[**[Exo 1]**](exercises/exercise01/index.html)
-
-[**[Cours]**](courses/tidyverse/index.html)
-&amp;nbsp;
-[**[Exo 1]**](exercises/exercise02/index.html)
-&amp;nbsp;
-[**[Exo 2]**](exercises/exercise03/index.html)
-
-[**[Cours]**](courses/r-spatial/index.html)
-&amp;nbsp;
-[**[Exo 1]**](exercises/exercise04/index.html)
+[**[Cours]**](courses/r-pkg/index.html)
 
 [**[Cours]**](courses/res-compendium/index.html)
 
+[**[Cours]**](courses/tidyverse/index.html)&amp;nbsp;[**[Exo 3]**](exercises/exercise02/index.html)&amp;nbsp;[**[Exo 4]**](exercises/exercise03/index.html)
+
+[**[Cours]**](courses/r-spatial/index.html)&amp;nbsp;[**[Exo 5]**](exercises/exercise04/index.html)
+
 [**[Cours]**](courses/drake/drake_intro/intro_drake.html)
 
-[**[Cours]**](courses/r-packages/index.html)
+&lt;!-- [**[Cours]**](courses/r-pkg/index.html) --&gt;
 ]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
@@ -119,9 +112,25 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
-
-<script>
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
 (function() {
   var links = document.getElementsByTagName('a');
   for (var i = 0; i < links.length; i++) {
@@ -129,8 +138,7 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
       links[i].target = '_blank';
     }
   }
-})();
-</script>
+})();</script>
 
 <script>
 slideshow._releaseMath = function(el) {
