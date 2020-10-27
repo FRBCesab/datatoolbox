@@ -14,4 +14,29 @@ a:hover,a:focus{text-decoration:underline;}
 .inst{font-size:0.75em;}
 .img-source-tiny{ font-size: 70% }
 .big{font-size:1.5em;}
-  
+
+.btn-xs a {
+    text-decoration: none;
+}
+
+.btn-xs a:visited {
+    text-decoration: none;
+}
+
+.btn-xs a:hover, .btn-xs a:focus {
+    color: white;
+}
+
+.btn-xs a {
+  font-family: monospace;
+  color: white;
+  border: 1px solid #294557;
+  background-color: #294557;
+  border-radius: 5px;
+  padding: 2px 5px 2px 5px;
+  margin-right: 5px;
+}
+
+.btn-xs a:hover, .btn-xs a:focus {
+  border: 1px solid white;
+}

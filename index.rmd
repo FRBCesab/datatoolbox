@@ -15,7 +15,7 @@ output:
       highlightStyle: 'zenburn'
       highlightLines: false
       countIncrementalSlides: false
-      slideNumberFormat: "%current% / %total%"
+      slideNumberFormat: ""
       beforeInit: "assets/libs/macros.js"
 ---
 
@@ -28,7 +28,7 @@ output:
 
 `r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**git & GitHub**
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Rmarkdown**
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**RMarkdown**
 
 `r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**R Package**
 
@@ -38,27 +38,32 @@ output:
 
 `r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Spatial**
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**_drake: a pipeline toolkit_**
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**drake: a pipeline toolkit**
 
 `r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Docker**
 ]
 
 .pull-right[
-[**[Cours]**](courses/open-sci/index.html)
+.btn-xs[[**Cours**](courses/open-sci/index.html)]
 
-[**[Cours]**](courses/intro-git/index.html)&nbsp;[**[Exo 1]**](exercises/exercise05/index.html)
+.btn-xs[[**Cours**](courses/intro-git/index.html)]&nbsp;.btn-xs[[**Exo 1**](exercises/exercise05/index.html)]
 
-[**[Cours]**](courses/rmarkdown/index.html)&nbsp;[**[Exo 2]**](exercises/exercise06/index.html)
+.btn-xs[[**Cours**](courses/rmarkdown/index.html)]&nbsp;.btn-xs[[**Exo 2**](exercises/exercise06/index.html)]
 
-[**[Cours]**](courses/r-pkg/index.html)
+.btn-xs[[**Cours**](courses/r-pkg/index.html)]
 
-[**[Cours]**](courses/res-compendium/index.html)
+.btn-xs[[**Cours**](courses/res-compendium/index.html)]
 
-[**[Cours]**](courses/tidyverse/index.html)&nbsp;[**[Exo 3]**](exercises/exercise02/index.html)&nbsp;[**[Exo 4]**](exercises/exercise03/index.html)
+.btn-xs[[**Cours**](courses/tidyverse/index.html)]&nbsp;.btn-xs[[**Exo 3**](exercises/exercise02/index.html)]&nbsp;.btn-xs[[**Exo 4**](exercises/exercise03/index.html)]
 
-[**[Cours]**](courses/r-spatial/index.html)&nbsp;[**[Exo 5]**](exercises/exercise04/index.html)
+.btn-xs[[**Cours**](courses/r-spatial/index.html)]&nbsp;.btn-xs[[**Exo 5**](exercises/exercise04/index.html)]
 
-[**[Cours]**](courses/drake/drake_intro/intro_drake.html)
+.btn-xs[[**Cours**](courses/drake/drake_intro/intro_drake.html)]
 
-<!-- [**[Cours]**](courses/r-pkg/index.html) -->
+<!-- .btn-xs[[**Cours**](courses/r-pkg/index.html)] -->
 ]
+
+
+<!-- .right[[![:scale 10%](assets/img/github.png)](https://github.com/FRBCesab/datatoolbox)] -->
+
+.right[[`r icon::fa("github", color = "#294557", size = 3)`](https://github.com/FRBCesab/datatoolbox)]
