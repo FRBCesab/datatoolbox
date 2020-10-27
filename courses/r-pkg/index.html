@@ -1,0 +1,1964 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Building an R package</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Nicolas CASAJUS .inst[{{ Data scientist FRB-Cesab }}]" />
+    <script src="assets/libs/header-attrs-2.5/header-attrs.js"></script>
+    <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../assets/css/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="../../assets/css/custom.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: right, middle, title-slide
+
+# Building an R package
+## <i>the best part </i> <i class="fas  fa-grin-tongue "></i>
+### <br /><br />Nicolas CASAJUS<br />.inst[{{ Data scientist FRB-Cesab }}]
+### .inst[Mardi 3 novembre 2020]
+
+---
+
+
+
+class: inverse, center, middle
+
+## Everything's going to be okay
+
+&lt;br /&gt;
+
+&lt;!-- ![](https://media.giphy.com/media/8OlT82jKm6Ugg/source.gif) --&gt;
+![](assets/img/jim-carrey.gif)
+
+---
+
+## What's an R Package?
+
+
+<i class="fas  fa-quote-left " style="color:#3f3f3f;"></i> &amp;nbsp;_In R, the fundamental unit of
+shareable code is the package. A package bundles together **code**, **data**,
+**documentation**, and **tests**, and is easy to share with others_&lt;br /&gt;&amp;mdash;
+&amp;nbsp;&amp;nbsp;**_Hadley Wickham_**
+
+&lt;br /&gt;
+
+- An R package is a collection of **well-documented functions**
+- It makes your work more **reproducible**
+- It makes your code **useful** for (you and) others
+
+---
+
+## What's an R Package?
+
+<i class="fas  fa-quote-left " style="color:#3f3f3f;"></i> &amp;nbsp;_In R, the fundamental unit of
+shareable code is the package. A package bundles together **code**, **data**,
+**documentation**, and **tests**, and is easy to share with others_&lt;br /&gt;&amp;mdash;
+&amp;nbsp;&amp;nbsp;**_Hadley Wickham_**
+
+
+&lt;br /&gt;
+
+- An R package is a collection of **well-documented functions**
+- It makes your work more **reproducible**
+- It makes your code **useful** for (you and) others
+- It's a lot of `fun`!
+
+
+.right[![](assets/img/office-party.gif)]
+
+---
+
+## What's an R Package?
+
+- As of today (2020-10-27), **16463** packages are available on the [**CRAN**](https://cran.r-project.org). And many many more on GitHub and Bioconductor!
+
+--
+
+&lt;br /&gt;
+
+- Must-read resources:
+
+.center[
+[![:scale 27.8%](assets/img/r-pkg.png)](https://r-pkgs.org/)
+&amp;nbsp;
+[![:scale 25.0%](assets/img/chambers.jpg)](https://www.taylorfrancis.com/books/9781315381305)
+&amp;nbsp;
+[![:scale 27.4%](assets/img/r-ext.jpg)](https://cran.r-project.org/doc/manuals/r-release/R-exts.html)
+]
+
+---
+
+## Recommended environment
+
+&lt;br /&gt;
+
+.center[
+![:scale 45.0%](assets/img/rstudio.png)
+]
+
+.center[
+![:scale 15.0%](assets/img/hex-devtools.png)&amp;nbsp;&amp;nbsp;&amp;nbsp;
+![:scale 15.0%](assets/img/hex-usethis.png)&amp;nbsp;&amp;nbsp;&amp;nbsp;
+![:scale 15.0%](assets/img/hex-roxygen2.png)&amp;nbsp;&amp;nbsp;&amp;nbsp;
+![:scale 15.0%](assets/img/hex-reprex.png)&amp;nbsp;&amp;nbsp;&amp;nbsp;
+![:scale 15.0%](assets/img/hex-testthat.png)
+![:scale 15.0%](assets/img/hex-rmarkdown.png)&amp;nbsp;&amp;nbsp;&amp;nbsp;
+![:scale 15.0%](assets/img/hex-pkgdown.png)
+]
+
+---
+
+## Development workflow
+
+&lt;br /&gt;
+
+![:scale 100.0%](assets/img/pkg-steps.png)
+
+
+---
+
+class: inverse, center, middle
+
+## Live coding session
+
+&lt;br /&gt;
+
+![:scale 50%](assets/img/geek.gif)
+
+
+---
+
+## Session information
+
+
+```r
+devtools::session_info()
+```
+
+```
+─ Session info ────────────────────────────────────────────────────────────────────
+ Version  R version 4.0.3 (2020-10-10)
+ OS       macOS Catalina 10.15.7
+ System   x86_64, darwin17.0
+ UI       RStudio
+ Language (EN)
+ Collate  fr_FR.UTF-8
+ CType    fr_FR.UTF-8
+ TZ       Europe/Paris
+ Date     2020-11-03
+
+─ Packages ────────────────────────────────────────────────────────────────────────
+ Package             Version       Date               Source
+ devtools            2.3.2         2020-09-18         CRAN (R 4.0.2)
+ knitr               1.30.0        2020-09-22         CRAN (R 4.0.2)
+ pkgdown             1.6.1         2020-09-12         CRAN (R 4.0.2)
+ remotes             2.2.0         2020-07-21         CRAN (R 4.0.2)
+ rmarkdown           2.5.0         2020-10-21         CRAN (R 4.0.3)
+ roxygen2            7.1.1         2020-06-27         CRAN (R 4.0.2)
+ testthat            2.3.2         2020-03-02         CRAN (R 4.0.0)
+ usethis             1.6.3         2020-09-17         CRAN (R 4.0.2)
+```
+
+
+---
+
+class: inverse, center, middle
+
+## Package skeleton
+
+&lt;br /&gt;
+
+![](assets/img/skeleton.gif)
+
+
+---
+
+## Create the structure
+
+&lt;!-- - Using **RStudio** --&gt;
+
+![:scale 10%](assets/img/rstudio.png)
+
+.center[
+![:scale 49%](assets/img/new-1.png)&amp;nbsp;
+![:scale 49%](assets/img/new-2.png)
+]
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Make sure to select `R Package using devtools`
+
+&lt;br /&gt;
+
+<i class="fas  fa-exclamation-triangle " style="color:#3f3f3f;"></i> &amp;nbsp;A package name can **only contain** letters and numbers (the dot is the only non-alphanumeric character allowed)
+
+---
+
+
+## Create the structure
+
+
+- Using <i class="fab  fa-r-project "></i> directly (no IDE)
+
+
+
+```r
+usethis::create_package("/Users/nicolascasajus/Desktop/rpkg")
+```
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Make sure to specify the `absolute path` to your package
+
+--
+
+```
+✔ Creating '/Users/nicolascasajus/Desktop/rpkg'
+✔ Setting active project to '/Users/nicolascasajus/Desktop/rpkg'
+✔ Creating 'R/'
+✔ Writing 'DESCRIPTION'
+Package: rpkg
+Title: What the Package Does (One Line, Title Case)
+Version: 0.0.0.9000
+Authors@R (parsed):
+    * First Last &lt;first.last@example.com&gt; [aut, cre] (YOUR-ORCID-ID)
+Description: What the package does (one paragraph).
+License: `use_mit_license()`, `use_gpl3_license()` or friends
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+✔ Writing 'NAMESPACE'
+✔ Changing working directory to '/Users/nicolascasajus/Desktop/rpkg'
+```
+
+---
+
+
+## Create the structure
+
+- Let's take a look at the package structure
+
+![:scale 100.0%](assets/img/create-rpkg-5.png)
+
+
+---
+
+## <i class="fas  fa-exclamation-circle "></i> &amp;nbsp;What about reproducibility?
+
+--
+
+- We will create an <i class="fab  fa-r-project "></i> script with all the command lines required to develop our package so we can reuse it in the future for new developments.
+
+--
+
+- This file will be named `_devhistory.R` and will be saved **at the root** of the project (and not in the **R/** folder).
+
+
+
+```r
+usethis::edit_file("_devhistory.R")
+```
+
+--
+
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;From now, **all the command lines** will be written in this file.
+
+--
+
+&lt;br /&gt;
+
+<i class="fas  fa-exclamation-triangle " style="color:#3f3f3f;"></i> &amp;nbsp;As this file is not part of a typical package structure, we need to tell R to ignore it when checking and installing the package. It's the purpose of the `.Rbuildignore` file.
+
+
+```r
+usethis::use_build_ignore("_devhistory.R")
+```
+
+```
+✓ Adding '^_devhistory\\.R$' to '.Rbuildignore'
+```
+
+---
+
+
+## Setup versioning
+
+- Let's initialize the <i class="fab  fa-git "></i> versioning with
+
+
+
+```r
+usethis::use_git(message = ":tada: Initial commit")
+```
+
+--
+
+```
+✓ Setting active project to '/Users/nicolascasajus/Desktop/rpkg'
+✓ Initialising Git repo
+✓ Adding '.Rhistory', '.RData' to '.gitignore'
+
+There are 6 uncommitted files:
+  '_devhistory.R'
+  '.gitignore'
+  '.Rbuildignore'
+  'DESCRIPTION'
+  'NAMESPACE'
+  'rpkg.Rproj'
+Is it ok to commit them?
+(...)
+● A restart of RStudio is required to activate the Git pane
+Restart now?
+(...)
+```
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Commit changes and restart RStudio
+
+---
+
+
+## The <i class="fab  fa-apple "></i> .DS_Store file
+
+<i class="fas  fa-hand-point-right "></i> &amp;nbsp;.DS_Store file on macOS computers is an hidden file storing folder preferences for the Finder application. It's recommended to remove it from the versioning. Moreover this file is not part of standard package structure: we also need to ignore it during the check and installation of the package.
+--
+
+
+- Let's add it to `.gitignore` and `.Rbuildignore` files
+
+
+```r
+usethis::use_git_ignore(".DS_Store")
+usethis::use_build_ignore(".DS_Store")
+```
+
+```
+✓ Adding '.DS_Store' to '.gitignore'
+✓ Adding '^\\.DS_Store$' to '.Rbuildignore'
+```
+
+--
+
+
+- And let's commit changes
+
+
+```r
+usethis::use_git(message = ":see_no_evil: Ban .DS_Store files")
+```
+
+```
+✓ Adding files
+✓ Commit with message ':see_no_evil: Ban .DS_Store files'
+```
+
+
+
+---
+
+class: inverse, center, middle
+
+## Package metadata
+
+&lt;br /&gt;
+
+![](assets/img/ice-cube.gif)
+
+---
+
+
+
+## Package metadata
+
+- Before we go any further, we will edit some informations about our package using the `DESCRIPTION` file
+
+
+```r
+usethis::edit_file("DESCRIPTION")
+```
+
+```dcf
+Package: rpkg
+Title: What The Package Does (one line, title case required, no final period)
+Authors@R:
+    person(given   = "First",
+           family  = "Last",
+           role    = c("aut", "cre"),
+           email   = "first.last@example.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: What the package does (one paragraph). The description of a package
+    is usually long, spanning multiple lines. The second and subsequent lines
+    should be indented, usually with four spaces.
+```
+
+---
+
+## Package metadata
+
+- Before we go any further, we will edit some informations about our package using the `DESCRIPTION` file
+
+
+```r
+usethis::edit_file("DESCRIPTION")
+```
+
+```dcf
+Package: rpkg
+Title: A Minimal But Complete R Package
+Authors@R:
+    person(given   = "Nicolas",
+           family  = "Casajus",
+           role    = c("aut", "cre"),
+           email   = "nicolas.casajus@fondationbiodiversite.fr",
+           comment = c(ORCID = "0000-0002-5537-5294"))
+Description: The purpose of the \code{rpkg} package is to illustrate the main
+    structure and components of an R Package with respect to the CRAN submission
+    policies (&lt;https://cran.r-project.org/&gt;).
+```
+
+
+--
+
+
+<i class="fas  fa-exclamation-triangle " style="color:#3f3f3f;"></i> &amp;nbsp;The other fields will be added/modified automatically.
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Resources: [**R Package - Chap8**](https://r-pkgs.org/description.html)
+
+--
+
+
+```r
+usethis::use_git(message = ":bulb: Edit package metadata")
+```
+
+---
+
+## Package-level documentation
+
+- What about converting the `DESCRIPTION` informations into a package-level documentation file? This file will be the homepage of the help section of our package accessible with `?pkg_name`
+
+--
+
+
+```r
+usethis::use_package_doc()
+```
+
+```
+✓ Writing 'R/rpkg-package.R'
+```
+
+--
+
+<i class="fas  fa-exclamation-triangle " style="color:#3f3f3f;"></i> &amp;nbsp;A dummy file has been created in `R/`: **do not edit this file!**
+
+--
+
+&lt;br /&gt;
+
+- Now we need to generate the corresponding documentation file (`.Rd`)
+
+
+```r
+devtools::document()
+```
+
+```
+✓ Writing 'NAMESPACE'
+✓ Writing 'man/rpkg-package.Rd'
+```
+
+--
+
+
+```r
+usethis::use_git(message = ":bulb: Update documentation")
+```
+
+---
+
+class: inverse, center, middle
+
+## Package license
+
+&lt;br /&gt;
+
+
+![](assets/img/judge.gif)
+
+
+---
+
+
+## Package license
+
+- Choosing a license is important if you’re planning on releasing your package
+- There is two families of open-source licenses: **permissive** (e.g. MIT, Apache) and **copyleft** (e.g. GPL)
+
+--
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Resources: [**choosealicense.com**](https://choosealicense.com)
+
+--
+
+&lt;br /&gt;
+
+- Let's use the [**MIT**](https://choosealicense.com/licenses/mit/) license, a permissive one
+
+
+```r
+usethis::use_mit_license(name = "Nicolas Casajus")
+```
+
+```
+✓ Setting License field in DESCRIPTION to 'MIT + file LICENSE'
+✓ Writing 'LICENSE.md'
+✓ Adding '^LICENSE\\.md$' to '.Rbuildignore'
+✓ Writing 'LICENSE'
+```
+
+--
+
+
+```r
+usethis::use_git(message = ":page_facing_up: Add package license")
+```
+
+
+---
+
+class: inverse, center, middle
+
+## Function implementation
+
+&lt;br /&gt;
+
+![](assets/img/jim-carrey-2.gif)
+
+
+
+---
+
+## A first R function
+
+- Let's create a function called `moyenne()`, an equivalent of the R function `mean()`
+
+---
+
+## A first R function
+
+- Let's create a function called `moyenne()`, an equivalent of the R function `mean()`
+- We'll use `usethis::use_r()` to create a file with the same name&lt;sup&gt;&lt;b&gt;*&lt;/b&gt;&lt;/sup&gt;
+
+
+```r
+usethis::use_r("moyenne")
+```
+
+```
+● Modify 'R/moyenne.R'
+● Call `use_test()` to create a matching test file
+```
+
+.footnote[
+***** You can also have several functions in one single R file (grouped by theme)
+]
+
+--
+
+&lt;br /&gt;
+
+- Let's implement the core of the function
+
+
+```r
+moyenne &lt;- function(x) sum(x) / length(x)
+```
+
+--
+
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Resources: [**Tidyverse style guide**](https://style.tidyverse.org/) and the R package `{styler}` (with its RStudio addin) to format your R code
+
+
+---
+
+## Let's try our function
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Before going any further we have to try our code. So we will load our package (and **not** sourcing the function)
+
+
+```r
+devtools::load_all()
+```
+
+--
+
+Now we can use our function
+
+
+```r
+x &lt;- 1:10
+moyenne(x)
+```
+
+```
+## [1] 5.5
+```
+
+--
+
+Let's compare with the function `mean()`
+
+
+```r
+mean(x)
+```
+
+```
+## [1] 5.5
+```
+
+<i class="fas  fa-beer " style="color:#3f3f3f;"></i>
+<i class="fas  fa-beer " style="color:#3f3f3f;"></i>
+<i class="fas  fa-beer " style="color:#3f3f3f;"></i>
+&amp;nbsp; **Yeah!!!** &amp;nbsp;
+<i class="fas  fa-beer " style="color:#3f3f3f;"></i>
+<i class="fas  fa-beer " style="color:#3f3f3f;"></i>
+<i class="fas  fa-beer " style="color:#3f3f3f;"></i>
+
+--
+
+
+```r
+usethis::use_git(message = ":boom: New feature - moyenne()")
+```
+
+
+---
+
+class: inverse, center, middle
+
+## Time to document
+
+&lt;br /&gt;
+
+![](assets/img/sponge-bob.gif)
+
+---
+
+## Time to document
+
+.pull-leftt[
+.center[[![:scale 75%](assets/img/hex-roxygen2.png)](https://cran.r-project.org/web/packages/roxygen2/vignettes/roxygen2.html)]
+]
+
+.pull-rightt[
+- Specially-structured comments preceding each function definition
+- Lightweight syntax easy to write and to read
+- Syntax: `#' @field value`
+- Keep function definition and documentation in the same file
+- Automatically write `.Rd` files and **NAMESPACE**
+]
+
+--
+
+Each Roxygen2 header will start with these two fields
+
+
+```r
+#' @title Short Title of the Function (One Line, Title Case, No Final Period)
+#'
+#' @description A longer description of what the function does (several lines)
+```
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Keywords `@title` and `@description` can be omitted
+
+
+```r
+#' Short Title of the Function (One Line, Title Case, No Final Period)
+#'
+#' A longer description of what the function does (several lines)
+```
+
+
+---
+
+## Time to document
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;If your function has **parameters**, each must be documented as follow
+
+
+```r
+#' @param param_name param_description
+```
+
+--
+
+For example with our function `moyenne()`
+
+
+```r
+#' @param x a numerical vector
+```
+
+--
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;If your function **returns** an R object use the keyword `@return`
+
+
+```r
+#' @return What the function returns
+```
+
+--
+
+For example with our function `moyenne()`
+
+
+```r
+#' @return The arithmetic mean of the values as a numeric vector of length one.
+```
+
+You can omit this field if your function returns nothing
+
+
+---
+
+## Time to document
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Add a section `@examples` to show how to use your function
+
+
+```r
+#' @examples
+#' x &lt;- 1:10
+#' moyenne(x)
+```
+
+--
+
+&lt;br /&gt;
+
+If you don't want your example to be executed use `\dontrun{}` (in case your example returns an error or in case of time consuming code)
+
+
+```r
+#' @examples
+#' \dontrun{
+#' x &lt;- 1:10
+#' moyenne(x)
+#' }
+```
+
+--
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;You can also add a reproducible example (dataset added to your package)
+
+
+---
+
+## Time to document
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Finally if you want your function to be used directly by user you need to add this tag
+
+
+```r
+#' @export
+```
+
+--
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Additional Roxygen2 tags
+
+
+```r
+#' @details
+#' @author
+#' @references
+#' @seealso
+#' @keywords
+#' @section
+#' @alias
+#' @family
+```
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Resources: [**R Package - Chap10**](https://r-pkgs.org/man.html) and [**R Package Primer**](https://kbroman.org/pkg_primer/pages/docs.html)
+
+---
+
+## Time to document
+
+
+```r
+#' Arithmetic Mean
+#'
+#' This function computes the arithmetic mean of a numerical vector.
+#'
+#' @param x a numerical vector
+#'
+#' @return The arithmetic mean of the values as a numeric vector of length one.
+#'
+#' @export
+#'
+#' @examples
+#' x &lt;- 1:10
+#' moyenne(x)
+
+moyenne &lt;- function(x) sum(x) / length(x)
+```
+
+---
+
+## Time to document
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;It's time to generate the corresponding `.Rd` file (special file for R documentation) from this Roxygen2 header
+
+
+```r
+devtools::document()                                  # or roxygen2::roxygenize()
+```
+
+```
+✓ Writing 'NAMESPACE'
+✓ Writing 'man/moyenne.Rd'
+```
+
+--
+
+- In addition to the creation of `man/moyenne.Rd` file, the `NAMESPACE` has been updated
+
+
+```r
+# Generated by roxygen2: do not edit by hand
+export(moyenne)
+```
+
+- As we can see this file lists which functions need to be exported (accessible by the user when loading the package). But it also deals with external dependencies.
+
+--
+
+&lt;br /&gt;
+
+
+```r
+usethis::use_git(message = ":bulb: Update documentation")
+```
+
+---
+
+class: inverse, center, middle
+
+## Checking package
+
+&lt;br /&gt;
+
+![](assets/img/suspense.gif)
+
+---
+
+## Checking package
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;It's time to check the integrity of our package
+
+
+```r
+devtools::check()
+```
+
+```
+── R CMD check ────────────────────────────────────────────────────────────────────
+✓  checking package namespace information
+✓  checking package dependencies (1.9s)
+✓  checking DESCRIPTION meta-information ...
+✓  checking index information
+✓  checking package subdirectories ...
+✓  checking R files for syntax errors ...
+✓  checking dependencies in R code ...
+✓  checking R code for possible problems (1.8s)
+✓  checking Rd files ...
+✓  checking Rd metadata ...
+✓  checking Rd contents ...
+✓  checking examples (526ms)
+
+── R CMD check results ──────────────────────────────────── rpkg 0.0.0.9000 ───────
+Duration: 10.8s
+
+0 errors ✓ | 0 warnings ✓ | 0 notes ✓
+```
+
+--
+
+<i class="fas  fa-beer " style="color:#3f3f3f;"></i>
+<i class="fas  fa-beer " style="color:#3f3f3f;"></i>
+<i class="fas  fa-beer " style="color:#3f3f3f;"></i>
+&amp;nbsp; **Yeah!!!** &amp;nbsp;
+<i class="fas  fa-beer " style="color:#3f3f3f;"></i>
+<i class="fas  fa-beer " style="color:#3f3f3f;"></i>
+<i class="fas  fa-beer " style="color:#3f3f3f;"></i>
+
+---
+
+## Installing package
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Finally we can install our package
+
+
+```r
+devtools::install()
+```
+
+```
+DONE (rpkg)
+```
+
+--
+
+&lt;br /&gt;
+
+
+```r
+library("rpkg")
+moyenne(1:1000)
+```
+
+```
+[1] 500.5
+```
+
+Or,
+
+
+```r
+rpkg::moyenne(1:1000)
+```
+
+
+---
+
+class: inverse, center, middle
+
+## Back to tests
+
+&lt;br /&gt;
+
+![](assets/img/crash-test.gif)
+
+
+---
+
+## Test your code
+
+- Testing is a vital part of package development
+- But until now we just tried our code informally and on the fly
+- Problem: it's time consuming, repetitive and it can break the code
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Package `{testthat}`
+
+.pull-leftt[
+.center[[![:scale 75%](assets/img/hex-testthat.png)](https://testthat.r-lib.org)]
+]
+
+.pull-rightt[
+- Implements a lot of unit tests
+- Formal automated testing
+- Explicits how your code should behave
+- Makes your code more robust
+]
+
+
+---
+
+## Test your code
+
+- Testing is a vital part of package development
+- But until now we just tried our code informally and on the fly
+- Problem: it's time consuming, repetitive and it can break the code
+
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Package `{testthat}`
+
+.pull-leftt[
+.center[[![:scale 75%](assets/img/hex-testthat.png)](https://testthat.r-lib.org)]
+]
+
+.pull-rightt[
+- Implements a lot of unit tests
+- Formal automated testing
+- Explicits how your code should behave
+- Makes your code more robust
+
+Let's add `{testthat}` to our package
+]
+
+
+
+```r
+usethis::use_testthat()
+```
+
+```
+✓ Adding 'testthat' to Suggests field in DESCRIPTION
+✓ Creating 'tests/testthat/'
+✓ Writing 'tests/testthat.R'
+● Call `use_test()` to initialize a basic test file and open it for editing.
+```
+
+
+
+---
+
+## Test your code
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;A new R file has been written: `tests/testthat.R`. It sets the testing environment
+
+
+
+```r
+library(testthat)
+library(rpkg)
+test_check("rpkg")
+```
+
+--
+
+
+```r
+usethis::use_git(message = ":white_check_mark: Setup testthat")
+```
+
+--
+
+&lt;br /&gt;
+
+Now we have to implement some unit tests. First let's create a script for testing the function `moyenne()`
+
+
+
+```r
+usethis::use_test("moyenne")
+```
+
+```
+✓ Writing 'tests/testthat/test-moyenne.R'
+● Modify 'tests/testthat/test-moyenne.R'
+```
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;All tests files are stored in `tests/testthat/` and their names must start with `test-*`
+
+---
+
+## Test structure
+
+Tests are organised hierarchically: **expectations** are grouped into **tests** which are organised in **files**
+
+--
+
+- An **expectation** is the atom of a test. It describes the expected result of a computation. Expectations are functions that start with `expect_*`.
+
+--
+
+- A **test** has multiple expectations and test one unit of a functionality (output, parameters, etc.). A test is created with `test_that()`.
+
+--
+
+- A test file groups multiple tests and has a **context** providing a short description of its tests. The context is specified by `context()`.
+
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Let's add some tests in `tests/testthat/test-moyenne.R`
+
+
+```r
+context("Testing moyenne()")
+
+test_that("check outputs", {
+  expect_length(moyenne(1:3), 1)                        # Length of the output
+  expect_equal(moyenne(1:3), 2)                         # Value of the output
+})
+```
+
+
+---
+
+## Run the test
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;To run the test we will use `devtools::test()`
+
+
+```r
+devtools::test()
+```
+
+
+```
+✓ |  OK F W S | Context
+✓ |   2       | Testing moyenne()
+
+══ Results ════════════════════════════════════════════════════════════════════════
+OK:       2
+Failed:   0
+Warnings: 0
+Skipped:  0
+```
+
+---
+
+## Test your code
+
+Let's add some another test
+
+
+```r
+context("Testing moyenne()")
+
+test_that("check outputs", {
+  expect_length(moyenne(1:3), 1)                        # Length of the output
+  expect_equal(moyenne(1:3), 2)                         # Value of the output
+* expect_equal(moyenne(c(1:3, NA)), 2)                  # Check for NA
+})
+```
+
+--
+
+
+```r
+devtools::test()
+```
+
+```
+✓ |  OK F W S | Context
+x |   2 1     | Testing moyenne()
+───────────────────────────────────────────────────────────────────────────────────
+test-moyenne.R:8: failure: check outputs
+moyenne(c(1:3, NA)) not equal to 2.
+───────────────────────────────────────────────────────────────────────────────────
+
+══ Results ════════════════════════════════════════════════════════════════════════
+OK:       2
+Failed:   1
+Warnings: 0
+Skipped:  0
+```
+
+---
+
+## Hum...
+
+Our function does not seem to work as expected.
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;We need to change the code of the function `moyenne()` to deal with `NA` values.
+
+
+```r
+moyenne &lt;- function(x) {
+  x &lt;- na.omit(x)
+  sum(x) / length(x)
+}
+```
+
+--
+
+Let's test again
+
+
+```r
+devtools::test()
+```
+
+
+```
+✓ |  OK F W S | Context
+✓ |   3       | Testing moyenne()
+
+══ Results ════════════════════════════════════════════════════════════════════════
+OK:       3
+Failed:   0
+Warnings: 0
+Skipped:  0
+```
+
+---
+
+## That's better, but...
+
+This is not a good practice. If user has `NA` values, this implementation will not inform him and makes the decision to remove `NA`. Instead we are going to let user choose to delete the `NA` or not.
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Let's add an additional parameter to our function: `na_rm` with a default value (`FALSE`). If `x` contains `NA` values and `na_rm = FALSE`, then an error will be returned. Otherwise (`na_rm = TRUE`) `NA` values will be removed and the computation can be done.
+
+--
+
+&lt;br /&gt;
+
+
+```r
+moyenne &lt;- function(x, na_rm = FALSE) {
+  if (any(is.na(x))) {
+    if (na_rm) {
+      x &lt;- na.omit(x)
+    } else {
+      stop("x contains NA values. Use na_rm = TRUE.")
+    }
+  }
+  sum(x) / length(x)
+}
+```
+
+---
+
+## That's better, but...
+
+Let's modify tests
+
+
+```r
+context("Testing moyenne()")
+
+test_that("check outputs", {
+  expect_length(moyenne(1:3), 1)
+  expect_equal(moyenne(1:3), 2)
+* expect_error(moyenne(c(1:3, NA)))
+* expect_equal(moyenne(c(1:3, NA), na_rm = TRUE), 2)
+})
+```
+
+--
+
+And test again
+
+
+
+```r
+devtools::test()
+```
+
+```
+✓ |  OK F W S | Context
+✓ |   4       | Testing moyenne()
+
+══ Results ════════════════════════════════════════════════════════════════════════
+OK:       4
+Failed:   0
+Warnings: 0
+Skipped:  0
+```
+---
+
+class: inverse, center, middle
+
+## and so on... to finally...
+
+&lt;br /&gt;
+
+![](assets/img/chaplin.gif)
+
+---
+
+## Final R function
+
+
+```r
+moyenne &lt;- function(x, na_rm = FALSE) {
+
+  # Check 'x' argument ----
+  if (missing(x)) {
+    stop("Missing x.")
+  }
+  if (is.null(x)) {
+    stop("x must be a numerical vector.")
+  }
+  if (sum(is.na(x)) == length(x)) {
+    stop("x cannot be NA.")
+  }
+  if (!is.vector(x)) {
+    stop("x must be a numerical vector.")
+  }
+  if (!is.numeric(x)) {
+    stop("x must be a numerical vector.")
+  }
+  if (length(x) &lt; 2) {
+    stop("x must be length &gt; 1.")
+  }
+
+  # Check 'na_rm' argument [...] ----
+  # Remove NA (if required) [...] ----
+  # Compute mean [...] ----
+}
+```
+
+---
+
+## Final R function
+
+
+```r
+moyenne &lt;- function(x, na_rm = FALSE) {
+
+  # Check 'x' argument [...] ----
+
+  # Check 'na_rm' argument ----
+  if (is.null(na_rm)) {
+    stop("na_rm must be TRUE or FALSE.")
+  }
+  if (sum(is.na(na_rm)) == length(na_rm)) {
+    stop("na_rm cannot be NA.")
+  }
+  if (length(na_rm) &gt; 1) {
+    stop("na_rm must be TRUE or FALSE.")
+  }
+  if (!is.logical(na_rm)) {
+    stop("na_rm must be TRUE or FALSE.")
+  }
+
+  # Remove NA (if required) [...] ----
+  # Compute mean [...] ----
+}
+```
+
+---
+
+## Final R function
+
+
+```r
+moyenne &lt;- function(x, na_rm = FALSE) {
+
+  # Check 'x' argument [...] ----
+  # Check 'na_rm' argument [...] ----
+
+  # Remove NA (if required) ----
+  if (any(is.na(x))) {
+    if (na_rm) {
+      x &lt;- na.omit(x)
+      if (length(x) &lt; 2) {
+        stop("x has &lt; 2 non-NA values.")
+      }
+    } else {
+      stop("x contains NA values. Use na_rm = TRUE.")
+    }
+  }
+
+  # Compute mean ----
+  sum(x) / length(x)
+}
+```
+
+---
+
+## Update documentation
+
+
+```r
+#' Arithmetic Mean
+#'
+#' This function computes the arithmetic mean of a numerical vector.
+#'
+#' @param x a numerical vector (can contain ‘NA’ values).
+#' @param na_rm a logical value indicating whether ‘NA’ values should be
+#' stripped before the computation proceeds.
+#'
+#' @return The arithmetic mean of the values as a numeric vector of length one.
+#'
+#' @details An error will be returned if ‘x’ contains ‘NA’ values and ‘na_rm’ is
+#' set to ‘FALSE’ or if ‘x’ contains less than two values (after removing ‘NA’).
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' moyenne(c(1:10, NA)) # error
+#' }
+#' moyenne(c(1:10, NA), na_rm = TRUE)
+
+moyenne &lt;- function(x, na_rm = FALSE) { ... }
+```
+
+
+```r
+devtools::document()
+```
+
+---
+
+## Run new tests
+
+
+```r
+devtools::test()
+```
+
+```
+✓ |  OK F W S | Context
+✓ |  21       | Testing moyenne() [0.1 s]
+
+══ Results ════════════════════════════════════════════════════════════════════════
+Duration: 0.1 s
+
+OK:       21
+Failed:   0
+Warnings: 0
+Skipped:  0
+```
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Complete tests file available [**here**](https://gist.github.com/ahasverus/7863a8ca598154af99a3fc490b649d31)
+
+---
+
+## Check package integrity
+
+
+
+```r
+devtools::check()
+```
+
+```
+── R CMD check results ──────────────────────────────────── rpkg 0.0.0.9000 ───────
+Duration: 11.6s
+
+&gt; checking R code for possible problems ... NOTE
+  moyenne: no visible global function definition for ‘na.omit’
+  Undefined global functions or variables:
+    na.omit
+  Consider adding
+    importFrom("stats", "na.omit")
+  to your NAMESPACE file.
+
+0 errors ✓ | 0 warnings ✓ | 1 note x
+```
+
+--
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**One note:** Let's talk about package dependencies
+
+
+---
+
+class: inverse, center, middle
+
+## Package dependencies
+
+&lt;br /&gt;
+
+![](assets/img/homer.gif)
+
+
+---
+
+## NAMESPACE
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Usually a package depends on functions of others packages. So we need to tell R about that to ensure that 1) others packages are installed when your package is installed, and 2) that they are made available when your package is loaded&lt;sup&gt;&lt;b&gt;*&lt;/b&gt;&lt;/sup&gt;.
+
+.footnote[
+*****This is true for every package (except for the package `{base}`), even for packages `{utils}`, `{stats}` and `{graphics}` installed by default with <i class="fab  fa-r-project "></i>.
+]
+
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;It's the purpose of the `NAMESPACE`
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;As said before, the `NAMESPACE` is automatically updated when `devtools::document()` is called. So we need to list these dependencies in the **Roxygen2** headers with:
+
+- `#' @import package`: will import all the functions of the dependency
+- `#' @importFrom package function`: will only import the listed functions
+
+---
+
+## NAMESPACE
+
+In our case we had the following note:
+
+```
+&gt; checking R code for possible problems ... NOTE
+  moyenne: no visible global function definition for ‘na.omit’
+  Undefined global functions or variables:
+    na.omit
+  Consider adding
+    importFrom("stats", "na.omit")
+  to your NAMESPACE file.
+```
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;In short we need to import this function of the package `{stats}`
+
+
+
+```r
+#' @import stats
+```
+
+or,
+
+
+```r
+#' @importFrom stats na.omit
+```
+
+We will use the latest but by doing that it's recommended to call the function `na.omit()` as follow:
+
+
+```r
+stats::na.omit()
+```
+
+---
+
+## Package dependencies
+
+
+
+```r
+moyenne &lt;- function(x, na_rm = FALSE) {
+
+  # Check 'x' argument [...] ----
+  # Check 'na_rm' argument [...] ----
+
+  # Remove NA (if required) ----
+  if (any(is.na(x))) {
+    if (na_rm) {
+*     x &lt;- stats::na.omit(x)
+      if (length(x) &lt; 2) {
+        stop("x has &lt; 2 non-NA values.")
+      }
+    } else {
+      stop("x contains NA values. Use na_rm = TRUE.")
+    }
+  }
+
+  # Compute mean ----
+  sum(x) / length(x)
+}
+```
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Note that the functions `any()`, `is.na()`, `sum()`, `length()` and `stop()` are in the package `{base}`
+
+
+---
+
+## Package dependencies
+
+
+```r
+#' Arithmetic Mean
+#'
+#' This function computes the arithmetic mean of a numerical vector.
+#'
+#' @param x a numerical vector (can contain ‘NA’ values).
+#' @param na_rm a logical value indicating whether ‘NA’ values should be
+#' stripped before the computation proceeds.
+#'
+#' @return The arithmetic mean of the values as a numeric vector of length one.
+#'
+#' @details An error will be returned if ‘x’ contains ‘NA’ values and ‘na_rm’ is
+#' set to ‘FALSE’ or if ‘x’ contains less than two values (after removing ‘NA’).
+#'
+#' @export
+*#' @importFrom stats na.omit
+#'
+#' @examples
+#' \dontrun{
+#' moyenne(c(1:10, NA)) # error
+#' }
+#' moyenne(c(1:10, NA), na_rm = TRUE)
+
+moyenne &lt;- function(x, na_rm = FALSE) { ... }
+```
+
+---
+
+## Update NAMESPACE
+
+
+```r
+devtools::document()
+```
+
+```
+✓ Writing NAMESPACE
+```
+
+Here is the content of the `NAMESPACE` file
+
+
+```r
+export(moyenne)
+importFrom(stats,na.omit)
+```
+
+--
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;The `NAMESPACE` controls what happens when our package is loaded but not when it's installed. This is the role of `DESCRIPTION` and we need to add dependencies to this file.
+
+---
+
+## Update DESCRIPTION
+
+
+
+```r
+usethis::use_package("stats")
+```
+
+```
+✓ Adding 'stats' to Imports field in DESCRIPTION
+● Refer to functions with `stats::fun()`
+```
+
+--
+
+Here is a snippet of the `DESCRIPTION` file
+
+```dcf
+Package: rpkg
+Title: A Minimal But Complete R Package
+Version: 0.0.0.9000
+(...)
+Imports:
+    stats
+Suggests:
+    testthat
+```
+
+
+---
+
+## Dependencies types
+
+- `Imports`: packages listed in this field are installed when your package is installed but are not attached when your package is attached (there are just loaded). **ALWAYS** use this method and refer to external functions using the syntax `package::function()`
+
+- `Depends`: packages listed in this field are installed when your package is installed and are attached when your package is attached. **NEVER** use `Depends` and always use `Imports` (except for special cases)
+
+- `Suggests`: packages listed in this field are **not** installed when your package is installed. Your package can use these packages, but doesn’t require them (e.g. to run tests, build vignettes, etc.)
+
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Resources: [**R Package - Chap8.1**](https://r-pkgs.org/description.html#dependencies) and [**R Package - Chap13.6**](https://r-pkgs.org/namespace.html#imports)
+
+--
+
+Always use the function `usethis::use_package()`
+
+
+```r
+usethis::use_package(package, type = "Imports")                        # Default
+usethis::use_package(package, type = "Suggests")
+```
+
+---
+
+## Let's check
+
+
+```r
+devtools::check()
+```
+
+```
+── R CMD check results ──────────────────────────────────── rpkg 0.0.0.9000 ───────
+Duration: 11.9s
+
+0 errors ✓ | 0 warnings ✓ | 0 notes ✓
+```
+
+&lt;br /&gt;
+
+.right[![:scale 30%](assets/img/yes.gif)]
+
+---
+
+class: inverse, center, middle
+
+## Version and Release
+
+&lt;br /&gt;
+
+![](assets/img/zootopia.gif)
+
+---
+
+## Version number
+
+- Our package has the version number `0.0.0.9000`: this means that it's under development. But we think our package is enough stable to be released so we want to upgrade its version number
+
+--
+
+- A version number has four components: `major.minor.patch.dev`
+  - `major` is reserved for changes that are not backward compatible
+  - `minor` is reserved for changes introducing new features
+  - `patch` is reserved for changes fixing bugs
+  - When releasing a package the `dev` number must be deleted
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Resources: [**R Package - Chap20**](https://r-pkgs.org/release.html)
+
+--
+
+&lt;br /&gt;
+
+
+```r
+usethis::use_version(which = "minor")
+```
+
+```
+✓ Setting Version field in DESCRIPTION to '0.1.0'
+```
+
+---
+
+## Inform users &amp;mdash; NEWS
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Inform existing users of changes in each release of your package with the `NEWS.md`
+
+
+
+```r
+usethis::use_news_md()
+```
+
+```
+✓ Writing 'NEWS.md'
+● Modify 'NEWS.md'
+```
+
+--
+
+&lt;br /&gt;
+
+- For instance
+
+```
+# rpkg 0.1.0
+
+- Add new feature: `rpkg::moyenne()` computing the arithmetic mean of a
+    numerical vector.
+```
+
+--
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Try to keep this file updated after each version incrementation
+
+
+```r
+usethis::use_git(message = ":package: Release v0.1.0")
+```
+
+---
+
+class: inverse, center, middle
+
+## Share on GitHub
+
+&lt;br /&gt;
+
+![](assets/img/doctor-who.gif)
+
+
+---
+
+class: inverse, center, middle
+
+## Add a README
+
+
+---
+
+class: inverse, center, middle
+
+## CI/CD - Checks
+
+
+---
+
+class: inverse, center, middle
+
+## CI/CD - Website
+
+
+---
+
+class: inverse, center, middle
+
+## CI/CD - Code coverage
+
+
+---
+
+class: inverse, center, middle
+
+## To go further...
+
+---
+
+- Badges
+- DOI and Zenodo
+- HexSticker
+- Datasets
+- Vignettes
+- Lifecycle
+- Resources pages
+
+---
+
+class: inverse, center, middle
+
+## Congratulations!
+
+&lt;br /&gt;
+
+![:scale 50%](assets/img/tired.gif)
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="../../assets/libs/macros.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "4:3",
+"highlightStyle": "zenburn",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"slideNumberFormat": "%current% / %total%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
