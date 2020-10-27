@@ -1,5 +1,5 @@
 ---
-title: Exercice n°2
+title: Exercice Tidyverse (1)
 subtitle: <i>Manipulation de données avec `{dplyr}`</i><br /><br /><br /><br />
 output:
   xaringan::moon_reader:
@@ -26,22 +26,21 @@ knitr::opts_chunk$set(fig.path = 'assets/chunks/', cache.path = "assets/cache/")
 
 ## Instructions (1)
 
-**1)** Téléchargez les deux fichiers `csv` :
-- (https:)//raw.githubusercontent.com/FRBCesab/datatoolbox/master/data/
-**wildfinder-ecoregions_list.csv** [**[lien]**](https://raw.githubusercontent.com/FRBCesab/datatoolbox/master/data/wildfinder-ecoregions_list.csv)
-- (https:)//raw.githubusercontent.com/FRBCesab/datatoolbox/master/data/
-**wildfinder-ecoregions_species.csv** [**[lien]**](https://raw.githubusercontent.com/FRBCesab/datatoolbox/master/data/wildfinder-ecoregions_species.csv)
+**1)** Récupérez les données :
 
-`r icon::fa("lightbulb", color = "#3f3f3f")` &nbsp;Dans une optique reproductible, utilisez la fonction `download.file()`
+- Forkez et clonez le dépôt contenant les données nécessaires pour les exercices : [https://github.com/FRBCesab/datatoolbox-exos](https://github.com/FRBCesab/datatoolbox-exos)
+
 
 <br />
 
 **2)** Importez dans `r icon::fa("r-project")` les trois fichiers :
-- `wildfinder-mammals_list.csv` (vu à l'exercice 1)
+- `wildfinder-mammals_list.csv`
 - `wildfinder-ecoregions_list.csv`
 - `wildfinder-ecoregions_species.csv`
 
 `r icon::fa("lightbulb", color = "#3f3f3f")` &nbsp;Utilisez la fonction `readr::read_csv()`
+
+
 
 
 ```{r echo=FALSE, eval=TRUE, message=FALSE}
@@ -131,31 +130,10 @@ class: inverse, center, middle
 ## Corrigé
 
 ```{r echo=TRUE, eval=FALSE}
-## Création d'un sous-répertoire pour les données
-folder <- "data"
-dir.create(folder, showWarnings = FALSE)
-
-## URL et nom du fichier
-url       <- "https://raw.githubusercontent.com/FRBCesab/datatoolbox/master/data/"
-filenames <- c(
-  "wildfinder-mammals_list.csv",
-  "wildfinder-ecoregions_list.csv",
-  "wildfinder-ecoregions_species.csv"
-)
-
-## Téléchargement des fichiers
-for (filename in filenames) {
-
-  download.file(
-    url      = paste0(url, filename),
-    destfile = file.path(folder, filename)
-  )
-}
-
 ## Importation des fichiers
-sp_list  <- readr::read_csv(file.path(folder, "wildfinder-mammals_list.csv"))
-eco_list <- readr::read_csv(file.path(folder, "wildfinder-ecoregions_list.csv"))
-sp_eco   <- readr::read_csv(file.path(folder, "wildfinder-ecoregions_species.csv"))
+sp_list  <- readr::read_csv("data/wwf-wildfinder/wildfinder-mammals_list.csv")
+eco_list <- readr::read_csv("data/wwf-wildfinder/wildfinder-ecoregions_list.csv")
+sp_eco   <- readr::read_csv("data/wwf-wildfinder/wildfinder-ecoregions_species.csv")
 ```
 
 
