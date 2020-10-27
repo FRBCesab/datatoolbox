@@ -1,0 +1,83 @@
+---
+title: Exercice RMarkdown
+subtitle: <i>Rédaction d'un rapport avec RMarkdown</i>
+author: <br /><br /><br />
+output:
+  xaringan::moon_reader:
+    css: ["../../assets/css/xaringan-themer.css", "../../assets/css/custom.css"]
+    lib_dir: "assets/libs"
+    seal: true
+    yolo: false
+    self_contained: false
+    nature:
+      ratio: "4:3"
+      titleSlideClass: ["right", "middle"]
+      highlightStyle: 'zenburn'
+      highlightLines: false
+      countIncrementalSlides: false
+      slideNumberFormat: "%current% / %total%"
+      beforeInit: "../../assets/libs/macros.js"
+---
+
+## Contexte
+
+Mettons en pratique ce que nous avons vu dans le cours sur l'écriture de documents dynamiques et reproductibles avec R Markdown.
+
+Pour ce faire, nous utiliserons le jeu de données `palmerpenguins`, une alternative au jeu de données des `iris` de Fisher, pour s'entrainer à explorer et visualiser des données.
+
+Ces données ont été collectées et partagées par [Dr. Kristen Gorman](https://www.uaf.edu/cfos/people/faculty/detail/kristen-gorman.php) et [Palmer Station, Antarctica LTER](https://pal.lternet.edu/).
+
+Le package `palmerpenguins` contient deux jeux de données.
+
+```{r showdata, eval = FALSE}
+library(palmerpenguins)
+data(package = 'palmerpenguins')
+```
+
+```{r showdata-2, echo = FALSE}
+library(palmerpenguins)
+```
+
+---
+
+Le jeu de données `penguins` est une version simplifiée des données brutes ; voir `?penguins` pour plus d'infos :
+
+```{r example-penguins}
+head(penguins)
+```
+
+---
+
+Le deuxième jeu de données `penguins_raw` contient les données brutes ; voir `?penguins_raw` pour plus d'infos :
+
+```{r example-penguins-raw}
+head(penguins_raw)
+```
+
+
+Pour cet exercice, nous utiliserons les données `penguins`
+
+
+---
+
+## Questions
+
+**1)** Installez le package `palmerpenguins`.
+
+**2)** Créer un nouveau document R Markdown, donnez-lui un titre et sauvez-le. Supprimez toutes les lignes après la ligne 12. Ajoutez un nouveau titre de section, du texte simple et en gras. Compilez ("Knit").
+
+**3)** Ajoutez un chunk dans lequel vous chargez le package `palmerpenguins` sans que cette action n'apparaisse dans le document final. Profitez-en pour charger aussi le `{tidyverse}`. Modifiez les options des chunks par défaut pour supprimer les messages.
+
+**4)** Ajoutez un autre chunk dans lequel vous créez un tableau avec les 10 premières lignes du jeu de données.
+
+**5)** Dans une nouvelle section, précisez sur combien d'individus, d'espèces de manchots et d'îles les données portent-elles. Utilisez du texte et du code directement dans le texte (_inline code_). Calculez également la moyenne par espèce des traits mesurés sur les manchots.
+
+---
+
+**6)** Dans une nouvelle section, intitulée 'Exploration graphique', construisez une figure avec trois histogrammes superposés, chacun correspondant à la masse d'une des espèces.
+
+**7)** Installez le package `{citr}` ; si tout va bien, vous devriez le voir apparaître dans le menu déroulant `Addins`. Choisissez une publication récente de la chercheuse, Dr Kristen Gorman, qui a partagé les données, importez cette publication dans votre gestionnaire de bibliographie préféré (nous prendrons Zotero, 'no hard feeling'), et créez une référence bibtex que vous ajouterez à un fichier `mabiblio.bib`. Ajoutez `bibliography: mabiblio.bib` dans l'entête (YAML) de votre document. Citez la référence créée dans le texte en vous aidant de l'Addin `Insert citations` du menu déroulant `Addins`. Compilez.
+
+**8)** Changez le format de référence par défaut (Chicago style) par le format du journal The American Naturalist que vous trouverez sur <https://www.zotero.org/styles>. Pour ce faire, modifier l'entête de votre document en ajoutant `csl: the-american-naturalist.csl`.
+
+**9)** Assurez-vous que vous pouvez produire le document aux format html, pdf et docx.
