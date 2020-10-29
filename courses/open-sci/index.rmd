@@ -1,7 +1,7 @@
 ---
 title: "Open Science <br/> (recherche reproductible) <br/> <br/>"
 author: "François Guilhaumon <br/> <br/> IRD, MARBEC<br/>"
-date: "02/12/2019, intro data toolbox au CESAB<br/><br/><br/><span class='caption'>francois.guilhaumon@ird.fr</span>"
+date: "02/11/2020, intro data toolbox CESAB<br/><br/><br/><span class='caption'>francois.guilhaumon@ird.fr</span>"
 output:
   revealjs::revealjs_presentation:
     theme: night
@@ -54,9 +54,9 @@ Les notes de Galilée intègrent:
 <br/><br/><br/>
 données + méta-données + matériel & méthodes
 
-# Pourquoi ? {data-background-video="assets/Bubbles_Animation.mp4" data-background-video-loop="true" data-background-size="cover"}
+# Pourquoi ?
 
-##
+## {data-background-video="assets/Bubbles_Animation.mp4" data-background-video-loop="true" data-background-size="cover"}
 
 ![](assets/poker_face.png){width=60%}
 
