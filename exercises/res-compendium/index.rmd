@@ -1,0 +1,60 @@
+---
+title: Exercice Research Compendium
+subtitle: <i>création d'un research compendium pour les exercices de la formation</i>
+author: <br /><br />François Guilhaumon
+date: Mardi 3 Novembre 2020
+output:
+  xaringan::moon_reader:
+    css: ["../../assets/css/xaringan-themer.css", "../../assets/css/custom.css"]
+    lib_dir: "assets/libs"
+    seal: true
+    yolo: false
+    self_contained: false
+    nature:
+      ratio: "4:3"
+      titleSlideClass: ["right", "middle"]
+      highlightStyle: 'zenburn'
+      highlightLines: false
+      countIncrementalSlides: false
+      slideNumberFormat: "%current% / %total%"
+      beforeInit: "../../assets/libs/macros.js"
+---
+
+
+
+## Objectifs
+
+Nous allons créer notre premier research compendium. Il nous servira toute la semaine à rendre reproductible notre travail sur les exercices proposés dans le cadre de la formation.
+<br/><br/>
+Nous allons utiliser une structure de package R pour développer le research compendium. 
+<br/><br/>
+Un outils puissant pour réaliser ce type de développement est le package R [rrtools](https://github.com/benmarwick/rrtools). rrtools propose notamment des fonctions qui encapsulent celles du package [devtools](https://devtools.r-lib.org/) et permettent d'optimiser la création des différents fichiers et répertoires.
+
+
+---
+
+## Étape 1
+
+Tout d'abord, il nous faut copier le dépot github des exercices de la formation dans notre compte github (fork), puis le rapatrier localement (clonage).
+
+1. forkez le dépôt datatoolbox-exos situer à l'adresse suivante : https://github.com/FRBCesab/datatoolbox-exos
+
+2. clonez le dépôt localement en utilisant la fonctionalité de création de nouveau projet dans Rstudio (cela rajoutera 2 fichiers à la racine de votre dépôt, prenez le temps de les examiner)
+
+3. effacez le fichier "test" situé à la racine du dépôt
+
+4. versionnez ces premiers changements, commitez et pushez vers github
+
+---
+
+## Étape 2
+
+Nous allons maintenant transformer notre dépôt en reserach compendium intégrant les éléments essentiels de la structure d'un package R. Cela nous permettra ensuite d'utiliser les outils de développement disponibles pour les packages R.
+
+1. Transformez votre dépôt en research compendium rrtols à l'aide de la fonction rrtols::use_compendium :
+
+```{r eval = FALSE}
+rrtools::use_compendium("../datatoolboxexos/", open = FALSE)
+```
+
+
