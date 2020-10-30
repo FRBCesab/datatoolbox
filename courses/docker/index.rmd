@@ -23,7 +23,7 @@ output:
 
 class: inverse, center, middle
 
-## Work in progress...
+## C'est parti !
 
 <br />
 
