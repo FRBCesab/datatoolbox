@@ -52,7 +52,7 @@ output:
 
 .btn-xs[[**Cours**](courses/r-pkg/index.html)]
 
-.btn-xs[[**Cours**](courses/res-compendium/index.html)]&nbsp;.btn-xs[[**Exo 3**](exercises/rescomp/index.html)]
+.btn-xs[[**Cours**](courses/res-compendium/index.html)]&nbsp;.btn-xs[[**Exo 3**](exercises/res-compendium/index.html)]
 
 .btn-xs[[**Cours**](courses/tidyverse/index.html)]&nbsp;.btn-xs[[**Exo 4**](exercises/dplyr/index.html)]&nbsp;.btn-xs[[**Exo 5**](exercises/ggplot2/index.html)]
 

@@ -20,6 +20,9 @@ output:
       beforeInit: "../../assets/libs/macros.js"
 ---
 
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
 
 
 ## Objectifs
@@ -53,7 +56,7 @@ Nous allons maintenant transformer notre dépôt en reserach compendium intégra
 
 1. Transformez votre dépôt en research compendium rrtols à l'aide de la fonction rrtols::use_compendium :
 
-```{r eval = FALSE}
+```{r}
 rrtools::use_compendium("../datatoolboxexos/", open = FALSE)
 ```
 
