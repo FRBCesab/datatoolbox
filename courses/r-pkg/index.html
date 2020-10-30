@@ -3,7 +3,7 @@
   <head>
     <title>Building an R package</title>
     <meta charset="utf-8" />
-    <meta name="author" content="  Nicolas CASAJUS .inst[{{ Data scientist FRB-Cesab }}]" />
+    <meta name="author" content="  Nicolas CASAJUS .inst[{{ Data scientist FRB-CESAB }}]" />
     <script src="assets/libs/header-attrs-2.5/header-attrs.js"></script>
     <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../assets/css/xaringan-themer.css" type="text/css" />
@@ -15,7 +15,7 @@ class: right, middle, title-slide
 
 # Building an R package
 ## <i>the best part </i> <i class="fas  fa-grin-tongue "></i>
-### <br /><br />Nicolas CASAJUS<br />.inst[{{ Data scientist FRB-Cesab }}]
+### <br /><br />Nicolas CASAJUS<br />.inst[{{ Data scientist FRB-CESAB }}]
 ### .inst[Mardi 3 novembre 2020]
 
 ---
@@ -71,7 +71,7 @@ shareable code is the package. A package bundles together **code**, **data**,
 
 ## What's an R Package?
 
-- As of today (2020-10-27), **16463** packages are available on the [**CRAN**](https://cran.r-project.org). And many many more on GitHub and Bioconductor!
+- As of today (2020-10-30), **16443** packages are available on the [**CRAN**](https://cran.r-project.org). And many many more on GitHub and Bioconductor!
 
 --
 
@@ -142,7 +142,7 @@ devtools::session_info()
  OS       macOS Catalina 10.15.7
  System   x86_64, darwin17.0
  UI       RStudio
- Language (EN)
+ Language English
  Collate  fr_FR.UTF-8
  CType    fr_FR.UTF-8
  TZ       Europe/Paris
@@ -282,7 +282,7 @@ usethis::use_build_ignore("_devhistory.R")
 
 ## Setup versioning
 
-- Let's initialize the <i class="fab  fa-git "></i> versioning with
+- Let's initialize the <i class="fab  fa-git "></i> versioning
 
 
 
@@ -316,9 +316,10 @@ Restart now?
 ---
 
 
-## The <i class="fab  fa-apple "></i> .DS_Store file
+## <i class="fab  fa-apple "></i> .DS_Store files
 
-<i class="fas  fa-hand-point-right "></i> &amp;nbsp;.DS_Store file on macOS computers is an hidden file storing folder preferences for the Finder application. It's recommended to remove it from the versioning. Moreover this file is not part of standard package structure: we also need to ignore it during the check and installation of the package.
+**.DS_Store** files are hidden files storing folder preferences on macOS computers. It's recommended to remove them from the versioning. Moreover these files are not part of standard package structure: we also need to ignore them during the check and installation of the package.
+
 --
 
 
@@ -375,7 +376,7 @@ class: inverse, center, middle
 usethis::edit_file("DESCRIPTION")
 ```
 
-```dcf
+```
 Package: rpkg
 Title: What The Package Does (one line, title case required, no final period)
 Authors@R:
@@ -400,7 +401,7 @@ Description: What the package does (one paragraph). The description of a package
 usethis::edit_file("DESCRIPTION")
 ```
 
-```dcf
+```
 Package: rpkg
 Title: A Minimal But Complete R Package
 Authors@R:
@@ -435,7 +436,7 @@ usethis::use_git(message = ":bulb: Edit package metadata")
 
 ## Package-level documentation
 
-- What about converting the `DESCRIPTION` informations into a package-level documentation file? This file will be the homepage of the help section of our package accessible with `?pkg_name`
+- What about converting the `DESCRIPTION` informations into a package-level documentation file? This file will be the homepage of the help section of our package accessible with `?pkg_name` or `??pkg_name`
 
 --
 
@@ -587,7 +588,7 @@ moyenne &lt;- function(x) sum(x) / length(x)
 
 ## Let's try our function
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Before going any further we have to try our code. So we will load our package (and **not** sourcing the function)
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Before going any further we have to try our code. So we will load our package (and **NOT** sourcing the function)
 
 
 ```r
@@ -600,8 +601,7 @@ Now we can use our function
 
 
 ```r
-x &lt;- 1:10
-moyenne(x)
+moyenne(1:10)
 ```
 
 ```
@@ -614,12 +614,13 @@ Let's compare with the function `mean()`
 
 
 ```r
-mean(x)
+mean(1:10)
 ```
 
 ```
 ## [1] 5.5
 ```
+
 
 <i class="fas  fa-beer " style="color:#3f3f3f;"></i>
 <i class="fas  fa-beer " style="color:#3f3f3f;"></i>
@@ -656,7 +657,7 @@ class: inverse, center, middle
 ]
 
 .pull-rightt[
-- Specially-structured comments preceding each function definition
+- Specially-structured comments **preceding** each function definition
 - Lightweight syntax easy to write and to read
 - Syntax: `#' @field value`
 - Keep function definition and documentation in the same file
@@ -665,11 +666,11 @@ class: inverse, center, middle
 
 --
 
-Each Roxygen2 header will start with these two fields
+Each **Roxygen2 header** will always start with these two fields:
 
 
 ```r
-#' @title Short Title of the Function (One Line, Title Case, No Final Period)
+#' @title Short Title of the Function (One Line)
 #'
 #' @description A longer description of what the function does (several lines)
 ```
@@ -680,7 +681,7 @@ Each Roxygen2 header will start with these two fields
 
 
 ```r
-#' Short Title of the Function (One Line, Title Case, No Final Period)
+#' Short Title of the Function (One Line)
 #'
 #' A longer description of what the function does (several lines)
 ```
@@ -690,7 +691,7 @@ Each Roxygen2 header will start with these two fields
 
 ## Time to document
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;If your function has **parameters**, each must be documented as follow
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;If your function has **parameters**, each one must be documented
 
 
 ```r
@@ -846,7 +847,7 @@ devtools::document()                                  # or roxygen2::roxygenize(
 export(moyenne)
 ```
 
-- As we can see this file lists which functions need to be exported (accessible by the user when loading the package). But it also deals with external dependencies.
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;As we can see this file lists which functions need to be exported (accessible by the user when loading the package). But it also deals with external dependencies.
 
 --
 
@@ -935,7 +936,7 @@ moyenne(1:1000)
 ```
 
 ```
-[1] 500.5
+## [1] 500.5
 ```
 
 Or,
@@ -1024,7 +1025,7 @@ usethis::use_testthat()
 
 ## Test your code
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;A new R file has been written: `tests/testthat.R`. It sets the testing environment
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;A new <i class="fab  fa-r-project "></i> file has been written: `tests/testthat.R`. It sets the testing environment
 
 
 
@@ -1045,7 +1046,7 @@ usethis::use_git(message = ":white_check_mark: Setup testthat")
 
 &lt;br /&gt;
 
-Now we have to implement some unit tests. First let's create a script for testing the function `moyenne()`
+- Now we have to implement some unit tests. Let's create an <i class="fab  fa-r-project "></i> script for testing the function `moyenne()`
 
 
 
@@ -1057,6 +1058,8 @@ usethis::use_test("moyenne")
 ✓ Writing 'tests/testthat/test-moyenne.R'
 ● Modify 'tests/testthat/test-moyenne.R'
 ```
+
+--
 
 <i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;All tests files are stored in `tests/testthat/` and their names must start with `test-*`
 
@@ -1072,7 +1075,7 @@ Tests are organised hierarchically: **expectations** are grouped into **tests** 
 
 --
 
-- A **test** has multiple expectations and test one unit of a functionality (output, parameters, etc.). A test is created with `test_that()`.
+- A **test** has multiple expectations and tests one unit of a functionality (output, parameters, etc.). A test is created with `test_that()`.
 
 --
 
@@ -1121,7 +1124,7 @@ Skipped:  0
 
 ## Test your code
 
-Let's add some another test
+Let's add another test
 
 
 ```r
@@ -1468,7 +1471,7 @@ class: inverse, center, middle
 
 ## NAMESPACE
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Usually a package depends on functions of others packages. So we need to tell R about that to ensure that 1) others packages are installed when your package is installed, and 2) that they are made available when your package is loaded&lt;sup&gt;&lt;b&gt;*&lt;/b&gt;&lt;/sup&gt;.
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Usually a package depends on functions of others packages. So we need to tell <i class="fab  fa-r-project "></i> about that to ensure that 1) others packages are installed when your package is installed, and 2) that they are made available when your package is loaded&lt;sup&gt;&lt;b&gt;*&lt;/b&gt;&lt;/sup&gt;.
 
 .footnote[
 *****This is true for every package (except for the package `{base}`), even for packages `{utils}`, `{stats}` and `{graphics}` installed by default with <i class="fab  fa-r-project "></i>.
@@ -1481,7 +1484,7 @@ class: inverse, center, middle
 
 --
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;As said before, the `NAMESPACE` is automatically updated when `devtools::document()` is called. So we need to list these dependencies in the **Roxygen2** headers with:
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;As said before, the `NAMESPACE` is automatically updated when `devtools::document()` is called. So we need to list these dependencies in the **Roxygen2** header with:
 
 - `#' @import package`: will import all the functions of the dependency
 - `#' @importFrom package function`: will only import the listed functions
@@ -1490,7 +1493,7 @@ class: inverse, center, middle
 
 ## NAMESPACE
 
-In our case we had the following note:
+Previously we had the following note:
 
 ```
 &gt; checking R code for possible problems ... NOTE
@@ -1502,8 +1505,11 @@ In our case we had the following note:
   to your NAMESPACE file.
 ```
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;In short we need to import this function of the package `{stats}`
+--
 
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;So we need to import this function of the package `{stats}`
+
+--
 
 
 ```r
@@ -1750,8 +1756,6 @@ usethis::use_news_md()
 
 --
 
-&lt;br /&gt;
-
 - For instance
 
 ```
@@ -1763,9 +1767,12 @@ usethis::use_news_md()
 
 --
 
-&lt;br /&gt;
 
 <i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Try to keep this file updated after each version incrementation
+
+--
+
+&lt;br /&gt;
 
 
 ```r
@@ -1782,6 +1789,225 @@ class: inverse, center, middle
 
 ![](assets/img/doctor-who.gif)
 
+---
+
+## Connecting to GitHub
+
+Here we opted for creating a local versioned <i class="fab  fa-r-project "></i> project: this workflow is called [**GitHub last**](https://happygitwithr.com/existing-github-last.html).
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;So we need to:
+
+1. Create an new empty repository on our GitHub account (or organization)
+2. Add the remote (GitHub repository URL) to our local <i class="fab  fa-git "></i> project
+3. Push our versioned <i class="fab  fa-r-project "></i> project to this new repository
+
+--
+
+&lt;br /&gt;
+
+There is two way of doing that:
+- On the GitHub website, then on a terminal
+- Directly from <i class="fab  fa-r-project "></i> in one command line
+
+---
+
+## Connecting to GitHub - Option 1
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Log in on your GitHub account and create a new empty repository (click on the **+** on the top-right)
+
+.center[![:scale 90%](assets/img/github-1.png)]
+
+---
+
+## Connecting to GitHub - Option 1
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Give a name to the new repository and let other options to their defaults values (no README, no LICENSE, no .gitignore)
+
+.center[![:scale 90%](assets/img/github-2.png)]
+
+---
+
+## Connecting to GitHub - Option 1
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Choose your protocol with which you communicate with GitHub (HTTPS or SSH if you have generated SSH keys)
+
+.center[![:scale 90%](assets/img/github-3.png)]
+
+---
+
+## Connecting to GitHub - Option 1
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;To connect a local git project to a GitHub repository, run the following command line under the RStudio terminal&lt;sup&gt;*****&lt;/sup&gt;:
+
+```sh
+git remote add origin git@github.com:ahasverus/rpkg.git
+```
+
+or, if you prefer directly on the <i class="fab  fa-r-project "></i> console:
+
+
+```r
+system("git remote add origin git@github.com:ahasverus/rpkg.git")
+```
+
+.footnote[
+***** `ahasverus` is my GitHub account and `rpkg` my package/repository name
+]
+
+--
+
+Since October 2020, GitHub has decided to replace the 'master' branch with 'main' in order to remove unnecessary references to slavery and replace them with more inclusive terms (see [**here**](https://www.techrepublic.com/article/github-to-replace-master-with-main-starting-in-october-what-developers-need-to-know/) and [**here**](https://www.zdnet.com/article/github-to-replace-master-with-main-starting-next-month/)).
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;So we need to rename our local 'master' branch in 'main'
+
+
+```sh
+git branch -M main
+```
+
+---
+
+## Connecting to GitHub - Option 1
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Before pushing our local project we will add two lines in the `DESCRIPTION` file:
+
+```
+URL: https://github.com/ahasverus/rpkg
+BugReports: https://github.com/ahasverus/rpkg/issues
+```
+
+--
+
+&lt;br /&gt;
+
+Let's commit our changes and push our project on GitHub
+
+
+
+```r
+usethis::use_git(message = ":bulb: Update package metadata")
+system("git push -u origin main")
+```
+
+--
+
+.center[
+![:scale 32%](https://media.giphy.com/media/s2qXK8wAvkHTO/source.gif)
+![:scale 32%](https://media.giphy.com/media/s2qXK8wAvkHTO/source.gif)
+![:scale 32%](https://media.giphy.com/media/s2qXK8wAvkHTO/source.gif)
+]
+
+
+---
+
+## Connecting to GitHub - Option 2
+
+An alternative to previous steps is the function `usethis::use_github()`. This function will:
+
+  1. Create a new repository
+  2. Add the remote locally
+  3. Edit the `DESCRIPTION`
+
+All in one command line. Pretty cool, isn't it!
+
+--
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**BUT** first we need to get a [**GitHub Personal Access Token**](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token) (PAT) which will allow <i class="fab  fa-r-project "></i> to control GitHub (only once)
+
+--
+
+
+```r
+usethis::browse_github_token()
+```
+
+Generate your token and copy its value
+
+---
+
+## Connecting to GitHub - Option 2
+
+Once our new GitHub PAT is generated, it is common to store it as an environment variable in the file `.Renviron`
+
+--
+
+- Let's open this `.Renviron` file
+
+
+```r
+usethis::edit_r_environ()
+```
+
+--
+
+- And add the following line:
+
+```
+GITHUB_PAT=999999zzz99zz9z9zzzz9zzz99999z9z9z9zzz99
+```
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Make sure to replace `999999zzz...` by your token and make sure `.Renviron` ends with a newline!
+
+--
+
+Verification (after restarting RStudio):
+
+
+```r
+usethis::github_token()
+```
+
+```
+## [1] "999999zzz99zz9z9zzzz9zzz99999z9z9z9zzz99"
+```
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Resources: [**Managing secrets**](https://cran.r-project.org/web/packages/httr/vignettes/secrets.html)
+
+---
+
+## Connecting to GitHub - Option 2
+
+We are ready to connect our local project to new Github repository
+
+
+```r
+usethis::use_github(protocol = "ssh")
+usethis::use_github(protocol = "https")      # If you haven't generated SSH keys
+```
+
+```
+✓ Checking that current branch is 'master'
+✓ Creating GitHub repository
+✓ Setting remote 'origin' to 'git@github.com:ahasverus/rpkg.git'
+✓ Adding GitHub links to DESCRIPTION
+✓ Setting URL field in DESCRIPTION to 'https://github.com/ahasverus/rpkg'
+✓ Setting BugReports field in DESCRIPTION to 'https://github.com/ahasverus/rpkg/issues'
+✓ Pushing 'master' branch to GitHub and setting remote tracking branch
+● Failed to push and set tracking branch.
+```
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;This function will also try to push project but it will fail. We need to run:
+
+
+```r
+system("git push --set-upstream origin master")
+```
+
+--
+
+&lt;br /&gt;
+
+Now our local project and Github are linked and synchronized (for now). After committing future changes we will be able to push normally (using RStudio git panel or `git push`)
 
 ---
 
@@ -1789,27 +2015,194 @@ class: inverse, center, middle
 
 ## Add a README
 
+&lt;br /&gt;
+
+![:scale 50%](assets/img/manual.gif)
+
+---
+
+## Add a README
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;It's time to add a **README** to our repository: in a glance user will know more about our project (what it does, how to install it, and how to use it).
+
+
+```r
+usethis::use_readme_rmd()
+```
+
+```
+✓ Writing 'README.Rmd'
+✓ Adding '^README\\.Rmd$' to '.Rbuildignore'
+● Modify 'README.Rmd'
+```
+
+--
+
+&lt;br /&gt;
+
+You can find an example of the `README.Rmd` of our package [**here**](https://gist.github.com/ahasverus/1ab87dba3a4e473817fe6835139022f6)
+
+We are creating a `.Rmd` because our project is an <i class="fab  fa-r-project "></i> package. After editing the file we'll need to compile it into a `.md` file.
+
+
+```r
+rmarkdown::render("README.Rmd")
+```
+
+```
+✓ Preview created: README.html
+✓ Output created: README.md
+```
+
+---
+
+## Add a README
+
+Two files have been created. The `.md` will be used by GitHub and the CRAN, but the `.html` will not be used by <i class="fab  fa-r-project "></i> during the build of our package.
+
+--
+
+Let's add it to the `.Rbuildignore` (and the `.gitignore`)
+
+
+```r
+usethis::use_build_ignore("README.html")
+usethis::use_git_ignore("README.html")
+```
+
+--
+
+&lt;br /&gt;
+
+
+```r
+usethis::use_git(message = ":pencil: Edit README")
+system("git push")
+```
+
+&lt;br /&gt;
+
+<i class="fas  fa-exclamation-triangle " style="color:#3f3f3f;"></i> &amp;nbsp;Each time you edit the `README.Rmd` you will have to update the `.md` with `rmarkdown::render("README.Rmd")`
+
 
 ---
 
 class: inverse, center, middle
 
-## CI/CD - Checks
+## The Wonderful world of the &lt;br /&gt;GitHub Actions
 
+&lt;br /&gt;
 
----
-
-class: inverse, center, middle
-
-## CI/CD - Website
-
+![](assets/img/cyberman.gif)
 
 ---
 
-class: inverse, center, middle
+## GitHub Actions
 
-## CI/CD - Code coverage
+And if we were able to trigger automated tasks after we push to GitHub?
 
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;This is where ![:scale 3%](assets/img/actions-logo.png) `GitHub Actions`
+come in. They can trigger actions that will automate our workflow under a CI/CD framework allowing us to build (check), test and
+deploy our <i class="fab  fa-r-project "></i> package after each interaction with GitHub.
+
+.center[![:scale 100%](assets/img/actions-workflow.png)]
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Resources: [**Official website**](https://github.com/features/actions)
+
+---
+
+## GH Actions - Checks &amp; Tests
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Instead of locally (and each time we make changes) checking our <i class="fab  fa-r-project "></i> package with `devtools::check()` and running
+unit tests with `devtools::test()`, we can delegate these tasks to GitHub with the functions of the family: `usethis::use_github_action_check_*()`
+
+--
+
+&lt;br /&gt;
+
+You can replace `*` by one of:
+- `release`: this will build our package on macOS with the latest release of <i class="fab  fa-r-project "></i>;
+- `standard`: this will build our package on three OS (linux, macOS and Windows) and the release and devel version of <i class="fab  fa-r-project "></i>;
+- `full`: this will build our package on the same three OS and multiple versions of <i class="fab  fa-r-project "></i>.
+
+---
+
+## GH Actions - Checks &amp; Tests
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Let's check and test our package in a robust way (cross-platform and multiple versions of <i class="fab  fa-r-project "></i>)
+
+
+
+```r
+usethis::use_github_action_check_full()
+```
+
+```
+✓ Creating '.github/'
+✓ Adding '*.html' to '.github/.gitignore'
+✓ Creating '.github/workflows/'
+✓ Writing '.github/workflows/R-CMD-check.yaml'
+✓ Adding R build status badge to 'README.Rmd'
+● Re-knit 'README.Rmd'
+```
+
+The configuration file for this GH Actions has been stored in
+`.github/workflows/` (a `YAML` file): it will trigger the check and test our package once we have committed and pushed changes.
+
+--
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Our `README.Rmd` has been modified: a badge has been added. So we need to re-knit it:
+
+
+
+```r
+rmarkdown::render("README.Rmd")
+```
+
+---
+
+## GH Actions - Checks &amp; Tests
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Let's commit changes and push to our repository
+
+
+```r
+usethis::use_git(message = ":octocat: Configure gh-actions (checks &amp; tests)")
+system("git push")
+```
+
+.pull-left[.center[
+![:scale 60%](assets/img/tests-1.png)
+]]
+
+.pull-right[.center[
+![:scale 60%](assets/img/tests-2.png)
+]]
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;After a few minutes our package has been cheked and tested by GitHub servers!
+
+---
+
+## GH Actions - Checks &amp; Tests
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;And we've got a green badge. **Yeah!!!**
+
+.center[![:scale 100%](assets/img/badge-check.png)]
+
+--
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Resources: [**GH Actions for R**](https://ropenscilabs.github.io/actions_sandbox)
+
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;And the complete `_devhistory.R` for this package: [**here**](https://gist.github.com/ahasverus/1ba2280bad8726d810791c0cc893a8b4)
 
 ---
 
@@ -1817,25 +2210,54 @@ class: inverse, center, middle
 
 ## To go further...
 
+&lt;br /&gt;
+
+![](assets/img/climbing.gif)
+
 ---
 
-- Badges
-- DOI and Zenodo
-- HexSticker
-- Datasets
-- Vignettes
-- Lifecycle
-- Resources pages
+## To go further...
+
+.pull-left[
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;A website for your package
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Add badges to your repository
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Add a DOI with Zenodo
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Create a logo for you packages
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Add Data to your package
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Add a vignette (tutorial)
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Add a code coverage
+]
+
+.pull-right[
+.btn-xs[[**Lien**](https://pkgdown.r-lib.org/)]
+
+.btn-xs[[**Lien**](https://usethis.r-lib.org/reference/badges.html)]
+
+.btn-xs[[**Lien**](https://zenodo.org)]
+
+.btn-xs[[**Lien**](https://github.com/GuangchuangYu/hexSticker)]
+
+.btn-xs[[**Lien**](https://r-pkgs.org/data.html)]
+
+.btn-xs[[**Lien**](https://r-pkgs.org/vignettes.html)]
+
+.btn-xs[[**Lien**](https://github.com/r-lib/covr)]
+]
+
+&lt;br/ &gt;
+### That's all folk!
 
 ---
 
 class: inverse, center, middle
 
-## Congratulations!
-
-&lt;br /&gt;
-
-![:scale 50%](assets/img/tired.gif)
+![:scale 80%](assets/img/tired.gif)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
