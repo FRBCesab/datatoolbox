@@ -60,4 +60,6 @@ Nous allons maintenant transformer notre dépôt en reserach compendium intégra
 rrtools::use_compendium("../datatoolboxexos/", open = FALSE)
 ```
 
+2. Suivez les instructions de la sortie de la fonction et éditez le fichier DESCRIPTION
 
+3. versionnez ces changements, commitez et pushez vers github
