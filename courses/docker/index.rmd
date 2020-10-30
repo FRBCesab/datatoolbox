@@ -1,7 +1,7 @@
 ---
 title: Introduction to Docker
-subtitle: <i>the hardest part </i>&nbsp;`r icon::fa("sad-cry")`
-author: <br /><br />Nicolas CASAJUS<br />.inst[{{ Data scientist FRB-Cesab }}]
+subtitle: <i>the hardest part </i>&nbsp;`r icon::fa("meh-rolling-eyes")`
+author: <br /><br />Nicolas CASAJUS<br />.inst[{{ Data scientist FRB-CESAB }}]
 date: .inst[Mercredi 4 novembre 2020]
 output:
   xaringan::moon_reader:
