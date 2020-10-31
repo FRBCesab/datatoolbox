@@ -140,7 +140,7 @@ La page d'aide de la fonction `datatoolboxexos::data_eco_list`.
 
 ## Étape 5-5 : un peu de relâchement
 
-Lorsque vous êtes en phase de déveoppement actif, vous ne voulez pas sans arrêt "checker" et "builder" votre package, ça peut être long. Une solution est l'utilsiation de la fonction `devtools::load_all` qui a pour effet principal de "sourcer" tous les fichiers présents dans le répetoire "R/".
+Lorsque vous êtes en phase de déveoppement actif, vous ne voulez pas sans arrêt "checker" et "builder" votre package, ça peut être long. Une solution est l'utilisation de la fonction `devtools::load_all` qui a pour effet principal de "sourcer" tous les fichiers présents dans le répetoire "R/".
 
 ---
 
@@ -149,11 +149,10 @@ Lorsque vous êtes en phase de déveoppement actif, vous ne voulez pas sans arr�
 Nous avons maintenant 3 fonctions à disposition dans notre compendium. Nous pouvons créer un premier document Rmarkdown pour le premier exercice sur le Tidyverse : [`dplyr`](https://frbcesab.github.io/datatoolbox/exercises/dplyr/index.html#1).
 &lt;br/&gt;&lt;br/&gt;
 Plusieurs choix s'offrent à vous pour localiser vos fichiers "Rmd" dans votre arborescence, leur pertinence dépendra essentiellement de la complexité de vos analyses. Ici, pour notre premier compendium, on va créer un fichier ".Rmd" par exercice dans un répertoire ... "exercices".
-&lt;br/&gt;&lt;br/&gt;
+&lt;br/&gt;
+1. Créez le fichier "exercices/exo_dplyr.Rmd" (format html_document, option keep_md: TRUE)
 
-1. Créez le fichier "exercices/exo_dplyr.Rmd" ()
-
-2. Modifiez le pour afficher l'hisogramme de la distribution du nombre d'espèces ee mammifères par écoregion
+2. Modifiez le pour afficher l'histogramme de la distribution du nombre d'espèces de mammifères par écoregion
 
 3. Compilez votre document "Rmd" et visualisez le dans votre navigateur
 
@@ -163,7 +162,7 @@ Plusieurs choix s'offrent à vous pour localiser vos fichiers "Rmd" dans votre a
 
 ## Étape 7 : automatisation ...
 
-Il ne nous reste plus qu'à automatiser quelques étapes et nous aurons un compendium fonctionnel, intégré dans un workflow qui assure la robustesse de nos analyses.
+Il ne nous reste plus qu'à automatiser quelques étapes et nous aurons un compendium fonctionnel, intégré dans un workflow qui assure une reproductibilité minimale de nos analyses.
 
 1. Créez un fichier make.R à la racine de votre projet.
 
@@ -171,15 +170,17 @@ Il ne nous reste plus qu'à automatiser quelques étapes et nous aurons un compe
 
 - installation/mise à jour des packages nécessaire aux analyses
 
-- installe le package intégré a compendium
+- installation de package intégré au compendium
 
-- compile le document "exercices/exo_dplyr.Rmd"
+- compilation du document "exercices/exo_dplyr.Rmd"
 
 3. Effacez les fichiers "exercices/exo_dplyr.html", "exercices/exo_dplyr.md" et le répertoire "exercices/exo_dplyr_files"
 
 4. Compilez votre compendium en sourçant le fichier make.R dans son ensemble
 
 5. Versionnez ces changements, commitez et pushez vers github
+
+---
 
 ## Étape 8 : finalisation
 
