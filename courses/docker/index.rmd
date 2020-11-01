@@ -559,77 +559,748 @@ actifs et stoppés existent toujours. Mais, ceux qui ont été supprimés avec `
 
 class: inverse, center, middle
 
-## Persistence
+## Persistance
 
 
 ---
 
-## Persistence et volumes
+## Persistance des conteneurs
 
-Mais conteneur basé sur image : modif non persistante = avantage, MAIS incovenient
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Mais si un conteneur est isolé,
+comment je récupère mes données qui sont à l'intérieur ? Et, comment je donne accès aux
+données stockées sur ma machine à mon conteneur ?
 
-- Volumes (pour données)
+--
+<br />
 
-volume de persistence = mapper : très utile en mode debug
+En effet, un conteneur n'est pas persistant : tout ce qui est ajouté à l'intérieur (fichiers, logiciels, etc.)
+n'est pas accessible depuis l'extérieur. Et lorsque celui-ci est détruit,
+tout est perdu ! Ce qui est un avantage pour bidouiller le contenu, mais un inconvénient
+lorsqu'on veut travailler sérieusement.
 
+
+--
+<br />
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Pour les données, on créera des **volumes**
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Pour les logiciels, on créera une nouvelle **image** `r icon::fa("docker")`
+
+---
+
+## Volumes de persistance
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+Un volume<sup>*****</sup> est un dossier. L'idée est de créer un pont entre un dossier du conteneur et un dossier
+de notre machine. On parle de **volumes mapping**
+
+.footnote[
+***** Ce n'est pas tout à fait vrai, et un volume peut avoir un autre sens avec Docker, mais faisons simple...
+]
+--
+
+Ainsi, un fichier/dossier créé dans le volume de la machine sera accessible par le conteneur via
+le volume lié. Et vice-versa.
+
+Le volume local (celui sur la machine) sera persistant même après
+la suppression du conteneur (et de son volume persistant).
+
+--
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+C'est cela qu'on appelle la **persistance**
+
+
+---
+
+## Volumes de persistance
+
+Soit le dossier `projet/`
+présent dans mon dossier personnel (noté `~` sous Unix) de ma machine (macOS). Celui-ci contient le dossier
+`data/`, un fichier `.csv` à l'intérieur et le fichier `README.md` :
+
+```
+projet
+├── README.md
+└── data
+    └── data-1.csv
+```
+
+--
+
+Je souhaite mapper ce volume à un dossier de mon **nouveau** conteneur, par ex.
+le dossier personnel de l'utilisateur **root** : `/root/`
+
+--
+
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+Pour cela, lorsque je créerai un nouveau conteneur basé sur l'image `debian:buster` avec
+la commande `docker run`, je rajouterai le drapeau `--volume` (ou `-v`) de la manière suivante :
 
 ```sh
-docker run -it --name "debbie" -v ~/Desktop/volumes:/root debian:buster
+-v chemin_absolu_vers_dossier_local:chemin_absolu_vers_dossier_conteneur
+```
+
+--
+
+`r icon::fa("exclamation-triangle", color = "#3f3f3f")` &nbsp;
+Les volumes mentionnés doivent exister tant sur la machine locale et dans le conteneur
+et il faut mentionner le chemin absolu vers ces dossiers.
+
+---
+
+## Volumes de persistance
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+Ce qui nous donne :
+
+```sh
+docker run -it --name "debbie" -v ~/projet:/root debian:buster
+```
+
+--
+<br />
+Maintenant, si j'affiche le contenu du dossier `/root/` de mon conteneur
+
+```sh
+ls /root
+```
+
+```
+README.md  data
+```
+
+```sh
+ls /root/data/
+```
+
+```
+data-1.csv
+```
+
+--
+<br />
+Créons un second fichier `README-2.md` dans mon conteneur
+
+```sh
+echo "Cree dans le conteneur" > /root/README-2.md
+```
+
+---
+
+## Volumes de persistance
+
+Vérifions qu'il a bien été créé depuis le conteneur :
+
+```sh
+ls /root
+```
+
+```
+README-2.md  README.md	data
+```
+
+Affichons son contenu
+
+```sh
+cat /root/README-2.md
+```
+```
+Cree dans le conteneur
+```
+
+--
+
+<br />
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+Qu'en est-il sur ma machine ?
+
+```sh
+tree ~/projet
+```
+
+```
+projet
+├── README-2.md
+├── README.md
+└── data
+    └── data-1.csv
 ```
 
 
-ou
+---
 
-- Nouvelle image (pour libs)
+## Volumes de persistance
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**ET**, on peut construire
-une nouvelle image à partir d'un conteneur que nous avons modifié
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+Et si je supprime le conteneur, que deviendra mon dossier sur ma machine ?
 
-
-
-Dans terminal parallèle
+--
 
 ```sh
-docker diff id_image
-docker commit id_image nouveau_nom
-docker save nouveau_nom > ~/Desktop/nouveau_nom.tar
+docker stop debbie
+docker rm debbie
 ```
+
+--
+
+```sh
+tree ~/projet
+```
+
+```
+projet
+├── README-2.md
+├── README.md
+└── data
+    └── data-1.csv
+```
+
+--
+
+<br />
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+Les données ont été persistées **!!!**
 
 
 ---
 
 class: inverse, center, middle
 
-## Création d'image
+## Création d'une image
+
+---
+
+## Ajout d'outils
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+Que se passe-t-il si mon conteneur ne contient pas tous les outils (librairies, logiciels, etc.) dont j'ai besoin ?
+
+--
+
+<br />
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Option 1** : la méthode **sale**
+
+L'idée est de rentrer dans un conteneur, d'installer les outils manquants (`apt-get install`) et
+d'enregistrer le nouvel état du conteneur vers une nouvelle image (avec `docker commit`). A titre
+informatif (uniquement) :
+
+```sh
+docker commit id_image nom_nouvelle_image
+```
+
+--
+
+C'est **très très sale** : les outils sont installés à la volée (depuis le conteneur) et
+on ne garde aucune trace des changements apportés. Niveau sécurité, c'est pas top... Et en plus,
+on n'est pas à l'abri de faire des mauvaises manip' et de compromettre la future image `r icon::fa("docker")`
+
+--
+
+<br />
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Option 2** : le `Dockerfile`
+
+---
+
+## Création d'image - Dockerfile
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Le `Dockerfile` est la recette qui va
+créer une nouvelle image `r icon::fa("docker")`
+
+C'est un simple fichier texte (**sans extension**) qui fournit une suite d'instructions amenant
+à la construction de la future image. Chaque instruction va créer une couche dans l'image (système de Lego) : plus
+il y aura de couches, plus l'image sera lourde.
+
+--
+
+<br />
+
+De plus, il est rare de construire une image _from scratch_ : on se base très souvent
+sur une (seule) image existante.
+
+--
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Ainsi, le processus de création
+d'une image est **incrémental** et peut être comparé à un `git pull`
+
+Lors de la construction de l'image, si l'image de référence est présente sur la machine,
+pas besoin de la télécharger (à l'instar, lors d'un `git pull`, on ne télécharge pas
+l'ensemble de l'historique, juste les dernières modifications).
 
 
 ---
 
 ## Création d'image - Dockerfile
 
-Syteme d'images incrementales idem a git pull (Telecharge que les modifs pas tout l'historique)
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Objectif** : nous allons
+améliorer l'image `debian:buster` en lui ajoutant quelques utilitaires manquants :
 
-image fait reference a autre image = systeme LEGO
+- `htop` : outil de monitoring du système
+- `nano` : éditeur de texte simple en ligne de commandes
+- `tree` : outil d'arborescence
+- `wget` : programme de téléchargement de fichiers
 
-Systeme de couches
+--
 
-layer RUN == .git (suppression de fichiers)
+Sur notre machine locale, nous allons créer un dossier, par ex. `mydebbie/`
+dans lequel nous allons créer un fichier qu'on va nommer `Dockerfile` et
+dans lequel nous écrire ces lignes.
 
+--
 
->> Exemple : construction d'un debian operationnel (avec utilitaires)
->>
->> git, tree, nano, curl, wget, htop, youtube-dl, pandoc
+```docker
+FROM debian:buster
 
-.dockerignore
+MAINTAINER Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
+```
 
-docker build -t nom_image:nom_tag localisation_du_Dockerfile
+--
+
+- La clause `FROM` permet de définir l'image de base (et sa version) sur laquelle on va bâtir
+la nouvelle image.
+
+- La clause `MAINTAINER` indique le créateur de l'image ainsi que le moyen de
+le contacter.
 
 ---
 
-## Partager une image
+## Création d'image - Dockerfile
 
-1. Docker Hub
-1. Partage du Dockerfile > build > run
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Tel quel, ce `Dockerfile`
+construira une image identique à l'image `debian:buster`
+
+--
+
+Rajoutons les instructions qui permettront d'installer les utilitaires requis
+
+```docker
+FROM debian:buster
+
+MAINTAINER Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
+
+RUN apt-get update -yq
+RUN apt-get install -yq --no-install-recommends htop nano tree wget
+```
+--
+
+- La clause `RUN` permet de passer des commandes Linux classiques. Elle ajoute
+une couche supplémentaire à notre image, ce qui l'alourdi. Il est donc
+recommendé de limiter ces clauses et de les fusionner.
+
+--
+
+```docker
+FROM debian:buster
+
+MAINTAINER Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
+
+RUN apt-get update -yq \
+  && apt-get install -yq --no-install-recommends htop nano tree wget
+```
+
+
+---
+
+## Création d'image - Dockerfile
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+On peut réduire encore la taille de la future image en supprimant le cache du gestionnaire
+`apt` qui contient les archives des utilitaires téléchargés.
+
+```docker
+FROM debian:buster
+
+MAINTAINER Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
+
+RUN apt-get update -yq \
+  && apt-get install -yq --no-install-recommends htop nano tree wget \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/
+```
+
+---
+
+## Création d'image - Dockerfile
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+Nous pouvons aussi créer un répertoire avec la commande Unix `mkdir`
+
+```docker
+FROM debian:buster
+
+MAINTAINER Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
+
+RUN apt-get update -yq \
+  && apt-get install -yq --no-install-recommends htop nano tree wget \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/ \
+  && mkdir -p /root/data
+```
+---
+
+## Création d'image - Dockerfile
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+Améliorons encore notre recette en définissant le répertoire par défaut
+du conteneur, par ex. `/root/data` (celui dans lequel on se retrouvera lorsqu'on rentrera dans le
+conteneur) avec la clause `WORKDIR`
+
+```docker
+FROM debian:buster
+
+MAINTAINER Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
+
+RUN apt-get update -yq \
+  && apt-get install -yq --no-install-recommends htop nano tree wget \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/ \
+  && mkdir -p /root/data
+
+WORKDIR /root/data
+```
+---
+
+## Création d'image - Dockerfile
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+J'ai du écrire deux fois `/root/data` : en programmation, c'est jamais bon...
+Heureusement, Docker offre la possibilité de manipuler des variables
+d'environnement avec la clause `ENV`. Optimisons donc le code.
+
+```docker
+FROM debian:buster
+
+MAINTAINER Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
+
+ENV FOLDER="/root/data"
+
+RUN apt-get update -yq \
+  && apt-get install -yq --no-install-recommends htop nano tree wget \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/ \
+  && mkdir -p "$FOLDER"
+
+WORKDIR "$FOLDER"
+```
+---
+
+## Création d'image - Dockerfile
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+Je voudrais copier un fichier que j'ai en local (et dans le même dossier dans l'exemple) dans l'image,
+afin qu'il soit présent dans mes futurs conteneurs. Pour cela, j'ai la clause
+`COPY`
+
+```docker
+FROM debian:buster
+
+MAINTAINER Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
+
+ENV FOLDER="/root/data"
+
+RUN apt-get update -yq \
+  && apt-get install -yq --no-install-recommends htop nano tree wget \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/ \
+  && mkdir -p "$FOLDER"
+
+COPY README.md "$FOLDER"
+
+WORKDIR "$FOLDER"
+```
+
+---
+
+## Création d'image - Dockerfile
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+Finalement, je peux aussi définir une commande par défaut qui sera exécutée lors
+du lancement d'un conteneur. Ici, ouvrons un shell `BASH`
+
+
+```docker
+FROM debian:buster
+
+MAINTAINER Nicolas Casajus <nicolas.casajus@fondationbiodiversite.fr>
+
+ENV FOLDER="/root/data"
+
+RUN apt-get update -yq \
+  && apt-get install -yq --no-install-recommends htop nano tree wget \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/ \
+  && mkdir -p "$FOLDER"
+
+COPY README.md "$FOLDER"
+
+WORKDIR "$FOLDER"
+
+CMD ["bash"]
+```
+
+La clause `CMD` s'écrit toujours sous la forme d'un array (une sorte de liste) :
+`CMD ["executable", "param1", "param2", "..."]`
+
+---
+
+## Le .dockerignore
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Tout comme `r icon::fa("git")`
+et `r icon::fa("r-project")`, `r icon::fa("docker")` est capable d'ignorer certains
+fichiers/dossiers lors de la construction d'une image grâce à un `.dockerignore`
+
+Cela est particulièrement important lorsque la clause `COPY` copie des dossiers entiers.
+
+--
+
+<br />
+Etant sous macOS, je vais ignorer les fameux fichiers `.DS_Store` et pourquoi pas les fichiers
+et dossiers cachés de `r icon::fa("git")` (ça grossirait l'image pour rien)
+
+```sh
+echo ".DS_Store" > .dockerignore
+echo ".git" >> .dockerignore
+echo ".gitignore" >> .dockerignore
+```
+
+
+---
+
+## Build de l'image
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+Nous sommes prêt pour construire (builder) notre image à partir du `Dockerfile`.
+Pour cela, je vais utiliser la commande `docker build` avec le drapeau `-t` pour
+donner un nom à mon image. Je dois aussi spécifier le répertoire contenant ma recette.
+Ici, c'est le dossier dans lequel je vais lancer la commande, donc je peux écrire `.`
+
+```sh
+docker build -t buster .
+```
+
+--
+
+Après quelques minutes, l'image est construite sur ma machine et a rejoint ma collection.
+
+```sh
+docker images
+```
+
+```
+REPOSITORY          TAG           IMAGE ID            CREATED             SIZE
+buster              latest        dd48c15a9389        46 minutes ago      121MB
+debian              buster        1510e8501783        2 weeks ago         114MB
+```
+
+--
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+Ma nouvelle image est légèrement plus grosse que celle d'origine : nous n'avons pas abusé des clauses `RUN`.
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+Par défaut, la tag `latest` a été ajouté à la nouvelle image.
+
+
+---
+
+## Utilisation de l'image
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Nous revoilà revenu au point de départ. Mais,
+avec une toute nouvelle image, faite maison qui plus est ! Créons-nous un conteneur pour l'fun
+
+```docker
+docker run -it --name "buster-1" buster
+```
+
+--
+
+<br />
+
+Et tapons quelques commandes :
+
+```sh
+pwd                                          # Répertoire de travail
+```
+
+```
+/root/data
+```
+
+--
+
+<br />
+
+```sh
+tree ../                                     # Utilisation du nouvel utilitaire
+```
+
+```
+.
+└── data
+    └── README.md
+```
+
+---
+
+## Résumé...
+
+![](assets/img/workflow-2.png)
+
+---
+
+## Résumé...
+
+![](assets/img/workflow-3.png)
+
+---
+
+## Résumé...
+
+![](assets/img/workflow-4.png)
+
+---
+
+## Résumé...
+
+![](assets/img/workflow-5.png)
+
+---
+
+## Résumé...
+
+![](assets/img/workflow-6.png)
+
+---
+
+## Résumé...
+
+![](assets/img/workflow-7.png)
+
+
+---
+
+class: inverse, center, middle
+
+## Partage d'une image
+
+---
+
+## Publier sur le Docker Hub
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+Nous allons voir qu'il est facile de publier une image `r icon::fa("docker")` sur le
+[**Docker Hub**](https://hub.docker.com). Pour cela, il nous faut tout d'abord nous créer
+un identifiant Docker en se rendant sur cette [**page**](https://hub.docker.com/signup).
+Une fois créé, nous devons stocker notre Docker ID sur notre machine local grâce
+à la commande suivante (nous devrons saisir l'ID et son mot de passe)
+
+```docker
+docker login
+```
+
+--
+<br />
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+Nous allons déposer notre image sur Docker Hub dans notre repository personnel (publique).
+Cependant, nous avons un problème, car pour ce faire, le nom de notre image doit
+contenir notre identifiant Docker : `docker_id/image`.
+
+Pas de soucis : nous n'avons qu'à créer une nouvelle image à partir de notre
+`Dockerfile`. Comme elle sera identique, cela prendre 1s.
+
+```docker
+docker build -t nicolascasajus/buster .
+```
+
+---
+
+## Publier sur le Docker Hub
+
+Vérifions :
+
+```docker
+docker images
+```
+
+```
+REPOSITORY              TAG        IMAGE ID         CREATED          SIZE
+buster                  latest     b389eba1f1c9     2 hours ago      121MB
+nicolascasajus/buster   latest     b389eba1f1c9     2 hours ago      121MB
+debian                  buster     1510e8501783     2 weeks ago      114MB
+```
+
+--
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+Docker lui a attribué la version
+`latest`. Pour publier sur le Hub, il est préférable de lui attribuer un autre tag,
+plus parlant. Allons-y
+
+
+```docker
+docker tag nicolascasajus/buster nicolascasajus/buster:1.0
+```
+
+Vérifions :
+
+```docker
+docker images
+```
+
+```
+REPOSITORY              TAG        IMAGE ID         CREATED          SIZE
+nicolascasajus/buster   1.0        b389eba1f1c9     2 hours ago      121MB
+```
+
+
+---
+
+## Publier sur le Docker Hub
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+Il est temps de pusher !
+
+```sh
+docker push nicolascasajus/buster:1.0
+```
+
+---
+
+## Publier sur le Docker Hub
+
+![](assets/img/my-hub-1.png)
+
+---
+
+## Publier sur le Docker Hub
+
+![](assets/img/my-hub-2.png)
+
+---
+
+## Publier sur le Docker Hub
+
+![](assets/img/my-hub-3.png)
+
+
+---
+
+## Publier sur le Docker Hub
+
+
+![](assets/img/workflow-7.png)
+
+---
+
+## Partager le Dockerfile
+
+![](assets/img/workflow-8.png)
+
 
 ---
 
@@ -650,14 +1321,12 @@ https://github.com/annakrystalli/rrcompendiumDTB
 
 ---
 
-class: inverse, center, middle
-
-## Docker Compose
-
----
-
-## docker-compose
+## Pour aller plus loin...
 
 
-Docker-compose : creer d'abird image Dockerfile puis editer docker-compose.yml, puis docker-compose up
-Pour quitter, CTRL+C et docker-compose down
+- Docker-compose :
+
+  - creer d'abird image Dockerfile
+  - editer docker-compose.yml
+  - `docker-compose up`
+  - `docker-compose down`
