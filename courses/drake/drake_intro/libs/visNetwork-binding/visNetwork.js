@@ -1762,6 +1762,9 @@ if (HTMLWidgets.shinyMode){
             if(data.options.byselection.hideColor){
               el.byselectionColor = data.options.byselection.hideColor;
             }
+            if(data.options.byselection.highlight !== undefined){
+              el.byselectionHighlight = data.options.byselection.highlight;
+            }
           }
           
           if(data.options.byselection !== undefined){
@@ -2199,8 +2202,10 @@ HTMLWidgets.widget({
 
     if(x.byselection.enabled){
       el_id.byselectionColor = x.byselection.hideColor;
+      el_id.byselectionHighlight = x.byselection.highlight;
     } else {
       el_id.byselectionColor = 'rgba(200,200,200,0.5)';
+      el_id.byselectionHighlight = false;
     }
     
     if(x.idselection.enabled){
@@ -2285,7 +2290,7 @@ HTMLWidgets.widget({
         instance.network.selectNodes([id]);
       }
       if(el_id.highlight){
-        neighbourhoodHighlight(instance.network.getSelection().nodes, "click", el_id.highlightAlgorithm);
+        neighbourhoodHighlight(instance.network.getSelection().nodes, "click", el_id.highlightAlgorithm, true);
       }else{
         if(init){
           selectNode = document.getElementById('nodeSelect'+el.id);
@@ -2862,7 +2867,7 @@ HTMLWidgets.widget({
             var r = confirm("Do you want to delete " + data.nodes.length + " node(s) and " + data.edges.length + " edges ?");
             if (r === true) {
               deleteSubGraph(data, callback);
-            }
+            } else { clearPopUp(); callback(null); }
         };
       } else if(typeof(x.options.manipulation.deleteNode) === typeof(true)){
         if(x.options.manipulation.deleteNode){
@@ -2870,7 +2875,7 @@ HTMLWidgets.widget({
               var r = confirm("Do you want to delete " + data.nodes.length + " node(s) and " + data.edges.length + " edges ?");
               if (r === true) {
                 deleteSubGraph(data, callback);
-              }
+              } else { clearPopUp(); callback(null); }
           };
         } else {
           options.manipulation.deleteNode = false;
@@ -2884,7 +2889,7 @@ HTMLWidgets.widget({
             var r = confirm("Do you want to delete " + data.edges.length + " edges ?");
             if (r === true) {
               deleteSubGraph(data, callback);
-            }
+            } else { clearPopUp(); callback(null); }
         };
       } else if(typeof(x.options.manipulation.deleteEdge) === typeof(true)){
         if(x.options.manipulation.deleteEdge){
@@ -2892,7 +2897,7 @@ HTMLWidgets.widget({
               var r = confirm("Do you want to delete " + data.edges.length + " edges ?");
               if (r === true) {
                 deleteSubGraph(data, callback);
-              }
+              } else { clearPopUp(); callback(null); }
           };
         } else {
           options.manipulation.deleteEdge = false;
@@ -3213,6 +3218,12 @@ HTMLWidgets.widget({
           edges.update(edgesHardToRead);
             
           nodes.update(updateArray);
+          
+          // select for highlight
+          if(el_id.highlight && x.nodes && el_id.byselectionHighlight){
+              neighbourhoodHighlight(connectedNodes, "click", el_id.highlightAlgorithm, false);
+              instance.network.selectNodes(connectedNodes)
+          }
         }
       }
       else if (el_id.selectActive === true) {
@@ -3228,7 +3239,7 @@ HTMLWidgets.widget({
     var is_hovered = false;
     var is_clicked = false;
     
-    function neighbourhoodHighlight(params, action_type, algorithm) {
+    function neighbourhoodHighlight(params, action_type, algorithm, reset_selectedBy) {
 
       var nodes_in_clusters = instance.network.body.modules.clustering.clusteredNodes;
       var have_cluster_nodes = false;
@@ -3642,7 +3653,7 @@ HTMLWidgets.widget({
         }
       }
       // reset selectedBy list if actived
-      if(el_id.byselection){
+      if(el_id.byselection && reset_selectedBy){
         resetList("selectedBy", el.id, 'selectedBy');
       }
     }
@@ -3680,7 +3691,7 @@ HTMLWidgets.widget({
     // shared click function (selectedNodes)
     document.getElementById("graph"+el.id).myclick = function(params){
         if(el_id.highlight && x.nodes){
-          neighbourhoodHighlight(params.nodes, "click", el_id.highlightAlgorithm);
+          neighbourhoodHighlight(params.nodes, "click", el_id.highlightAlgorithm, true);
         }else if((el_id.idselection || el_id.byselection) && x.nodes){
           onClickIDSelection(params)
         }
@@ -3689,7 +3700,7 @@ HTMLWidgets.widget({
     // Set event in relation with highlightNearest      
     instance.network.on("click", function(params){
         if(el_id.highlight && x.nodes){
-          neighbourhoodHighlight(params.nodes, "click", el_id.highlightAlgorithm);
+          neighbourhoodHighlight(params.nodes, "click", el_id.highlightAlgorithm, true);
         }else if((el_id.idselection || el_id.byselection) && x.nodes){
           onClickIDSelection(params)
         } 
@@ -3697,13 +3708,13 @@ HTMLWidgets.widget({
     
     instance.network.on("hoverNode", function(params){
       if(el_id.hoverNearest && x.nodes){
-        neighbourhoodHighlight([params.node], "hover", el_id.highlightAlgorithm);
+        neighbourhoodHighlight([params.node], "hover", el_id.highlightAlgorithm, true);
       } 
     });
 
     instance.network.on("blurNode", function(params){
       if(el_id.hoverNearest && x.nodes){
-        neighbourhoodHighlight([], "hover", el_id.highlightAlgorithm);
+        neighbourhoodHighlight([], "hover", el_id.highlightAlgorithm, true);
       }      
     });
     
@@ -3867,7 +3878,7 @@ HTMLWidgets.widget({
         // reset some parameters / data before
         if (el_id.selectActive === true | el_id.highlightActive === true) {
           //reset nodes
-          neighbourhoodHighlight([], "click", el_id.highlightAlgorithm);
+          neighbourhoodHighlight([], "click", el_id.highlightAlgorithm, true);
           if (el_id.selectActive === true){
             el_id.selectActive = false;
             resetList('selectedBy',el.id, 'selectedBy');
@@ -3882,7 +3893,7 @@ HTMLWidgets.widget({
           clusterByColor();
         }
         if(x.clusteringGroup){
-          clusterByGroup();
+          clusterByGroup(x.clusteringGroup.groups);
         }
         if(x.clusteringHubsize){
           clusterByHubsize();
@@ -3904,6 +3915,18 @@ HTMLWidgets.widget({
             instance.network.openCluster(params.nodes[0], {releaseFunction : function(clusterPosition, containedNodesPositions) {
               return containedNodesPositions;
             }});
+          } else {
+            if(x.clusteringGroup){
+              var array_group = nodes.get({
+                fields: ['group'],
+                filter: function (item) {
+                  return  item.id === params.nodes[0] ;
+                },
+                returnType :'Array'
+              });
+            
+              clusterByGroup([array_group[0].group]);
+            }
           }
         }
       });
@@ -4022,59 +4045,62 @@ HTMLWidgets.widget({
     //*************************
     if(x.clusteringGroup){
       
-      function clusterByGroup() {
-        var groups = x.clusteringGroup.groups;
+      function clusterByGroup(groups) {
         var clusterOptionsByData;
         for (var i = 0; i < groups.length; i++) {
           var group = groups[i];
-          var col = x.clusteringGroup.color[i];
-          var sh = x.clusteringGroup.shape[i];
-          var force = x.clusteringGroup.force[i];
-          var sc_size = x.clusteringGroup.scale_size[i];
-          
-          clusterOptionsByData = {
-              joinCondition: function (childOptions) {
-                  return childOptions.group == group; //
-              },
-              processProperties: function (clusterOptions, childNodes, childEdges) {
-                  var totalMass = 0;
-                  var cluster_level = 9999999;
-                  for (var i = 0; i < childNodes.length; i++) {
-                      totalMass += childNodes[i].mass;
-                      if(childNodes[i].level){
-                        cluster_level = Math.min(cluster_level, childNodes[i].level)
-                      }
-                      if(force === false){
-                        if(i === 0){
-                          clusterOptions.shape =  childNodes[i].shape;
-                          clusterOptions.color =  childNodes[i].color.background;
-                        }else{
-                          if(childNodes[i].shape !== clusterOptions.shape){
-                            clusterOptions.shape = sh;
-                          }
-                          if(childNodes[i].color.background !== clusterOptions.color){
-                            clusterOptions.color = col;
-                          }
+          var j = x.clusteringGroup.groups.indexOf(group);
+          if(j !== -1) {
+            var col = x.clusteringGroup.color[j];
+            var sh = x.clusteringGroup.shape[j];
+            var force = x.clusteringGroup.force[j];
+            var sc_size = x.clusteringGroup.scale_size[j];
+            
+            clusterOptionsByData = {
+                joinCondition: function (childOptions) {
+                    return childOptions.group == group; //
+                },
+                processProperties: function (clusterOptions, childNodes, childEdges) {
+                    var totalMass = 0;
+                    var cluster_level = 9999999;
+                    for (var i = 0; i < childNodes.length; i++) {
+                        totalMass += childNodes[i].mass;
+                        if(childNodes[i].level){
+                          cluster_level = Math.min(cluster_level, childNodes[i].level)
                         }
-                      } else {
-                        clusterOptions.shape = sh;
-                        clusterOptions.color = col;
-                      }
-                  }
-                  if(sc_size){
-                     clusterOptions.value = totalMass;
-                  }
-                  if(cluster_level !== 9999999){
-                    clusterOptions.level = cluster_level
-                  }
-                  return clusterOptions;
-              },
-              clusterNodeProperties: {id: 'cluster:' + group, borderWidth: 3, label:x.clusteringGroup.label + group}
+                        if(force === false){
+                          if(i === 0){
+                            clusterOptions.shape =  childNodes[i].shape;
+                            clusterOptions.color =  childNodes[i].color.background;
+                          }else{
+                            if(childNodes[i].shape !== clusterOptions.shape){
+                              clusterOptions.shape = sh;
+                            }
+                            if(childNodes[i].color.background !== clusterOptions.color){
+                              clusterOptions.color = col;
+                            }
+                          }
+                        } else {
+                          clusterOptions.shape = sh;
+                          clusterOptions.color = col;
+                        }
+                    }
+                    if(sc_size){
+                       clusterOptions.value = totalMass;
+                    }
+                    if(cluster_level !== 9999999){
+                      clusterOptions.level = cluster_level
+                    }
+                    return clusterOptions;
+                },
+                clusterNodeProperties: {id: 'cluster:' + group, borderWidth: 3, label:x.clusteringGroup.label + group}
+            }
+            instance.network.cluster(clusterOptionsByData);
           }
-          instance.network.cluster(clusterOptionsByData);
+
         }
       }
-      clusterByGroup();
+      clusterByGroup(x.clusteringGroup.groups);
     }
   
     //*************************
