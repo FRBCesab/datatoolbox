@@ -1,8 +1,8 @@
 ---
 title: Les données spatiales
 subtitle: <i>`{sf}`&nbsp;&nbsp;`{ggplot2}`</i>
-author: <br /><br />Loreleï GUÉRY<br />Nicolas CASAJUS
-date: .inst[Mercredi 4 décembre 2019]
+author: <br /><br />Nina SCHIETTEKATTE<br />(Nicolas CASAJUS)
+date: .inst[Mardi 3 novembre 2020]
 output:
   xaringan::moon_reader:
     css: ["../../assets/css/xaringan-themer.css", "../../assets/css/custom.css"]
@@ -48,4 +48,3 @@ class: inverse, center, middle
 
 ```{r child='part02.rmd'}
 ```
-
