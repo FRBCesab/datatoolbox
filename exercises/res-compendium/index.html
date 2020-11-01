@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Exercice Research Compendium</title>
+    <title>.small[Exercice Research Compendium]</title>
     <meta charset="utf-8" />
     <meta name="author" content="  François Guilhaumon" />
+    <script src="assets/libs/header-attrs-2.5/header-attrs.js"></script>
+    <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="../../assets/css/xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="../../assets/css/custom.css" type="text/css" />
   </head>
@@ -11,8 +13,8 @@
     <textarea id="source">
 class: right, middle, title-slide
 
-# Exercice Research Compendium
-## <i>création d’un research compendium pour les exercices de la formation</i>
+# .small[Exercice Research Compendium]
+## .ssmall[<i>Création d’un RC pour les exercices de la formation</i>]
 ### <br /><br />François Guilhaumon
 ### Mardi 3 Novembre 2020
 
@@ -24,91 +26,117 @@ class: right, middle, title-slide
 
 ## Objectifs
 
-Nous allons créer notre premier research compendium. Il nous servira toute la semaine à rendre reproductible notre travail sur les exercices proposés dans le cadre de la formation.
+Nous allons créer notre premier research compendium. Il nous servira toute la
+semaine à rendre reproductible notre travail sur les exercices proposés dans le
+cadre de la formation.
 &lt;br/&gt;&lt;br/&gt;
 Nous allons intégrer les éléments structuraux d'un package R dans le research compendium.
 &lt;br/&gt;&lt;br/&gt;
-Un outils puissant pour réaliser ce type de développement est le package R [rrtools](https://github.com/benmarwick/rrtools). rrtools propose notamment des fonctions qui encapsulent celles du package [devtools](https://devtools.r-lib.org/) et permettent d'optimiser la création des différents fichiers et répertoires.
+Un outils puissant pour réaliser ce type de développement est le package
+R [**rrtools**](https://github.com/benmarwick/rrtools). `rrtools` propose notamment
+des fonctions qui encapsulent celles du package [**devtools**](https://devtools.r-lib.org/)
+et permettent d'optimiser la création des différents fichiers et répertoires.
 &lt;br/&gt;&lt;br/&gt;
-Cet "exercice" s'inspire beaucoup du [workshop proposé par Anna Krystalli de l'université de Sheffield](https://annakrystalli.me/rrtools-repro-research/intro.html).
+Cet exercice s'inspire beaucoup du [**Workshop proposé par Anna Krystalli de l'Université de Sheffield**](https://annakrystalli.me/rrtools-repro-research/intro.html).
 
 ---
 
 ## Étape 1 : fork &amp; clone
 
-Tout d'abord, il nous faut copier le dépot github des exercices de la formation dans notre compte github (fork), puis le rapatrier localement (clonage).
+Tout d'abord, il nous faut copier le dépot GitHub des exercices de la formation
+dans notre compte GitHub (fork), puis le rapatrier localement (clonage)
 
-1. Forkez le dépôt datatoolbox-exos situer à l'adresse suivante : https://github.com/FRBCesab/datatoolbox-exos
+1. Forkez le dépôt **datatoolboxexos** situé à l'adresse suivante : **https://github.com/FRBCesab/datatoolboxexos**
 
-2. Clonez le dépôt localement en utilisant la fonctionalité de création de nouveau projet dans Rstudio (cela rajoutera 2 fichiers à la racine de votre dépôt, prenez le temps de les examiner)
+2. Clonez le dépôt localement en utilisant la fonctionalité de création de nouveau
+projet dans RStudio (cela rajoutera 2 fichiers à la racine de votre dépôt,
+prenez le temps de les examiner)
 
-3. Effacez le fichier "test" situé à la racine du dépôt
+3. Effacez le fichier `test` situé à la racine du dépôt
 
-4. Versionnez ces premiers changements, commitez et pushez vers github
+4. Versionnez ces premiers changements, commitez et pushez vers GitHub
 
 ---
 
 ## Étape 2 : research compendium
 
-Nous allons maintenant transformer notre dépôt en research compendium intégrant les éléments essentiels de la structure d'un package R. Cela nous permettra ensuite d'utiliser les outils de développement disponibles pour les packages R.
+Nous allons maintenant transformer notre dépôt en research compendium intégrant
+les éléments essentiels de la structure d'un package R. Cela nous permettra
+ensuite d'utiliser les outils de développement disponibles pour les packages R.
 
-1. Transformez votre dépôt en research compendium à l'aide de la fonction rrtols::use_compendium. Lisez l'aide de la fonction `rrtols::use_compendium` pour vous rendre compte que les meilleures valeurs de paramètres sont les suivantes :
+1. Transformez votre dépôt en research compendium à l'aide de la fonction
+`rrtools::use_compendium()`. Lisez l'aide de cette fonction pour vous rendre compte
+que les meilleures valeurs de paramètres sont les suivantes :
 
 
 ```r
 rrtools::use_compendium("../datatoolboxexos/", open = FALSE)
 ```
 
-2. Suivez les instructions de la sortie de la fonction et éditez le fichier DESCRIPTION
+2. Suivez les instructions de la sortie de la fonction et éditez le fichier `DESCRIPTION`
 
-3. Versionnez ces changements, commitez et pushez vers github
+3. Versionnez ces changements, commitez et pushez vers GitHub
 
-Quelle différence remarquez vous entre les deux arboresences (sur github.com et sur votre machine) ?
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Quelle différence remarquez-vous
+entre les deux arboresences (sur GitHub et sur votre machine) ?
 
 ---
 
 ## Étape 3 : première fonction
 
-Dans la suite de la formation vous utiliserez la base de données [WildFinder du WWF](https://www.worldwildlife.org/pages/wildfinder-database) accessible [ici](https://www.worldwildlife.org/publications/wildfinder-database). Nous allons maintenant écrire les fonctions qui nous permettrons d'importer les 3 fichiers qui se trouvent dans "data/wwf-wildfinder/".
+Dans la suite de la formation, vous utiliserez la base de données [**WildFinder**](https://www.worldwildlife.org/pages/wildfinder-database)
+du WWF. Nous allons maintenant écrire les fonctions qui nous permettrons d'importer les 3
+fichiers qui se trouvent dans `data/wwf-wildfinder/`.
 
 .center[![:scale 40%](assets/img/step3_files_github.png)]
 
-1. Créez un fichier "R/data_wildfinder.R" à l'aide de la fonction `usethis::use_r`
+1. Créez un fichier `R/data_wildfinder.R` à l'aide de la fonction `usethis::use_r()`
 
-2. Créez 3 fonctions dans ce document avec leur entête `roxygen2`. Ces fonctions utiliseront le package `readr` pour lire les fichiers `csv` qui seront localisés avec `here`
+2. Créez 3 fonctions dans ce document avec leur entête `Roxygen2`. Ces fonctions
+utiliseront le package `{readr}` pour lire les fichiers `.csv` qui seront localisés avec `{here}`
 
-3. Ajoutez la dépendance de votre compendium à `readr` et `here` dans le fichier description en utilisant la fonction `usethis::use_package`
+3. Ajoutez ces dépendances (`{readr}` et `{here}`) dans le fichier `DESCRIPTION` grâce à la fonction `usethis::use_package()`
 
-4. Versionnez ces changements, commitez et pushez vers github
+4. Versionnez ces changements, commitez et pushez vers GitHub
 
 ---
 
 ## Étape 4 : petite pause ... ajout d'un README pour le compendium
 
-Ajoutons un README au compendium.
+Ajoutons un `README` au compendium.
 
-1. Déplacez le fichier "README.md" de la racine du projet vers le répertoire "data/"
+1. Déplacez le fichier `README.md` de la racine du projet vers le répertoire `data/`
 
-2. Ajoutez un fichier "README.Rmd" à la racine du projet à l'aide de la fonction `rrtools::use_readme_rmd` et modifiez le pour qu'il corresponde un peu plus à ce que vous avez l'intention de préserver dans le compendium des exos de la formation ... vous pouvez à la fin du README afficher les informations de votre session (`utils::sessionInfo`).
+2. Ajoutez un fichier `README.Rmd` à la racine du projet à l'aide de la fonction
+`rrtools::use_readme_rmd()` et modifiez-le pour qu'il corresponde un peu plus à
+la structure de votre compendium. Vous pouvez à la fin du `README.Rmd` afficher les informations de votre
+session (`utils::sessionInfo()`).
 
-3. Re-compilez le fichier "README.Rmd" en "README.md"
+3. Re-compilez le fichier `README.Rmd` en `README.md`
 
-4. Versionnez ces changements, commitez et pushez vers github
+4. Versionnez ces changements, commitez et pushez vers GitHub
 
 
 ---
 
 ## Étape 5-1 : utiliser le workflow "package"
 
-Maintenant que notre compendium contient les éléments structurels d'un package R (c.à.d un fichier "DESCRIPTION" et un répertoire "R/" ...) nous pouvons avantageusement utiliser les outils de développement des packages R pour optimiser celui de notre compendium.
+Maintenant que notre compendium contient les éléments structurels d'un package R
+(c.-à-d. un fichier `DESCRIPTION` et un répertoire `R/`) nous pouvons avantageusement
+utiliser les outils de développement des packages R pour optimiser celui de notre
+compendium.
 
-1. Les packages nécessaires au bon déroulement de vos analyses (ainsi que leur dépendences) peuvent être installés ou mis à jour à l'aide de la fonction `devtools::install_deps` !
+1. Les packages nécessaires au bon déroulement de vos analyses
+(ainsi que leur dépendences) peuvent être installés ou mis à jour à l'aide de la
+fonction `devtools::install_deps()` !
 
-2. Documentez les fonctions qu'expose votre compendium à l'aide la fonction `devtools::document`. Explorez le répertoire "man/" fraichement créé, et regardez le contenu du fichier "NAMESPACE"
+2. Documentez les fonctions qu'expose votre compendium à l'aide la fonction
+`devtools::document()`. Explorez le répertoire `man/` fraichement créé, et
+regardez-le contenu du fichier `NAMESPACE`
 
 ---
 
-## Étape 5-2 : utiliser le workflow "package" 
+## Étape 5-2 : utiliser le workflow "package"
 
 3. Avant de faire votre commit, pour tester vos fonctions et reviewer leur documentation, vous pouvez construire le package qui fait maintenant partie intégrante de votre compendium (à vrai dire à ce stade votre compendium n'est qu'un simple package R). Utilisez le bouton "Install and Restart" de l'onglet "Build" :
 
@@ -118,7 +146,8 @@ Maintenant que notre compendium contient les éléments structurels d'un package
 
 ## Étape 5-3 : utiliser le workflow "package"
 
-4. vous devez également `checker` votre package, la documentation est reconstruite et beaucoup de vérifications de votre code sont éffectuées lors de cette étape, `devtools::check` :
+4. Vous devez également `checker` votre package, la documentation est reconstruite
+et beaucoup de vérifications de votre code sont effectuées lors de cette étape : `devtools::check()`
 
 .center[![:scale 70%](assets/img/step5_check.png)]
 
@@ -128,9 +157,11 @@ Pas d'erreur, on ignore les 3 warnings.
 
 ## Étape 5-4 : utiliser le workflow "package"
 
-5. regardez la doc `?datatoolboxexos::data_eco_list`, et testez la fonction `datatoolboxexos::data_eco_list()` (on pourrait automatiser ces tests en utilisant `testthat` ...)
+5. Regardez la doc `?datatoolboxexos::data_eco_list`, et testez la fonction
+`datatoolboxexos::data_eco_list()` (on pourrait automatiser ces tests en
+utilisant `{testthat}`)
 
-6. Comme ça fonctionne bien, versionnez ces changements, commitez et pushez vers github
+6. Comme ça fonctionne bien, versionnez ces changements, commitez et pushez vers GitHub
 
 .center[![:scale 70%](assets/img/step5_help_page.png)]
 
@@ -140,51 +171,63 @@ La page d'aide de la fonction `datatoolboxexos::data_eco_list`.
 
 ## Étape 5-5 : un peu de relâchement
 
-Lorsque vous êtes en phase de déveoppement actif, vous ne voulez pas sans arrêt "checker" et "builder" votre package, ça peut être long. Une solution est l'utilisation de la fonction `devtools::load_all` qui a pour effet principal de "sourcer" tous les fichiers présents dans le répetoire "R/".
+Lorsque vous êtes en phase de développement actif, vous ne voulez pas sans arrêt
+"checker" et "builder" votre package. Ca peut être long.
+Une solution est l'utilisation de la fonction `devtools::load_all()` qui a pour
+effet principal de charger tous les fichiers présents dans le répetoire `R/`
 
 ---
 
 ## Étape 6 : Intégration d'un documet dynamique Rmarkdown
 
-Nous avons maintenant 3 fonctions à disposition dans notre compendium. Nous pouvons créer un premier document Rmarkdown pour le premier exercice sur le Tidyverse : [`dplyr`](https://frbcesab.github.io/datatoolbox/exercises/dplyr/index.html#1).
+Nous avons maintenant 3 fonctions à disposition dans notre compendium. Nous pouvons
+créer un premier document Rmarkdown pour le premier exercice sur le Tidyverse :
+[**dplyr**](https://frbcesab.github.io/datatoolbox/exercises/dplyr/index.html)
 &lt;br/&gt;&lt;br/&gt;
-Plusieurs choix s'offrent à vous pour localiser vos fichiers "Rmd" dans votre arborescence, leur pertinence dépendra essentiellement de la complexité de vos analyses. Ici, pour notre premier compendium, on va créer un fichier ".Rmd" par exercice dans un répertoire ... "exercices".
+Plusieurs choix s'offrent à vous pour localiser vos fichiers `.Rmd` dans votre
+arborescence, leur pertinence dépendra essentiellement de la complexité de vos
+analyses. Ici, pour notre premier compendium, on va créer un fichier `.Rmd` par
+exercice dans un répertoire... `exercices/`
 &lt;br/&gt;
-1. Créez le fichier "exercices/exo_dplyr.Rmd" (format html_document, option keep_md: TRUE)
+1. Créez le fichier `exercices/exo_dplyr.Rmd` (format **html_document**, option `keep_md: true`)
 
-2. Modifiez le pour afficher l'histogramme de la distribution du nombre d'espèces de mammifères par écoregion
+2. Modifiez-le pour afficher l'histogramme de la distribution du nombre d'espèces
+de mammifères par écoregion
 
-3. Compilez votre document "Rmd" et visualisez le dans votre navigateur
+3. Compilez votre document `.Rmd` et visualisez le dans votre navigateur
 
-4. Versionnez ces changements, commitez et pushez vers github
+4. Versionnez ces changements, commitez et pushez vers GitHub
 
 ---
 
-## Étape 7 : automatisation ...
+## Étape 7 : automatisation...
 
-Il ne nous reste plus qu'à automatiser quelques étapes et nous aurons un compendium fonctionnel, intégré dans un workflow qui assure une reproductibilité minimale de nos analyses.
+Il ne nous reste plus qu'à automatiser quelques étapes et nous aurons un
+compendium fonctionnel, intégré dans un workflow qui assure une
+reproductibilité minimale de nos analyses.
 
-1. Créez un fichier make.R à la racine de votre projet.
+1. Créez un fichier `make.R` à la racine de votre projet
 
-2. Modifiez le de manière à enchainer les étapes suivantes :
+2. Modifiez-le de manière à enchainer les étapes suivantes :
 
-- installation/mise à jour des packages nécessaire aux analyses
+  - installation/mise à jour des packages nécessaires aux analyses
 
-- installation de package intégré au compendium
+  - installation du package intégré au compendium
 
-- compilation du document "exercices/exo_dplyr.Rmd"
+  - compilation du document `exercices/exo_dplyr.Rmd`
 
-3. Effacez les fichiers "exercices/exo_dplyr.html", "exercices/exo_dplyr.md" et le répertoire "exercices/exo_dplyr_files"
+3. Effacez les fichiers `exercices/exo_dplyr.html`, `exercices/exo_dplyr.md` et le répertoire `exercices/exo_dplyr_files`
 
-4. Compilez votre compendium en sourçant le fichier make.R dans son ensemble
+4. Compilez votre compendium en sourçant intégralement le fichier `make.R`
 
-5. Versionnez ces changements, commitez et pushez vers github
+5. Versionnez ces changements, commitez et pushez vers GitHub
 
 ---
 
 ## Étape 8 : finalisation
 
-Modifiez le README du compendium pour qu'il reflète un peu mieux ce qui se passe ici.
+Modifiez le `README.Rmd` du compendium pour qu'il reflète un peu mieux ce qui
+se passe ici.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
