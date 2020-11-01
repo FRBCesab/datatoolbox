@@ -1,6 +1,6 @@
 ---
 title: Les données spatiales
-subtitle: <i>`{sf}`&nbsp;&nbsp;`{raster}`&nbsp;&nbsp;`{ggplot2}`</i>
+subtitle: <i>`{sf}`&nbsp;&nbsp;`{ggplot2}`</i>
 author: <br /><br />Loreleï GUÉRY<br />Nicolas CASAJUS
 date: .inst[Mercredi 4 décembre 2019]
 output:
@@ -49,14 +49,3 @@ class: inverse, center, middle
 ```{r child='part02.rmd'}
 ```
 
-
-
----
-class: inverse, center, middle
-
-## Objets matriciels
-
----
-
-```{r child='part03.rmd'}
-```

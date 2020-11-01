@@ -26,12 +26,18 @@ knitr::opts_chunk$set(fig.path = 'assets/chunks/', cache.path = "assets/cache/")
 
 ## Instructions
 
-1) Faire une carte mondiale de chaque espèce d'ursidé au niveau des écorégions
+1) Faire une carte mondiale de l'espèce *Ursus arctos* au niveau des écorégions
   - Importez la couche vectorielle stockée dans `data/wwf-ecoregions-layers/`
-  - **NOTE** : ne faites pas les cartes avec toutes les écorégions, uniquement avec celles dans lesquelles on retrouve les espèces (une carte par espèce)
+  - **HINT** : ecoregion_id = eco_code
+  - **NOTE** : ne faites pas les cartes avec toutes les écorégions, uniquement avec celles dans lesquelles on retrouve l'espèces 
+  
 
-2) Dans quelles conditions de température se rencontre chaque espèce ?
-  - Calculez un raster mondial de température min et max **annuel** (à partir des rasters stockés dans `data/worldclim/`)
-  - Calculez un raster mondial de température moyenne
-  - Croppez ce raster avec les écorégions de chaque espèce
-  - Faites avec `{ggplot2}` une densité (histogramme) des valeurs de Tmoy pour chaque espèce
+2) Faire la même carte mais ajoute une nouvelle couleur pour les ecoregions qui contiennent *Ursus arctos* ET *Ursus americanus*. 
+- **HINT** : Utilise `st_intersection`
+
+3) Faire la même carte, mais avec une projection différente, L'Amérique du nord centralisé. 
+
+
+
+
+

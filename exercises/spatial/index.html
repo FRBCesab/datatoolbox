@@ -3,7 +3,6 @@
   <head>
     <title>Exercice Spatial</title>
     <meta charset="utf-8" />
-    <script src="assets/libs/header-attrs-2.5/header-attrs.js"></script>
     <link rel="stylesheet" href="../../assets/css/xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="../../assets/css/custom.css" type="text/css" />
   </head>
@@ -23,15 +22,16 @@ class: right, middle, title-slide
 
 ## Instructions
 
-1) Faire une carte mondiale de chaque espèce d'ursidé au niveau des écorégions
+1) Faire une carte mondiale de l'espèce *Ursus arctos* au niveau des écorégions
   - Importez la couche vectorielle stockée dans `data/wwf-ecoregions-layers/`
-  - **NOTE** : ne faites pas les cartes avec toutes les écorégions, uniquement avec celles dans lesquelles on retrouve les espèces (une carte par espèce)
+  - **HINT** : ecoregion_id = eco_code
+  - **NOTE** : ne faites pas les cartes avec toutes les écorégions, uniquement avec celles dans lesquelles on retrouve l'espèces 
+  
 
-2) Dans quelles conditions de température se rencontre chaque espèce ?
-  - Calculez un raster mondial de température min et max **annuel** (à partir des rasters stockés dans `data/worldclim/`)
-  - Calculez un raster mondial de température moyenne
-  - Croppez ce raster avec les écorégions de chaque espèce
-  - Faites avec `{ggplot2}` une densité (histogramme) des valeurs de Tmoy pour chaque espèce
+2) Faire la même carte mais ajoute une nouvelle couleur pour les ecoregions qui contiennent *Ursus arctos* ET *Ursus americanus*. 
+- **HINT** : Utilise `st_intersection`
+
+3) Faire la même carte, mais avec une projection différente, L'Amérique du nord centralisé.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
@@ -81,25 +81,9 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();
-(function() {
-  "use strict"
-  // Replace <script> tags in slides area to make them executable
-  var scripts = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container script'
-  );
-  if (!scripts.length) return;
-  for (var i = 0; i < scripts.length; i++) {
-    var s = document.createElement('script');
-    var code = document.createTextNode(scripts[i].textContent);
-    s.appendChild(code);
-    var scriptAttrs = scripts[i].attributes;
-    for (var j = 0; j < scriptAttrs.length; j++) {
-      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
-    }
-    scripts[i].parentElement.replaceChild(s, scripts[i]);
-  }
-})();
+})();</script>
+
+<script>
 (function() {
   var links = document.getElementsByTagName('a');
   for (var i = 0; i < links.length; i++) {
@@ -107,7 +91,8 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
       links[i].target = '_blank';
     }
   }
-})();</script>
+})();
+</script>
 
 <script>
 slideshow._releaseMath = function(el) {
