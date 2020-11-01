@@ -301,4 +301,4 @@ plot(alt_occit_crop_Lamb)
 
 - [**gglot2 et sf**](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html)
 
-- [**Très bonne introduction d'Olivier**](https://oliviergimenez.github.io/introspatialR/#1)
+- [**Très bonne introduction d'Olivier**](https://oliviergimenez.github.io/intro_spatialR/#1)
