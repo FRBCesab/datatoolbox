@@ -2,7 +2,7 @@
 title: Research Compendium
 subtitle: <i>ou comment bien ranger sa chambre pour retrouver ses jouets</i>
 author: <br /><br />François Guilhaumon
-date: Mercredi 4 décembre 2019
+date: Mardi 3 Novembre 2020
 output:
   xaringan::moon_reader:
     css: ["../../assets/css/xaringan-themer.css", "../../assets/css/custom.css"]
@@ -92,7 +92,11 @@ extend the research."]]
 
 --
 
-- Should maintain a clear separation of .big[data, method, and output]. This means data files must be separate from code files. Keeping data and method separate treats the data as “read-only,” so that the original data is untouched and all modifications are transparently documented in the code. The output files should be considered as disposable, with a mindset that one can always easily regenerate the output using the code and data.
+- Should maintain a clear separation of .big[data, method, and output].
+<br/><br/>
+This means data files must be separate from code files. Keeping data and method separate treats the data as “read-only,” so that the original data is untouched and all modifications are transparently documented in the code.
+<br/><br/>
+The output files should be considered as disposable, with a mindset that one can always easily regenerate the output using the code and data.
 
 .center[![](assets/img/comp_1.png)]
 
@@ -112,12 +116,11 @@ extend the research."]]
 
 ## Principes
 
-- The relationship between which code operates on which data in which order to produce which outputs
-must be specified as well.
+- The relationship between which code operates on which data in which order to produce which outputs must be specified as well.
 
 --
 
-Utilisez un script "maître" (make.R) qui donne et execute les étapes dans l'ordre (c'est le SEUL script R à la racine !)
+Utilisez un script "maître" (make.R) qui execute les étapes dans l'ordre (c'est le SEUL script R à la racine !)
 
 .center[![:scale 40%](assets/img/comp_4.png) ![:scale 40%](assets/img/comp_make.png)]
 
@@ -125,40 +128,39 @@ Utilisez un script "maître" (make.R) qui donne et execute les étapes dans l'or
 
 ## Principes
 
-- The relationship between which code operates on which data in which order to produce which outputs
-must be specified as well.
-
-Utilisez un script "maître" (make.R) qui donne et execute les étapes dans l'ordre (c'est le SEUL script R à la racine !)
+Utilisez un script "maître" (make.R) qui execute les étapes dans l'ordre (c'est le SEUL script R à la racine !)
 
 --
 
-<br />
-<br />
-.big[Tous les scripts, "tournent" tous à partir de la racine du projet !]
+Tous les scripts, "tournent" tous à partir de la racine du projet !
 
 --
 
-<br />
-<br />
-.big[Tous les chemins (relatifs) doivent être définis à partir de la racine du projet !]
+Tous les chemins (relatifs) seront définis à partir de la racine du projet !
+<br/>
+<br/>
+.center["res/1_datacleaned.csv" / "data/data_raw.csv"]
 
-<br />
+--
 
-.center[file.path("res",res_dir_01) / file.path("data","fichier.csv")]
+Cela peut poser des problèmes lors de la compilation des .Rmd situés à l'intérieur de votre arborescence. --> Utilisez le package [here](https://here.r-lib.org)
+
+.center[![:scale 35%](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/here.png)]
+
 
 ---
 
 ## Principes
 
 
-- L'utlisation d'un projet Rstudio permet de se retrouver à la racine du projet à son ouverture.
+- L'utilisation d'un projet Rstudio permet de se retrouver à la racine du projet à son ouverture.
 
 --
 <br />
 <br />
 <br />
 <br />
-.center[SI VOUS UTLISEZ LA FONCTION SETWD() JE BRÛLE VOTRE BABAS !]
+.center[SI VOUS UTILISEZ LA FONCTION SETWD() JE BRÛLE VOTRE ORDINATEUR !]
 
 .center[![](assets/img/comp_rproj.png)]
 
@@ -166,37 +168,17 @@ Utilisez un script "maître" (make.R) qui donne et execute les étapes dans l'or
 
 ## Principes
 
-- The relationship between which code operates on which data in which order to produce which outputs
-must be specified as well.
+- The relationship between which code operates on which data in which order to produce which outputs must be specified as well.
 
 --
 
-Chaque script écrit ses résultats dans son sous-répertoire éponyme.
+Chaque script écrit des résultats (fichiers) les référençant explicitement dans leur nom.
 
-.center[![:scale 40%](assets/img/comp_5.png)]
+.center[e.g. le script "R/01_ingest_data.R" écrit des résultats du type "res/01_Zzz9Zzz9.truc"]
 
 ---
 
 ## Principes
-
-- The relationship between which code operates on which data in which order to produce which outputs
-must be specified as well.
-
---
-
-Chaque script écrit ses résultats dans son sous-répertoire éponyme.
-
-<br />
-<br />
-<br />
-
-----> 00_setup.R
-
----
-
-## Principes
-
---
 
 -  Should specify the computational environment that was used for the original analysis. At its most basic, this could be a plain text file that includes a short list of the names and version numbers of the software and other critical tools used for the analysis. In more complex approaches, described below, the computational environment can be automatically preserved or reproduced as well.
 
@@ -218,7 +200,7 @@ Placez un README à la racine du projet
 <br />
 <br />
 <br />
-Utilisez docker (voir liens session d'intro)
+Utilisez docker !
 
 .center[`r icon::fa("docker", color = "#3f3f3f", size = 5)`]
 
@@ -267,7 +249,7 @@ Utilisez docker (voir liens session d'intro)
 
 - Finalement cette architecture n'est si différente de celle d'un package R !
 
-- En utilisant la structure d'un package on bénéficie de tous les outils développés dans ce contexte.
+- En intégrant les éléments essentiels de la structure d'un package on bénéficie de tous les outils développés dans ce contexte.
 <br />
 <br />
 <br />

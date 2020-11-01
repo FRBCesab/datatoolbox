@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Introduction to Docker</title>
+    <title>Introduction à Docker</title>
     <meta charset="utf-8" />
     <meta name="author" content="  Nicolas CASAJUS .inst[{{ Data scientist FRB-CESAB }}]" />
     <script src="assets/libs/header-attrs-2.5/header-attrs.js"></script>
@@ -13,7 +13,7 @@
     <textarea id="source">
 class: right, middle, title-slide
 
-# Introduction to Docker
+# Introduction à Docker
 ## <i>the hardest part </i> <i class="fas  fa-meh-rolling-eyes "></i>
 ### <br /><br />Nicolas CASAJUS<br />.inst[{{ Data scientist FRB-CESAB }}]
 ### .inst[Mercredi 4 novembre 2020]
@@ -29,6 +29,639 @@ class: inverse, center, middle
 &lt;br /&gt;
 
 ![](assets/img/ahhhh.gif)
+
+---
+
+## Il était une fois...
+
+--
+
+**... un étudiant qui a passé plusieurs mois à analyser ses données. Comme il a tout
+compris à la vie, il travaille sous GNU/Linux. Son code est complexe et repose sur
+de nombreux logiciels et librairies système. Arrive le temps de partager son code avec
+ses collaborateurs. Mais, un de ses collaborateurs le contacte en lui disant que son code
+ne fonctionne pas. Ce dernier est sous Windows (_no comment_). Après plusieurs
+tentatives, il apparait que cela n'a rien à voir avec le code : c'est un problème
+d'environnement de travail.**
+
+--
+
+Que faire <i class="fas  fa-question-circle " style="color:#3f3f3f;"></i>
+
+
+.center[![](assets/img/noidea.gif)]
+
+---
+
+## Option 1
+
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Ecrire des tutoriels pour
+chaque OS (et version d'OS) pour installer toutes les dépendances système requises
+pour que le code fonctionne à peu près n'importe où
+
+--
+
+  &gt; **Mouais, bof...**
+  &gt;
+  &gt; J'ai autre chose à faire. En plus, j'ai pas accès à tous les OS...
+  &gt;
+  &gt; Et quid des futurs OS ?
+
+---
+
+## Option 2 - Virtualisation
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Fixer le type d'OS (et
+sa version) et utiliser une machine virtuelle dans lequel il s'exécutera
+
+.center[![:scale 75%](assets/img/vm.png)]
+
+--
+
+C'est une solution qui marche et qui est encore utilisée.
+
+--
+
+Le collaborateur devra alors :
+
+1. Installer un logiciel de virtualisation (par ex. Oracle Virtual Box)
+2. Télécharger l'ISO de l'OS (par ex. Ubuntu Focal Fossa 20.04 LTS)
+3. Installer l'OS dans la machine virtuelle
+4. Configurer la machine virtuelle (création de volumes de persistence)
+5. Télécharger et configurer toutes les dépendances
+6. Lancer le projet dans l'OS virtualisé
+
+--
+
+**N.B.** Certaines étapes peuvent être automatisées (par ex. avec [**Vagrant**](https://www.vagrantup.com/))
+
+---
+
+## Option 2 - Virtualisation
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Problèmes :
+1. c'est compliqué à mettre en place,
+1. c'est lourd (plusieurs Go juste pour l'OS et les dépendances),
+1. c'est gourmand en ressources (RAM, CPU).
+
+
+---
+
+## Option 3 - Conteneurisation
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Solution :** s'orienter vers des solutions de **conteneurisation** telles que [**Docker**](https://www.docker.com/)&amp;nbsp;
+<i class="fab  fa-docker "></i>&amp;nbsp;
+<i class="fab  fa-docker "></i>&amp;nbsp;
+<i class="fab  fa-docker "></i>&amp;nbsp;
+
+&lt;br /&gt;&lt;br /&gt;
+
+![](assets/img/docker.png)
+
+
+---
+
+## Virtualisation
+
+
+![](assets/img/versus-1.png)
+
+---
+
+## Virtualisation _vs._ Conteneurisation
+
+
+![](assets/img/versus-2.png)
+
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Avantages de la conteneurisation :**
+
+- Extrêmement léger (exploitation du noyau Linux)
+- Utilisation réduite de ressources (RAM, CPU)
+- Partage des ressources ente les instances
+- Déploiement simple et instantané
+
+
+---
+
+## Docker en bref
+
+.center[![:scale 75%](assets/img/docker.png)]
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Plateforme open source permettant de :
+
+- empaqueter une application avec toutes ses dépendances système
+- partager facilement un environnement de travail complet
+- déployer rapidement une application en production
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Un conteneur est _isolé_ du système hôte : Docker permet donc de :
+
+- tester des choses sans crainte d'endommager son système hôte
+- garder son système hôte propre, en installant tout sur Docker
+- utiliser différentes versions d'une librairie, d'un serveur, etc.
+
+--
+
+<i class="fas  fa-exclamation-triangle " style="color:#3f3f3f;"></i> &amp;nbsp;Idéal pour créer un environnement
+de developpement (basé sur Linux)
+
+---
+
+## La notion d'Image
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Ca a l'air super, mais concrètement, comment je crée un conteneur <i class="fas  fa-question-circle " style="color:#3f3f3f;"></i>
+
+--
+
+
+Tout conteneur est basé sur une image que l'on crée soi-même ou qu'on récupère depuis un site d'archivage (comme le CRAN pour <i class="fab  fa-r-project "></i>)
+
+--
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Une **image <i class="fab  fa-docker "></i>** est une sorte de conteneur figé : c'est un template **fixe** (une recette de cuisine) à partir duquel on créera un
+ou des conteneurs. Une image est `immuable`.
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Un **conteneur <i class="fab  fa-docker "></i>** est donc une instance (exécution) d'une image qui pourra être utilisée/modifiée une fois créée
+
+
+---
+
+## La notion d'Image
+
+_Prenons un exemple tiré par les cheveux._
+
+--
+
+_Quand je lance RStudio (équivalent à une image <i class="fab  fa-docker "></i> dans notre exemple),
+j'ouvre une instance RStudio (équivalent, dans notre exemple, à un conteneur).
+Si je clique une seconde fois sur l'exécutable de RStudio, j'ouvre une seconde
+instance (un second conteneur) indépendante de la première._
+
+_Tout ce que je fais dans la première instance n'est pas répercuté dans la seconde. Et vice versa._
+
+_Plus important encore, ces modifications ne se répercutent pas dans l'exécutable de RStudio._
+
+C'est la même logique avec les images et conteneurs <i class="fab  fa-docker "></i>.
+
+
+---
+
+## Docker Hub
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Où trouver des images <i class="fab  fa-docker "></i> ?
+Sur un site d'archivage officiel [**Docker Hub**](https://hub.docker.com).
+C'est une sorte de CRAN (publique) pour <i class="fab  fa-docker "></i>.
+
+![](assets/img/docker-hub.png)
+
+---
+
+class: inverse, center, middle
+
+## Installation de Docker
+
+---
+
+## Installation
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Docker s'installe sur GNU/Linux, et depuis peu, sur macOS et Windows 10 (installation différente selon l'édition, e.g. Home vs. Pro). Rendez-vous sur cette [**page **](https://docs.docker.com/get-docker/) et suivez les instructions.
+
+--
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Une autre façon d'accéder
+à Docker sans l'installer en local est d'utiliser la plateforme [**Play with Docker**](https://labs.play-with-docker.com/)
+(identifiant Docker requis)
+
+.pull-left[![](assets/img/pwd.png)]
+
+.pull-right[
+C'est une plateforme qui donne accès à un serveur Alpine Linux sur lequel Docker et
+d'autres utilitaires (git, serveur ssh) sont préinstallés.
+La session dure 4h et on peut démarrer plusieurs instances.
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Durant l'exercice, on verra
+comment récupérer les données depuis ce serveur (ssh _vs._ git).
+]
+
+---
+
+## Play with Docker - Navigateur
+
+![](assets/img/pwd-1.png)
+
+---
+
+## Play with Docker - Accès SSH
+
+![](assets/img/pwd-2.png)
+
+
+---
+
+class: inverse, center, middle
+
+## Création d'un conteneur
+
+---
+
+## Création d'un conteneur
+
+![](assets/img/workflow-1.png)
+---
+
+## Création d'un conteneur
+
+![](assets/img/workflow-1a.png)
+
+
+---
+
+## Mon premier conteneur
+
+**Je ne connais pas du tout GNU/Linux, mais j'aimerais bien l'essayer !**
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Qu'à cela ne tienne : nous allons télécharger une image <i class="fab  fa-docker "></i> de Debian.
+Allons faire un tour sur [**Docker Hub**](https://hub.docker.com/search?q=debian&amp;type=image).
+
+![](assets/img/hub-search.png)
+
+---
+
+## Mon premier conteneur
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;On peut également chercher une image <i class="fab  fa-docker "></i>
+depuis le terminal
+
+```sh
+docker search debian
+```
+
+```
+NAME      DESCRIPTION                                       STARS   OFFICIAL
+ubuntu    Ubuntu is a Debian-based Linux operating sys...   11465   [OK]
+debian    Debian is a Linux distribution that's compos...   3635    [OK]
+...       ...                                               ...
+```
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Pour télécharger l'image <i class="fab  fa-docker "></i>, on peut lancer la commande suivante :
+
+```sh
+docker pull debian
+```
+
+<i class="fas  fa-exclamation-triangle " style="color:#3f3f3f;"></i> &amp;nbsp;Cependant, en procédant ainsi nous téléchargerons la dernière version de Debian.
+Afin d'être reproductible, nous fixerons une version particulière (appelée **tag** sous <i class="fab  fa-docker "></i>).
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+Téléchargeons l'image <i class="fab  fa-docker "></i> de Debian 10 (appelée Buster).
+
+```sh
+docker pull debian:buster                            # ou, docker pull debian:10
+```
+
+---
+
+## Mon premier conteneur
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Listons les images <i class="fab  fa-docker "></i> présentes en local :
+
+
+```sh
+docker images                                        # ou, docker image ls
+```
+
+```
+REPOSITORY      TAG         IMAGE ID          CREATED           SIZE
+debian          buster      1510e8501783      2 weeks ago       114MB
+```
+
+--
+
+&lt;br /&gt;
+
+**Deux choses importantes sont à noter :**
+
+1. Chaque image <i class="fab  fa-docker "></i> dispose d'un identifiant unique (**IMAGE ID**)
+2. La taille de l'image <i class="fab  fa-docker "></i> **!!!**
+
+--
+
+&lt;br /&gt;
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Pour supprimer une image :
+
+```sh
+docker rmi 1510e8501783
+```
+
+---
+
+## Mon premier conteneur
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Créons notre conteneur, c'est-à-dire une
+instance de notre image <i class="fab  fa-docker "></i>.
+
+```sh
+docker run -it debian:buster                  # ou, docker run -it 1510e8501783
+```
+
+--
+
+&lt;br /&gt;
+
+Notre prompt vient de changer :
+
+```
+root@ea8d63136eef:/#
+```
+
+--
+
+&lt;br /&gt;
+
+Nous sommes dans notre conteneur <i class="fab  fa-docker "></i> !
+Le prompt nous dit que nous sommes connectés en tant qu'utilisateur `root` sur
+le conteneur dont l'identifiant est `ea8d63136eef` (différent de l'ID de l'image !)
+
+--
+
+Vous ne me croyez pas ?
+
+
+```sh
+cat /etc/issue
+```
+
+```
+Debian GNU/Linux 10
+```
+
+---
+
+## Mon premier conteneur
+
+Revenons sur la commande `docker run -it debian:buster`
+
+--
+
+1. L'instruction `docker run` exécute une instance de l'image <i class="fab  fa-docker "></i> **debian** portant le tag **buster**.
+Il faut noter que si cette image est absente de notre machine, alors <i class="fab  fa-docker "></i> essaiera de la
+télécharger depuis Docker Hub. Donc, cette commande fait également un `docker pull` si besoin est.
+
+--
+
+1. Le double drapeau `-it` indique que l'on souhaite interagir avec le conteneur.
+En général, les images <i class="fab  fa-docker "></i> ne contenant qu'un OS (pas d'application)
+retournent toujours un shell (invite de commandes), mais pour y accéder, il faut demander
+l'accès (avec le drapeau `-it`).
+
+--
+
+&lt;br /&gt;
+
+Pour être certain d'interagir avec le shell, nous aurions pu indiquer la commande devant
+être exécutée au lancement du conteneur (ici, `bash`, le shell par défaut sous Debian)
+
+```sh
+docker run -it debian:buster bash
+```
+
+---
+
+## Mon premier conteneur
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Si jamais nous avions oublié le drapeau
+`-it`, ce n'est pas grave. Nous avons toujours la possibilité de rentrer dans le conteneur avec :
+
+
+```sh
+docker exec –it ea8d63136eef bash
+```
+
+<i class="fas  fa-exclamation-triangle " style="color:#3f3f3f;"></i> &amp;nbsp;Lorsqu'on quitte le conteneur avec la commande
+`exit`, celui-ci est stoppé si on est rentré dans le conteneur avec la commande `docker run`.
+Mais il n'est pas stoppé si on a accédé au shell avec `docker exec bash`.
+
+--
+
+&lt;br /&gt;
+
+Par défaut, Docker donne un nom aléatoire à un nouveau conteneur (notre conteneur
+a été nommé `magical_lehmann`). Mais, on peut lui en attribuer un de notre choix
+avec le drapeau `--name` :
+
+```sh
+docker run -it --name "debbie" debian:buster
+```
+
+---
+
+class: inverse, center, middle
+
+## Gestion des conteneurs
+
+
+---
+
+## Gestion des conteneurs
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Pour lister les conteneurs (processus) actifs :
+
+```sh
+docker ps
+```
+
+```
+CONTAINER ID   IMAGE           COMMAND   CREATED     STATUS     PORTS   NAMES
+ea8d63136eef   debian:buster   "bash"    2 min ago   Up 2 min           magical_lehmann
+```
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Pour arrêter un conteneur :
+
+```sh
+docker stop ea8d63136eef                    # ou, docker stop magical_lehmann
+```
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Pour démarrer un conteneur :
+
+```sh
+docker start ea8d63136eef                   # ou, docker start magical_lehmann
+```
+
+--
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Pour supprimer un conteneur :
+
+```sh
+docker rm ea8d63136eef                      # après un docker stop
+docker rm -f ea8d63136eef                   # si le conteneur est actif
+```
+
+
+---
+
+## Gestion des conteneurs
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Pour lister les conteneurs (processus) actifs et arrêtés :
+
+```sh
+docker ps -a
+```
+
+```
+CONTAINER ID   IMAGE           COMMAND   CREATED     STATUS             NAMES
+ea8d63136eef   debian:buster   "bash"    2 min ago   Up 2 min           magical_lehmann
+178b8649b677   debian:buster   "bash"    9 hours ago Exited (0) 2s ago  debbie
+```
+--
+
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Enfin, pour connaitre les ressources consommées par les conteneurs
+actifs :
+
+```sh
+docker stats
+```
+
+```
+CONTAINER ID   NAME              CPU %  MEM USAGE / LIMIT   MEM %
+ea8d63136eef   magical_lehmann   0.00%  788KiB / 1.944GiB   0.04%
+```
+
+--
+
+&lt;br /&gt;
+
+<i class="fas  fa-exclamation-triangle " style="color:#3f3f3f;"></i> &amp;nbsp;Après un reboot de la machine, les conteneurs
+actifs et stoppés existent toujours. Mais, ceux qui ont été supprimés avec `docker rm`, eux, n'existent plus.
+
+
+
+---
+
+class: inverse, center, middle
+
+## Persistence
+
+
+---
+
+## Persistence et volumes
+
+Mais conteneur basé sur image : modif non persistante = avantage, MAIS incovenient
+
+- Volumes (pour données)
+
+volume de persistence = mapper : très utile en mode debug
+
+
+```sh
+docker run -it --name "debbie" -v ~/Desktop/volumes:/root debian:buster
+```
+
+
+ou
+
+- Nouvelle image (pour libs)
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**ET**, on peut construire
+une nouvelle image à partir d'un conteneur que nous avons modifié
+
+
+
+Dans terminal parallèle
+
+```sh
+docker diff id_image
+docker commit id_image nouveau_nom
+docker save nouveau_nom &gt; ~/Desktop/nouveau_nom.tar
+```
+
+
+---
+
+class: inverse, center, middle
+
+## Création d'image
+
+
+---
+
+## Création d'image - Dockerfile
+
+Syteme d'images incrementales idem a git pull (Telecharge que les modifs pas tout l'historique)
+
+image fait reference a autre image = systeme LEGO
+
+Systeme de couches
+
+layer RUN == .git (suppression de fichiers)
+
+
+&gt;&gt; Exemple : construction d'un debian operationnel (avec utilitaires)
+&gt;&gt;
+&gt;&gt; git, tree, nano, curl, wget, htop, youtube-dl, pandoc
+
+.dockerignore
+
+docker build -t nom_image:nom_tag localisation_du_Dockerfile
+
+---
+
+## Partager une image
+
+1. Docker Hub
+1. Partage du Dockerfile &gt; build &gt; run
+
+---
+
+class: inverse, center, middle
+
+## <i class="fab  fa-r-project "></i> &amp; <i class="fab  fa-docker "></i>
+
+
+---
+
+## Initiative Rocker
+
+- RStudio et tidyverse &gt; port expose
+
+docker run --rm -p 127.0.0.1:8787:8787 -e DISABLE_AUTH=true rocker/rstudio
+
+https://github.com/annakrystalli/rrcompendiumDTB
+
+---
+
+class: inverse, center, middle
+
+## Docker Compose
+
+---
+
+## docker-compose
+
+
+Docker-compose : creer d'abird image Dockerfile puis editer docker-compose.yml, puis docker-compose up
+Pour quitter, CTRL+C et docker-compose down
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
