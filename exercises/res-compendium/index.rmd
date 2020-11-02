@@ -228,3 +228,7 @@ reproductibilité minimale de nos analyses.
 
 Modifiez le `README.Rmd` du compendium pour qu'il reflète un peu mieux ce qui
 se passe ici.
+
+Le compendium est maintenant fonctionnel.
+
+Vous pouvez en voir un exemple [ici](https://github.com/fguilhaumon/datatoolboxexos), n'hésitez pas a naviguer à travers les différents commit pour voir les ajouts de fichiers à chaque étape.
