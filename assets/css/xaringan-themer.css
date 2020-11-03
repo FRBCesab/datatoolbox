@@ -18,7 +18,7 @@
  * ------------------------------------------------------- */
 @import url(https://fonts.googleapis.com/css?family=Montserrat:300,300i,500);
 @import url(https://fonts.googleapis.com/css?family=Varela);
-@import url(https://fonts.googleapis.com/css?family=Droid+Mono);
+@import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono);
 
 
 body {
@@ -34,9 +34,9 @@ h1, h2, h3 {
 .remark-slide-content {
   background-color: #e1ddc0;
   font-size: 1.25em;
-  
-  
-  
+
+
+
   padding: 1em 4em 1em 4em;
 }
 .remark-slide-content h1 {
@@ -49,7 +49,7 @@ h1, h2, h3 {
     font-size: 1.25em;
 }
 .remark-code, .remark-inline-code {
-  font-family: Droid Mono, 'Lucida Console', Monaco, monospace;
+  font-family: Ubuntu Mono, 'Lucida Console', Monaco, monospace;
 }
 .remark-code {
   font-size: 0.75em;
@@ -57,8 +57,8 @@ h1, h2, h3 {
 .remark-inline-code {
   font-size: 1.00em;
   color: #7c4e20;
-  
-  
+
+
 }
 .remark-slide-number {
   color: #294557;
@@ -71,7 +71,7 @@ a, a > code {
   text-decoration: none;
 }
 .footnote {
-  
+
   position: absolute;
   bottom: 3em;
   padding-right: 4em;
@@ -83,7 +83,7 @@ a, a > code {
 .inverse {
   background-color: #3f3f3f;
   color: #e1ddc0;
-  
+
 }
 .inverse h1, .inverse h2, .inverse h3 {
   color: #e1ddc0;
@@ -93,9 +93,9 @@ a, a > code {
 }
 .title-slide {
   background-color: #3f3f3f;
-  
-  
-  
+
+
+
 }
 .title-slide .remark-slide-number {
   display: none;
