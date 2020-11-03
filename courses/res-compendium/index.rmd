@@ -188,6 +188,8 @@ Chaque script écrit des résultats (fichiers) les référençant explicitement 
 
 Placez un README à la racine du projet, exposez-y explictement les dépendances.
 
+--> Vivez le miracle du fichier DESCRIPTION !
+
 .center[![:scale 40%](assets/img/comp_6.png)]
 
 ---
