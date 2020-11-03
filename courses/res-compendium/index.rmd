@@ -233,6 +233,8 @@ Utilisez docker !
 
 ## Diffusion / stockage
 
+- github ou gitlab sont des solutions, mais limitées en capacité de stockage, et pas forcement perènes.
+
 - Il existe de nombreuses plateformes pour stocker votre supp. mat.
 
 - La plupat sont propriétaires/privées et/ou payantes (e.g. Dryad, https://datadryad.org/)
