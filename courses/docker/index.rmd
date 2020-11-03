@@ -1313,6 +1313,16 @@ class: inverse, center, middle
 
 ## Initiative Rocker
 
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+Si on se rappelle la définition d'un conteneur, celui contient un environnement
+de travail mais aussi une application. Or, il nous manque l'application.
+
+En plus on aime bien `r icon::fa("r-project")` !
+
+--
+
+[**L'initiative Rocker**](https://www.rocker-project.org/)
+
 - RStudio et tidyverse > port expose
 
 docker run --rm -p 127.0.0.1:8787:8787 -e DISABLE_AUTH=true rocker/rstudio

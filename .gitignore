@@ -4,6 +4,7 @@
 
 # macOS files
 .DS_Store
+__MACOSX/*
 
 #Rstudio projects
 .Rproj.user/
