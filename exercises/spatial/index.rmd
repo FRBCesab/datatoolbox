@@ -26,9 +26,9 @@ knitr::opts_chunk$set(fig.path = 'assets/chunks/', cache.path = "assets/cache/")
 
 ## Instructions
 
-1) Download la couche vectorielle des écorégions [ici](https://www.worldwildlife.org/publications/terrestrial-ecoregions-of-the-world) et sauvgarde les dans `data`
+Download la couche vectorielle des écorégions [ici](https://www.worldwildlife.org/publications/terrestrial-ecoregions-of-the-world) et sauvgarde les dans `data`
 
-2) Faire une carte mondiale de l'espèce *Ursus arctos* au niveau des écorégions
+1) Faire une carte mondiale de l'espèce *Ursus arctos* au niveau des écorégions
   - **HINT** : ecoregion_id = eco_code
   - **NOTE** : ne faites pas les cartes avec toutes les écorégions, uniquement avec celles dans lesquelles on retrouve l'espèces 
   
