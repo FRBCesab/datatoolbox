@@ -39,15 +39,16 @@ knitr::opts_chunk$set(fig.path = 'assets/chunks/', cache.path = "assets/cache/")
 6) report   
 
 ---
-## Let's create a new project   
+## Let's add some folders and files  
 
 ```
 myproject.Rproj
 |___data/
 |
 |___R/
-|   |___packages.R
-|   |___functions.R
+|   |___load_data.R
+|   |___wrangle.R
+|   |___plots.R
 |   |___plan.R
 |
 |___text/
@@ -58,289 +59,180 @@ myproject.Rproj
 |   |___plots/
 |
 |___make.R
+|____drake.R
 
 ```
 
-data:       
-- wildfinder-ecoregions_list.csv     
-- wildfinder-ecoregions_species.csv   
-- wildfinder-mammals_list.csv    
-
-
 ---
-## packages
+## Set up
 ```{r, eval = FALSE}
-library(drake)
-library(ggplot2)
-library(stringr)
-library(fishualize)
-library(dplyr)
-library(taxize)
-library(tidyr)
-library(readr)
-library(tidyverse)
-library(forcats)
-
+usethis::use_r(name = "wrangle.R")
+usethis::use_r(name = "plots.R")
+usethis::use_r(name = "plan.R")
+file.create("_drake.R")
+file.create("make.R")
+dir.create("output")
+dir.create("text")
+dir.create("output/plots")
+dir.create("output/text")
+```
+---
+## Set up
+```{r, eval = FALSE}
+# add needed packages
+usethis::use_package("dplyr")
+usethis::use_package("ggplot2")
+usethis::use_package("magrittr")
+usethis::use_package("forcats")
+usethis::use_package("fishualize")
+usethis::use_package("sf")
+usethis::use_package("drake")
+```
+---
+## Set up
+```{r, eval = FALSE}
+# ignore files
+usethis::use_build_ignore(".drake")
+usethis::use_build_ignore("_drake.R")
+usethis::use_build_ignore("make.R")
+usethis::use_git_ignore(".drake")
+usethis::use_build_ignore("output/")
+usethis::use_build_ignore("text/")
 ```
 ---
 ## 1) load data     
-### functions.R
 
+We already have three functions to load data.   
+Add one more for pantheria.
 ```{r, eval = FALSE}
-get_ursidae <- function(){
-  mammals <- read.csv("data/wildfinder-mammals_list.csv")
-  result <- filter(mammals, family == "Ursidae") %>%
-    mutate_all(as.character)
-  return(result)
-}
-
-get_ecoregions <- function(){
-  ecoregions <- read.csv("data/wildfinder-ecoregions_list.csv")
-  return(ecoregions)
-}
-
-get_sp_eco <- function(){
-  sp_eco <- read.csv("data/wildfinder-ecoregions_species.csv")
-  return(sp_eco)
+#' Import pantheria data
+#'
+#' @return A 2 columns tibble linking species IDs to ecoregions IDs
+#' @export
+#' @importFrom readr read_csv
+#' @importFrom here here
+#'
+data_pantheria   <- function() {
+  readr::read_delim(
+    here::here("data","pantheria-traits","PanTHERIA_1-0_WR05_Aug2008.txt"),
+    delim = "\t")
 }
 ```
+
 ---
 ## 1) load data   
 ### plan.R   
 ```{r, eval = FALSE}
-plan <- drake_plan(
-  #### get data ####
-  # Wildfinder data
-  wf_ursidae_raw = get_ursidae(),
-  wf_ecoregions = get_ecoregions(),
-  wf_sp_eco = get_sp_eco())
+#' Write basic plan
+#'
+#' @return A drake plan
+#' @export
+#'
+#' @importFrom drake drake_plan
+#' @examples
+write_plan_simple <- function() {
+  drake::drake_plan(
+    eco_list = data_eco_list(),
+    sp_eco = data_sp_eco(),
+    sp_list = data_sp_list(),
+    pantheria = data_pantheria()
+  )
+}
 ```
 
 ---
 ## 1) load data  
+### _drake.R    
+```{r, eval = FALSE}
+# load all functions and packages of the research compendium
+devtools::load_all()
+# Configure drake plan before execution
+# drake_config collects and sanitizes all the parameters and settings
+config <- drake::drake_config(
+  plan = write_plan_final(),
+  envir = getNamespace("datatoolboxexos"))
+```
+---
+## 1) load data  
 ### make.R    
 ```{r, eval = FALSE}
-# sources
-source("R/packages.R")
-source("R/functions.R")
-source("R/plan.R")
-# make (execute) plan
-
-make(plan, verbose = 2)
-
-# graph
-config <- drake_config(plan)
-vis_drake_graph(config, targets_only = TRUE)
+## Execute plan
+drake::r_make()
+## Visualize
+drake::r_vis_drake_graph(targets_only = TRUE)
+drake::r_vis_drake_graph()
 ```
+---
 ### load or read
 ```{r, eval = FALSE}
 # all in work environment
 loadd()
 # look at specific target
-readd(wf_ursidae_raw)
+readd(sp_list)
 ```
 ---
-## 1) load data  
-### pantheria    
-```{r, eval = FALSE}
-url       <- "http://esapubs.org/archive/ecol/E090/184/"
-filename  <- "PanTHERIA_1-0_WR05_Aug2008.txt"
-
-pantheria <- readr::read_delim(file.path(url, filename), delim = "\t")
-```
-
+## 2) wrangle data  
+Similar to dplyr exercises, but as functions
+#### 1. Clean pantheria data
 - Get Ursidae only    
 - Keep columns: sci_name,
     family, adult_bodymass, dispersal_age, gestation, homerange,
-    litter_size,  longevity      
+    litter_size,  longevity  
+#### 2. Filter wildfinder data to only keep Ursidae
+#### 3. Join the three datasets
+#### 4. Get number of ecoregions per Ursidae species
 
----
-```{r, eval = FALSE}
-get_pantheria_ursidae <- function(){
-url       <- "http://esapubs.org/archive/ecol/E090/184/"
-filename  <- "PanTHERIA_1-0_WR05_Aug2008.txt"
-
-pantheria <- readr::read_delim(file.path(url, filename), delim = "\t") %>%
-  mutate(                                    # Conversion de type
-    family = (MSW05_Family),
-    sci_name = (MSW05_Binomial)
-  ) %>%
-  rename(                                    # Nom des colonnes
-    adult_bodymass = `5-1_AdultBodyMass_g`,
-    dispersal_age  = `7-1_DispersalAge_d`,
-    gestation      = `9-1_GestationLen_d`,
-    homerange      = `22-2_HomeRange_Indiv_km2`,
-    litter_size    = `16-1_LittersPerYear`,
-    longevity      = `17-1_MaxLongevity_m`
-  ) %>%
-  select(                                    # Sélection de colonnes
-    sci_name,
-    family,
-    adult_bodymass,
-    dispersal_age,
-    gestation,
-    homerange,
-    litter_size,
-    longevity
-  ) %>%
-  na_if(-999) %>%
-  filter(family == "Ursidae")
-return(pantheria)
-}
-
-```
-## 1) load data   
-### plan.R   
-
-```{r, eval = FALSE}
-plan <- drake_plan(
-  #### get data ####
-  # Wildfinder data
-  wf_ursidae_raw = get_ursidae(),
-  wf_ecoregions = get_ecoregions(),
-  wf_sp_eco = get_sp_eco(),
-  # pantheria data
-  pan_ursidae_raw = get_pantheria_ursidae()
-)
-```
-
----
-## 2) clean data    
-### Challenge!   
-
-        
-Create a function that uses wf_ursidae_raw and returns accepted class, order, family, and sci_name    
-      
-           
-HINT:    
-```{r, eval = FALSE}
-taxize::get_uid()  # db = "itis"
-taxize::classification()  # db = "itis"
-```      
-
----
-
-## 2) clean data    
-### functions.R
-```{r, eval = FALSE}
-correct_classif <- function(data){
-  # collect uids
-  uids <- taxize::get_uid(data$sci_name, db = "itis")
-  # save classification
-  classif <-
-    lapply(uids, function(x){
-    taxize::classification(x, db = "itis")[[1]] %>%
-        filter(rank %in% c("class", "order", "family", "genus",
-                           "species")) %>%
-        select(name, rank) %>%
-        tidyr::pivot_wider(names_from = rank,
-                           values_from = name)
-    }) %>% bind_rows() %>% 
-    rename(sci_name = species) 
-  return(classif)
-}
-```
----
-## 2) clean data    
-### functions.R
-```{r, eval=FALSE}
-correct_panteria <- function(data){
-result <- correct_classif(data) %>%
-  cbind(select(data, adult_bodymass,
-               dispersal_age,
-               gestation,
-               homerange,
-               litter_size,
-               longevity))
-return(result)
-}
-
-correct_wf <- function(data){
-  result <- correct_classif(data)%>%
-  mutate(species_id = as.integer(data$species_id))
-  return(result)
-  }
-```
 ---
 
 ## 2) clean data   
 ### plan.R
 ```{r, eval = FALSE}
-plan <- drake_plan(
-  #### get data ####
-  # Wildfinder data
-  wf_ursidae_raw = get_ursidae(),
-  wf_ecoregions = get_ecoregions(),
-  wf_sp_eco = get_sp_eco(),
-
-  #### correct names ####
-  # Check and correct species names
-  wf_ursidae = correct_wf(wf_ursidae_raw),
-  pan_ursidae = correct_panteria(pan_ursidae_raw)
- )
-```
-
----
-## 3) wrangle data   
-### plan.R
-```{r, eval = FALSE}
-plan <- drake_plan(
-  #### get data ####
-  # Wildfinder data
-  wf_ursidae_raw = get_ursidae(),
-  wf_ecoregions = get_ecoregions(),
-  wf_sp_eco = get_sp_eco(),
-
-  #### correct names ####
-  # Check and correct species names
-  wf_ursidae = correct_wf(wf_ursidae_raw),
-  pan_ursidae = correct_panteria(pan_ursidae_raw),
-  
-  #### wrangle dataframes ####
-  # combine 
-  ursidae_eco = combine_sp_eco(wf_ursidae, wf_sp_eco, wf_ecoregions),
-  # summarize
-  ursidae_spread = get_spread(ursidae_eco),
-  # combine pantheria with region data
-  ursidae_combined = left_join(ursidae_spread, pan_ursidae)
- )
-```
-
----
-## 4) plot data   
-### plan.R
-```{r, eval = FALSE}
-  #### plots ####
-  necoregions_plot  = plot_necoregions(ursidae_spread),
-  gestation_plot = plot_gestation(ursidae_combined)
- 
-```
-
----
-
-## 5) report   
-### plan.R
-```{r, eval = FALSE}
-    #### plots ####
-    necoregions_plot  = plot_necoregions(ursidae_spread),
-    gestation_plot = plot_gestation(ursidae_combined),
-  
-    #### report ####
-  report = rmarkdown::render(
-    knitr_in("text/report.Rmd"),
-    output_file = file_out("output/text/report.html"),
-    quiet = FALSE,
-    output_dir = "output/text/"
+#' Write final plan
+#'
+#' @return A drake plan
+#' @export
+#'
+#' @examples
+write_plan_final <- function() {
+  drake::drake_plan(
+    # load data
+    eco_list = data_eco_list(),
+    sp_eco = data_sp_eco(),
+    sp_list = data_sp_list(),
+    pantheria = data_pantheria(),
+    # wrangle data
+    ursus = extract_ursidae(sp_list),
+    ursus_eco = join_data(ursus, sp_eco, eco_list),
+    ursus_neco = get_necoregions(ursus_eco),
+    pan_tidy = tidy_pantheria(pantheria),
   )
+}
 ```
 
 ---
-## bonus 
+## 3) plot data   
+#### 1. Barplot number of ecoregions per species
+#### 2. Gestation ~ longevity
+#### 3. World map of distribution per species
+---
 
-add map 
+## 4) report  
+Create a report in text/, and insert figures using `readd()`
+### plan.R
+```{r, eval = FALSE}
+   # report
+    report = rmarkdown::render(
+      drake::knitr_in("text/report.Rmd"),
+      output_file = drake::file_out("output/text/report.html"),
+      quiet = FALSE,
+      output_dir = "output/text/"
+    )
+```
 
+---
+## Solution
 
-
+[here](https://github.com/nschiett/datatoolboxexos)
 
 
 
