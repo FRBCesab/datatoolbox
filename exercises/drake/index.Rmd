@@ -72,7 +72,7 @@ usethis::use_r(name = "plan.R")
 file.create("_drake.R")
 #file.create("make.R") eesayons de modifier celui que l'on a déjà
 dir.create("output")
-dir.create("text") #on peut aussi utliser notre répertoire "exercices" ici ;)
+#dir.create("text") #on peut aussi utliser notre répertoire "exercices" ici ;)
 dir.create("output/plots")
 dir.create("output/text")
 ```
