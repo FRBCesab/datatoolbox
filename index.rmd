@@ -41,6 +41,8 @@ output:
 `r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**drake: a pipeline toolkit**
 
 `r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Docker**
+
+`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Take home**
 ]
 
 .pull-right[
@@ -61,6 +63,8 @@ output:
 .btn-xs[[**Cours**](courses/drake/drake_intro/intro_drake.html)]&nbsp;.btn-xs[[**Exo 7**](exercises/drake/index.html)]
 
 .btn-xs[[**Cours**](courses/docker/index.html)]
+
+.btn-xs[[**> Lien <**](courses/take-home/index.html)]
 ]
 
 

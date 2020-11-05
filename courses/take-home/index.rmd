@@ -1,0 +1,50 @@
+---
+title: Take home message
+subtitle: En guise d'au-revoir&nbsp;`r icon::fa("grin-tongue")`
+author: <br /><br />L'équipe au complet<br />&nbsp;
+date: .inst[Vendredi 6 novembre 2020]
+output:
+  xaringan::moon_reader:
+    css: ["../../assets/css/xaringan-themer.css", "../../assets/css/custom.css"]
+    lib_dir: "assets/libs"
+    seal: true
+    yolo: false
+    self_contained: false
+    nature:
+      ratio: "4:3"
+      titleSlideClass: ["right", "middle"]
+      highlightStyle: 'zenburn'
+      highlightLines: true
+      countIncrementalSlides: false
+      slideNumberFormat: ""
+      beforeInit: "../../assets/libs/macros.js"
+---
+
+
+1. `Versionnez` votre développement avec `r icon::fa("git")`
+
+1. Organisez votre répertoire de travail avec des sous-dossiers : c'est **juste ça**
+un `Research Compendium`
+
+1. Développez des fonctions `r icon::fa("r-project")`
+dans un sous-dossier `R/` et documentez-les avec `devtools::document()`
+
+1. Créez un fichier `DESCRIPTION` et utilisez les fonctions :
+  - `devtools::install_deps()` : évite d'utiliser `install.packages()`
+  - `devtools::load_all()` : évite d'utiliser `library()`
+
+1. Intégrez vos analyses, résultats et éléments textuels dans un `.Rmd`
+
+1. Créez une structure en `package R` (n'oubliez pas le `.Rbuildignore`)
+
+1. Utilisez `{drake}` si vos analyses prennent du temps (_pipeline_)
+
+1. Et pour les plus audacieux, ayez l'esprit `docker` `r icon::fa("docker")`
+
+<br />
+
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` &nbsp;[**A vous de voir
+le degré de complexité qui vous convient**](#2)
+
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` &nbsp;**Recommendation** :
+Utilisez au minimum `1.` et `2.` (et `3.` aussi `;)`)

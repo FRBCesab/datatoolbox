@@ -1,85 +1,62 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>.small[Formation FRB-Cesab &amp; GDR EcoStat]</title>
+    <title>Take home message</title>
     <meta charset="utf-8" />
-    <meta name="author" content=".verysmall[ Du 2 au 6 novembre 2020 Dispensée en virtuel]" />
+    <meta name="author" content="  L’équipe au complet  " />
     <script src="assets/libs/header-attrs-2.5/header-attrs.js"></script>
     <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/xaringan-themer.css" type="text/css" />
-    <link rel="stylesheet" href="assets/css/custom.css" type="text/css" />
+    <link rel="stylesheet" href="../../assets/css/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="../../assets/css/custom.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: right, middle, title-slide
 
-# .small[Formation FRB-Cesab &amp; GDR EcoStat]
-## .ssmall[Bonnes pratiques pour une recherche reproductible en écologie numérique]
-### .verysmall[<br />Du 2 au 6 novembre 2020<br />Dispensée en virtuel]
+# Take home message
+## En guise d’au-revoir <i class="fas  fa-grin-tongue "></i>
+### <br /><br />L’équipe au complet<br /> 
+### .inst[Vendredi 6 novembre 2020]
 
 ---
 
 
 
-## Programme
+1. `Versionnez` votre développement avec <i class="fab  fa-git "></i>
 
+1. Organisez votre répertoire de travail avec des sous-dossiers : c'est **juste ça**
+un `Research Compendium`
 
-.pull-left[
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Reproductibilité**
+1. Développez des fonctions <i class="fab  fa-r-project "></i>
+dans un sous-dossier `R/` et documentez-les avec `devtools::document()`
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**git &amp; GitHub**
+1. Créez un fichier `DESCRIPTION` et utilisez les fonctions :
+  - `devtools::install_deps()` : évite d'utiliser `install.packages()`
+  - `devtools::load_all()` : évite d'utiliser `library()`
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**RMarkdown**
+1. Intégrez vos analyses, résultats et éléments textuels dans un `.Rmd`
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**R Package**
+1. Créez une structure en `package R` (n'oubliez pas le `.Rbuildignore`)
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Research compendium**
+1. Utilisez `{drake}` si vos analyses prennent du temps (_pipeline_)
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Tidyverse**
+1. Et pour les plus audacieux, ayez l'esprit `docker` <i class="fab  fa-docker "></i>
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Spatial**
+&lt;br /&gt;
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**drake: a pipeline toolkit**
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;[**A vous de voir
+le degré de complexité qui vous convient**](#2)
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Docker**
-
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Take home**
-]
-
-.pull-right[
-.btn-xs[[**Cours**](courses/open-sci/index.html)]
-
-.btn-xs[[**Cours**](courses/intro-git/index.html)]&amp;nbsp;.btn-xs[[**Exo 1**](exercises/intro-git/index.html)]
-
-.btn-xs[[**Cours**](courses/rmarkdown/index.html)]&amp;nbsp;.btn-xs[[**Exo 2**](exercises/rmarkdown/index.html)]
-
-.btn-xs[[**Cours**](courses/r-pkg/index.html)]
-
-.btn-xs[[**Cours**](courses/res-compendium/index.html)]&amp;nbsp;.btn-xs[[**Exo 3**](exercises/res-compendium/index.html)]
-
-.btn-xs[[**Cours**](courses/tidyverse/index.html)]&amp;nbsp;.btn-xs[[**Exo 4**](exercises/dplyr/index.html)]&amp;nbsp;.btn-xs[[**Exo 5**](exercises/ggplot2/index.html)]
-
-.btn-xs[[**Cours**](courses/r-spatial/index.html)]&amp;nbsp;.btn-xs[[**Exo 6**](exercises/spatial/index.html)]
-
-.btn-xs[[**Cours**](courses/drake/drake_intro/intro_drake.html)]&amp;nbsp;.btn-xs[[**Exo 7**](exercises/drake/index.html)]
-
-.btn-xs[[**Cours**](courses/docker/index.html)]
-
-.btn-xs[[**&gt; Lien &lt;**](courses/take-home/index.html)]
-]
-
-
-&lt;!-- .right[[![:scale 10%](assets/img/github.png)](https://github.com/FRBCesab/datatoolbox)] --&gt;
-
-.right[.github[[<i class="fab  fa-github fa-3x "></i>](https://github.com/FRBCesab/datatoolbox)]]
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Recommendation** :
+Utilisez au minimum `1.` et `2.` (et `3.` aussi `;)`)
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script src="assets/libs/macros.js"></script>
+<script src="../../assets/libs/macros.js"></script>
 <script>var slideshow = remark.create({
 "ratio": "4:3",
 "highlightStyle": "zenburn",
-"highlightLines": false,
+"highlightLines": true,
 "countIncrementalSlides": false,
 "slideNumberFormat": ""
 });
@@ -147,7 +124,24 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
       links[i].target = '_blank';
     }
   }
-})();</script>
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 slideshow._releaseMath = function(el) {
