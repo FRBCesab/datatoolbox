@@ -60,7 +60,7 @@ output:
 
 .btn-xs[[**Cours**](courses/drake/drake_intro/intro_drake.html)]&nbsp;.btn-xs[[**Exo 7**](exercises/drake/index.html)]
 
-.btn-xs[[**Cours**](courses/docker/index.html)]&nbsp;.btn-xs[[**Exo 8**](#)]
+.btn-xs[[**Cours**](courses/docker/index.html)]
 ]
 
 
