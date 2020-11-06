@@ -34,7 +34,7 @@ is_reproducible <- function(recherche) {
     }
 }
 ```
-Si on prends par exemple, un article.
+Si on prend par exemple, un article.
 ```{r eval = TRUE, echo = TRUE}
 recherche_a <- c("Article")
 is_reproducible(recherche_a)
