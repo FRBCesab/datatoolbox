@@ -1,5 +1,5 @@
 ---
-title: Take home message
+title: Messages à retenir
 subtitle: En guise d'au-revoir&nbsp;`r icon::fa("grin-tongue")`
 author: <br /><br />L'équipe au complet<br />&nbsp;
 date: .inst[Vendredi 6 novembre 2020]
@@ -20,31 +20,37 @@ output:
       beforeInit: "../../assets/libs/macros.js"
 ---
 
+```{r eval=FALSE}
+        >>> Données + Métadonnées + Matériel & Méthodes -> RECHERCHE REPRODUCTIBLE <<<
+```
+.right[[**A vous de voir le degré de complexité qui vous convient**](#2)&nbsp;
+`r icon::fa("hand-point-left", size = 1, color = "#3f3f3f")`]
+<br />
 
-1. `Versionnez` votre développement avec `r icon::fa("git")`
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` &nbsp;
+`Versionnez` votre développement avec `r icon::fa("git")` et GitHub `r icon::fa("github")` ou GitLab `r icon::fa("gitlab")`
 
-1. Organisez votre répertoire de travail avec des sous-dossiers : c'est **juste ça**
-un `Research Compendium`
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` &nbsp;
+Organisez votre répertoire de travail avec des sous-dossiers : c'est **juste ça**
+un `Research Compendium` - [**Lecture**](https://faculty.washington.edu/bmarwick/PDFs/Marwick-Boettiger-Mullen-2018-TAS-research-compendia.pdf)
 
-1. Développez des fonctions `r icon::fa("r-project")`
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` &nbsp;
+Développez des fonctions `r icon::fa("r-project")`
 dans un sous-dossier `R/` et documentez-les avec `devtools::document()`
 
-1. Créez un fichier `DESCRIPTION` et utilisez les fonctions :
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` &nbsp;
+Créez un fichier `DESCRIPTION` et utilisez les fonctions :
   - `devtools::install_deps()` : évite d'utiliser `install.packages()`
   - `devtools::load_all()` : évite d'utiliser `library()`
 
-1. Intégrez vos analyses, résultats et éléments textuels dans un `.Rmd`
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` &nbsp;
+Intégrez vos analyses, résultats et éléments textuels avec `RMarkdown`
 
-1. Créez une structure en `package R` (n'oubliez pas le `.Rbuildignore`)
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` &nbsp;
+Construisez un `package R` (n'oubliez pas le `.Rbuildignore`)
 
-1. Utilisez `{drake}` si vos analyses prennent du temps (_pipeline_)
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` &nbsp;
+Utilisez `{drake}` si vos analyses prennent du temps (_pipeline_)
 
-1. Et pour les plus audacieux, ayez l'esprit `docker` `r icon::fa("docker")`
-
-<br />
-
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` &nbsp;[**A vous de voir
-le degré de complexité qui vous convient**](#2)
-
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` &nbsp;**Recommendation** :
-Utilisez au minimum `1.` et `2.` (et `3.` aussi `;)`)
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` &nbsp;
+Et pour les plus audacieux, ayez l'esprit `docker` `r icon::fa("docker")`
