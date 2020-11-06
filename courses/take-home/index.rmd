@@ -34,7 +34,7 @@ is_reproducible <- function(recherche) {
     }
 }
 ```
-<br />
+Si on prends par exemple, un article.
 ```{r eval = TRUE, echo = TRUE}
 recherche_a <- c("Article")
 is_reproducible(recherche_a)
@@ -51,20 +51,55 @@ is_reproducible(recherche_c)
 ```
 
 ---
+
+<br/>
+<br/>
 **A vous de choisir le degré de complexité** mais respectez ces **3** principes :
-
+<br/>
+<br/>
+<br/>
+<br/>
 `r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **Organisez vos fichiers selon les conventions de votre communauté**.
+<br/>
+<br/>
+<br/>
+<br/>
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **Séparez données, méthodes et résultats**, tout en explicitant votre démarche.
+<br/>
+<br/>
+<br/>
+<br/>
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **Specifiez l'environnement de développement** qui a été utilisé pour réaliser vos analyses.
 
+---
+<br/>
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **Organisez vos fichiers selon les conventions de votre communauté**.
+<br/>
+<br/>
+<br/>
+<br/>
 Organisez votre répertoire de travail avec des sous-dossiers : construisez un `Research Compendium` - [Lecture](https://faculty.washington.edu/bmarwick/PDFs/Marwick-Boettiger-Mullen-2018-TAS-research-compendia.pdf)
 
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **Séparez données, méthodes et résultats**, tout en exposant leurs relations.
-
+---
+<br/>
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **Séparez données, méthodes et résultats**, tout en explicitant votre démarche.
+<br/>
+<br/>
+<br/>
+<br/>
 Développez des fonctions `r icon::fa("r-project")`
 dans un sous-dossier `R/` et documentez-les avec `devtools::document()` (pour les rendre accessible à vos analyses grâce au `NAMESPACE`)
-
+<br/>
+<br/>
+<br/>
+<br/>
 Intégrez vos analyses, résultats et éléments textuels avec `RMarkdown`
 
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **Specifiez l'environnement de développement** qui a été utilisé pour réaliser vos analyses.
+---
+<br/>
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **Specifiez l'environnement et l'historique de développement** qui a été utilisé pour réaliser vos analyses.
+
+`Versionnez` votre développement avec `r icon::fa("git")` et GitHub `r icon::fa("github")` (ou gitlab `r icon::fa("gitlab")`)
 
 Créez un fichier `DESCRIPTION` et utilisez les fonctions :
   - `devtools::install_deps()` : évite d'utiliser `install.packages()`
@@ -72,7 +107,7 @@ Créez un fichier `DESCRIPTION` et utilisez les fonctions :
 
 Créez un README pour décrire l'environnement de développement (e.g. `Session.info()`)
 
-Et pour les plus audacieux, ayez l'esprit `docker` `r icon::fa("docker")`
+Et pour les plus téméraires, ayez l'esprit `docker` `r icon::fa("docker")`
 
 ---
 
