@@ -22,31 +22,48 @@ output:
 
 <br />
 <br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
 
-```{r eval=FALSE}
-        >>> Article -> RECHERCHE NON REPRODUCTIBLE
-        >>> Données + Métadonnées + Matériel & Méthodes + (Article) -> RECHERCHE REPRODUCTIBLE
+
+```{r eval = TRUE, echo = TRUE}
+
+is_reproductible <- function(recherche) {
+
+    reqs <- c("Données", "Métadonnées", "Matériel & Méthodes", "Article")
+
+    if( sum(is.element(recherche, reqs)) == length(reqs) ) {
+      cat("This research is REPRODUCIBLE !\n")  
+    } else {
+      cat("This research is NOT REPRODUCIBLE !\n")
+    }
+}
+```
+
+```{r eval = TRUE, echo = TRUE}
+recherche_a <- c("Article")
+is_reproductible(recherche_a)
+```
+
+```{r eval = TRUE, echo = TRUE}
+recherche_b <- c("Matériel & Méthodes", "Article")
+is_reproductible(recherche_b)
+```
+
+```{r eval = TRUE, echo = TRUE}
+recherche_c <- c("Données", "Métadonnées", "Matériel & Méthodes", "Article")
+is_reproductible(recherche_c)
 ```
 
 ---
-**A vous de choisir le degré de complexité** mais respectez ces 3 principes :
+**A vous de choisir le degré de complexité** mais respectez ces **3** principes :
 
 `r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **Organisez vos fichiers selon les conventions de votre communauté**.
 
-Organisez votre répertoire de travail avec des sous-dossiers : un `Research Compendium` - [Lecture](https://faculty.washington.edu/bmarwick/PDFs/Marwick-Boettiger-Mullen-2018-TAS-research-compendia.pdf)
+Organisez votre répertoire de travail avec des sous-dossiers : construisez un `Research Compendium` - [Lecture](https://faculty.washington.edu/bmarwick/PDFs/Marwick-Boettiger-Mullen-2018-TAS-research-compendia.pdf)
 
 `r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **Séparez données, méthodes et résultats**, tout en exposant leurs relations.
 
 Développez des fonctions `r icon::fa("r-project")`
-dans un sous-dossier `R/` et documentez-les avec `devtools::document()`
+dans un sous-dossier `R/` et documentez-les avec `devtools::document()` (pour les rendre accessible à vos analyses grâce au `NAMESPACE`)
 
 Intégrez vos analyses, résultats et éléments textuels avec `RMarkdown`
 
@@ -62,15 +79,17 @@ Et pour les plus audacieux, ayez l'esprit `docker` `r icon::fa("docker")`
 
 ---
 
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **pour un travail collaboratif **:
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **Pour un travail collaboratif **:
 
-`Versionnez` votre développement avec `r icon::fa("git")` et GitHub/Lab `r icon::fa("github")` / `r `icon::fa("gitlab")`
+(potentiellement avec vous-même dans 3 mois)
+
+`Versionnez` votre développement avec `r icon::fa("git")` et GitHub `r icon::fa("github")` (ou gitlab `r icon::fa("gitlab")`)
 
 `r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **Utilisez un "pipeline" si vos analyses prennent du temps **:
 
-`{drake}` , `{targets}` 
+Packages `{drake}` , `{targets}` 
 
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **pour diffuser / réutiliser vos fonctions **:
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **Pour diffuser / réutiliser vos fonctions **:
 
 Construisez un `package R` (n'oubliez pas le `.Rbuildignore`)
 
