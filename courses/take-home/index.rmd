@@ -99,28 +99,44 @@ Intégrez vos analyses, résultats et éléments textuels avec `RMarkdown`
 <br/>
 `r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **Specifiez l'environnement et l'historique de développement** qui a été utilisé pour réaliser vos analyses.
 
+<br/>
+<br/>
 `Versionnez` votre développement avec `r icon::fa("git")` et GitHub `r icon::fa("github")` (ou gitlab `r icon::fa("gitlab")`)
 
+<br/>
+<br/>
 Créez un fichier `DESCRIPTION` et utilisez les fonctions :
   - `devtools::install_deps()` : évite d'utiliser `install.packages()`
   - `devtools::load_all()` : évite d'utiliser `library()`
 
-Créez un README pour décrire l'environnement de développement (e.g. `Session.info()`)
+<br/>
+<br/>
+Créez un README pour décrire l'environnement de développement (e.g. `Session.info()`), et pour les plus téméraires, ayez l'esprit `docker` `r icon::fa("docker")`
 
-Et pour les plus téméraires, ayez l'esprit `docker` `r icon::fa("docker")`
+
 
 ---
-
+**Aussi ...**
+<br/>
+<br/>
+<br/>
+<br/>
 `r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **Pour un travail collaboratif **:
 
 (potentiellement avec vous-même dans 3 mois)
 
 `Versionnez` votre développement avec `r icon::fa("git")` et GitHub `r icon::fa("github")` (ou gitlab `r icon::fa("gitlab")`)
-
+<br/>
+<br/>
+<br/>
+<br/>
 `r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **Utilisez un "pipeline" si vos analyses prennent du temps **:
 
 Packages `{drake}` , `{targets}` 
-
+<br/>
+<br/>
+<br/>
+<br/>
 `r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **Pour diffuser / réutiliser vos fonctions **:
 
 Construisez un `package R` (n'oubliez pas le `.Rbuildignore`)
