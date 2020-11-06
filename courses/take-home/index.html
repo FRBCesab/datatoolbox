@@ -21,52 +21,49 @@ class: right, middle, title-slide
 ---
 
 
-&lt;br /&gt;
-&lt;br /&gt;
-
 
 
 ```r
-is_reproductible &lt;- function(recherche) {
+is_reproducible &lt;- function(recherche) {
 
     reqs &lt;- c("Données", "Métadonnées", "Matériel &amp; Méthodes", "Article")
 
     if( sum(is.element(recherche, reqs)) == length(reqs) ) {
-      cat("This research is REPRODUCIBLE !\n")  
+      cat("'[x_-]' &lt;(Congrats, this research is REPRODUCIBLE !)\n")  
     } else {
-      cat("This research is NOT REPRODUCIBLE !\n")
+      cat("'[-_-]' &lt;(BoOoOo, this research is NOT REPRODUCIBLE !)\n")
     }
 }
 ```
-
+&lt;br /&gt;
 
 ```r
 recherche_a &lt;- c("Article")
-is_reproductible(recherche_a)
+is_reproducible(recherche_a)
 ```
 
 ```
-## This research is NOT REPRODUCIBLE !
+## '[-_-]' &lt;(BoOoOo, this research is NOT REPRODUCIBLE !)
 ```
-
+&lt;br /&gt;
 
 ```r
 recherche_b &lt;- c("Matériel &amp; Méthodes", "Article")
-is_reproductible(recherche_b)
+is_reproducible(recherche_b)
 ```
 
 ```
-## This research is NOT REPRODUCIBLE !
+## '[-_-]' &lt;(BoOoOo, this research is NOT REPRODUCIBLE !)
 ```
-
+&lt;br /&gt;
 
 ```r
 recherche_c &lt;- c("Données", "Métadonnées", "Matériel &amp; Méthodes", "Article")
-is_reproductible(recherche_c)
+is_reproducible(recherche_c)
 ```
 
 ```
-## This research is REPRODUCIBLE !
+## '[x_-]' &lt;(Congrats, this research is REPRODUCIBLE !)
 ```
 
 ---

@@ -20,37 +20,34 @@ output:
       beforeInit: "../../assets/libs/macros.js"
 ---
 
-<br />
-<br />
-
 
 ```{r eval = TRUE, echo = TRUE}
 
-is_reproductible <- function(recherche) {
+is_reproducible <- function(recherche) {
 
     reqs <- c("Données", "Métadonnées", "Matériel & Méthodes", "Article")
 
     if( sum(is.element(recherche, reqs)) == length(reqs) ) {
-      cat("This research is REPRODUCIBLE !\n")  
+      cat("'[x_-]' <(Congrats, this research is REPRODUCIBLE !)\n")  
     } else {
-      cat("This research is NOT REPRODUCIBLE !\n")
+      cat("'[-_-]' <(BoOoOo, this research is NOT REPRODUCIBLE !)\n")
     }
 }
 ```
-
+<br />
 ```{r eval = TRUE, echo = TRUE}
 recherche_a <- c("Article")
-is_reproductible(recherche_a)
+is_reproducible(recherche_a)
 ```
-
+<br />
 ```{r eval = TRUE, echo = TRUE}
 recherche_b <- c("Matériel & Méthodes", "Article")
-is_reproductible(recherche_b)
+is_reproducible(recherche_b)
 ```
-
+<br />
 ```{r eval = TRUE, echo = TRUE}
 recherche_c <- c("Données", "Métadonnées", "Matériel & Méthodes", "Article")
-is_reproductible(recherche_c)
+is_reproducible(recherche_c)
 ```
 
 ---
