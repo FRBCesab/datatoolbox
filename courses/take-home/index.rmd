@@ -20,37 +20,59 @@ output:
       beforeInit: "../../assets/libs/macros.js"
 ---
 
-```{r eval=FALSE}
-        >>> Données + Métadonnées + Matériel & Méthodes -> RECHERCHE REPRODUCTIBLE <<<
-```
-.right[[**A vous de voir le degré de complexité qui vous convient**](#2)&nbsp;
-`r icon::fa("hand-point-left", size = 1, color = "#3f3f3f")`]
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <br />
 
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` &nbsp;
-`Versionnez` votre développement avec `r icon::fa("git")` et GitHub `r icon::fa("github")` ou GitLab `r icon::fa("gitlab")`
+```{r eval=FALSE}
+        >>> Article -> RECHERCHE NON REPRODUCTIBLE
+        >>> Données + Métadonnées + Matériel & Méthodes + (Article) -> RECHERCHE REPRODUCTIBLE
+```
 
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` &nbsp;
-Organisez votre répertoire de travail avec des sous-dossiers : c'est **juste ça**
-un `Research Compendium` - [**Lecture**](https://faculty.washington.edu/bmarwick/PDFs/Marwick-Boettiger-Mullen-2018-TAS-research-compendia.pdf)
+---
+**A vous de choisir le degré de complexité** mais respectez ces 3 principes :
 
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` &nbsp;
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **Organisez vos fichiers selon les conventions de votre communauté**.
+
+Organisez votre répertoire de travail avec des sous-dossiers : un `Research Compendium` - [Lecture](https://faculty.washington.edu/bmarwick/PDFs/Marwick-Boettiger-Mullen-2018-TAS-research-compendia.pdf)
+
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **Séparez données, méthodes et résultats**, tout en exposant leurs relations.
+
 Développez des fonctions `r icon::fa("r-project")`
 dans un sous-dossier `R/` et documentez-les avec `devtools::document()`
 
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` &nbsp;
+Intégrez vos analyses, résultats et éléments textuels avec `RMarkdown`
+
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **Specifiez l'environnement de développement** qui a été utilisé pour réaliser vos analyses.
+
 Créez un fichier `DESCRIPTION` et utilisez les fonctions :
   - `devtools::install_deps()` : évite d'utiliser `install.packages()`
   - `devtools::load_all()` : évite d'utiliser `library()`
 
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` &nbsp;
-Intégrez vos analyses, résultats et éléments textuels avec `RMarkdown`
+Créez un README pour décrire l'environnement de développement (e.g. `Session.info()`)
 
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` &nbsp;
+Et pour les plus audacieux, ayez l'esprit `docker` `r icon::fa("docker")`
+
+---
+
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **pour un travail collaboratif **:
+
+`Versionnez` votre développement avec `r icon::fa("git")` et GitHub/Lab `r icon::fa("github")` / `r `icon::fa("gitlab")`
+
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **Utilisez un "pipeline" si vos analyses prennent du temps **:
+
+`{drake}` , `{targets}` 
+
+`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` **pour diffuser / réutiliser vos fonctions **:
+
 Construisez un `package R` (n'oubliez pas le `.Rbuildignore`)
 
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` &nbsp;
-Utilisez `{drake}` si vos analyses prennent du temps (_pipeline_)
 
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")` &nbsp;
-Et pour les plus audacieux, ayez l'esprit `docker` `r icon::fa("docker")`
+

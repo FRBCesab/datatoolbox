@@ -21,41 +21,63 @@ class: right, middle, title-slide
 ---
 
 
-
-```r
-        &gt;&gt;&gt; Données + Métadonnées + Matériel &amp; Méthodes -&gt; RECHERCHE REPRODUCTIBLE &lt;&lt;&lt;
-```
-.right[[**A vous de voir le degré de complexité qui vous convient**](#2)&amp;nbsp;
-<i class="fas  fa-hand-point-left " style="color:#3f3f3f;"></i>]
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
 &lt;br /&gt;
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
-`Versionnez` votre développement avec <i class="fab  fa-git "></i> et GitHub <i class="fab  fa-github "></i> ou GitLab <i class="fab  fa-gitlab "></i>
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
-Organisez votre répertoire de travail avec des sous-dossiers : c'est **juste ça**
-un `Research Compendium` - [**Lecture**](https://faculty.washington.edu/bmarwick/PDFs/Marwick-Boettiger-Mullen-2018-TAS-research-compendia.pdf)
+```r
+        &gt;&gt;&gt; Article -&gt; RECHERCHE NON REPRODUCTIBLE
+        &gt;&gt;&gt; Données + Métadonnées + Matériel &amp; Méthodes + (Article) -&gt; RECHERCHE REPRODUCTIBLE
+```
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+---
+**A vous de choisir le degré de complexité** mais respectez ces 3 principes :
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> **Organisez vos fichiers selon les conventions de votre communauté**.
+
+Organisez votre répertoire de travail avec des sous-dossiers : un `Research Compendium` - [Lecture](https://faculty.washington.edu/bmarwick/PDFs/Marwick-Boettiger-Mullen-2018-TAS-research-compendia.pdf)
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> **Séparez données, méthodes et résultats**, tout en exposant leurs relations.
+
 Développez des fonctions <i class="fab  fa-r-project "></i>
 dans un sous-dossier `R/` et documentez-les avec `devtools::document()`
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+Intégrez vos analyses, résultats et éléments textuels avec `RMarkdown`
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> **Specifiez l'environnement de développement** qui a été utilisé pour réaliser vos analyses.
+
 Créez un fichier `DESCRIPTION` et utilisez les fonctions :
   - `devtools::install_deps()` : évite d'utiliser `install.packages()`
   - `devtools::load_all()` : évite d'utiliser `library()`
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
-Intégrez vos analyses, résultats et éléments textuels avec `RMarkdown`
+Créez un README pour décrire l'environnement de développement (e.g. `Session.info()`)
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+Et pour les plus audacieux, ayez l'esprit `docker` <i class="fab  fa-docker "></i>
+
+---
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> **pour un travail collaboratif **:
+
+`Versionnez` votre développement avec <i class="fab  fa-git "></i> et GitHub/Lab <i class="fab  fa-github "></i> / `r `icon::fa("gitlab")`
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> **Utilisez un "pipeline" si vos analyses prennent du temps **:
+
+`{drake}` , `{targets}` 
+
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> **pour diffuser / réutiliser vos fonctions **:
+
 Construisez un `package R` (n'oubliez pas le `.Rbuildignore`)
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
-Utilisez `{drake}` si vos analyses prennent du temps (_pipeline_)
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
-Et pour les plus audacieux, ayez l'esprit `docker` <i class="fab  fa-docker "></i>
+
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
