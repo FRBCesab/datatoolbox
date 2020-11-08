@@ -20,24 +20,24 @@ Ce dépôt GitHub, placé sous [**Licence CC-BY 4.0**](https://github.com/FRBCes
 
 ### Equipe organisatrice
 
-- Nicolas CASAJUS (FRB CESAB)
-&nbsp;[:octocat:](https://github.com/ahasverus)
+- [:octocat:](https://github.com/ahasverus)
 &nbsp;[:globe_with_meridians:](https://nicolascasajus.fr)
-- Stéphane DRAY (CNRS LBBE)
-&nbsp;[:octocat:](https://github.com/sdray)
+&nbsp;Nicolas CASAJUS (FRB CESAB)
+- [:octocat:](https://github.com/sdray)
 &nbsp;[:globe_with_meridians:](https://lbbe.univ-lyon1.fr/-Dray-Stephane-.html)
-- Olivier GIMENEZ (CNRS CEFE)
-&nbsp;[:octocat:](https://github.com/oliviergimenez)
+&nbsp;Stéphane DRAY (CNRS LBBE)
+- [:octocat:](https://github.com/oliviergimenez)
 &nbsp;[:globe_with_meridians:](https://oliviergimenez.github.io/)
-- Loreleï GUÉRY (IRD MARBEC)
-&nbsp;[:octocat:](https://github.com/lguery)
+&nbsp;Olivier GIMENEZ (CNRS CEFE)
+- [:octocat:](https://github.com/lguery)
 &nbsp;[:globe_with_meridians:](http://www.umr-marbec.fr/guery-lorelei.html)
-- François GUILHAUMON (IRD MARBEC)
-&nbsp;[:octocat:](https://github.com/fguilhaumon)
+&nbsp;Loreleï GUÉRY (IRD MARBEC)
+- [:octocat:](https://github.com/fguilhaumon)
 &nbsp;[:globe_with_meridians:](https://fguilhaumon.gitlab.io/)
-- Nina SCHIETTEKATTE (EPHE CRIOBE)
-&nbsp;[:octocat:](https://github.com/nschiett)
+&nbsp;François GUILHAUMON (IRD MARBEC)
+- [:octocat:](https://github.com/nschiett)
 &nbsp;[:globe_with_meridians:](http://www.criobe.pf/pro/personnel/doctorants/nina-schiettekatte/)
+&nbsp;Nina SCHIETTEKATTE (EPHE CRIOBE)
 
 
 
@@ -47,8 +47,34 @@ Ce dépôt GitHub, placé sous [**Licence CC-BY 4.0**](https://github.com/FRBCes
 
 ### Contenu
 
-...
+Ce dépôt est structuré de la manière suivante :
 
+- :file_folder: &nbsp;[**assets/**](https://github.com/FRBCesab/datatoolbox/tree/master/assets):
+contient les images, styles CSS et librairies Javascript nécessaires à la page d'accueil de la formation
+- :file_folder: &nbsp;[**courses/**](https://github.com/FRBCesab/datatoolbox/tree/master/courses):
+contient les sous-dossiers des cours (un sous-dossier par cours)
+- :file_folder: &nbsp;[**exercises/**](https://github.com/FRBCesab/datatoolbox/tree/master/exercises):
+contient les sous-dossiers des exercices (un sous-dossier par exercice)
+- :file_folder: &nbsp;[**man/**](https://github.com/FRBCesab/datatoolbox/tree/master/man):
+contient la documentation des fonctions R développées pour ce projet
+- :file_folder: &nbsp;[**notes/**](https://github.com/FRBCesab/datatoolbox/tree/master/notes):
+contient les notes écrites sur HackMD (voir les badges en haut de page)
+- :file_folder: &nbsp;[**R/**](https://github.com/FRBCesab/datatoolbox/tree/master/r):
+contient les fonctions R développées pour ce projet
+- :page_facing_up: &nbsp;[**DESCRIPTION**](https://github.com/FRBCesab/datatoolbox/tree/master/DESCRIPTION):
+fichier contiennant les métadonnées du projet (notamment les packages R requis)
+- :page_facing_up: &nbsp;[**index.Rmd**](https://github.com/FRBCesab/datatoolbox/tree/master/index.Rmd):
+fichier `RMarkdown` de la page d'accueil de la formation
+- :page_facing_up: &nbsp;[**index.html**](https://github.com/FRBCesab/datatoolbox/tree/master/index.html):
+fichier `HTML` de la page d'accueil de la formation
+- :page_facing_up: &nbsp;[**LICENSE.md**](https://github.com/FRBCesab/datatoolbox/tree/master/LICENSE.md):
+fichier détaillant la licence CC-BY 4.0 protégeant ce projet
+- :page_facing_up: &nbsp;[**make.R**](https://github.com/FRBCesab/datatoolbox/tree/master/make.R):
+fichier `R` permettant de mettre à jour tous les cours et exercices
+- :page_facing_up: &nbsp;[**README.md**](https://github.com/FRBCesab/datatoolbox/tree/master/README.md):
+ce présent fichier
+
+:boom: &nbsp;Pour accéder à la page d'accueil de la formation et des cours, cliquez [**ici**](https://frbcesab.github.io/datatoolbox/index.html).
 
 
 
@@ -65,7 +91,7 @@ suivantes sont requises :
 - Librairie système GDAL
 - Librairie système GEOS
 - Librairie système PROJ
-- Pandoc et Pandoc citeproc (inclus dans RStudio)
+- Pandoc (inclus dans RStudio)
 - Rtools (pour les utilisateurs Windows)
 
 La liste des packages R requis et listés dans le fichier `DESCRIPTION` seront installés
@@ -84,10 +110,14 @@ source("make.R")
 ```
 
 
+<br />
+
 
 
 ### Ressources
 
-:globe_with_meridians: [Page de l'événement](https://www.fondationbiodiversite.fr/evenement/frb-cesab-formation-reproductibilite-2020/)
+:punch: [**Page de l'événement**](https://www.fondationbiodiversite.fr/evenement/frb-cesab-formation-reproductibilite-2020/)
 
-:octocat: [Dépôt des exercices](https://github.com/FRBCesab/datatoolboxexos)
+:punch: [**Dépôt des exercices**](https://github.com/FRBCesab/datatoolboxexos)
+
+:punch: [**Informations générales**](https://hackmd.io/kMboCUzyQNmReObNDYoQ6A)
