@@ -33,6 +33,6 @@ knit_slides(label = "r-spatial", pdf = TRUE)
 knit_slides(label = "res-compendium")
 knit_slides(label = "rmarkdown")
 knit_slides(label = "take-home")
-knit_slides(label = "tidyverse", pdf = TRUE)
+knit_slides(label = "tidyverse")
 
 knit_slides(home = TRUE)

@@ -4,10 +4,10 @@
     <title>Introduction to the Tidyverse</title>
     <meta charset="utf-8" />
     <meta name="author" content="Olivier Gimenez" />
-    <script src="assets/libs/header-attrs-2.3/header-attrs.js"></script>
+    <script src="assets/libs/header-attrs-2.5/header-attrs.js"></script>
     <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../../assets/css/rutgers-tidyverse.css" type="text/css" />
-    <link rel="stylesheet" href="../../assets/css/rutgers-fonts_og.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/rutgers-tidyverse.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/rutgers-fonts_og.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -105,11 +105,11 @@ background-image: url(https://github.com/rstudio/hex-stickers/raw/master/SVG/tid
 background-size: 100px
 background-position: 90% 3%
 
-# Load [tidyverse](www.tidyverse.org) 📦
+# Load [tidyverse](www.tidyverse.org)&amp;nbsp;📦
 
 
 ```r
-#install.packages("tidyverse")
+# install.packages("tidyverse")
 library(tidyverse)
 ```
 
@@ -150,7 +150,7 @@ class: inverse, center, middle
 
 
 ```r
-citations_raw &lt;- read_csv('https://raw.githubusercontent.com/oliviergimenez/intro_tidyverse/master/journal.pone.0166570.s001.CSV')
+citations_raw &lt;- readr::read_csv('https://raw.githubusercontent.com/oliviergimenez/intro_tidyverse/master/journal.pone.0166570.s001.CSV')
 citations_raw
 ```
 
@@ -185,13 +185,13 @@ class: inverse, center, middle
 
 
 ```r
-citations_temp &lt;- rename(citations_raw,
-       journal = 'Journal identity',
+citations_temp &lt;- dplyr::rename(citations_raw,
+       journal      = 'Journal identity',
        impactfactor = '5-year journal impact factor',
-       pubyear = 'Year published',
-       colldate = 'Collection date',
-       pubdate = 'Publication date',
-       nbtweets = 'Number of tweets',
+       pubyear      = 'Year published',
+       colldate     = 'Collection date',
+       pubdate      = 'Publication date',
+       nbtweets     = 'Number of tweets',
        woscitations = 'Number of Web of Science citations')
 citations_temp
 ```
@@ -220,7 +220,7 @@ citations_temp
 
 
 ```r
-citations &lt;- mutate(citations_temp, journal = as.factor(journal))
+citations &lt;- dplyr::mutate(citations_temp, journal = as.factor(journal))
 citations
 ```
 
@@ -276,14 +276,15 @@ class: inverse, center, middle
 
 ```r
 citations_raw %&gt;%
-  rename(journal = 'Journal identity',
-       impactfactor = '5-year journal impact factor',
-       pubyear = 'Year published',
-       colldate = 'Collection date',
-       pubdate = 'Publication date',
-       nbtweets = 'Number of tweets',
-       woscitations = 'Number of Web of Science citations') %&gt;%
-  mutate(journal = as.factor(journal))
+  dplyr::rename(
+    journal      = 'Journal identity',
+    impactfactor = '5-year journal impact factor',
+    pubyear      = 'Year published',
+    colldate     = 'Collection date',
+    pubdate      = 'Publication date',
+    nbtweets     = 'Number of tweets',
+    woscitations = 'Number of Web of Science citations') %&gt;%
+  dplyr::mutate(journal = as.factor(journal))
 ```
 
 ```
@@ -311,14 +312,15 @@ citations_raw %&gt;%
 
 ```r
 *citations &lt;- citations_raw %&gt;%
-  rename(journal = 'Journal identity',
-       impactfactor = '5-year journal impact factor',
-       pubyear = 'Year published',
-       colldate = 'Collection date',
-       pubdate = 'Publication date',
-       nbtweets = 'Number of tweets',
-       woscitations = 'Number of Web of Science citations') %&gt;%
-  mutate(journal = as.factor(journal))
+  dplyr::rename(
+    journal      = 'Journal identity',
+    impactfactor = '5-year journal impact factor',
+    pubyear      = 'Year published',
+    colldate     = 'Collection date',
+    pubdate      = 'Publication date',
+    nbtweets     = 'Number of tweets',
+    woscitations = 'Number of Web of Science citations') %&gt;%
+  dplyr::mutate(journal = as.factor(journal))
 ```
 
 ---
@@ -341,8 +343,8 @@ citations_raw %&gt;%
 
 
 ```r
-white_and_yolk &lt;- crack(egg, add_seasoning)
-omelette_batter &lt;- beat(white_and_yolk)
+white_and_yolk       &lt;- crack(egg, add_seasoning)
+omelette_batter      &lt;- beat(white_and_yolk)
 omelette_with_chives &lt;- cook(omelette_batter,add_chives)
 ```
 
@@ -375,7 +377,7 @@ class: inverse, center, middle
 
 ```r
 citations %&gt;%
-  select(journal, impactfactor, nbtweets)
+  dplyr::select(journal, impactfactor, nbtweets)
 ```
 
 ```
@@ -402,7 +404,7 @@ citations %&gt;%
 
 ```r
 citations %&gt;%
-  select(-Volume, -Issue, -Authors)
+  dplyr::select(-Volume, -Issue, -Authors)
 ```
 
 ```
@@ -431,7 +433,7 @@ citations %&gt;%
 
 ```r
 citations %&gt;%
-  separate(pubdate,c('month','day','year'),'/')
+  tidyr::separate(pubdate, c('month', 'day', 'year'), sep = '/')
 ```
 
 ```
@@ -458,10 +460,10 @@ citations %&gt;%
 
 
 ```r
-library(lubridate)
 citations %&gt;%
-  mutate(pubdate = mdy(pubdate),
-         colldate = mdy(colldate))
+  dplyr::mutate(
+    pubdate  = lubridate::mdy(pubdate),
+    colldate = lubridate::mdy(colldate))
 ```
 
 ```
@@ -488,11 +490,11 @@ citations %&gt;%
 
 
 ```r
-library(lubridate)
 citations %&gt;%
-  mutate(pubdate = mdy(pubdate),
-         colldate = mdy(colldate),
-*        pubyear2 = year(pubdate))
+  dplyr::mutate(
+    pubdate  = lubridate::mdy(pubdate),
+    colldate = lubridate::mdy(colldate),
+*   pubyear2 = lubridate::year(pubdate))
 ```
 
 ```
@@ -547,7 +549,7 @@ class: inverse, center, middle
 
 ```r
 citations %&gt;%
-* filter(str_detect(Authors,'et al'))
+* dplyr::filter(stringr::str_detect(Authors, 'et al'))
 ```
 
 ```
@@ -575,8 +577,8 @@ citations %&gt;%
 
 ```r
 citations %&gt;%
-* filter(str_detect(Authors,'et al')) %&gt;%
-* select(Authors)
+* dplyr::filter(stringr::str_detect(Authors, 'et al')) %&gt;%
+* dplyr::select(Authors)
 ```
 
 ```
@@ -604,7 +606,7 @@ citations %&gt;%
 
 ```r
 citations %&gt;%
-* filter(!str_detect(Authors,'et al'))
+* dplyr::filter(!stringr::str_detect(Authors, 'et al'))
 ```
 
 ```
@@ -633,8 +635,8 @@ citations %&gt;%
 
 ```r
 citations %&gt;%
-* filter(!str_detect(Authors,'et al')) %&gt;%
-* select(Authors)
+* dplyr::filter(!stringr::str_detect(Authors, 'et al')) %&gt;%
+* dplyr::select(Authors)
 ```
 
 ```
@@ -662,8 +664,8 @@ citations %&gt;%
 
 ```r
 citations %&gt;%
-  filter(!str_detect(Authors,'et al')) %&gt;%
-* pull(Authors) %&gt;%
+  dplyr::filter(!stringr::str_detect(Authors, 'et al')) %&gt;%
+* dplyr::pull(Authors) %&gt;%
   head(10)
 ```
 
@@ -682,7 +684,7 @@ citations %&gt;%
 
 ```r
 citations %&gt;%
-* filter(!str_detect(Authors,'et al'), impactfactor &lt; 5)
+* dplyr::filter(!stringr::str_detect(Authors, 'et al'), impactfactor &lt; 5)
 ```
 
 ```
@@ -710,8 +712,8 @@ citations %&gt;%
 
 ```r
 citations %&gt;%
-* mutate(authors_lowercase = str_to_lower(Authors)) %&gt;%
-  select(authors_lowercase)
+* dplyr::mutate(authors_lowercase = stringr::str_to_lower(Authors)) %&gt;%
+  dplyr::select(authors_lowercase)
 ```
 
 ```
@@ -738,8 +740,8 @@ citations %&gt;%
 
 ```r
 citations %&gt;%
-* mutate(journal = str_remove_all(journal," ")) %&gt;%
-  select(journal) %&gt;%
+* dplyr::mutate(journal = stringr::str_remove_all(journal, " ")) %&gt;%
+  dplyr::select(journal) %&gt;%
   unique() %&gt;%
   head(5)
 ```
@@ -776,7 +778,7 @@ class: inverse, center, middle
 
 
 ```r
-citations %&gt;% count(journal, sort = TRUE)
+citations %&gt;% dplyr::count(journal, sort = TRUE)
 ```
 
 ```
@@ -812,7 +814,7 @@ citations %&gt;% count(journal, sort = TRUE)
 
 ```r
 citations %&gt;%
-  count(journal, pubyear) %&gt;%
+  dplyr::count(journal, pubyear) %&gt;%
   head()
 ```
 
@@ -835,7 +837,7 @@ citations %&gt;%
 
 ```r
 citations %&gt;%
-  count(journal, wt = nbtweets, sort = TRUE)
+  dplyr::count(journal, wt = nbtweets, sort = TRUE)
 ```
 
 ```
@@ -871,8 +873,8 @@ citations %&gt;%
 
 ```r
 citations %&gt;%
-* group_by(journal) %&gt;%
-* summarise(avg_tweets = mean(nbtweets)) %&gt;%
+* dplyr::group_by(journal) %&gt;%
+* dplyr::summarise(avg_tweets = mean(nbtweets)) %&gt;%
   head(10)
 ```
 
@@ -900,9 +902,9 @@ citations %&gt;%
 
 ```r
 citations %&gt;%
-  group_by(journal) %&gt;%
-  summarise(avg_tweets = mean(nbtweets)) %&gt;%
-* arrange(desc(avg_tweets)) %&gt;% # decreasing order (wo desc for increasing)
+  dplyr::group_by(journal) %&gt;%
+  dplyr::summarise(avg_tweets = mean(nbtweets)) %&gt;%
+* dplyr::arrange(dplyr::desc(avg_tweets)) %&gt;% # decreasing order (wo desc for increasing)
   head(10)
 ```
 
@@ -936,13 +938,9 @@ citations %&gt;%
 
 ```r
 citations %&gt;%
-* group_by(journal) %&gt;%
-* summarize(across(where(is.numeric), mean)) %&gt;%
+* dplyr::group_by(journal) %&gt;%
+* dplyr::summarize(dplyr::across(where(is.numeric), mean)) %&gt;%
   head()
-```
-
-```
-## `summarise()` ungrouping output (override with `.groups` argument)
 ```
 
 ```
@@ -968,7 +966,7 @@ citations %&gt;%
 
 ---
 
-# Tidying tibbles 
+# Tidying tibbles
 
 &lt;img src="assets/img/original-dfs-tidy.png" width="70%" style="display: block; margin: auto;" /&gt;
 
@@ -1309,7 +1307,7 @@ citations_ecology %&gt;%
   geom_histogram(fill = "orange", color = "brown") +
   labs(x = "Number of tweets",
        y = "Count",
-       title = "Histogram of the number of tweets") + 
+       title = "Histogram of the number of tweets") +
 * facet_wrap(vars(journal))
 ```
 
@@ -1371,7 +1369,7 @@ citations_ecology %&gt;%
   ggplot() +
   aes(x = journal, y = nbtweets, fill = journal) +
   geom_boxplot() +
-  scale_y_log10() + 
+  scale_y_log10() +
 * theme(axis.text.x = element_blank()) +
 * labs(x = "")
 ```
@@ -1477,7 +1475,7 @@ citations %&gt;%
   count(journal) %&gt;%
   ggplot() +
   aes(x = n, y = fct_reorder(journal, n)) +
-  geom_col() + 
+  geom_col() +
   labs(x = "counts", y = "")
 ```
 
@@ -1486,9 +1484,9 @@ citations %&gt;%
 
 ---
 
-# More about how to (tidy) work with factors 
+# More about how to (tidy) work with factors
 
-* [Be the boss of your factors](https://stat545.com/block029_factors.html) and 
+* [Be the boss of your factors](https://stat545.com/block029_factors.html) and
 * [forcats, forcats, vous avez dit forcats ?](https://thinkr.fr/forcats-forcats-vous-avez-dit-forcats/).
 
 
@@ -1524,7 +1522,7 @@ citations_ecology %&gt;%
 
 ---
 
-# Change default background `B &amp; W theme` 
+# Change default background `B &amp; W theme`
 
 
 ```r
