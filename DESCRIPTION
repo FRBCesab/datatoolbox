@@ -30,7 +30,7 @@ Description: This project contains all the materials for the training course
     'Bonnes pratiques pour une recherche reproductible en ecologie numerique'.
     Visit the website <https://frbcesab.github.io/datatoolbox> to access all
     slides.
-License: MIT + file LICENSE
+License: CC BY 4.0
 URL: https://github.com/frbcesab/datatoolbox (materials)
      https://frbcesab.github.io/datatoolbox (website)
 BugReports: https://github.com/frbcesab/datatoolbox/issues
@@ -72,6 +72,7 @@ Imports:
     rrtools,
     rvest,
     sf,
+    showtext,
     stringr,
     taxize,
     testthat,

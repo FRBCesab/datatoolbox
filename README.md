@@ -4,11 +4,13 @@
 [![Course Informations](https://img.shields.io/badge/Informations-go-red?style=flat&logo=markdown)](https://hackmd.io/kMboCUzyQNmReObNDYoQ6A)
 [![Introduce Yourself](https://img.shields.io/badge/Who%20are%20you%3F-go-brightgreen?style=flat&logo=markdown)](https://hackmd.io/F-mjO0adRSuuhf93lf39Zg)
 [![Let's Chat!](https://img.shields.io/badge/Let's%20Chat!-go-yellowgreen?style=flat&logo=markdown)](https://hackmd.io/TXGHRIFVSm--9b8Y7yWKrw)
-[![Let's Chat!](https://img.shields.io/badge/Présentations-go-yellow?style=flat&logo=atom)](https://frbcesab.github.io/datatoolbox/index.html)
+[![Website](https://img.shields.io/badge/Présentations-go-yellow?style=flat&logo=atom)](https://frbcesab.github.io/datatoolbox/index.html)
 
-Le Cesab de la FRB et le GDR EcoStat proposent la seconde édition de la formation « Bonnes pratiques pour une recherche reproductible en écologie numérique ». Cette formation de cinq jours a pour objectif de former de jeunes chercheurs / chercheuses aux outils de reproductibilité, de développement logiciel et de gestion de versions (e.g. R, git, markdown, tidyverse, docker) appliqués à la recherche en biodiversité.
+<br />
 
-:construction_worker: **En raison des conditions sanitaires dues à la crise de la Covid-19, la formation, dispensée en français, se déroulera du 2 au 6 novembre 2020 en distanciel**.
+> Le Cesab de la FRB et le GDR EcoStat proposent depuis 2019 une formation intitulée « Bonnes pratiques pour une recherche reproductible en écologie numérique ». Cette formation de cinq jours a pour objectif de former de jeunes chercheurs / chercheuses aux outils de reproductibilité, de développement logiciel et de gestion de versions (e.g. R, git, markdown, tidyverse, docker) appliqués à la recherche en biodiversité.
+
+Ce dépôt GitHub, placé sous [**Licence CC-BY 4.0**](https://github.com/FRBCesab/datatoolbox/blob/master/LICENSE.md), contient tout le matériel nécessaire à la reproduction des cours et exercices.
 
 
 
@@ -16,13 +18,26 @@ Le Cesab de la FRB et le GDR EcoStat proposent la seconde édition de la formati
 
 
 
-### Intervenants
+### Equipe organisatrice
 
-- Nicolas CASAJUS (FRB-Cesab)
+- Nicolas CASAJUS (FRB CESAB)
+&nbsp;[:octocat:](https://github.com/ahasverus)
+&nbsp;[:globe_with_meridians:](https://nicolascasajus.fr)
 - Stéphane DRAY (CNRS LBBE)
-- Olivier GIMENEZ (CNRS Cefe)
-- François GUILHAUMON (IRD Marbec)
-- Nina SCHIETTEKATTE (EPHE Criobe)
+&nbsp;[:octocat:](https://github.com/sdray)
+&nbsp;[:globe_with_meridians:](https://lbbe.univ-lyon1.fr/-Dray-Stephane-.html)
+- Olivier GIMENEZ (CNRS CEFE)
+&nbsp;[:octocat:](https://github.com/oliviergimenez)
+&nbsp;[:globe_with_meridians:](https://oliviergimenez.github.io/)
+- Loreleï GUÉRY (IRD MARBEC)
+&nbsp;[:octocat:](https://github.com/lguery)
+&nbsp;[:globe_with_meridians:](http://www.umr-marbec.fr/guery-lorelei.html)
+- François GUILHAUMON (IRD MARBEC)
+&nbsp;[:octocat:](https://github.com/fguilhaumon)
+&nbsp;[:globe_with_meridians:](https://fguilhaumon.gitlab.io/)
+- Nina SCHIETTEKATTE (EPHE CRIOBE)
+&nbsp;[:octocat:](https://github.com/nschiett)
+&nbsp;[:globe_with_meridians:](http://www.criobe.pf/pro/personnel/doctorants/nina-schiettekatte/)
 
 
 
@@ -30,35 +45,44 @@ Le Cesab de la FRB et le GDR EcoStat proposent la seconde édition de la formati
 
 
 
-### Programme
+### Contenu
 
-- **Lundi 2 Novembre 2020**
-  - `09h00 – 10h00` : Icebreaker virtuel
-  - `10h00 – 11h00` : Science ouverte et Recherche reproductible
-  - `11h00 – 12h30` : Gestion des versions et partage (git, GitHub, GitLab)
-  - `14h00 – 15h30` : Gestion des versions et partage (git, GitHub, GitLab) - suite
-  - `15h30 – 17h30` : Programmation lettrée (Rmarkdown)
+...
 
-- **Mardi 3 Novembre 2020**
-  - `09h00 – 11h00` : Construction d’un package R - Live coding
-  - `11h00 – 12h30` : Research Compendium
-  - `14h00 – 17h30` : Manipulation et visualisation de données (tidyverse et sf)
-
-- **Mercredi 4 Novembre 2020**
-  - `09h00 – 12h30` : Optimisation du flux de travail (drake)
-  - `14h00 – 17h30` : Introduction à la conteneurisation (docker)
-
-- **Jeudi 5 Novembre 2020**
-  - `09h00 – 12h30` : Projets en sous-groupes
-  - `14h00 – 17h30` : Projets en sous-groupes - suite
-
-- **Vendredi 6 Novembre 2020**
-  - `09h00 – 12h30` : Projets en sous-groupes - suite
-  - `14h00 – 16h30` : Restitution des projets
 
 
 
 <br />
+
+
+
+### Dépendances requises
+
+Pour recompiler les diapositives des cours et exercices, les dépendances systèmes
+suivantes sont requises :
+
+- Google Chrome (pour convertir certains cours en PDF)
+- Librairie système GDAL
+- Librairie système GEOS
+- Librairie système PROJ
+- Pandoc et Pandoc citeproc (inclus dans RStudio)
+- Rtools (pour les utilisateurs Windows)
+
+La liste des packages R requis et listés dans le fichier `DESCRIPTION` seront installés
+automatiquement lorsque le script `make.R` sera exécuté.
+
+<br />
+
+
+
+### Usage
+
+Pour mettre à jour les versions HTML (et PDF) des diapositives des cours, exécutez simplement :
+
+```r
+source("make.R")
+```
+
 
 
 

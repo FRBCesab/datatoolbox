@@ -3,9 +3,9 @@
 ^data$
 ^exercises$
 ^notes$
-^License\.md$
 ^index\.Rmd$
 ^index\.pdf$
 ^index\.html$
 ^make\.R$
 ^\.github$
+^LICENSE\.md$
