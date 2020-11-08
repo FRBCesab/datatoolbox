@@ -5,6 +5,7 @@
 [![Introduce Yourself](https://img.shields.io/badge/Who%20are%20you%3F-go-brightgreen?style=flat&logo=markdown)](https://hackmd.io/F-mjO0adRSuuhf93lf39Zg)
 [![Let's Chat!](https://img.shields.io/badge/Let's%20Chat!-go-yellowgreen?style=flat&logo=markdown)](https://hackmd.io/TXGHRIFVSm--9b8Y7yWKrw)
 [![Website](https://img.shields.io/badge/Présentations-go-yellow?style=flat&logo=atom)](https://frbcesab.github.io/datatoolbox/index.html)
+[![DOI](https://zenodo.org/badge/213662591.svg)](https://zenodo.org/badge/latestdoi/213662591)
 
 <br />
 
@@ -29,8 +30,8 @@ Selon les termes de la licence, vous êtes libres de réutiliser le contenu de c
 
 > Casajus N., Dray S., Gimenez O., Guéry L., Guilhaumon F. & Schiettekatte N. (2020)
 > _Bonnes pratiques pour une recherche reproductible en écologie numérique_. Formation
-> co-organisée par le Cesab de la FRB et le GDR Ecostat et dispensée à Montpellier, France,
-> les 2-6 novembre 2020. DOI:XXX.
+> co-organisée par le Cesab de la FRB et le GDR Ecostat et dispensée à Montpellier (France)
+> les 2-6 novembre 2020. doi:(10.5281/zenodo.4262978)[https://www.doi.org/10.5281/zenodo.4262978].
 
 
 <br />
@@ -141,6 +142,6 @@ source("make.R")
 
 :punch: [**Page de l'événement**](https://www.fondationbiodiversite.fr/evenement/frb-cesab-formation-reproductibilite-2020/)
 
-:punch: [**Dépôt des exercices**](https://github.com/FRBCesab/datatoolboxexos)
-
 :punch: [**Informations générales**](https://hackmd.io/kMboCUzyQNmReObNDYoQ6A)
+
+:punch: [**Dépôt des exercices**](https://github.com/FRBCesab/datatoolboxexos)
