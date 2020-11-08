@@ -15,7 +15,7 @@ Le Cesab de la FRB et le GDR EcoStat proposent depuis 2019 une formation intitul
 <br />
 
 
-**Ce dépôt GitHub, placé sous [Licence CC-BY 4.0](https://github.com/FRBCesab/datatoolbox/blob/master/LICENSE.md), contient tout le matériel nécessaire à la reproduction des cours**.
+**Ce dépôt, placé sous [Licence CC-BY 4.0](https://github.com/FRBCesab/datatoolbox/blob/master/LICENSE.md), contient tout le matériel nécessaire à la reproduction des cours**.
 
 
 
