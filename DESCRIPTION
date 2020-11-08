@@ -78,6 +78,7 @@ Imports:
     testthat,
     tibble,
     tidyr,
+    tidyverse,
     tinytex,
     usethis,
     utils,

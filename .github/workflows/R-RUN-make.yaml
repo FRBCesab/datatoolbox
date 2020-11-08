@@ -15,4 +15,6 @@ jobs:
       - uses: r-lib/actions/setup-r@v1
       - uses: r-lib/actions/setup-pandoc@v1
       - name: Run make.R
-        run: Rscript -e 'source("make.R")'
+        run: |
+          brew install geos proj gdal netcdf udunits
+          Rscript -e 'source("make.R")'
