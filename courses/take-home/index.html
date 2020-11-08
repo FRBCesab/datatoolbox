@@ -6,8 +6,8 @@
     <meta name="author" content="  L’équipe au complet  " />
     <script src="assets/libs/header-attrs-2.5/header-attrs.js"></script>
     <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../../assets/css/xaringan-themer.css" type="text/css" />
-    <link rel="stylesheet" href="../../assets/css/custom.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/custom.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -28,14 +28,16 @@ is_reproducible &lt;- function(recherche) {
 
     reqs &lt;- c("Données", "Métadonnées", "Matériel &amp; Méthodes", "Article")
 
-    if( sum(is.element(recherche, reqs)) == length(reqs) ) {
-      cat("'[x_-]' &lt;(Congrats, this research is REPRODUCIBLE !)\n")  
+    if (sum(is.element(recherche, reqs)) == length(reqs)) {
+      cat("'[x_-]' &lt;(Congrats, this research is REPRODUCIBLE!)\n")
     } else {
-      cat("'[-_-]' &lt;(BoOoOo, this research is NOT REPRODUCIBLE !)\n")
+      cat("'[-_-]' &lt;(BoOoOo, this research is NOT REPRODUCIBLE!)\n")
     }
 }
 ```
+
 Si on prend par exemple, un article.
+
 
 ```r
 recherche_a &lt;- c("Article")
@@ -43,9 +45,11 @@ is_reproducible(recherche_a)
 ```
 
 ```
-## '[-_-]' &lt;(BoOoOo, this research is NOT REPRODUCIBLE !)
+## '[-_-]' &lt;(BoOoOo, this research is NOT REPRODUCIBLE!)
 ```
+
 &lt;br /&gt;
+
 
 ```r
 recherche_b &lt;- c("Matériel &amp; Méthodes", "Article")
@@ -53,9 +57,11 @@ is_reproducible(recherche_b)
 ```
 
 ```
-## '[-_-]' &lt;(BoOoOo, this research is NOT REPRODUCIBLE !)
+## '[-_-]' &lt;(BoOoOo, this research is NOT REPRODUCIBLE!)
 ```
+
 &lt;br /&gt;
+
 
 ```r
 recherche_c &lt;- c("Données", "Métadonnées", "Matériel &amp; Méthodes", "Article")
@@ -63,7 +69,7 @@ is_reproducible(recherche_c)
 ```
 
 ```
-## '[x_-]' &lt;(Congrats, this research is REPRODUCIBLE !)
+## '[x_-]' &lt;(Congrats, this research is REPRODUCIBLE!)
 ```
 
 ---
@@ -75,21 +81,26 @@ is_reproducible(recherche_c)
 &lt;br/&gt;
 &lt;br/&gt;
 &lt;br/&gt;
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> **Organisez vos fichiers selon les conventions de votre communauté**.
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i>&amp;nbsp;
+**Organisez vos fichiers selon les conventions de votre communauté**.
 &lt;br/&gt;
 &lt;br/&gt;
 &lt;br/&gt;
 &lt;br/&gt;
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> **Séparez données, méthodes et résultats**, tout en explicitant votre démarche.
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i>&amp;nbsp;
+**Séparez données, méthodes et résultats**, tout en explicitant votre démarche.
 &lt;br/&gt;
 &lt;br/&gt;
 &lt;br/&gt;
 &lt;br/&gt;
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> **Specifiez l'environnement de développement** qui a été utilisé pour réaliser vos analyses.
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i>&amp;nbsp;
+**Specifiez l'environnement de développement** qui a été utilisé pour réaliser vos analyses.
 
 ---
+
 &lt;br/&gt;
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> **Organisez vos fichiers selon les conventions de votre communauté**.
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i>&amp;nbsp;
+**Organisez vos fichiers selon les conventions de votre communauté**.
 &lt;br/&gt;
 &lt;br/&gt;
 &lt;br/&gt;
@@ -97,14 +108,17 @@ is_reproducible(recherche_c)
 Organisez votre répertoire de travail avec des sous-dossiers : construisez un `Research Compendium` - [Lecture](https://faculty.washington.edu/bmarwick/PDFs/Marwick-Boettiger-Mullen-2018-TAS-research-compendia.pdf)
 
 ---
+
 &lt;br/&gt;
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> **Séparez données, méthodes et résultats**, tout en explicitant votre démarche.
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i>&amp;nbsp;
+**Séparez données, méthodes et résultats**, tout en explicitant votre démarche.
 &lt;br/&gt;
 &lt;br/&gt;
 &lt;br/&gt;
 &lt;br/&gt;
 Développez des fonctions <i class="fab  fa-r-project "></i>
-dans un sous-dossier `R/` et documentez-les avec `devtools::document()` (pour les rendre accessible à vos analyses grâce au `NAMESPACE`)
+dans un sous-dossier `R/` et documentez-les avec `devtools::document()`
+(pour les rendre accessible à vos analyses grâce au `NAMESPACE`)
 &lt;br/&gt;
 &lt;br/&gt;
 &lt;br/&gt;
@@ -112,63 +126,66 @@ dans un sous-dossier `R/` et documentez-les avec `devtools::document()` (pour le
 Intégrez vos analyses, résultats et éléments textuels avec `RMarkdown`
 
 ---
+
 &lt;br/&gt;
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> **Specifiez l'environnement et l'historique de développement** qui a été utilisé pour réaliser vos analyses.
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i>&amp;nbsp;
+**Specifiez l'environnement et l'historique de développement** qui a été utilisé pour réaliser vos analyses.
 
 &lt;br/&gt;
 &lt;br/&gt;
-`Versionnez` votre développement avec <i class="fab  fa-git "></i> et GitHub <i class="fab  fa-github "></i> (ou gitlab <i class="fab  fa-gitlab "></i>)
+`Versionnez` votre développement avec <i class="fab  fa-git "></i> et GitHub <i class="fab  fa-github "></i> (ou GitLab <i class="fab  fa-gitlab "></i>)
 
 &lt;br/&gt;
 &lt;br/&gt;
 Créez un fichier `DESCRIPTION` et utilisez les fonctions :
   - `devtools::install_deps()` : évite d'utiliser `install.packages()`
-  - `devtools::load_all()` : évite d'utiliser `library()`
+  - `devtools::load_all()` : évite d'utiliser `library()` et `source()`
 
 &lt;br/&gt;
 &lt;br/&gt;
-Créez un README pour décrire l'environnement de développement (e.g. `Session.info()`), et pour les plus téméraires, ayez l'esprit `docker` <i class="fab  fa-docker "></i>
-
+Créez un `README` pour décrire l'environnement de développement
+(e.g. `devtools::session_info()`), et pour les plus téméraires, ayez l'esprit `Docker` <i class="fab  fa-docker "></i>
 
 
 ---
-**Aussi ...**
+
+**Et aussi...**
 &lt;br/&gt;
 &lt;br/&gt;
 &lt;br/&gt;
 &lt;br/&gt;
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> **Pour un travail collaboratif **:
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i>&amp;nbsp;
+**Pour un travail collaboratif :**
 
 (potentiellement avec vous-même dans 3 mois)
 
-`Versionnez` votre développement avec <i class="fab  fa-git "></i> et GitHub <i class="fab  fa-github "></i> (ou gitlab <i class="fab  fa-gitlab "></i>)
+`Versionnez` votre développement avec <i class="fab  fa-git "></i> et GitHub <i class="fab  fa-github "></i> (ou GitLab <i class="fab  fa-gitlab "></i>)
 &lt;br/&gt;
 &lt;br/&gt;
 &lt;br/&gt;
 &lt;br/&gt;
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> **Utilisez un "pipeline" si vos analyses prennent du temps **:
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i>&amp;nbsp;
+**Utilisez un "pipeline" si vos analyses prennent du temps :**
 
-Packages `{drake}` , `{targets}` 
+Packages `{drake}` , `{targets}`
 &lt;br/&gt;
 &lt;br/&gt;
 &lt;br/&gt;
 &lt;br/&gt;
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> **Pour diffuser / réutiliser vos fonctions **:
+<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i>&amp;nbsp;
+**Pour diffuser / réutiliser vos fonctions :**
 
 Construisez un `package R` (n'oubliez pas le `.Rbuildignore`)
-
-
-
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script src="../../assets/libs/macros.js"></script>
+<script src="assets/libs/macros.js"></script>
 <script>var slideshow = remark.create({
 "ratio": "4:3",
 "highlightStyle": "zenburn",
 "highlightLines": true,
 "countIncrementalSlides": false,
-"slideNumberFormat": ""
+"slideNumberFormat": "%current% / %total%"
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
