@@ -4,10 +4,10 @@
     <title>Writing dynamic and reproducible documents</title>
     <meta charset="utf-8" />
     <meta name="author" content="Olivier Gimenez" />
-    <script src="assets/libs/header-attrs-2.3/header-attrs.js"></script>
+    <script src="assets/libs/header-attrs-2.5/header-attrs.js"></script>
     <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../../assets/css/rutgers-rmarkdown.css" type="text/css" />
-    <link rel="stylesheet" href="../../assets/css/rutgers-fonts_og.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/rutgers-rmarkdown.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/rutgers-fonts_og.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -27,9 +27,9 @@ class: center, middle, inverse, title-slide
 
 - Garrett Grolemund [RStudio webinar](https://github.com/garrettgman/webinars/tree/master/12-Getting-started-with-R-Markdown)
 
-![](assets/img/garrett.jpg) 
+![](assets/img/garrett.jpg)
 
-- Ulrik Lyngs [workshop material](https://github.com/ulyngs/rmarkdown-workshop-2019) 
+- Ulrik Lyngs [workshop material](https://github.com/ulyngs/rmarkdown-workshop-2019)
 
 ![](assets/img/ulrik2.jpg)
 
@@ -44,7 +44,7 @@ class: inverse, center, middle
 Credit: [Ignasi Bartomeus, PhD](https://bartomeuslab.com/)
 
 ---
-# 
+#
 
 .center[![](assets/img/phd031214s.png)]
 
@@ -57,11 +57,11 @@ Credit: [Ignasi Bartomeus, PhD](https://bartomeuslab.com/)
 ---
 # What do we need to make research reproducible?
 
-- Something to integrate text, figures and code 
+- Something to integrate text, figures and code
      * `R`, `Python`, etc
 
 
-- Something that can be continuously edited and updated 
+- Something that can be continuously edited and updated
      * Living or dynamic document
 
 
@@ -97,7 +97,7 @@ Open RStudio
 
 Create a new Rmd file
 
-Identify 3 components (frontmatter, content, chunks) 
+Identify 3 components (frontmatter, content, chunks)
 
 ---
 
@@ -222,7 +222,7 @@ Table:title
 ---
 # R Markdown Reference Guide
 
-&lt;https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf&gt; 
+&lt;https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf&gt;
 
 .center[![](assets/img/refguide.png)]
 
@@ -260,7 +260,7 @@ class: inverse, center, middle
 
 ---
 # Chunk options
- 
+
 - By default, R markdown includes both code and results
 
 .center[![](assets/img/chunk_options.png)]
@@ -284,7 +284,7 @@ class: inverse, center, middle
 ---
 # eval
 
-- `eval = FALSE` prevents code from being run  
+- `eval = FALSE` prevents code from being run
 - No results is displayed, only code
 
 .center[![](assets/img/eval.png)]
@@ -332,8 +332,8 @@ in output
 ```r
 # cars is a built-in-to-R data set of cars
 # and their stopping distances
-cars %&gt;% 
-  head(5) %&gt;% 
+cars %&gt;%
+  head(5) %&gt;%
   knitr::kable(format = "html", caption = "A kable table")
 ```
 
@@ -376,7 +376,7 @@ cars %&gt;%
 ---
 # R Markdown Reference Guide
 
-&lt;https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf&gt; 
+&lt;https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf&gt;
 
 .center[![](assets/img/knitr.png)]
 
@@ -394,7 +394,7 @@ cars %&gt;%
 
 ---
 class: inverse, center, middle
-# YAML Yet Another Markup Language 
+# YAML Yet Another Markup Language
 
 ---
 # YAML in brief
@@ -486,7 +486,7 @@ Blah blah [@Shea2014; @Lottridge2012].
 
 .pull-right[
 ### turns into this...
-  
+
 Blah blah (Shea et al. 2014; Lottridge et al. 2012).
 ]
 ---
@@ -508,7 +508,7 @@ Blah blah [see @Shea2014, pp. 33-35; also @Wu2016, ch. 1].
 
 .pull-right[
 ### turns into this...
-  
+
 Blah blah (Shea et al. 2014; Lottridge et al. 2012).
 
 Shea et al. (2014) says blah.
@@ -528,7 +528,7 @@ class: larger-body
 .pull-left[
 ### This...
 Blah blah [@Shea2014; @Lottridge2012].
-  
+
 @Shea2014 says blah.
 
 Blah blah [see @Shea2014, pp. 33-35; also @Wu2016, ch. 1].
@@ -536,7 +536,7 @@ Blah blah [see @Shea2014, pp. 33-35; also @Wu2016, ch. 1].
 
 .pull-right[
 ### turns into this...
-  
+
 Blah blah (Shea et al. 2014; Lottridge et al. 2012).
 
 Shea et al. (2014) says blah.
@@ -558,7 +558,7 @@ For an easy way to insert citations, try the [`citr`](https://github.com/crsh/ci
 ---
 # R Markdown Reference Guide
 
-&lt;https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf&gt; 
+&lt;https://rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf&gt;
 
 .center[![](assets/img/pandoc.png)]
 
@@ -575,7 +575,7 @@ class: inverse, center, middle
 ## What else can we reproduce with R Markdown?
 
 ---
-# Let's have a tour 
+# Let's have a tour
 
 &lt;div style="width:100%;height:0;padding-bottom:61%;position:relative;"&gt;&lt;iframe src="https://awesome-rmarkdown-2019.netlify.app/imgs/gallery.gif" width="100%" height="100%" style="position:absolute" frameBorder="0"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;
 
@@ -599,7 +599,7 @@ class: inverse, center, middle
 
 
 ---
-## 
+##
 
 .center[![](assets/img/repro_rmarkdown.jpg)]
 
