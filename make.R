@@ -22,7 +22,7 @@ devtools::load_all(quiet = TRUE)
 
 
 ## This is ugly, sorry :(                                                   ----
-library(tidyverse)
+# library(tidyverse)
 
 
 ## Re-knit COURSES                                                          ----

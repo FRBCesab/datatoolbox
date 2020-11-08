@@ -209,11 +209,9 @@ class: inverse, center, middle
 # Example: analysis R package downloads
 
 ```{r, message=FALSE}
-library(cranlogs)
-crandata <- cran_downloads(
+crandata <- cranlogs::cran_downloads(
   packages = c("dplyr", "ggplot2", "purrr", "tidyr", "stringr"),
   when = "last-month")
-
 head(crandata)
 ```
 ---
