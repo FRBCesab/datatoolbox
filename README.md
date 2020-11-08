@@ -8,10 +8,29 @@
 
 <br />
 
-> Le Cesab de la FRB et le GDR EcoStat proposent depuis 2019 une formation intitulée « Bonnes pratiques pour une recherche reproductible en écologie numérique ». Cette formation de cinq jours a pour objectif de former de jeunes chercheurs / chercheuses aux outils de reproductibilité, de développement logiciel et de gestion de versions (e.g. R, git, markdown, tidyverse, docker) appliqués à la recherche en biodiversité.
+Le Cesab de la FRB et le GDR EcoStat proposent depuis 2019 une formation intitulée « Bonnes pratiques pour une recherche reproductible en écologie numérique ». Cette formation de cinq jours a pour objectif de former de jeunes chercheurs / chercheuses aux outils de reproductibilité, de développement logiciel et de gestion de versions (e.g. R, git, markdown, tidyverse, docker) appliqués à la recherche en biodiversité.
 
-Ce dépôt GitHub, placé sous [**Licence CC-BY 4.0**](https://github.com/FRBCesab/datatoolbox/blob/master/LICENSE.md), contient tout le matériel nécessaire à la reproduction des cours et exercices.
 
+<br />
+
+
+**Ce dépôt GitHub, placé sous [Licence CC-BY 4.0](https://github.com/FRBCesab/datatoolbox/blob/master/LICENSE.md), contient tout le matériel nécessaire à la reproduction des cours**.
+
+
+
+<br />
+
+
+
+### Citation
+
+Selon les termes de la licence, vous êtes libres de réutiliser le contenu de ce projet. Veillez simplement
+à citer le projet de la manière suivante :
+
+> Casajus N., Dray S., Gimenez O., Guéry L., Guilhaumon F. & Schiettekatte N. (2020)
+> _Bonnes pratiques pour une recherche reproductible en écologie numérique_. Formation
+> co-organisée par le Cesab de la FRB et le GDR Ecostat et dispensée à Montpellier, France,
+> les 2-6 novembre 2020. DOI:XXX.
 
 
 <br />
@@ -50,7 +69,7 @@ Ce dépôt GitHub, placé sous [**Licence CC-BY 4.0**](https://github.com/FRBCes
 Ce dépôt est structuré de la manière suivante :
 
 - :file_folder: &nbsp;[**assets/**](https://github.com/FRBCesab/datatoolbox/tree/master/assets):
-contient les images, styles CSS et librairies Javascript nécessaires à la page d'accueil de la formation
+contient les images, styles CSS et librairies JS pour la page d'accueil de la formation
 - :file_folder: &nbsp;[**courses/**](https://github.com/FRBCesab/datatoolbox/tree/master/courses):
 contient les sous-dossiers des cours (un sous-dossier par cours)
 - :file_folder: &nbsp;[**exercises/**](https://github.com/FRBCesab/datatoolbox/tree/master/exercises):
@@ -74,7 +93,11 @@ fichier `R` permettant de mettre à jour tous les cours et exercices
 - :page_facing_up: &nbsp;[**README.md**](https://github.com/FRBCesab/datatoolbox/tree/master/README.md):
 ce présent fichier
 
-:boom: &nbsp;Pour accéder à la page d'accueil de la formation et des cours, cliquez [**ici**](https://frbcesab.github.io/datatoolbox/index.html).
+
+<br />
+
+
+:boom: &nbsp;**Pour accéder à la page d'accueil de la formation et des cours, cliquez [ICI](https://frbcesab.github.io/datatoolbox/index.html)**
 
 
 
@@ -84,7 +107,7 @@ ce présent fichier
 
 ### Dépendances requises
 
-Pour recompiler les diapositives des cours et exercices, les dépendances systèmes
+Pour recompiler les diapositives des cours et des exercices, les dépendances systèmes
 suivantes sont requises :
 
 - Google Chrome (pour convertir certains cours en PDF)
