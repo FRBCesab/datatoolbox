@@ -1,5 +1,6 @@
 # Formation FRB-Cesab/GDR EcoStat - Edition 2020
 
+[![R build status](https://github.com/FRBCesab/datatoolbox/workflows/R-CMD-check/badge.svg)](https://github.com/FRBCesab/datatoolbox/actions)
 [![Course Informations](https://img.shields.io/badge/Informations-go-red?style=flat&logo=markdown)](https://hackmd.io/kMboCUzyQNmReObNDYoQ6A)
 [![Introduce Yourself](https://img.shields.io/badge/Who%20are%20you%3F-go-brightgreen?style=flat&logo=markdown)](https://hackmd.io/F-mjO0adRSuuhf93lf39Zg)
 [![Let's Chat!](https://img.shields.io/badge/Let's%20Chat!-go-yellowgreen?style=flat&logo=markdown)](https://hackmd.io/TXGHRIFVSm--9b8Y7yWKrw)
