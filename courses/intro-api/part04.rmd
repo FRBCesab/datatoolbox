@@ -1,5 +1,0 @@
-## RSelenium
-
-- Une petite révolution
-
-.right[**Démo**]

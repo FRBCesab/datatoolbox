@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html lang="" xml:lang="">
   <head>
     <title>Acquisition de données</title>
     <meta charset="utf-8" />
     <meta name="author" content="  Nicolas CASAJUS .inst[{{ Data scientist FRB-Cesab }}]" />
+    <script src="assets/libs/header-attrs-2.5/header-attrs.js"></script>
     <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../../assets/css/xaringan-themer.css" type="text/css" />
-    <link rel="stylesheet" href="../../assets/css/custom.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/custom.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -667,7 +668,7 @@ table(species_fr[ , "category"])
 ```
 ## 
 ##    CR    DD    EN    EW    EX    LC LR/cd LR/lc LR/nt    NT    VU 
-##    40   345    99     1     8  2915     1     3    16   219   250
+##    44   346   103     1     9  3020     1     3    16   222   266
 ```
 
 --
@@ -856,12 +857,14 @@ class(results)
 
 
 ```r
+results$lon &lt;- as.numeric(results$lon)
+results$lat &lt;- as.numeric(results$lat)
 (xy &lt;- results[ , c("lon", "lat")])
 ```
 
 ```
-##         lon        lat
-## 1 3.8734859 43.6127741
+##        lon      lat
+## 1 3.873486 43.61277
 ```
 
 
@@ -1070,7 +1073,7 @@ html   &lt;- rvest::html_session(request)
 
 
 ```r
-tables &lt;- rvest::html_table(html)
+tables &lt;- rvest::html_table(html, fill = TRUE)
 ```
 
 --
@@ -1088,13 +1091,14 @@ length(tables)
 
 --
 
-- Seul le premier nous intéresse avec les colonnes `Commune` et `2016`
+- Seul le premier nous intéresse avec les colonnes `Commune` et `2017`
 
 
 ```r
 cities &lt;- tables[[1]]
-cities &lt;- cities[ , c(2, 5)]
+cities &lt;- cities[-1, c(3, 7)]
 cities &lt;- cities[1:10, ]
+rownames(cities) &lt;- NULL
 ```
 
 
@@ -1105,18 +1109,23 @@ cities &lt;- cities[1:10, ]
 
 - Affichons les données
 
+
+```r
+cities
 ```
-##        Commune     2016[5]
-## 1        Paris +2 190 327,
-## 2    Marseille  +0862 211,
-## 3         Lyon  +0515 695,
-## 4     Toulouse  +0475 438,
-## 5         Nice  +0342 637,
-## 6       Nantes  +0306 694,
-## 7  Montpellier  +0281 613,
-## 8   Strasbourg  +0279 284,
-## 9     Bordeaux  +0252 040,
-## 10   Lille[19]  +0232 440,
+
+```
+##        Commune Population légale
+## 1        Paris         2 187 526
+## 2    Marseille           863 310
+## 3         Lyon           516 092
+## 4     Toulouse           479 553
+## 5         Nice           340 017
+## 6       Nantes           309 346
+## 7  Montpellier           285 121
+## 8   Strasbourg           280 966
+## 9     Bordeaux           254 436
+## 10       Lille           232 787
 ```
 
 &lt;br /&gt;
@@ -1133,61 +1142,33 @@ cities &lt;- cities[1:10, ]
 
 
 ```r
-colnames(cities) &lt;- c("city", "pop2016")
+colnames(cities) &lt;- c("city", "pop2017")
 ```
 
 --
 
 &lt;br /&gt;
 
-- Supprimons les notes (`[19]`) dans le nom des villes
-
-
-```
-##  [1] "Paris"       "Marseille"   "Lyon"        "Toulouse"    "Nice"       
-##  [6] "Nantes"      "Montpellier" "Strasbourg"  "Bordeaux"    "Lille[19]"
-```
-
-```r
-cities$city &lt;- gsub("\\[[0-9]{1,}\\]", "", cities$city)
-```
-
-```
-##  [1] "Paris"       "Marseille"   "Lyon"        "Toulouse"    "Nice"       
-##  [6] "Nantes"      "Montpellier" "Strasbourg"  "Bordeaux"    "Lille"
-```
-
-
-
----
-
-## Extraction d'un tableau html
-
 - Nettoyons le nombre d'habitants
 
-```
-##  [1] "+2 190 327," "+0862 211,"  "+0515 695,"  "+0475 438,"  "+0342 637,"
-##  [6] "+0306 694,"  "+0281 613,"  "+0279 284,"  "+0252 040,"  "+0232 440,"
-
-```
 
 ```r
-cities$pop2016 &lt;- gsub("[[:punct:]]|[[:space:]]", "", cities$pop2016)
-cities$pop2016 &lt;- as.numeric(cities$pop2016)
+cities$pop2017 &lt;- gsub("[[:punct:]]|[[:space:]]", "", cities$pop2017)
+cities$pop2017 &lt;- as.numeric(cities$pop2017)
 ```
 
 ```
-##           city pop2016
-## 1        Paris 2190327
-## 2    Marseille  862211
-## 3         Lyon  515695
-## 4     Toulouse  475438
-## 5         Nice  342637
-## 6       Nantes  306694
-## 7  Montpellier  281613
-## 8   Strasbourg  279284
-## 9     Bordeaux  252040
-## 10       Lille  232440
+##           city pop2017
+## 1        Paris 2187526
+## 2    Marseille  863310
+## 3         Lyon  516092
+## 4     Toulouse  479553
+## 5         Nice  340017
+## 6       Nantes  309346
+## 7  Montpellier  285121
+## 8   Strasbourg  280966
+## 9     Bordeaux  254436
+## 10       Lille  232787
 ```
 
 
@@ -1245,17 +1226,17 @@ for (location in locations) {
 ```
 
 ```
-##           city pop2016        lon      lat
-## 1        Paris 2190327  2.3514992 48.85661
-## 2    Marseille  862211  5.3699525 43.29617
-## 3         Lyon  515695  4.8320114 45.75781
-## 4     Toulouse  475438  1.4442469 43.60446
-## 5         Nice  342637  7.2683912 43.70094
-## 6       Nantes  306694 -1.5541362 47.21864
-## 7  Montpellier  281613  3.8767337 43.61124
-## 8   Strasbourg  279284  7.7507127 48.58461
-## 9     Bordeaux  252040 -0.5800364 44.84123
-## 10       Lille  232440  3.0635282 50.63657
+##           city pop2017        lon      lat
+## 1        Paris 2187526  2.3514992 48.85661
+## 2    Marseille  863310  5.3699525 43.29617
+## 3         Lyon  516092  4.8320114 45.75781
+## 4     Toulouse  479553  1.4442469 43.60446
+## 5         Nice  340017  7.2683912 43.70094
+## 6       Nantes  309346 -1.5541362 47.21864
+## 7  Montpellier  285121  3.8767337 43.61124
+## 8   Strasbourg  280966  7.7507127 48.58461
+## 9     Bordeaux  254436 -0.5800364 44.84123
+## 10       Lille  232787  3.0635282 50.63657
 ```
 
 
@@ -1281,7 +1262,7 @@ points(
   y   = xy$lat,
   pch = 19,
   col = "#a52a2a88",
-  cex = sqrt(cities$pop2016)/(100*pi)
+  cex = sqrt(cities$pop2017)/(100*pi)
 )
 
 ## Ajout des villes     -----
@@ -1311,7 +1292,7 @@ class: inverse, center, middle
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script src="../../assets/libs/macros.js"></script>
+<script src="assets/libs/macros.js"></script>
 <script>var slideshow = remark.create({
 "ratio": "4:3",
 "highlightStyle": "zenburn",
@@ -1357,9 +1338,25 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     deleted = true;
   });
-})();</script>
-
-<script>
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
 (function() {
   var links = document.getElementsByTagName('a');
   for (var i = 0; i < links.length; i++) {
@@ -1367,8 +1364,7 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
       links[i].target = '_blank';
     }
   }
-})();
-</script>
+})();</script>
 
 <script>
 slideshow._releaseMath = function(el) {

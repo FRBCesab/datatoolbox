@@ -5,7 +5,7 @@ author: <br /><br />Nicolas CASAJUS<br />.inst[{{ Data scientist FRB-Cesab }}]
 date: .inst[Mardi 3 décembre 2019]
 output:
   xaringan::moon_reader:
-    css: ["../../assets/css/xaringan-themer.css", "../../assets/css/custom.css"]
+    css: ["assets/css/xaringan-themer.css", "assets/css/custom.css"]
     lib_dir: "assets/libs"
     seal: true
     yolo: false
@@ -17,7 +17,7 @@ output:
       highlightLines: false
       countIncrementalSlides: false
       slideNumberFormat: "%current% / %total%"
-      beforeInit: "../../assets/libs/macros.js"
+      beforeInit: "assets/libs/macros.js"
 ---
 
 

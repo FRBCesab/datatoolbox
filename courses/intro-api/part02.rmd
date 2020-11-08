@@ -738,6 +738,8 @@ class(results)
 - Extrayons les données qui nous intéressent
 
 ```{r echo=TRUE, eval=TRUE}
+results$lon <- as.numeric(results$lon)
+results$lat <- as.numeric(results$lat)
 (xy <- results[ , c("lon", "lat")])
 ```
 

@@ -144,7 +144,7 @@ html   <- rvest::html_session(request)
 - Extrayons tous les tableaux HTML de la page
 
 ```{r echo=TRUE, eval=TRUE}
-tables <- rvest::html_table(html)
+tables <- rvest::html_table(html, fill = TRUE)
 ```
 
 --
@@ -157,12 +157,13 @@ length(tables)
 
 --
 
-- Seul le premier nous intéresse avec les colonnes `Commune` et `2016`
+- Seul le premier nous intéresse avec les colonnes `Commune` et `2017`
 
 ```{r echo=TRUE, eval=TRUE}
 cities <- tables[[1]]
-cities <- cities[ , c(2, 5)]
+cities <- cities[-1, c(3, 7)]
 cities <- cities[1:10, ]
+rownames(cities) <- NULL
 ```
 
 
@@ -173,18 +174,8 @@ cities <- cities[1:10, ]
 
 - Affichons les données
 
-```
-##        Commune     2016[5]
-## 1        Paris +2 190 327,
-## 2    Marseille  +0862 211,
-## 3         Lyon  +0515 695,
-## 4     Toulouse  +0475 438,
-## 5         Nice  +0342 637,
-## 6       Nantes  +0306 694,
-## 7  Montpellier  +0281 613,
-## 8   Strasbourg  +0279 284,
-## 9     Bordeaux  +0252 040,
-## 10   Lille[19]  +0232 440,
+```{r echo=TRUE, eval=TRUE}
+cities
 ```
 
 <br />
@@ -200,41 +191,18 @@ cities <- cities[1:10, ]
 - Renommons les colonnes
 
 ```{r echo=TRUE, eval=TRUE}
-colnames(cities) <- c("city", "pop2016")
+colnames(cities) <- c("city", "pop2017")
 ```
 
 --
 
 <br />
 
-- Supprimons les notes (`[19]`) dans le nom des villes
-
-```{r echo=FALSE, eval=TRUE}
-cities$city
-```
-```{r echo=TRUE, eval=TRUE}
-cities$city <- gsub("\\[[0-9]{1,}\\]", "", cities$city)
-```
-```{r echo=FALSE, eval=TRUE}
-cities$city
-```
-
-
-
----
-
-## Extraction d'un tableau html
-
 - Nettoyons le nombre d'habitants
 
-```
-##  [1] "+2 190 327," "+0862 211,"  "+0515 695,"  "+0475 438,"  "+0342 637,"
-##  [6] "+0306 694,"  "+0281 613,"  "+0279 284,"  "+0252 040,"  "+0232 440,"
-
-```
 ```{r echo=TRUE, eval=TRUE}
-cities$pop2016 <- gsub("[[:punct:]]|[[:space:]]", "", cities$pop2016)
-cities$pop2016 <- as.numeric(cities$pop2016)
+cities$pop2017 <- gsub("[[:punct:]]|[[:space:]]", "", cities$pop2017)
+cities$pop2017 <- as.numeric(cities$pop2017)
 ```
 ```{r echo=FALSE, eval=TRUE}
 cities
@@ -317,7 +285,7 @@ points(
   y   = xy$lat,
   pch = 19,
   col = "#a52a2a88",
-  cex = sqrt(cities$pop2016)/(100*pi)
+  cex = sqrt(cities$pop2017)/(100*pi)
 )
 
 ## Ajout des villes     -----
@@ -337,7 +305,7 @@ text(
 ```{r "map2", echo=FALSE, eval=TRUE, dpi=300, fig.path="assets/chunks/", fig.width=3, fig.height=3}
 par(bg = "transparent", family = "serif")
 maps::map(region = "France", fill = TRUE, col = "#294557", border = "white", lwd = 1, mar = rep(0, 4))
-points(xy[ , c("lon", "lat")], pch = 19, col = "#a52a2a", cex = sqrt(cities$pop2016)/(100 *pi))
+points(xy[ , c("lon", "lat")], pch = 19, col = "#a52a2a", cex = sqrt(cities$pop2017)/(100 *pi))
 text(
   x      = xy$lon,
   y      = xy$lat,
