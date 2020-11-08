@@ -1,11 +1,11 @@
 ---
 title: Research Compendium
-subtitle: <i>ou comment bien ranger sa chambre pour retrouver ses jouets</i>
-author: <br /><br />François Guilhaumon
-date: Mardi 3 Novembre 2020
+subtitle: <i>ou comment bien ranger sa chambre</i>
+author: <br /><br />François Guilhaumon<br />.inst[{{ Chercheur IRD }}]
+date: .inst[Mardi 3 Novembre 2020]
 output:
   xaringan::moon_reader:
-    css: ["../../assets/css/xaringan-themer.css", "../../assets/css/custom.css"]
+    css: ["assets/css/xaringan-themer.css", "assets/css/custom.css"]
     lib_dir: "assets/libs"
     seal: true
     yolo: false
@@ -17,7 +17,7 @@ output:
       highlightLines: false
       countIncrementalSlides: false
       slideNumberFormat: "%current% / %total%"
-      beforeInit: "../../assets/libs/macros.js"
+      beforeInit: "assets/libs/macros.js"
 ---
 
 class: inverse, center, middle
@@ -120,7 +120,7 @@ The output files should be considered as disposable, with a mindset that one can
 
 --
 
-Utilisez un script "maître" (make.R) qui execute les étapes dans l'ordre (c'est le SEUL script R à la racine !)
+Utilisez un script "maître" (`make.R`) qui execute les étapes dans l'ordre (c'est le SEUL script R à la racine !)
 
 .center[![:scale 40%](assets/img/comp_4.png) ![:scale 40%](assets/img/comp_make.png)]
 
@@ -128,7 +128,7 @@ Utilisez un script "maître" (make.R) qui execute les étapes dans l'ordre (c'es
 
 ## Principes
 
-Utilisez un script "maître" (make.R) qui execute les étapes dans l'ordre (c'est le SEUL script R à la racine !)
+Utilisez un script "maître" (`make.R`) qui execute les étapes dans l'ordre (c'est le SEUL script R à la racine !)
 
 --
 
@@ -139,11 +139,11 @@ Tous les scripts, "tournent" tous à partir de la racine du projet !
 Tous les chemins (relatifs) seront définis à partir de la racine du projet !
 <br/>
 <br/>
-.center["res/1_datacleaned.csv" / "data/data_raw.csv"]
+.center[`res/1_datacleaned.csv` , `data/data_raw.csv`]
 
 --
 
-Cela peut poser des problèmes lors de la compilation des .Rmd situés à l'intérieur de votre arborescence. --> Utilisez le package [here](https://here.r-lib.org)
+Cela peut poser des problèmes lors de la compilation des .Rmd situés à l'intérieur de votre arborescence. --> Utilisez le package [`{here}`](https://here.r-lib.org)
 
 .center[![:scale 35%](https://raw.githubusercontent.com/allisonhorst/stats-illustrations/master/rstats-artwork/here.png)]
 
