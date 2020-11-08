@@ -5,7 +5,7 @@ author: <br /><br />Nicolas CASAJUS<br />.inst[{{ Data scientist FRB-CESAB }}]
 date: .inst[Mercredi 4 novembre 2020]
 output:
   xaringan::moon_reader:
-    css: ["../../assets/css/xaringan-themer.css", "../../assets/css/custom.css"]
+    css: ["assets/css/xaringan-themer.css", "assets/css/custom.css"]
     lib_dir: "assets/libs"
     seal: true
     yolo: false
@@ -17,7 +17,7 @@ output:
       highlightLines: true
       countIncrementalSlides: false
       slideNumberFormat: "%current% / %total%"
-      beforeInit: "../../assets/libs/macros.js"
+      beforeInit: "assets/libs/macros.js"
 ---
 
 
@@ -274,14 +274,10 @@ class: inverse, center, middle
 
 ---
 
+
 ## Création d'un conteneur
 
 ![](assets/img/workflow-1.png)
----
-
-## Création d'un conteneur
-
-![](assets/img/workflow-1a.png)
 
 
 ---
