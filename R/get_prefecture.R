@@ -24,20 +24,20 @@
 
 get_prefecture <- function(region = "Occitanie") {
 
-  exceptions <- c("Hautes-Pyrénées", "Pyrénées-Orientales", "Tarn-et-Garonne")
+  exceptions <- c("Hautes-Pyrenees", "Pyrenees-Orientales", "Tarn-et-Garonne")
 
   osm_url  <- "http://nominatim.openstreetmap.org/search/"
   params   <- list(format = "json", details = 0, limit = 1)
 
   wiki_url <- "https://fr.wikipedia.org/wiki/"
-  article  <- paste0(region, "_(région_administrative)")
+  article  <- paste0(region, "_(region_administrative)")
 
   request  <- paste0(wiki_url, article)
 
   departements <- rvest::html_session(request) %>%
     rvest::html_table(fill = TRUE) %>%
     dplyr::nth(4) %>%
-    dplyr::select(`Département`) %>%
+    dplyr::select(`Departement`) %>%
     dplyr::pull()
 
   tab <- data.frame()
@@ -46,7 +46,7 @@ get_prefecture <- function(region = "Occitanie") {
 
     if (!(departement %in% exceptions)) {
 
-      article <- paste0(departement, "_(département)")
+      article <- paste0(departement, "_(departement)")
 
     } else {
 
@@ -67,7 +67,7 @@ get_prefecture <- function(region = "Occitanie") {
 
     if (prefecture == "Mende") {
 
-      request <- paste0(request, "_(Lozère)")
+      request <- paste0(request, "_(Lozere)")
     }
 
     population <- rvest::html_session(request) %>%
