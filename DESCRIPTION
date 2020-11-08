@@ -1,0 +1,81 @@
+Package: datatoolbox
+Title: Materials For The Datatoolbox Training Course
+Version: 2.0.0
+Authors@R: c(
+    person(given  = "Nicolas",
+           family = "CASAJUS",
+           role   = c("aut", "cre"),
+           email  = "nicolas.casajus@fondationbiodiversite.fr"),
+    person(given  = "Stephane",
+           family = "DRAY",
+           role   = "aut",
+           email  = "stephane.dray@univ-lyon1.fr"),
+    person(given  = "Olivier",
+           family = "GIMENEZ",
+           role   = "aut",
+           email  = "olivier.gimenez@cefe.cnrs.fr"),
+    person(given  = "Lorelei",
+           family = "GUERY",
+           role   = "aut",
+           email  = "lorelei.guery@ird.fr"),
+    person(given  = "Francois",
+           family = "GUILHAUMON",
+           role   = "aut",
+           email  = "francois.guilhaumon@ird.fr"),
+    person(given  = "Nina",
+           family = "SCHIETTEKATTE",
+           role   = "aut",
+           email  = "nina.schiettekatte@gmail.com"))
+Description: This project contains all the materials for the training course
+    'Bonnes pratiques pour une recherche reproductible en ecologie numerique'.
+    Visit the website <https://frbcesab.github.io/datatoolbox> to access all
+    slides.
+License: MIT + file LICENSE
+URL: https://github.com/frbcesab/datatoolbox (materials)
+     https://frbcesab.github.io/datatoolbox (website)
+BugReports: https://github.com/frbcesab/datatoolbox/issues
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+SystemRequirements: Google Chrome (to convert slides to PDF), GDAL, GEOS, PROJ,
+    pandoc, pandoc-citeproc, Rtools (for Windows users)
+Imports:
+    blogdown,
+    citr,
+    devtools,
+    dplyr,
+    drake,
+    emo,
+    forcats,
+    ggplot2,
+    here,
+    httr,
+    icon,
+    jsonlite,
+    knitr,
+    lubridate,
+    magrittr,
+    maps,
+    pagedown,
+    pkgdown,
+    purrr,
+    readr,
+    rmarkdown,
+    rnaturalearth,
+    rnaturalearthdata,
+    rrtools,
+    rvest,
+    sf,
+    stringr,
+    taxize,
+    testthat,
+    tibble,
+    tidyr,
+    tinytex,
+    usethis,
+    utils,
+    xaringan
+Remotes:
+    benmarwick/rrtools,
+    hadley/emo

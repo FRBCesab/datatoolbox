@@ -1,12 +1,11 @@
-# History files
+# History files ----
 .Rhistory
 .Rapp.history
 
-# macOS files
+# macOS files ----
 .DS_Store
 __MACOSX/*
 
-#Rstudio projects
+# RStudio projects ----
 .Rproj.user/
 .Rproj.user
-
