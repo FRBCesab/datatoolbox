@@ -9,3 +9,4 @@ __MACOSX/*
 # RStudio projects ----
 .Rproj.user/
 .Rproj.user
+*.Rproj
