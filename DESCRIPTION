@@ -44,10 +44,12 @@ Depends:
     ggplot2
 Imports:
     blogdown,
+    cranlogs,
     devtools,
     dplyr,
     drake,
     emo,
+    fishualize,
     forcats,
     here,
     httr,
@@ -78,6 +80,7 @@ Imports:
     tinytex,
     usethis,
     utils,
+    visNetwork,
     xaringan,
     xaringanthemer
 Remotes:

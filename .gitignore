@@ -1,6 +1,8 @@
 # History files ----
 .Rhistory
 .Rapp.history
+.RData
+.Ruserdata
 
 # macOS files ----
 .DS_Store
@@ -10,3 +12,6 @@ __MACOSX/*
 .Rproj.user/
 .Rproj.user
 *.Rproj
+
+# Others ----
+.drake

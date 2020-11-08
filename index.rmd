@@ -66,7 +66,7 @@ output:
 .btn-xs[[**Cours**](courses/r-spatial/index.html)]&nbsp;
 .btn-xs[[**Exo 6**](exercises/spatial/index.html)]
 
-.btn-xs[[**Cours**](courses/drake/drake_intro/intro_drake.html)]&nbsp;
+.btn-xs[[**Cours**](courses/drake/index.html)]&nbsp;
 .btn-xs[[**Exo 7**](exercises/drake/index.html)]
 
 .btn-xs[[**Cours**](courses/docker/index.html)]
