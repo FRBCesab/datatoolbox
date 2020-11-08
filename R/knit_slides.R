@@ -18,7 +18,7 @@
 #' @importFrom usethis ui_todo ui_done ui_line
 #'
 #' @examples
-#'
+#' \dontrun{
 #' # Knit the Homepage ----
 #' knit_slides(home = TRUE)
 #'
@@ -29,6 +29,7 @@
 #' # Knit Git exercise ----
 #' knit_slides(label = "intro-git", course = FALSE)
 #' knit_slides(label = "intro-git", course = FALSE, pdf = FALSE)
+#' }
 
 
 knit_slides <- function(label, home = FALSE, course = TRUE, pdf = FALSE) {

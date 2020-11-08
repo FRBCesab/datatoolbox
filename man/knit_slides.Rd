@@ -4,7 +4,7 @@
 \alias{knit_slides}
 \title{Knit Slides}
 \usage{
-knit_slides(label, home = FALSE, course = TRUE, pdf = TRUE)
+knit_slides(label, home = FALSE, course = TRUE, pdf = FALSE)
 }
 \arguments{
 \item{label}{the course/exercise subfolder name (e.g. "intro-git").}
@@ -22,7 +22,7 @@ same folder). You need to have installed the Google Chrome web browser to
 create the PDF version. All the Rmd files need to be named \strong{index.Rmd}.
 }
 \examples{
-
+\dontrun{
 # Knit the Homepage ----
 knit_slides(home = TRUE)
 
@@ -33,4 +33,5 @@ knit_slides(label = "intro-git", pdf = FALSE)
 # Knit Git exercise ----
 knit_slides(label = "intro-git", course = FALSE)
 knit_slides(label = "intro-git", course = FALSE, pdf = FALSE)
+}
 }

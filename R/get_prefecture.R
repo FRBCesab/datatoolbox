@@ -1,3 +1,27 @@
+#' Get Occitanie Prefectures Coordinates and Population
+#'
+#' This function retrieves coordinates and population of prefectures of the
+#'   French region Occitanie using the API Nominatim.
+#'
+#' @param region just tested with "Occitanie".
+#'
+#' @return a 5-columns data frame with Department, Prefecture, Population,
+#'   Longitude, and Latitude.
+#'
+#' @export
+#'
+#' @importFrom rvest html_session html_table html_nodes
+#' @importFrom dplyr nth select pull first filter
+#' @importFrom stringr str_detect str_replace
+#' @importFrom httr GET content
+#' @importFrom jsonlite fromJSON
+#'
+#' @examples
+#' \dontrun{
+#' get_prefecture()
+#' }
+
+
 get_prefecture <- function(region = "Occitanie") {
 
   exceptions <- c("Hautes-Pyrénées", "Pyrénées-Orientales", "Tarn-et-Garonne")
@@ -12,9 +36,9 @@ get_prefecture <- function(region = "Occitanie") {
 
   departements <- rvest::html_session(request) %>%
     rvest::html_table(fill = TRUE) %>%
-    nth(4) %>%
-    select(`Département`) %>%
-    pull()
+    dplyr::nth(4) %>%
+    dplyr::select(`Département`) %>%
+    dplyr::pull()
 
   tab <- data.frame()
 
@@ -34,10 +58,10 @@ get_prefecture <- function(region = "Occitanie") {
     prefecture <- rvest::html_session(request) %>%
       rvest::html_nodes(css   = ".infobox_v2") %>%
       rvest::html_table() %>%
-      first() %>%
-      filter(stringr::str_detect(X1, "Chef-lieu")) %>%
-      select(X2) %>%
-      pull()
+      dplyr::first() %>%
+      dplyr::filter(stringr::str_detect(X1, "Chef-lieu")) %>%
+      dplyr::select(X2) %>%
+      dplyr::pull()
 
     request <- paste0(wiki_url, prefecture)
 
@@ -47,17 +71,17 @@ get_prefecture <- function(region = "Occitanie") {
     }
 
     population <- rvest::html_session(request) %>%
-      rvest::html_nodes(css   = ".infobox_v2") %>%
+      rvest::html_nodes(css  = ".infobox_v2") %>%
       rvest::html_table(fill = TRUE) %>%
-      first() %>%
-      filter(stringr::str_detect(X1, "Populationmunicipale")) %>%
-      select(X2) %>%
-      pull() %>%
+      dplyr::first() %>%
+      dplyr::filter(stringr::str_detect(X1, "Populationmunicipale")) %>%
+      dplyr::select(X2) %>%
+      dplyr::pull() %>%
       stringr::str_replace("\\(.+\\)", "") %>%
       stringr::str_replace("[a-z]+", "") %>%
       stringr::str_replace("[[:punct:]]", "") %>%
       stringr::str_replace("\\s", "") %>%
-      as.numeric(.)
+      as.numeric()
 
     location <- paste0(prefecture, ",%20", departement, ",%20France")
     request  <- paste0(osm_url, location)
@@ -65,7 +89,7 @@ get_prefecture <- function(region = "Occitanie") {
     coords <- httr::GET(request, query = params) %>%
       httr::content(as = "text") %>%
       jsonlite::fromJSON() %>%
-      select(lon, lat)
+      dplyr::select(lon, lat)
 
     dat <- data.frame(
       departement, prefecture, population,
@@ -76,6 +100,6 @@ get_prefecture <- function(region = "Occitanie") {
 
     Sys.sleep(1)
   }
-  
+
   return(tab)
 }
