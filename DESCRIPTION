@@ -80,8 +80,6 @@ Imports:
     utils,
     xaringan,
     xaringanthemer
-Suggests:
-    citr
 Remotes:
     benmarwick/rrtools,
     hadley/emo,
