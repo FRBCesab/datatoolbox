@@ -44,7 +44,6 @@ Depends:
     ggplot2
 Imports:
     blogdown,
-    citr,
     devtools,
     dplyr,
     drake,
@@ -80,6 +79,9 @@ Imports:
     utils,
     xaringan,
     xaringanthemer
+Suggests:
+    citr
 Remotes:
     benmarwick/rrtools,
-    hadley/emo
+    hadley/emo,
+    ropenscilabs/icon
