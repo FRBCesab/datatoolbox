@@ -63,6 +63,7 @@ Imports:
     purrr,
     raster,
     readr,
+    revealjs,
     rmarkdown,
     rnaturalearth,
     rnaturalearthdata,

@@ -24,10 +24,10 @@ devtools::load_all(quiet = TRUE)
 ## Re-knit COURSES                                                          ----
 
 knit_slides(label = "docker")
-knit_slides(label = "drake", pdf = TRUE)
+# knit_slides(label = "drake", pdf = TRUE)
 knit_slides(label = "intro-api")
 knit_slides(label = "intro-git")
-knit_slides(label = "open-sci", pdf = TRUE)
+knit_slides(label = "open-sci")
 knit_slides(label = "r-pkg")
 knit_slides(label = "r-spatial")
 knit_slides(label = "res-compendium")
