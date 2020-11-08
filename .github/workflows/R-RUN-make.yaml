@@ -16,5 +16,5 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@v1
       - name: Run make.R
         run: |
-          sudo apt install libgdal-dev libproj-dev libgeos-dev libudunits2-dev
+          sudo apt install libgdal-dev libproj-dev libgeos-dev libudunits2-dev libnetcdf-dev libssl-dev libharfbuzz-dev libfribidi-dev
           Rscript -e 'source("make.R")'

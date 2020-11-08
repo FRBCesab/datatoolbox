@@ -40,17 +40,13 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 SystemRequirements: Google Chrome (to convert slides to PDF), GDAL, GEOS, PROJ,
     pandoc, pandoc-citeproc, Rtools (for Windows users)
-Depends:
-    ggplot2
 Imports:
     blogdown,
     cranlogs,
     devtools,
-    dplyr,
     drake,
     emo,
     fishualize,
-    forcats,
     here,
     httr,
     icon,
@@ -62,9 +58,7 @@ Imports:
     mapview,
     pagedown,
     pkgdown,
-    purrr,
     raster,
-    readr,
     revealjs,
     rmarkdown,
     rnaturalearth,
@@ -73,15 +67,10 @@ Imports:
     rvest,
     sf,
     showtext,
-    stringr,
     taxize,
     testthat,
-    tibble,
-    tidyr,
     tidyverse,
-    tinytex,
     usethis,
-    utils,
     visNetwork,
     xaringan,
     xaringanthemer
@@ -89,3 +78,5 @@ Remotes:
     benmarwick/rrtools,
     hadley/emo,
     ropenscilabs/icon
+Suggest:
+    tinytex

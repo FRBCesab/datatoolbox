@@ -21,6 +21,10 @@ remotes::install_deps(upgrade = "never")
 devtools::load_all(quiet = TRUE)
 
 
+## This is ugly, sorry :(                                                   ----
+library(tidyverse)
+
+
 ## Re-knit COURSES                                                          ----
 knit_slides(label = "docker")
 knit_slides(label = "drake")
