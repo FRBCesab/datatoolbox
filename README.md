@@ -28,10 +28,8 @@ Le Cesab de la FRB et le GDR EcoStat proposent depuis 2019 une formation intitul
 Selon les termes de la licence, vous êtes libres de réutiliser le contenu de ce projet. Veillez simplement
 à citer le projet de la manière suivante :
 
-> Casajus N., Dray S., Gimenez O., Guéry L., Guilhaumon F. & Schiettekatte N. (2020)
-> _Bonnes pratiques pour une recherche reproductible en écologie numérique_. Formation
-> co-organisée par le Cesab de la FRB et le GDR Ecostat et dispensée à Montpellier (France)
-> les 2-6 novembre 2020. doi:(10.5281/zenodo.4262978)[https://www.doi.org/10.5281/zenodo.4262978].
+> Casajus N., Dray S., Gimenez O., Guéry L., Guilhaumon F. & Schiettekatte N. M. D. (2020)
+> _Formation FRB CESAB / GDR ECOSTAT : Bonnes pratiques pour une recherche reproductible en écologie numérique_ (Version 2020). Zenodo. [http://doi.org/10.5281/zenodo.4262978](http://doi.org/10.5281/zenodo.4262978).
 
 
 <br />
