@@ -67,9 +67,7 @@ Package           | Fonctionnalités
 <br />
 
 ```{r echo=TRUE, eval=-1}
-## install.packages("sf")
-
-library("sf")
+install.packages("sf")
 ```
 
 
@@ -80,13 +78,11 @@ library("sf")
 Soit les villes avec les coordonnées suivantes :
 
 ```{r echo=FALSE, eval=TRUE, message=FALSE}
-library("tidyverse")
 theme_set(theme_bw())
 theme_update(
   panel.background = element_rect(fill = "transparent", colour = NA),
   plot.background  = element_rect(fill = "transparent", colour = NA)
 )
-library("sf")
 ```
 
 
@@ -181,10 +177,9 @@ unzip(zipfile = filename)
 ```
 
 ```{r echo=FALSE, eval=TRUE, message=FALSE}
-prefectures <- readr::read_csv(
-  file.path("..", "..", "data", "occitanie_prefectures.csv")
-)
-prefectures
+(prefectures <- readr::read_csv(
+  here::here("courses", "r-spatial", "assets", "data", "occitanie_prefectures.csv")
+))
 ```
 
 ---
@@ -215,9 +210,6 @@ Installons ces packages :
 ```{r echo=TRUE, eval=-c(1, 2)}
 install.packages("rnaturalearth")
 install.packages("rnaturalearthdata")
-
-library("rnaturalearth")
-library("rnaturalearthdata")
 ```
 
 --
@@ -227,7 +219,7 @@ library("rnaturalearthdata")
 Et chargeons le fond de carte du monde entier :
 
 ```{r echo=TRUE, eval=TRUE}
-world <- ne_countries(scale = "medium", returnclass = "sf")
+world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
 class(world)
 ```
 
@@ -329,7 +321,7 @@ sf::st_layers("occitanie.shp")
 ```
 
 ```{r echo=FALSE, eval=TRUE}
-sf::st_layers(file.path("..", "..", "data", "occitanie.shp"))
+sf::st_layers(here::here("courses", "r-spatial", "assets", "data", "occitanie.shp"))
 ```
 
 --
@@ -343,7 +335,9 @@ occitanie <- sf::st_read(dsn = ".", layer = "occitanie")
 ```
 
 ```{r echo=FALSE, eval=TRUE}
-occitanie <- sf::st_read(dsn = file.path("..", "..", "data"), layer = "occitanie", quiet = TRUE)
+occitanie <- sf::st_read(
+  dsn = here::here("courses", "r-spatial", "assets", "data"),
+  layer = "occitanie", quiet = TRUE)
 ```
 ```
 ## Reading layer 'occitanie' from data source '/Users/nicolascasajus/Desktop/...'
@@ -495,8 +489,16 @@ sf::st_write(
 
 Le CRS de notre couche vectorielle (monde) est-il défini ?
 
-```{r echo=TRUE, eval=TRUE}
-sf::st_crs(world)
+```{r echo=TRUE, eval=FALSE}
+world
+```
+```
+Simple feature collection with 241 features and 63 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -180 ymin: -89.99893 xmax: 180 ymax: 83.59961
+CRS:            +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0
+...
 ```
 
 --
@@ -507,10 +509,7 @@ Supprimons-le :
 
 
 ```{r echo=TRUE, eval=TRUE}
-world <- world %>%
-  sf::st_set_crs(NA)
-
-sf::st_crs(world)
+world <- world %>% sf::st_set_crs(NA)
 ```
 
 ---
@@ -520,10 +519,15 @@ sf::st_crs(world)
 Et redéfinissons-le :
 
 ```{r echo=TRUE, eval=TRUE}
-world <- world %>%
-  sf::st_set_crs(4326)
-
-sf::st_crs(world)
+world <- world %>% sf::st_set_crs(4326)
+```
+```
+Simple feature collection with 241 features and 63 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -180 ymin: -89.99893 xmax: 180 ymax: 83.59961
+geographic CRS: WGS 84
+...
 ```
 
 --
@@ -540,8 +544,8 @@ prj <- paste(
   "+x_0=4321000 +y_0=3210000",
   "+ellps=GRS80 +units=m +no_defs"
 )
-world_ortho <- world %>%
-  sf::st_transform(crs = prj)
+
+world_ortho <- world %>% sf::st_transform(crs = prj)
 ```
 
 ---
@@ -576,7 +580,7 @@ ggplot(data = world) +
 
 ## Manipulations spatiales : sf cheat sheet
 
-.center[![:scale 100%](assets/img/geom_ops.png)]
+.center[![:scale 90%](assets/img/geom_ops.png)]
 
 ---
 
@@ -614,13 +618,13 @@ Opérations géométriques binaires
 
 <br />
 
-st_*
+Autres opérations
 
-- `st_crop()`
-- `st_intersection()`
-- `st_difference()`
-- `st_contains()`
-- `st_union()`
+- `sf::st_crop()`
+- `sf::st_intersection()`
+- `sf::st_difference()`
+- `sf::st_contains()`
+- `sf::st_union()`
 
 <br />
 

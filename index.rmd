@@ -48,26 +48,32 @@ output:
 .pull-right[
 .btn-xs[[**Cours**](courses/open-sci/index.html)]
 
-.btn-xs[[**Cours**](courses/intro-git/index.html)]&nbsp;.btn-xs[[**Exo 1**](exercises/intro-git/index.html)]
+.btn-xs[[**Cours**](courses/intro-git/index.html)]&nbsp;
+.btn-xs[[**Exo 1**](exercises/intro-git/index.html)]
 
-.btn-xs[[**Cours**](courses/rmarkdown/index.html)]&nbsp;.btn-xs[[**Exo 2**](exercises/rmarkdown/index.html)]
+.btn-xs[[**Cours**](courses/rmarkdown/index.html)]&nbsp;
+.btn-xs[[**Exo 2**](exercises/rmarkdown/index.html)]
 
 .btn-xs[[**Cours**](courses/r-pkg/index.html)]
 
-.btn-xs[[**Cours**](courses/res-compendium/index.html)]&nbsp;.btn-xs[[**Exo 3**](exercises/res-compendium/index.html)]
+.btn-xs[[**Cours**](courses/res-compendium/index.html)]&nbsp;
+.btn-xs[[**Exo 3**](exercises/res-compendium/index.html)]
 
-.btn-xs[[**Cours**](courses/tidyverse/index.html)]&nbsp;.btn-xs[[**Exo 4**](exercises/dplyr/index.html)]&nbsp;.btn-xs[[**Exo 5**](exercises/ggplot2/index.html)]
+.btn-xs[[**Cours**](courses/tidyverse/index.html)]&nbsp;
+.btn-xs[[**Exo 4**](exercises/dplyr/index.html)]&nbsp;
+.btn-xs[[**Exo 5**](exercises/ggplot2/index.html)]
 
-.btn-xs[[**Cours**](courses/r-spatial/index.html)]&nbsp;.btn-xs[[**Exo 6**](exercises/spatial/index.html)]
+.btn-xs[[**Cours**](courses/r-spatial/index.html)]&nbsp;
+.btn-xs[[**Exo 6**](exercises/spatial/index.html)]
 
-.btn-xs[[**Cours**](courses/drake/drake_intro/intro_drake.html)]&nbsp;.btn-xs[[**Exo 7**](exercises/drake/index.html)]
+.btn-xs[[**Cours**](courses/drake/drake_intro/intro_drake.html)]&nbsp;
+.btn-xs[[**Exo 7**](exercises/drake/index.html)]
 
 .btn-xs[[**Cours**](courses/docker/index.html)]
 
 .btn-xs[[**> Lien <**](courses/take-home/index.html)]
 ]
 
-
-<!-- .right[[![:scale 10%](assets/img/github.png)](https://github.com/FRBCesab/datatoolbox)] -->
-
-.right[.github[[`r icon::fa("github", size = 3)`](https://github.com/FRBCesab/datatoolbox)]]
+.right[.github[
+[`r icon::fa("github", size = 2)`](https://github.com/frbcesab/datatoolbox)]
+]

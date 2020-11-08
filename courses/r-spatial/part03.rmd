@@ -12,7 +12,7 @@ Package           | Fonctionnalités
 
 - Raster, objet matriciel, grille
 
-- Divise une region en cellules (ou pixel)
+- Divise une région en cellules (ou pixel)
 
 - Stockage plus économique que les formats vectoriels mais dégradation de la qualité lors des zooms
 
@@ -56,20 +56,21 @@ rgdal::gdalDrivers()
 Grille classique
 ```{r echo=FALSE, eval=TRUE}
 x <- as.data.frame(rgdal::gdalDrivers())
-x[x$name %in% c('GTiff','XYZ'),]
+x[x$name %in% c('GTiff','XYZ'), ]
 ```
 
 Images
 ```{r echo=FALSE, eval=TRUE}
 x <- as.data.frame(rgdal::gdalDrivers())
-x[x$name %in% c('PNG','JPEG'),]
+x[x$name %in% c('PNG','JPEG'), ]
 ```
 
 Multibande (ex : images satellites)
 ```{r echo=FALSE, eval=TRUE}
 x <- as.data.frame(rgdal::gdalDrivers())
-x[x$name %in% c('netCDF','HDF4'),]
+x[x$name %in% c('netCDF','HDF4'), ]
 ```
+
 
 ---
 
@@ -80,11 +81,14 @@ library(raster)
 x <- raster()
 x
 ```
+
 --
+
 ```{r echo=TRUE, eval=TRUE}
-r <- raster(ncol=10, nrow=10)
+r <- raster(ncol = 10, nrow = 10)
 r
 ```
+
 
 ---
 
@@ -96,18 +100,22 @@ r
 ncell(r) # nombre de cellules
 hasValues(r) # Présence de valeurs attribuées à ces cellules
 ```
+
 --
+
 ```{r echo=TRUE, eval=TRUE}
 values(r) <- runif(ncell(r)) # Attribue des valeurs aléatoires
 hasValues(r)
 values(r)[1:10]
 ```
 
+
 ---
+
 ## Création d'un objet matriciel
 
-```{r echo=TRUE, eval=TRUE, fig.align='center'}
-plot(r, main='Raster with 100 cells')
+```{r "ras1", echo=TRUE, eval=TRUE, fig.align='center'}
+plot(r, main = 'Raster with 100 cells')
 ```
 
 ---
@@ -127,7 +135,7 @@ La fonction `getData()` du package `{raster}` permet de récupérer gratuitement
 <br />
 
 ```{r echo=TRUE, eval=FALSE}
-altFR <- raster::getData(name = "alt", country = "FR", 
+altFR <- raster::getData(name = "alt", country = "FR",
                          path = "data/")
 altFR
 ```
