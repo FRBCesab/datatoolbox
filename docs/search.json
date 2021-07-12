@@ -1,0 +1,39 @@
+{
+  "articles": [
+    {
+      "path": "index.html",
+      "title": "Recherche reproductible en écologie numérique",
+      "description": "Formation FRB-Cesab / GdR EcoStat",
+      "author": [
+        {
+          "name": "Nicolas Casajus",
+          "url": "https://nicolascasajus.fr"
+        },
+        {
+          "name": "Stéphane Dray",
+          "url": "https://lbbe.univ-lyon1.fr/fr/annuaires-des-membres/dray-stephane"
+        },
+        {
+          "name": "Olivier Gimenez",
+          "url": "https://oliviergimenez.github.io"
+        },
+        {
+          "name": "Loreleï Guéry",
+          "url": "https://orcid.org/0000-0003-3004-8462"
+        },
+        {
+          "name": "François Guilhaumon",
+          "url": "https://fguilhaumon.gitlab.io/"
+        },
+        {
+          "name": "Nina Schiettekatte",
+          "url": "http://www.criobe.pf/pro/personnel/doctorants/nina-schiettekatte/"
+        }
+      ],
+      "date": "`r format(Sys.Date(), '%m-%d-%Y')`",
+      "contents": "\n\n\nProgramme\n…\nPré-requis\n…\nCorrections\nIf you see mistakes or want to suggest changes, please create an issue on the source repository.\nReuse\nText and figures are licensed under Creative Commons Attribution CC BY 4.0, unless otherwise noted. Source code is available at https://github.com/frbcesab/datatoolbox.\nCitation\nFor attribution, please cite this work as:\nCasajus N, Dray S, Gimenez O, Guéry L, Guilhaumon F & Schiettekatte NMD (2021) Formation FRB Cesab / GdR EcoStat : Bonnes pratiques pour une recherche reproductible en écologie numérique (Version 2021). Zenodo. http://doi.org/10.5281/zenodo.4262978.\n\n\n\n",
+      "last_modified": "2021-07-12T16:24:35+02:00"
+    }
+  ],
+  "collections": []
+}

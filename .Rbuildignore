@@ -10,3 +10,5 @@
 ^\.github$
 ^LICENSE\.md$
 ^the_degrees_of_reproductibility.pdf$
+^.*\.Rproj$
+^\.Rproj\.user$

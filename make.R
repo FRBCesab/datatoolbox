@@ -35,3 +35,5 @@ knit_slides(label = "take-home")
 knit_slides(label = "tidyverse")
 
 knit_slides(home = TRUE)
+
+rmarkdown::render_site("docs")

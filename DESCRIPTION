@@ -1,6 +1,6 @@
 Package: datatoolbox
 Title: Materials For The Datatoolbox Training Course
-Version: 2.0.0
+Version: 3.0.0
 Authors@R: c(
     person(given  = "Nicolas",
            family = "CASAJUS",
@@ -17,7 +17,7 @@ Authors@R: c(
     person(given  = "Lorelei",
            family = "GUERY",
            role   = "aut",
-           email  = "lorelei.guery@ird.fr"),
+           email  = "lorelei.guery@cirad.fr"),
     person(given  = "Francois",
            family = "GUILHAUMON",
            role   = "aut",

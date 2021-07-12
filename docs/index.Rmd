@@ -1,0 +1,82 @@
+---
+title: "Recherche reproductible en écologie numérique"
+description: "Formation FRB-Cesab / GdR EcoStat"
+author:
+  - name: "Nicolas Casajus"
+    url: https://nicolascasajus.fr
+    affiliation: FRB CESAB
+    affiliation_url: https://www.fondationbiodiversite.fr/la-fondation/le-cesab/
+    orcid_id: 0000-0002-5537-5294
+  - name: "Stéphane Dray"
+    url: https://lbbe.univ-lyon1.fr/fr/annuaires-des-membres/dray-stephane
+    affiliation: CNRS LBBE
+    affiliation_url: https://lbbe.univ-lyon1.fr/fr
+  - name: "Olivier Gimenez"
+    url: https://oliviergimenez.github.io
+    affiliation: CNRS CEFE
+    affiliation_url: https://www.cefe.cnrs.fr/fr/
+  - name: "Loreleï Guéry"
+    url: https://orcid.org/0000-0003-3004-8462
+    affiliation: CIRAD PHIM
+    affiliation_url: https://umr-phim.cirad.fr/
+    orcid_id: 0000-0003-3004-8462
+  - name: "François Guilhaumon"
+    url: https://fguilhaumon.gitlab.io/
+    affiliation: IRD MARBEC
+    affiliation_url: https://umr-marbec.fr/
+    orcid_id: 0000-0003-4707-8932
+  - name: "Nina Schiettekatte"
+    url: http://www.criobe.pf/pro/personnel/doctorants/nina-schiettekatte/
+    affiliation: EPHE CRIOBE
+    affiliation_url: http://www.criobe.pf/
+    orcid_id: 0000-0002-1925-3484
+date: "`r format(Sys.Date(), '%m-%d-%Y')`"
+site: distill::distill_website
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+![](images/logo_title.png)
+
+
+<br />
+
+## Programme
+
+...
+
+
+
+## Pré-requis
+
+...
+
+
+
+## Corrections {.appendix}
+
+If you see mistakes or want to suggest changes, please 
+[create an issue](https://github.com/frbcesab/datatoolbox/issues) on the source 
+repository.
+
+
+
+## Reuse {.appendix}
+
+Text and figures are licensed under Creative Commons Attribution 
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), 
+unless otherwise noted. Source code is available at 
+[https://github.com/frbcesab/datatoolbox](https://github.com/frbcesab/datatoolbox).
+
+
+
+## Citation {.appendix}
+
+For attribution, please cite this work as:
+
+Casajus N, Dray S, Gimenez O, Guéry L, Guilhaumon F & Schiettekatte NMD (2021) 
+Formation FRB Cesab / GdR EcoStat : Bonnes pratiques pour une recherche 
+reproductible en écologie numérique (Version 2021). 
+Zenodo. <http://doi.org/10.5281/zenodo.4262978>.
