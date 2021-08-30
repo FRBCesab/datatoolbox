@@ -40,6 +40,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 SystemRequirements: Google Chrome (to convert slides to PDF), GDAL, GEOS, PROJ,
     pandoc, pandoc-citeproc, Rtools (for Windows users)
+Depends: R (>= 3.5.0)
 Imports:
     blogdown,
     cranlogs,
