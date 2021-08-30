@@ -32,7 +32,7 @@
       ],
       "date": "`r format(Sys.Date(), '%m-%d-%Y')`",
       "contents": "\n\n\nProgramme\n…\nPré-requis\n…\nCorrections\nIf you see mistakes or want to suggest changes, please create an issue on the source repository.\nReuse\nText and figures are licensed under Creative Commons Attribution CC BY 4.0, unless otherwise noted. Source code is available at https://github.com/frbcesab/datatoolbox.\nCitation\nFor attribution, please cite this work as:\nCasajus N, Dray S, Gimenez O, Guéry L, Guilhaumon F & Schiettekatte NMD (2021) Formation FRB Cesab / GdR EcoStat : Bonnes pratiques pour une recherche reproductible en écologie numérique (Version 2021). Zenodo. http://doi.org/10.5281/zenodo.4262978.\n\n\n\n",
-      "last_modified": "2021-07-12T16:32:29+02:00"
+      "last_modified": "2021-08-30T15:15:50+02:00"
     }
   ],
   "collections": []

@@ -1,39 +1,49 @@
-#' Install Dependencies and Re-knit all R Markdown Slides
-#'
-#' See `DESCRIPTION` and `README.md` files for further informations.
+#' Install Dependencies and Re-knit all RMarkdown Slides
+#' 
+#' @description
+#' See `DESCRIPTION` and `README.md` files for further information.
 #'
 #' @usage source("make.R")
 #'
 #' @author Nicolas CASAJUS, \email{nicolas.casajus@@fondationbiodiversite.fr}
-#' @date 2020/11/08
+#' @date 2021/07/15
 
 
 
-## Install {remotes} Package (if required)                                  ----
+## Install {remotes} package (if required) ----
+
 if (!("remotes" %in% installed.packages())) install.packages("remotes")
 
 
-## Install Missing Packages (listed in DESCRIPTION)                         ----
+
+## Install required packages (listed in DESCRIPTION) ----
+
 remotes::install_deps(upgrade = "never")
 
 
-## Attach Required Packages and Load R Functions                            ----
+
+## Load required packages and R functions ----
+
 devtools::load_all(quiet = TRUE)
 
 
-## Re-knit COURSES                                                          ----
-knit_slides(label = "docker")
-knit_slides(label = "drake")
-knit_slides(label = "intro-api")
-knit_slides(label = "intro-git")
-knit_slides(label = "open-sci")
-knit_slides(label = "r-pkg")
-knit_slides(label = "r-spatial")
-knit_slides(label = "res-compendium")
-knit_slides(label = "rmarkdown")
-knit_slides(label = "take-home")
-knit_slides(label = "tidyverse")
 
-knit_slides(home = TRUE)
+## Re-knit courses ----
+
+datatoolbox::knit_slides(label = "docker")
+datatoolbox::knit_slides(label = "drake")
+datatoolbox::knit_slides(label = "intro-api")
+datatoolbox::knit_slides(label = "intro-git")
+datatoolbox::knit_slides(label = "open-sci")
+datatoolbox::knit_slides(label = "r-pkg")
+datatoolbox::knit_slides(label = "r-spatial")
+datatoolbox::knit_slides(label = "res-compendium")
+datatoolbox::knit_slides(label = "rmarkdown")
+datatoolbox::knit_slides(label = "take-home")
+datatoolbox::knit_slides(label = "tidyverse")
+
+
+
+## Re-knit Website ----
 
 rmarkdown::render_site("docs")

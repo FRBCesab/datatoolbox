@@ -3,11 +3,11 @@ title: "Datatoolbox workshop"
 description: |
   Datatoolbox workshop
 base_url: https://frbcesab.github.io/datatoolbox
-favicon: images/favicon.png
+favicon: img/favicon.png
 output_dir: "."
 navbar:
   logo:
-    image: images/logo-original.png
+    image: img/logo-original.png
     href: https://github.com/frbcesab/datatoolbox
   source_url: true
   right:
@@ -16,27 +16,29 @@ navbar:
     - text: "Cours"
       menu:
       - text: "Cours 1. Recherche reproductible"
-        href: "https://frbcesab.github.io/datatoolbox/courses/open-sci/index.html"
+        href: "slides/open-sci/index.html"
       - text: "Cours 2. Research compendium"
         href: ""
       - text: "Cours 3. Gestion de versions"
-        href: "https://frbcesab.github.io/datatoolbox/courses/intro-git/index.html"
+        href: "slides/intro-git/index.html"
       - text: "Cours 4. Manipulation de données"
-        href: "https://frbcesab.github.io/datatoolbox/courses/tidyverse/index.html"
+        href: "slides/tidyverse/index.html"
       - text: "Cours 5. Programmation lettrée"
-        href: "https://frbcesab.github.io/datatoolbox/courses/rmarkdown/index.html"
+        href: "slides/rmarkdown/index.html"
       - text: "Cours 6. Pipeline toolkits"
-        href: "https://frbcesab.github.io/datatoolbox/courses/drake/index.html"
+        href: "slides/drake/index.html"
       - text: "Cours 7. Conteneurisation"
-        href: "https://frbcesab.github.io/datatoolbox/courses/docker/index.html"
+        href: "slides/docker/index.html"
       - text: "Cours 8. Package R"
-        href: "https://frbcesab.github.io/datatoolbox/courses/r-pkg/index.html"
+        href: "slides/r-pkg/index.html"
       - text: "Messages à retenir"
         href: "/courses/take-home/index.html"
     - text: "Exercices"
       menu:
       - text: "---"
         href: ""
+    - text: "Ressources"
+      href: ""
     - text: "Archives"
       menu:
       - text: "Edition 2020"
