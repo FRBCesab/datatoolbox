@@ -1,91 +1,52 @@
-#' Knit Slides
+#' Knit RMarkdown Slides
 #'
-#' This function re-knits Rmd slides to HTML and PDF outputs (stored in the
-#'   same folder). You need to have installed the Google Chrome web browser to
-#'   create the PDF version. All the Rmd files need to be named **index.Rmd**.
+#' @description
+#' This function knits Rmd slides to HTML output (stored in the same folder).
+#' All Rmd files need to be named **index.Rmd**.
 #'
-#' @param label the course/exercise subfolder name (e.g. "intro-git").
-#' @param home a boolean. If TRUE, only the Homepage will be re-knit.
-#' @param course a boolean. If TRUE, searchs in the "courses" folder otherwise
-#'   searchs in the "exercises" folder. Ignore if `home = TRUE`.
-#' @param pdf a boolean. If TRUE, converts HTML to PDF.
+#' @param name a character of length 1. The course sub-folder name 
+#'   (e.g. `"template"`).
 #'
 #' @export
-#'
-#' @importFrom here here
-#' @importFrom pagedown chrome_print
-#' @importFrom rmarkdown render
-#' @importFrom usethis ui_todo ui_done ui_line
+#' 
+#' @return NULL
 #'
 #' @examples
 #' \dontrun{
-#' # Knit the Homepage ----
-#' knit_slides(home = TRUE)
-#'
-#' # Knit Git course ----
-#' knit_slides(label = "intro-git")
-#' knit_slides(label = "intro-git", pdf = FALSE)
-#'
-#' # Knit Git exercise ----
-#' knit_slides(label = "intro-git", course = FALSE)
-#' knit_slides(label = "intro-git", course = FALSE, pdf = FALSE)
+#' ## Knit course ----
+#' knit_slides(name = "template")
 #' }
 
 
-knit_slides <- function(label, home = FALSE, course = TRUE, pdf = FALSE) {
-
-  if (pdf && (nchar(pagedown::find_chrome()) == 0)) {
-    stop("Unable to find Chrome/Chromium web browser.")
+knit_slides <- function(name) {
+  
+  if (missing(name)) {
+    stop("Argument 'name' is required.")
   }
-
-  if (home) {
-
-    usethis::ui_todo("Knitting Homepage slides...")
-
-    rmarkdown::render(
-      input       = here::here("index.Rmd"),
-      output_file = "index.html",
-      output_dir  = here::here(),
-      clean       = TRUE,
-      quiet       = TRUE
-    )
-
-    if (pdf) {
-      pagedown::chrome_print(
-        input  = here::here("index.html"),
-        output = here::here("index.pdf")
-      )
-    }
-
-  } else {
-
-
-    if (course) {
-      level <- "courses"
-    } else {
-      level <- "exercises"
-    }
-
-    usethis::ui_todo(paste("Knitting", label, "slides..."))
-
-    rmarkdown::render(
-      input       = here::here(level, label, "index.Rmd"),
-      output_file = "index.html",
-      output_dir  = here::here(level, label),
-      clean       = TRUE,
-      quiet       = TRUE
-    )
-
-    if (pdf) {
-      pagedown::chrome_print(
-        input  = here::here(level, label, "index.html"),
-        output = here::here(level, label, "index.pdf")
-      )
-    }
+  
+  
+  if (!dir.exists(here::here("docs", "slides", name))) {
+    stop("The folder '", here::here("docs", "slides", name), 
+         "' does not exist.")
   }
+  
+  if (!file.exists(here::here("docs", "slides", name, "index.Rmd"))) {
+    stop("The file '", here::here("docs", "slides", name, "index.Rmd"), 
+         "' does not exist.")
+  }
+  
+  usethis::ui_todo(paste("Knitting", name, "slides..."))
+  
+  rmarkdown::render(input         = here::here("docs", "slides", name, 
+                                               "index.Rmd"),
+                    output_format = "xaringan::moon_reader",
+                    output_file   = "index.html",
+                    output_dir    = here::here("docs", "slides", name),
+                    clean         = TRUE,
+                    quiet         = TRUE)
 
   usethis::ui_done("Done!")
   usethis::ui_line()
-
+  
   invisible(NULL)
 }

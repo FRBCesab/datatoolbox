@@ -30,17 +30,17 @@ devtools::load_all(quiet = TRUE)
 
 ## Re-knit courses ----
 
-datatoolbox::knit_slides(label = "docker")
-datatoolbox::knit_slides(label = "drake")
-datatoolbox::knit_slides(label = "intro-api")
-datatoolbox::knit_slides(label = "intro-git")
-datatoolbox::knit_slides(label = "open-sci")
-datatoolbox::knit_slides(label = "r-pkg")
-datatoolbox::knit_slides(label = "r-spatial")
-datatoolbox::knit_slides(label = "res-compendium")
-datatoolbox::knit_slides(label = "rmarkdown")
-datatoolbox::knit_slides(label = "take-home")
-datatoolbox::knit_slides(label = "tidyverse")
+datatoolbox::knit_slides(name = "docker")
+datatoolbox::knit_slides(name = "drake")
+datatoolbox::knit_slides(name = "intro-api")
+datatoolbox::knit_slides(name = "intro-git")
+datatoolbox::knit_slides(name = "open-sci")
+datatoolbox::knit_slides(name = "r-pkg")
+datatoolbox::knit_slides(name = "r-spatial")
+datatoolbox::knit_slides(name = "res-compendium")
+datatoolbox::knit_slides(name = "rmarkdown")
+datatoolbox::knit_slides(name = "take-home")
+datatoolbox::knit_slides(name = "tidyverse")
 
 
 
