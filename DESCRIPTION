@@ -45,11 +45,10 @@ Imports:
     cranlogs,
     devtools,
     drake,
-    emo,
     fishualize,
+    fontawesome,
     here,
     httr,
-    icon,
     jsonlite,
     knitr,
     lubridate,
@@ -75,8 +74,6 @@ Imports:
     xaringan,
     xaringanthemer
 Remotes:
-    benmarwick/rrtools,
-    hadley/emo,
-    ropenscilabs/icon
+    benmarwick/rrtools
 Suggest:
     tinytex
