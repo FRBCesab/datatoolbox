@@ -1,8 +1,8 @@
 ---
 title: Introduction à Docker
-subtitle: <i>the hardest part </i>&nbsp;`r icon::fa("meh-rolling-eyes")`
+subtitle: <i>the hardest part </i>&nbsp;`r fontawesome::fa_i("meh-rolling-eyes")`
 author: <br /><br />Nicolas CASAJUS<br />.inst[{{ Data scientist FRB-CESAB }}]
-date: .inst[Mercredi 4 novembre 2020]
+date: .inst[Jeudi 2 décembre 2021]
 output:
   xaringan::moon_reader:
     css: ["assets/css/xaringan-themer.css", "assets/css/custom.css"]
@@ -45,7 +45,7 @@ d'environnement de travail.**
 
 --
 
-Que faire `r icon::fa("question-circle", color = "#3f3f3f")`
+Que faire `r fontawesome::fa_i("question-circle", class = "dark")`
 
 
 .center[![](assets/img/noidea.gif)]
@@ -55,7 +55,7 @@ Que faire `r icon::fa("question-circle", color = "#3f3f3f")`
 ## Option 1
 
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Ecrire des tutoriels pour
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Ecrire des tutoriels pour
 chaque OS (et version d'OS) pour installer toutes les dépendances système requises
 pour que le code fonctionne à peu près n'importe où
 
@@ -71,7 +71,7 @@ pour que le code fonctionne à peu près n'importe où
 
 ## Option 2 - Virtualisation
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Fixer le type d'OS (et
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Fixer le type d'OS (et
 sa version) et utiliser une machine virtuelle dans lequel il s'exécutera
 
 .center[![:scale 75%](assets/img/vm.png)]
@@ -99,7 +99,7 @@ Le collaborateur devra alors :
 
 ## Option 2 - Virtualisation
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Problèmes :
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Problèmes :
 1. c'est compliqué à mettre en place,
 1. c'est lourd (plusieurs Go juste pour l'OS et les dépendances),
 1. c'est gourmand en ressources (RAM, CPU).
@@ -109,10 +109,9 @@ Le collaborateur devra alors :
 
 ## Option 3 - Conteneurisation
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Solution :** s'orienter vers des solutions de **conteneurisation** telles que [**Docker**](https://www.docker.com/)&nbsp;
-`r icon::fa("docker")`&nbsp;
-`r icon::fa("docker")`&nbsp;
-`r icon::fa("docker")`&nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;**Solution :** 
+s'orienter vers des solutions de **conteneurisation** telles que 
+[**Docker**](https://www.docker.com/) &nbsp; `r fontawesome::fa_i("docker")`
 
 <br /><br />
 
@@ -136,7 +135,7 @@ Le collaborateur devra alors :
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Avantages de la conteneurisation :**
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;**Avantages de la conteneurisation :**
 
 - Extrêmement léger (exploitation du noyau Linux)
 - Utilisation réduite de ressources (RAM, CPU)
@@ -150,7 +149,7 @@ Le collaborateur devra alors :
 
 .center[![:scale 75%](assets/img/docker.png)]
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Plateforme open source permettant de :
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Plateforme open source permettant de :
 
 - empaqueter une application avec toutes ses dépendances système
 - partager facilement un environnement de travail complet
@@ -158,7 +157,7 @@ Le collaborateur devra alors :
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Un conteneur est _isolé_ du système hôte : Docker permet donc de :
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Un conteneur est _isolé_ du système hôte : Docker permet donc de :
 
 - tester des choses sans crainte d'endommager son système hôte
 - garder son système hôte propre, en installant tout sur Docker
@@ -166,30 +165,30 @@ Le collaborateur devra alors :
 
 --
 
-`r icon::fa("exclamation-triangle", color = "#3f3f3f")` &nbsp;Idéal pour créer un environnement
+`r fontawesome::fa_i("exclamation-triangle", class = "dark")` &nbsp;Idéal pour créer un environnement
 de developpement (basé sur Linux)
 
 ---
 
 ## La notion d'Image
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Ca a l'air super, mais concrètement, comment je crée un conteneur `r icon::fa("question-circle", color = "#3f3f3f")`
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Ca a l'air super, mais concrètement, comment je crée un conteneur `r fontawesome::fa_i("question-circle", class = "dark")`
 
 --
 
 
-Tout conteneur est basé sur une image que l'on crée soi-même ou qu'on récupère depuis un site d'archivage (comme le CRAN pour `r icon::fa("r-project")`)
+Tout conteneur est basé sur une image que l'on crée soi-même ou qu'on récupère depuis un site d'archivage (comme le CRAN pour `r fontawesome::fa_i("r-project")`)
 
 --
 
 <br />
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Une **image `r icon::fa("docker")`** est une sorte de conteneur figé : c'est un template **fixe** (une recette de cuisine) à partir duquel on créera un
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Une **image `r fontawesome::fa_i("docker")`** est une sorte de conteneur figé : c'est un template **fixe** (une recette de cuisine) à partir duquel on créera un
 ou des conteneurs. Une image est `immuable`.
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Un **conteneur `r icon::fa("docker")`** est donc une instance (exécution) d'une image qui pourra être utilisée/modifiée une fois créée
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Un **conteneur `r fontawesome::fa_i("docker")`** est donc une instance (exécution) d'une image qui pourra être utilisée/modifiée une fois créée
 
 
 ---
@@ -200,7 +199,7 @@ _Prenons un exemple tiré par les cheveux._
 
 --
 
-_Quand je lance RStudio (équivalent à une image `r icon::fa("docker")` dans notre exemple),
+_Quand je lance RStudio (équivalent à une image `r fontawesome::fa_i("docker")` dans notre exemple),
 j'ouvre une instance RStudio (équivalent, dans notre exemple, à un conteneur).
 Si je clique une seconde fois sur l'exécutable de RStudio, j'ouvre une seconde
 instance (un second conteneur) indépendante de la première._
@@ -209,16 +208,16 @@ _Tout ce que je fais dans la première instance n'est pas répercuté dans la se
 
 _Plus important encore, ces modifications ne se répercutent pas dans l'exécutable de RStudio._
 
-C'est la même logique avec les images et conteneurs `r icon::fa("docker")`.
+C'est la même logique avec les images et conteneurs `r fontawesome::fa_i("docker")`.
 
 
 ---
 
 ## Docker Hub
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Où trouver des images `r icon::fa("docker")` ?
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Où trouver des images `r fontawesome::fa_i("docker")` ?
 Sur un site d'archivage officiel [**Docker Hub**](https://hub.docker.com).
-C'est une sorte de CRAN (publique) pour `r icon::fa("docker")`.
+C'est une sorte de CRAN (publique) pour `r fontawesome::fa_i("docker")`.
 
 ![](assets/img/docker-hub.png)
 
@@ -232,13 +231,13 @@ class: inverse, center, middle
 
 ## Installation
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Docker s'installe sur GNU/Linux, et depuis peu, sur macOS et Windows 10 (installation différente selon l'édition, e.g. Home vs. Pro). Rendez-vous sur cette [**page **](https://docs.docker.com/get-docker/) et suivez les instructions.
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Docker s'installe sur GNU/Linux, et depuis peu, sur macOS et Windows 10 (installation différente selon l'édition, e.g. Home vs. Pro). Rendez-vous sur cette [**page **](https://docs.docker.com/get-docker/) et suivez les instructions.
 
 --
 
 <br />
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Une autre façon d'accéder
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Une autre façon d'accéder
 à Docker sans l'installer en local est d'utiliser la plateforme [**Play with Docker**](https://labs.play-with-docker.com/)
 (identifiant Docker requis)
 
@@ -249,7 +248,7 @@ C'est une plateforme qui donne accès à un serveur Alpine Linux sur lequel Dock
 d'autres utilitaires (git, serveur ssh) sont préinstallés.
 La session dure 4h et on peut démarrer plusieurs instances.
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Durant l'exercice, on verra
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Durant l'exercice, on verra
 comment récupérer les données depuis ce serveur (ssh _vs._ git).
 ]
 
@@ -288,7 +287,7 @@ class: inverse, center, middle
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Qu'à cela ne tienne : nous allons télécharger une image `r icon::fa("docker")` de Debian.
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Qu'à cela ne tienne : nous allons télécharger une image `r fontawesome::fa_i("docker")` de Debian.
 Allons faire un tour sur [**Docker Hub**](https://hub.docker.com/search?q=debian&type=image).
 
 ![](assets/img/hub-search.png)
@@ -297,7 +296,7 @@ Allons faire un tour sur [**Docker Hub**](https://hub.docker.com/search?q=debian
 
 ## Mon premier conteneur
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;On peut également chercher une image `r icon::fa("docker")`
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;On peut également chercher une image `r fontawesome::fa_i("docker")`
 depuis le terminal
 
 ```sh
@@ -313,19 +312,19 @@ debian    Debian is a Linux distribution that's compos...   3635    [OK]
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Pour télécharger l'image `r icon::fa("docker")`, on peut lancer la commande suivante :
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Pour télécharger l'image `r fontawesome::fa_i("docker")`, on peut lancer la commande suivante :
 
 ```sh
 docker pull debian
 ```
 
-`r icon::fa("exclamation-triangle", color = "#3f3f3f")` &nbsp;Cependant, en procédant ainsi nous téléchargerons la dernière version de Debian.
-Afin d'être reproductible, nous fixerons une version particulière (appelée **tag** sous `r icon::fa("docker")`).
+`r fontawesome::fa_i("exclamation-triangle", class = "dark")` &nbsp;Cependant, en procédant ainsi nous téléchargerons la dernière version de Debian.
+Afin d'être reproductible, nous fixerons une version particulière (appelée **tag** sous `r fontawesome::fa_i("docker")`).
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
-Téléchargeons l'image `r icon::fa("docker")` de Debian 10 (appelée Buster).
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
+Téléchargeons l'image `r fontawesome::fa_i("docker")` de Debian 10 (appelée Buster).
 
 ```sh
 docker pull debian:buster                            # ou, docker pull debian:10
@@ -335,7 +334,7 @@ docker pull debian:buster                            # ou, docker pull debian:10
 
 ## Mon premier conteneur
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Listons les images `r icon::fa("docker")` présentes en local :
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Listons les images `r fontawesome::fa_i("docker")` présentes en local :
 
 
 ```sh
@@ -353,14 +352,14 @@ debian          buster      1510e8501783      2 weeks ago       114MB
 
 **Deux choses importantes sont à noter :**
 
-1. Chaque image `r icon::fa("docker")` dispose d'un identifiant unique (**IMAGE ID**)
-2. La taille de l'image `r icon::fa("docker")` **!!!**
+1. Chaque image `r fontawesome::fa_i("docker")` dispose d'un identifiant unique (**IMAGE ID**)
+2. La taille de l'image `r fontawesome::fa_i("docker")` **!!!**
 
 --
 
 <br />
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Pour supprimer une image :
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Pour supprimer une image :
 
 ```sh
 docker rmi 1510e8501783
@@ -370,8 +369,8 @@ docker rmi 1510e8501783
 
 ## Mon premier conteneur
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Créons notre conteneur, c'est-à-dire une
-instance de notre image `r icon::fa("docker")`.
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Créons notre conteneur, c'est-à-dire une
+instance de notre image `r fontawesome::fa_i("docker")`.
 
 ```sh
 docker run -it debian:buster                  # ou, docker run -it 1510e8501783
@@ -391,7 +390,7 @@ root@ea8d63136eef:/#
 
 <br />
 
-Nous sommes dans notre conteneur `r icon::fa("docker")` !
+Nous sommes dans notre conteneur `r fontawesome::fa_i("docker")` !
 Le prompt nous dit que nous sommes connectés en tant qu'utilisateur `root` sur
 le conteneur dont l'identifiant est `ea8d63136eef` (différent de l'ID de l'image !)
 
@@ -416,14 +415,14 @@ Revenons sur la commande `docker run -it debian:buster`
 
 --
 
-1. L'instruction `docker run` exécute une instance de l'image `r icon::fa("docker")` **debian** portant le tag **buster**.
-Il faut noter que si cette image est absente de notre machine, alors `r icon::fa("docker")` essaiera de la
+1. L'instruction `docker run` exécute une instance de l'image `r fontawesome::fa_i("docker")` **debian** portant le tag **buster**.
+Il faut noter que si cette image est absente de notre machine, alors `r fontawesome::fa_i("docker")` essaiera de la
 télécharger depuis Docker Hub. Donc, cette commande fait également un `docker pull` si besoin est.
 
 --
 
 1. Le double drapeau `-it` indique que l'on souhaite interagir avec le conteneur.
-En général, les images `r icon::fa("docker")` ne contenant qu'un OS (pas d'application)
+En général, les images `r fontawesome::fa_i("docker")` ne contenant qu'un OS (pas d'application)
 retournent toujours un shell (invite de commandes), mais pour y accéder, il faut demander
 l'accès (avec le drapeau `-it`).
 
@@ -442,7 +441,7 @@ docker run -it debian:buster bash
 
 ## Mon premier conteneur
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Si jamais nous avions oublié le drapeau
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Si jamais nous avions oublié le drapeau
 `-it`, ce n'est pas grave. Nous avons toujours la possibilité de rentrer dans le conteneur avec :
 
 
@@ -450,7 +449,7 @@ docker run -it debian:buster bash
 docker exec –it ea8d63136eef bash
 ```
 
-`r icon::fa("exclamation-triangle", color = "#3f3f3f")` &nbsp;Lorsqu'on quitte le conteneur avec la commande
+`r fontawesome::fa_i("exclamation-triangle", class = "dark")` &nbsp;Lorsqu'on quitte le conteneur avec la commande
 `exit`, celui-ci est stoppé si on est rentré dans le conteneur avec la commande `docker run`.
 Mais il n'est pas stoppé si on a accédé au shell avec `docker exec bash`.
 
@@ -477,7 +476,7 @@ class: inverse, center, middle
 
 ## Gestion des conteneurs
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Pour lister les conteneurs (processus) actifs :
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Pour lister les conteneurs (processus) actifs :
 
 ```sh
 docker ps
@@ -490,13 +489,13 @@ ea8d63136eef   debian:buster   "bash"    2 min ago   Up 2 min           magical_
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Pour arrêter un conteneur :
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Pour arrêter un conteneur :
 
 ```sh
 docker stop ea8d63136eef                    # ou, docker stop magical_lehmann
 ```
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Pour démarrer un conteneur :
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Pour démarrer un conteneur :
 
 ```sh
 docker start ea8d63136eef                   # ou, docker start magical_lehmann
@@ -504,7 +503,7 @@ docker start ea8d63136eef                   # ou, docker start magical_lehmann
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Pour supprimer un conteneur :
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Pour supprimer un conteneur :
 
 ```sh
 docker rm ea8d63136eef                      # après un docker stop
@@ -516,7 +515,7 @@ docker rm -f ea8d63136eef                   # si le conteneur est actif
 
 ## Gestion des conteneurs
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Pour lister les conteneurs (processus) actifs et arrêtés :
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Pour lister les conteneurs (processus) actifs et arrêtés :
 
 ```sh
 docker ps -a
@@ -530,7 +529,7 @@ ea8d63136eef   debian:buster   "bash"    2 min ago   Up 2 min           magical_
 --
 
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Enfin, pour connaitre les ressources consommées par les conteneurs
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Enfin, pour connaitre les ressources consommées par les conteneurs
 actifs :
 
 ```sh
@@ -546,7 +545,7 @@ ea8d63136eef   magical_lehmann   0.00%  788KiB / 1.944GiB   0.04%
 
 <br />
 
-`r icon::fa("exclamation-triangle", color = "#3f3f3f")` &nbsp;Après un reboot de la machine, les conteneurs
+`r fontawesome::fa_i("exclamation-triangle", class = "dark")` &nbsp;Après un reboot de la machine, les conteneurs
 actifs et stoppés existent toujours. Mais, ceux qui ont été supprimés avec `docker rm`, eux, n'existent plus.
 
 
@@ -562,7 +561,7 @@ class: inverse, center, middle
 
 ## Persistance des conteneurs
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Mais si un conteneur est isolé,
+`r fontawesome::fa_i("hand-point-right", class = "dark")`&nbsp; Mais si un conteneur est isolé,
 comment je récupère mes données qui sont à l'intérieur ? Et, comment je donne accès aux
 données stockées sur ma machine à mon conteneur ?
 
@@ -574,19 +573,20 @@ n'est pas accessible depuis l'extérieur. Et lorsque celui-ci est détruit,
 tout est perdu ! Ce qui est un avantage pour bidouiller le contenu, mais un inconvénient
 lorsqu'on veut travailler sérieusement.
 
-
 --
+
 <br />
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Pour les données, on créera des **volumes**
+`r fontawesome::fa_i("hand-point-right", class = "dark")`&nbsp; Pour les données, on créera des **volumes**
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Pour les logiciels, on créera une nouvelle **image** `r icon::fa("docker")`
+`r fontawesome::fa_i("hand-point-right", class = "dark")`&nbsp; Pour les logiciels, on créera une nouvelle **image** `r fontawesome::fa_i("docker")`
+
 
 ---
 
 ## Volumes de persistance
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 Un volume<sup>*****</sup> est un dossier. L'idée est de créer un pont entre un dossier du conteneur et un dossier
 de notre machine. On parle de **volumes mapping**
 
@@ -603,7 +603,7 @@ la suppression du conteneur (et de son volume persistant).
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 C'est cela qu'on appelle la **persistance**
 
 
@@ -630,7 +630,7 @@ le dossier personnel de l'utilisateur **root** : `/root/`
 --
 
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 Pour cela, lorsque je créerai un nouveau conteneur basé sur l'image `debian:buster` avec
 la commande `docker run`, je rajouterai le drapeau `--volume` (ou `-v`) de la manière suivante :
 
@@ -640,7 +640,7 @@ la commande `docker run`, je rajouterai le drapeau `--volume` (ou `-v`) de la ma
 
 --
 
-`r icon::fa("exclamation-triangle", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("exclamation-triangle", class = "dark")` &nbsp;
 Les volumes mentionnés doivent exister tant sur la machine locale et dans le conteneur
 et il faut mentionner le chemin absolu vers ces dossiers.
 
@@ -648,7 +648,7 @@ et il faut mentionner le chemin absolu vers ces dossiers.
 
 ## Volumes de persistance
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 Ce qui nous donne :
 
 ```sh
@@ -710,7 +710,7 @@ Cree dans le conteneur
 
 <br />
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 Qu'en est-il sur ma machine ?
 
 ```sh
@@ -730,7 +730,7 @@ projet
 
 ## Volumes de persistance
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 Et si je supprime le conteneur, que deviendra mon dossier sur ma machine ?
 
 --
@@ -757,7 +757,7 @@ projet
 --
 
 <br />
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 Les données ont été persistées **!!!**
 
 
@@ -771,14 +771,14 @@ class: inverse, center, middle
 
 ## Ajout d'outils
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 Que se passe-t-il si mon conteneur ne contient pas tous les outils (librairies, logiciels, etc.) dont j'ai besoin ?
 
 --
 
 <br />
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Option 1** : la méthode **sale**
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;**Option 1** : la méthode **sale**
 
 L'idée est de rentrer dans un conteneur, d'installer les outils manquants (`apt-get install`) et
 d'enregistrer le nouvel état du conteneur vers une nouvelle image (avec `docker commit`). A titre
@@ -792,20 +792,20 @@ docker commit id_image nom_nouvelle_image
 
 C'est **très très sale** : les outils sont installés à la volée (depuis le conteneur) et
 on ne garde aucune trace des changements apportés. Niveau sécurité, c'est pas top... Et en plus,
-on n'est pas à l'abri de faire des mauvaises manip' et de compromettre la future image `r icon::fa("docker")`
+on n'est pas à l'abri de faire des mauvaises manip' et de compromettre la future image `r fontawesome::fa_i("docker")`
 
 --
 
 <br />
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Option 2** : le `Dockerfile`
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;**Option 2** : le `Dockerfile`
 
 ---
 
 ## Création d'image - Dockerfile
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Le `Dockerfile` est la recette qui va
-créer une nouvelle image `r icon::fa("docker")`
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Le `Dockerfile` est la recette qui va
+créer une nouvelle image `r fontawesome::fa_i("docker")`
 
 C'est un simple fichier texte (**sans extension**) qui fournit une suite d'instructions amenant
 à la construction de la future image. Chaque instruction va créer une couche dans l'image (système de Lego) : plus
@@ -820,7 +820,7 @@ sur une (seule) image existante.
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Ainsi, le processus de création
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Ainsi, le processus de création
 d'une image est **incrémental** et peut être comparé à un `git pull`
 
 Lors de la construction de l'image, si l'image de référence est présente sur la machine,
@@ -832,7 +832,7 @@ l'ensemble de l'historique, juste les dernières modifications).
 
 ## Création d'image - Dockerfile
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**Objectif** : nous allons
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;**Objectif** : nous allons
 améliorer l'image `debian:buster` en lui ajoutant quelques utilitaires manquants :
 
 - `htop` : outil de monitoring du système
@@ -866,7 +866,7 @@ le contacter.
 
 ## Création d'image - Dockerfile
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Tel quel, ce `Dockerfile`
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Tel quel, ce `Dockerfile`
 construira une image identique à l'image `debian:buster`
 
 --
@@ -903,7 +903,7 @@ RUN apt-get update -yq \
 
 ## Création d'image - Dockerfile
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 On peut réduire encore la taille de la future image en supprimant le cache du gestionnaire
 `apt` qui contient les archives des utilitaires téléchargés.
 
@@ -922,7 +922,7 @@ RUN apt-get update -yq \
 
 ## Création d'image - Dockerfile
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 Nous pouvons aussi créer un répertoire avec la commande Unix `mkdir`
 
 ```docker
@@ -940,7 +940,7 @@ RUN apt-get update -yq \
 
 ## Création d'image - Dockerfile
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 Améliorons encore notre recette en définissant le répertoire par défaut
 du conteneur, par ex. `/root/data` (celui dans lequel on se retrouvera lorsqu'on rentrera dans le
 conteneur) avec la clause `WORKDIR`
@@ -962,7 +962,7 @@ WORKDIR /root/data
 
 ## Création d'image - Dockerfile
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 J'ai du écrire deux fois `/root/data` : en programmation, c'est jamais bon...
 Heureusement, Docker offre la possibilité de manipuler des variables
 d'environnement avec la clause `ENV`. Optimisons donc le code.
@@ -986,7 +986,7 @@ WORKDIR "$FOLDER"
 
 ## Création d'image - Dockerfile
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 Je voudrais copier un fichier que j'ai en local (et dans le même dossier dans l'exemple) dans l'image,
 afin qu'il soit présent dans mes futurs conteneurs. Pour cela, j'ai la clause
 `COPY`
@@ -1013,7 +1013,7 @@ WORKDIR "$FOLDER"
 
 ## Création d'image - Dockerfile
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 Finalement, je peux aussi définir une commande par défaut qui sera exécutée lors
 du lancement d'un conteneur. Ici, ouvrons un shell `BASH`
 
@@ -1045,8 +1045,8 @@ La clause `CMD` s'écrit toujours sous la forme d'un array (une sorte de liste) 
 
 ## Le .dockerignore
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Tout comme `r icon::fa("git")`
-et `r icon::fa("r-project")`, `r icon::fa("docker")` est capable d'ignorer certains
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Tout comme `r fontawesome::fa_i("git")`
+et `r fontawesome::fa_i("r-project")`, `r fontawesome::fa_i("docker")` est capable d'ignorer certains
 fichiers/dossiers lors de la construction d'une image grâce à un `.dockerignore`
 
 Cela est particulièrement important lorsque la clause `COPY` copie des dossiers entiers.
@@ -1055,7 +1055,7 @@ Cela est particulièrement important lorsque la clause `COPY` copie des dossiers
 
 <br />
 Etant sous macOS, je vais ignorer les fameux fichiers `.DS_Store` et pourquoi pas les fichiers
-et dossiers cachés de `r icon::fa("git")` (ça grossirait l'image pour rien)
+et dossiers cachés de `r fontawesome::fa_i("git")` (ça grossirait l'image pour rien)
 
 ```sh
 echo ".DS_Store" > .dockerignore
@@ -1068,7 +1068,7 @@ echo ".gitignore" >> .dockerignore
 
 ## Build de l'image
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 Nous sommes prêt pour construire (builder) notre image à partir du `Dockerfile`.
 Pour cela, je vais utiliser la commande `docker build` avec le drapeau `-t` pour
 donner un nom à mon image. Je dois aussi spécifier le répertoire contenant ma recette.
@@ -1094,10 +1094,10 @@ debian              buster        1510e8501783        2 weeks ago         114MB
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 Ma nouvelle image est légèrement plus grosse que celle d'origine : nous n'avons pas abusé des clauses `RUN`.
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 Par défaut, la tag `latest` a été ajouté à la nouvelle image.
 
 
@@ -1105,7 +1105,7 @@ Par défaut, la tag `latest` a été ajouté à la nouvelle image.
 
 ## Utilisation de l'image
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Nous revoilà revenu au point de départ. Mais,
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Nous revoilà revenu au point de départ. Mais,
 avec une toute nouvelle image, faite maison qui plus est ! Créons-nous un conteneur pour l'fun
 
 ```docker
@@ -1187,8 +1187,8 @@ class: inverse, center, middle
 
 ## Publier sur le Docker Hub
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
-Nous allons voir qu'il est facile de publier une image `r icon::fa("docker")` sur le
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
+Nous allons voir qu'il est facile de publier une image `r fontawesome::fa_i("docker")` sur le
 [**Docker Hub**](https://hub.docker.com). Pour cela, il nous faut tout d'abord nous créer
 un identifiant Docker en se rendant sur cette [**page**](https://hub.docker.com/signup).
 Une fois créé, nous devons stocker notre Docker ID sur notre machine local grâce
@@ -1201,7 +1201,7 @@ docker login
 --
 <br />
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 Nous allons déposer notre image sur Docker Hub dans notre repository personnel (publique).
 Cependant, nous avons un problème, car pour ce faire, le nom de notre image doit
 contenir notre identifiant Docker : `docker_id/image`.
@@ -1232,7 +1232,7 @@ debian                  buster     1510e8501783     2 weeks ago      114MB
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 Docker lui a attribué la version
 `latest`. Pour publier sur le Hub, il est préférable de lui attribuer un autre tag,
 plus parlant. Allons-y
@@ -1258,7 +1258,7 @@ nicolascasajus/buster   1.0        b389eba1f1c9     2 hours ago      121MB
 
 ## Publier sur le Docker Hub
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 Il est temps de pusher !
 
 ```sh
@@ -1302,7 +1302,7 @@ docker push nicolascasajus/buster:1.0
 
 class: inverse, center, middle
 
-## `r icon::fa("r-project")` & `r icon::fa("docker")`
+## `r fontawesome::fa_i("r-project")` & `r fontawesome::fa_i("docker")`
 
 
 ---
@@ -1311,12 +1311,12 @@ class: inverse, center, middle
 
 Si on se rappelle la définition d'un conteneur, celui-ci contient un environnement
 de travail mais aussi, et surtout, une application. Or, il nous manque l'application.
-Et idéalement, une application développée sous `r icon::fa("r-project")`...
+Et idéalement, une application développée sous `r fontawesome::fa_i("r-project")`...
 
 --
 
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 [**L'initiative Rocker**](https://www.rocker-project.org/)
 
 .center[![:scale 80%](assets/img/rocker.png)]
@@ -1328,7 +1328,7 @@ Et idéalement, une application développée sous `r icon::fa("r-project")`...
 .center[![:scale 80%](assets/img/rocker-img.png)]
 
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Ressources:&nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Ressources:&nbsp;
 [**GitHub**](https://github.com/rocker-org/rocker-versioned2) &nbsp;|&nbsp;
 [**Docker**](https://hub.docker.com/r/rocker/r-ver)
 
@@ -1347,7 +1347,7 @@ class: inverse, center, middle
 
 ## Pour aller plus loin...
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 [**Docker-compose**](https://docs.docker.com/compose/) - L'orchestrateur ultime
 
 

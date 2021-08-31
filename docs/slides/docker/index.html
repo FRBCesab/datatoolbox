@@ -4,8 +4,9 @@
     <title>Introduction à Docker</title>
     <meta charset="utf-8" />
     <meta name="author" content="  Nicolas CASAJUS .inst[{{ Data scientist FRB-CESAB }}]" />
-    <script src="assets/libs/header-attrs-2.5/header-attrs.js"></script>
-    <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
+    <script src="assets/libs/header-attrs-2.10/header-attrs.js"></script>
+    <link href="assets/libs/font-awesome-5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="assets/libs/font-awesome-5.15.3/css/v4-shims.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="assets/css/custom.css" type="text/css" />
   </head>
@@ -14,9 +15,9 @@
 class: right, middle, title-slide
 
 # Introduction à Docker
-## <i>the hardest part </i> <i class="fas  fa-meh-rolling-eyes "></i>
+## <i>the hardest part </i> <i class="fa fa-meh-rolling-eyes" role="presentation" aria-label="meh-rolling-eyes icon"></i>
 ### <br /><br />Nicolas CASAJUS<br />.inst[{{ Data scientist FRB-CESAB }}]
-### .inst[Mercredi 4 novembre 2020]
+### .inst[Jeudi 2 décembre 2021]
 
 ---
 
@@ -46,7 +47,7 @@ d'environnement de travail.**
 
 --
 
-Que faire <i class="fas  fa-question-circle " style="color:#3f3f3f;"></i>
+Que faire <i class="fa fa-question-circle dark" role="presentation" aria-label="question-circle icon"></i>
 
 
 .center[![](assets/img/noidea.gif)]
@@ -56,7 +57,7 @@ Que faire <i class="fas  fa-question-circle " style="color:#3f3f3f;"></i>
 ## Option 1
 
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Ecrire des tutoriels pour
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Ecrire des tutoriels pour
 chaque OS (et version d'OS) pour installer toutes les dépendances système requises
 pour que le code fonctionne à peu près n'importe où
 
@@ -72,7 +73,7 @@ pour que le code fonctionne à peu près n'importe où
 
 ## Option 2 - Virtualisation
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Fixer le type d'OS (et
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Fixer le type d'OS (et
 sa version) et utiliser une machine virtuelle dans lequel il s'exécutera
 
 .center[![:scale 75%](assets/img/vm.png)]
@@ -100,7 +101,7 @@ Le collaborateur devra alors :
 
 ## Option 2 - Virtualisation
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Problèmes :
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Problèmes :
 1. c'est compliqué à mettre en place,
 1. c'est lourd (plusieurs Go juste pour l'OS et les dépendances),
 1. c'est gourmand en ressources (RAM, CPU).
@@ -110,10 +111,9 @@ Le collaborateur devra alors :
 
 ## Option 3 - Conteneurisation
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Solution :** s'orienter vers des solutions de **conteneurisation** telles que [**Docker**](https://www.docker.com/)&amp;nbsp;
-<i class="fab  fa-docker "></i>&amp;nbsp;
-<i class="fab  fa-docker "></i>&amp;nbsp;
-<i class="fab  fa-docker "></i>&amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;**Solution :** 
+s'orienter vers des solutions de **conteneurisation** telles que 
+[**Docker**](https://www.docker.com/) &amp;nbsp; <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i>
 
 &lt;br /&gt;&lt;br /&gt;
 
@@ -137,7 +137,7 @@ Le collaborateur devra alors :
 
 --
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Avantages de la conteneurisation :**
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;**Avantages de la conteneurisation :**
 
 - Extrêmement léger (exploitation du noyau Linux)
 - Utilisation réduite de ressources (RAM, CPU)
@@ -151,7 +151,7 @@ Le collaborateur devra alors :
 
 .center[![:scale 75%](assets/img/docker.png)]
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Plateforme open source permettant de :
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Plateforme open source permettant de :
 
 - empaqueter une application avec toutes ses dépendances système
 - partager facilement un environnement de travail complet
@@ -159,7 +159,7 @@ Le collaborateur devra alors :
 
 --
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Un conteneur est _isolé_ du système hôte : Docker permet donc de :
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Un conteneur est _isolé_ du système hôte : Docker permet donc de :
 
 - tester des choses sans crainte d'endommager son système hôte
 - garder son système hôte propre, en installant tout sur Docker
@@ -167,30 +167,30 @@ Le collaborateur devra alors :
 
 --
 
-<i class="fas  fa-exclamation-triangle " style="color:#3f3f3f;"></i> &amp;nbsp;Idéal pour créer un environnement
+<i class="fa fa-exclamation-triangle dark" role="presentation" aria-label="exclamation-triangle icon"></i> &amp;nbsp;Idéal pour créer un environnement
 de developpement (basé sur Linux)
 
 ---
 
 ## La notion d'Image
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Ca a l'air super, mais concrètement, comment je crée un conteneur <i class="fas  fa-question-circle " style="color:#3f3f3f;"></i>
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Ca a l'air super, mais concrètement, comment je crée un conteneur <i class="fa fa-question-circle dark" role="presentation" aria-label="question-circle icon"></i>
 
 --
 
 
-Tout conteneur est basé sur une image que l'on crée soi-même ou qu'on récupère depuis un site d'archivage (comme le CRAN pour <i class="fab  fa-r-project "></i>)
+Tout conteneur est basé sur une image que l'on crée soi-même ou qu'on récupère depuis un site d'archivage (comme le CRAN pour <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i>)
 
 --
 
 &lt;br /&gt;
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Une **image <i class="fab  fa-docker "></i>** est une sorte de conteneur figé : c'est un template **fixe** (une recette de cuisine) à partir duquel on créera un
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Une **image <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i>** est une sorte de conteneur figé : c'est un template **fixe** (une recette de cuisine) à partir duquel on créera un
 ou des conteneurs. Une image est `immuable`.
 
 --
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Un **conteneur <i class="fab  fa-docker "></i>** est donc une instance (exécution) d'une image qui pourra être utilisée/modifiée une fois créée
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Un **conteneur <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i>** est donc une instance (exécution) d'une image qui pourra être utilisée/modifiée une fois créée
 
 
 ---
@@ -201,7 +201,7 @@ _Prenons un exemple tiré par les cheveux._
 
 --
 
-_Quand je lance RStudio (équivalent à une image <i class="fab  fa-docker "></i> dans notre exemple),
+_Quand je lance RStudio (équivalent à une image <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i> dans notre exemple),
 j'ouvre une instance RStudio (équivalent, dans notre exemple, à un conteneur).
 Si je clique une seconde fois sur l'exécutable de RStudio, j'ouvre une seconde
 instance (un second conteneur) indépendante de la première._
@@ -210,16 +210,16 @@ _Tout ce que je fais dans la première instance n'est pas répercuté dans la se
 
 _Plus important encore, ces modifications ne se répercutent pas dans l'exécutable de RStudio._
 
-C'est la même logique avec les images et conteneurs <i class="fab  fa-docker "></i>.
+C'est la même logique avec les images et conteneurs <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i>.
 
 
 ---
 
 ## Docker Hub
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Où trouver des images <i class="fab  fa-docker "></i> ?
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Où trouver des images <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i> ?
 Sur un site d'archivage officiel [**Docker Hub**](https://hub.docker.com).
-C'est une sorte de CRAN (publique) pour <i class="fab  fa-docker "></i>.
+C'est une sorte de CRAN (publique) pour <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i>.
 
 ![](assets/img/docker-hub.png)
 
@@ -233,13 +233,13 @@ class: inverse, center, middle
 
 ## Installation
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Docker s'installe sur GNU/Linux, et depuis peu, sur macOS et Windows 10 (installation différente selon l'édition, e.g. Home vs. Pro). Rendez-vous sur cette [**page **](https://docs.docker.com/get-docker/) et suivez les instructions.
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Docker s'installe sur GNU/Linux, et depuis peu, sur macOS et Windows 10 (installation différente selon l'édition, e.g. Home vs. Pro). Rendez-vous sur cette [**page **](https://docs.docker.com/get-docker/) et suivez les instructions.
 
 --
 
 &lt;br /&gt;
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Une autre façon d'accéder
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Une autre façon d'accéder
 à Docker sans l'installer en local est d'utiliser la plateforme [**Play with Docker**](https://labs.play-with-docker.com/)
 (identifiant Docker requis)
 
@@ -250,7 +250,7 @@ C'est une plateforme qui donne accès à un serveur Alpine Linux sur lequel Dock
 d'autres utilitaires (git, serveur ssh) sont préinstallés.
 La session dure 4h et on peut démarrer plusieurs instances.
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Durant l'exercice, on verra
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Durant l'exercice, on verra
 comment récupérer les données depuis ce serveur (ssh _vs._ git).
 ]
 
@@ -289,7 +289,7 @@ class: inverse, center, middle
 
 --
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Qu'à cela ne tienne : nous allons télécharger une image <i class="fab  fa-docker "></i> de Debian.
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Qu'à cela ne tienne : nous allons télécharger une image <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i> de Debian.
 Allons faire un tour sur [**Docker Hub**](https://hub.docker.com/search?q=debian&amp;type=image).
 
 ![](assets/img/hub-search.png)
@@ -298,7 +298,7 @@ Allons faire un tour sur [**Docker Hub**](https://hub.docker.com/search?q=debian
 
 ## Mon premier conteneur
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;On peut également chercher une image <i class="fab  fa-docker "></i>
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;On peut également chercher une image <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i>
 depuis le terminal
 
 ```sh
@@ -314,19 +314,19 @@ debian    Debian is a Linux distribution that's compos...   3635    [OK]
 
 --
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Pour télécharger l'image <i class="fab  fa-docker "></i>, on peut lancer la commande suivante :
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Pour télécharger l'image <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i>, on peut lancer la commande suivante :
 
 ```sh
 docker pull debian
 ```
 
-<i class="fas  fa-exclamation-triangle " style="color:#3f3f3f;"></i> &amp;nbsp;Cependant, en procédant ainsi nous téléchargerons la dernière version de Debian.
-Afin d'être reproductible, nous fixerons une version particulière (appelée **tag** sous <i class="fab  fa-docker "></i>).
+<i class="fa fa-exclamation-triangle dark" role="presentation" aria-label="exclamation-triangle icon"></i> &amp;nbsp;Cependant, en procédant ainsi nous téléchargerons la dernière version de Debian.
+Afin d'être reproductible, nous fixerons une version particulière (appelée **tag** sous <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i>).
 
 --
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
-Téléchargeons l'image <i class="fab  fa-docker "></i> de Debian 10 (appelée Buster).
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
+Téléchargeons l'image <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i> de Debian 10 (appelée Buster).
 
 ```sh
 docker pull debian:buster                            # ou, docker pull debian:10
@@ -336,7 +336,7 @@ docker pull debian:buster                            # ou, docker pull debian:10
 
 ## Mon premier conteneur
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Listons les images <i class="fab  fa-docker "></i> présentes en local :
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Listons les images <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i> présentes en local :
 
 
 ```sh
@@ -354,14 +354,14 @@ debian          buster      1510e8501783      2 weeks ago       114MB
 
 **Deux choses importantes sont à noter :**
 
-1. Chaque image <i class="fab  fa-docker "></i> dispose d'un identifiant unique (**IMAGE ID**)
-2. La taille de l'image <i class="fab  fa-docker "></i> **!!!**
+1. Chaque image <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i> dispose d'un identifiant unique (**IMAGE ID**)
+2. La taille de l'image <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i> **!!!**
 
 --
 
 &lt;br /&gt;
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Pour supprimer une image :
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Pour supprimer une image :
 
 ```sh
 docker rmi 1510e8501783
@@ -371,8 +371,8 @@ docker rmi 1510e8501783
 
 ## Mon premier conteneur
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Créons notre conteneur, c'est-à-dire une
-instance de notre image <i class="fab  fa-docker "></i>.
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Créons notre conteneur, c'est-à-dire une
+instance de notre image <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i>.
 
 ```sh
 docker run -it debian:buster                  # ou, docker run -it 1510e8501783
@@ -392,7 +392,7 @@ root@ea8d63136eef:/#
 
 &lt;br /&gt;
 
-Nous sommes dans notre conteneur <i class="fab  fa-docker "></i> !
+Nous sommes dans notre conteneur <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i> !
 Le prompt nous dit que nous sommes connectés en tant qu'utilisateur `root` sur
 le conteneur dont l'identifiant est `ea8d63136eef` (différent de l'ID de l'image !)
 
@@ -417,14 +417,14 @@ Revenons sur la commande `docker run -it debian:buster`
 
 --
 
-1. L'instruction `docker run` exécute une instance de l'image <i class="fab  fa-docker "></i> **debian** portant le tag **buster**.
-Il faut noter que si cette image est absente de notre machine, alors <i class="fab  fa-docker "></i> essaiera de la
+1. L'instruction `docker run` exécute une instance de l'image <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i> **debian** portant le tag **buster**.
+Il faut noter que si cette image est absente de notre machine, alors <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i> essaiera de la
 télécharger depuis Docker Hub. Donc, cette commande fait également un `docker pull` si besoin est.
 
 --
 
 1. Le double drapeau `-it` indique que l'on souhaite interagir avec le conteneur.
-En général, les images <i class="fab  fa-docker "></i> ne contenant qu'un OS (pas d'application)
+En général, les images <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i> ne contenant qu'un OS (pas d'application)
 retournent toujours un shell (invite de commandes), mais pour y accéder, il faut demander
 l'accès (avec le drapeau `-it`).
 
@@ -443,7 +443,7 @@ docker run -it debian:buster bash
 
 ## Mon premier conteneur
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Si jamais nous avions oublié le drapeau
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Si jamais nous avions oublié le drapeau
 `-it`, ce n'est pas grave. Nous avons toujours la possibilité de rentrer dans le conteneur avec :
 
 
@@ -451,7 +451,7 @@ docker run -it debian:buster bash
 docker exec –it ea8d63136eef bash
 ```
 
-<i class="fas  fa-exclamation-triangle " style="color:#3f3f3f;"></i> &amp;nbsp;Lorsqu'on quitte le conteneur avec la commande
+<i class="fa fa-exclamation-triangle dark" role="presentation" aria-label="exclamation-triangle icon"></i> &amp;nbsp;Lorsqu'on quitte le conteneur avec la commande
 `exit`, celui-ci est stoppé si on est rentré dans le conteneur avec la commande `docker run`.
 Mais il n'est pas stoppé si on a accédé au shell avec `docker exec bash`.
 
@@ -478,7 +478,7 @@ class: inverse, center, middle
 
 ## Gestion des conteneurs
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Pour lister les conteneurs (processus) actifs :
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Pour lister les conteneurs (processus) actifs :
 
 ```sh
 docker ps
@@ -491,13 +491,13 @@ ea8d63136eef   debian:buster   "bash"    2 min ago   Up 2 min           magical_
 
 --
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Pour arrêter un conteneur :
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Pour arrêter un conteneur :
 
 ```sh
 docker stop ea8d63136eef                    # ou, docker stop magical_lehmann
 ```
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Pour démarrer un conteneur :
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Pour démarrer un conteneur :
 
 ```sh
 docker start ea8d63136eef                   # ou, docker start magical_lehmann
@@ -505,7 +505,7 @@ docker start ea8d63136eef                   # ou, docker start magical_lehmann
 
 --
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Pour supprimer un conteneur :
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Pour supprimer un conteneur :
 
 ```sh
 docker rm ea8d63136eef                      # après un docker stop
@@ -517,7 +517,7 @@ docker rm -f ea8d63136eef                   # si le conteneur est actif
 
 ## Gestion des conteneurs
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Pour lister les conteneurs (processus) actifs et arrêtés :
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Pour lister les conteneurs (processus) actifs et arrêtés :
 
 ```sh
 docker ps -a
@@ -531,7 +531,7 @@ ea8d63136eef   debian:buster   "bash"    2 min ago   Up 2 min           magical_
 --
 
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Enfin, pour connaitre les ressources consommées par les conteneurs
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Enfin, pour connaitre les ressources consommées par les conteneurs
 actifs :
 
 ```sh
@@ -547,7 +547,7 @@ ea8d63136eef   magical_lehmann   0.00%  788KiB / 1.944GiB   0.04%
 
 &lt;br /&gt;
 
-<i class="fas  fa-exclamation-triangle " style="color:#3f3f3f;"></i> &amp;nbsp;Après un reboot de la machine, les conteneurs
+<i class="fa fa-exclamation-triangle dark" role="presentation" aria-label="exclamation-triangle icon"></i> &amp;nbsp;Après un reboot de la machine, les conteneurs
 actifs et stoppés existent toujours. Mais, ceux qui ont été supprimés avec `docker rm`, eux, n'existent plus.
 
 
@@ -563,7 +563,7 @@ class: inverse, center, middle
 
 ## Persistance des conteneurs
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Mais si un conteneur est isolé,
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i>&amp;nbsp; Mais si un conteneur est isolé,
 comment je récupère mes données qui sont à l'intérieur ? Et, comment je donne accès aux
 données stockées sur ma machine à mon conteneur ?
 
@@ -575,19 +575,20 @@ n'est pas accessible depuis l'extérieur. Et lorsque celui-ci est détruit,
 tout est perdu ! Ce qui est un avantage pour bidouiller le contenu, mais un inconvénient
 lorsqu'on veut travailler sérieusement.
 
-
 --
+
 &lt;br /&gt;
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Pour les données, on créera des **volumes**
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i>&amp;nbsp; Pour les données, on créera des **volumes**
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Pour les logiciels, on créera une nouvelle **image** <i class="fab  fa-docker "></i>
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i>&amp;nbsp; Pour les logiciels, on créera une nouvelle **image** <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i>
+
 
 ---
 
 ## Volumes de persistance
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 Un volume&lt;sup&gt;*****&lt;/sup&gt; est un dossier. L'idée est de créer un pont entre un dossier du conteneur et un dossier
 de notre machine. On parle de **volumes mapping**
 
@@ -604,7 +605,7 @@ la suppression du conteneur (et de son volume persistant).
 
 --
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 C'est cela qu'on appelle la **persistance**
 
 
@@ -631,7 +632,7 @@ le dossier personnel de l'utilisateur **root** : `/root/`
 --
 
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 Pour cela, lorsque je créerai un nouveau conteneur basé sur l'image `debian:buster` avec
 la commande `docker run`, je rajouterai le drapeau `--volume` (ou `-v`) de la manière suivante :
 
@@ -641,7 +642,7 @@ la commande `docker run`, je rajouterai le drapeau `--volume` (ou `-v`) de la ma
 
 --
 
-<i class="fas  fa-exclamation-triangle " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-exclamation-triangle dark" role="presentation" aria-label="exclamation-triangle icon"></i> &amp;nbsp;
 Les volumes mentionnés doivent exister tant sur la machine locale et dans le conteneur
 et il faut mentionner le chemin absolu vers ces dossiers.
 
@@ -649,7 +650,7 @@ et il faut mentionner le chemin absolu vers ces dossiers.
 
 ## Volumes de persistance
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 Ce qui nous donne :
 
 ```sh
@@ -711,7 +712,7 @@ Cree dans le conteneur
 
 &lt;br /&gt;
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 Qu'en est-il sur ma machine ?
 
 ```sh
@@ -731,7 +732,7 @@ projet
 
 ## Volumes de persistance
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 Et si je supprime le conteneur, que deviendra mon dossier sur ma machine ?
 
 --
@@ -758,7 +759,7 @@ projet
 --
 
 &lt;br /&gt;
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 Les données ont été persistées **!!!**
 
 
@@ -772,14 +773,14 @@ class: inverse, center, middle
 
 ## Ajout d'outils
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 Que se passe-t-il si mon conteneur ne contient pas tous les outils (librairies, logiciels, etc.) dont j'ai besoin ?
 
 --
 
 &lt;br /&gt;
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Option 1** : la méthode **sale**
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;**Option 1** : la méthode **sale**
 
 L'idée est de rentrer dans un conteneur, d'installer les outils manquants (`apt-get install`) et
 d'enregistrer le nouvel état du conteneur vers une nouvelle image (avec `docker commit`). A titre
@@ -793,20 +794,20 @@ docker commit id_image nom_nouvelle_image
 
 C'est **très très sale** : les outils sont installés à la volée (depuis le conteneur) et
 on ne garde aucune trace des changements apportés. Niveau sécurité, c'est pas top... Et en plus,
-on n'est pas à l'abri de faire des mauvaises manip' et de compromettre la future image <i class="fab  fa-docker "></i>
+on n'est pas à l'abri de faire des mauvaises manip' et de compromettre la future image <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i>
 
 --
 
 &lt;br /&gt;
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Option 2** : le `Dockerfile`
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;**Option 2** : le `Dockerfile`
 
 ---
 
 ## Création d'image - Dockerfile
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Le `Dockerfile` est la recette qui va
-créer une nouvelle image <i class="fab  fa-docker "></i>
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Le `Dockerfile` est la recette qui va
+créer une nouvelle image <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i>
 
 C'est un simple fichier texte (**sans extension**) qui fournit une suite d'instructions amenant
 à la construction de la future image. Chaque instruction va créer une couche dans l'image (système de Lego) : plus
@@ -821,7 +822,7 @@ sur une (seule) image existante.
 
 --
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Ainsi, le processus de création
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Ainsi, le processus de création
 d'une image est **incrémental** et peut être comparé à un `git pull`
 
 Lors de la construction de l'image, si l'image de référence est présente sur la machine,
@@ -833,7 +834,7 @@ l'ensemble de l'historique, juste les dernières modifications).
 
 ## Création d'image - Dockerfile
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;**Objectif** : nous allons
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;**Objectif** : nous allons
 améliorer l'image `debian:buster` en lui ajoutant quelques utilitaires manquants :
 
 - `htop` : outil de monitoring du système
@@ -867,7 +868,7 @@ le contacter.
 
 ## Création d'image - Dockerfile
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Tel quel, ce `Dockerfile`
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Tel quel, ce `Dockerfile`
 construira une image identique à l'image `debian:buster`
 
 --
@@ -904,7 +905,7 @@ RUN apt-get update -yq \
 
 ## Création d'image - Dockerfile
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 On peut réduire encore la taille de la future image en supprimant le cache du gestionnaire
 `apt` qui contient les archives des utilitaires téléchargés.
 
@@ -923,7 +924,7 @@ RUN apt-get update -yq \
 
 ## Création d'image - Dockerfile
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 Nous pouvons aussi créer un répertoire avec la commande Unix `mkdir`
 
 ```docker
@@ -941,7 +942,7 @@ RUN apt-get update -yq \
 
 ## Création d'image - Dockerfile
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 Améliorons encore notre recette en définissant le répertoire par défaut
 du conteneur, par ex. `/root/data` (celui dans lequel on se retrouvera lorsqu'on rentrera dans le
 conteneur) avec la clause `WORKDIR`
@@ -963,7 +964,7 @@ WORKDIR /root/data
 
 ## Création d'image - Dockerfile
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 J'ai du écrire deux fois `/root/data` : en programmation, c'est jamais bon...
 Heureusement, Docker offre la possibilité de manipuler des variables
 d'environnement avec la clause `ENV`. Optimisons donc le code.
@@ -987,7 +988,7 @@ WORKDIR "$FOLDER"
 
 ## Création d'image - Dockerfile
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 Je voudrais copier un fichier que j'ai en local (et dans le même dossier dans l'exemple) dans l'image,
 afin qu'il soit présent dans mes futurs conteneurs. Pour cela, j'ai la clause
 `COPY`
@@ -1014,7 +1015,7 @@ WORKDIR "$FOLDER"
 
 ## Création d'image - Dockerfile
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 Finalement, je peux aussi définir une commande par défaut qui sera exécutée lors
 du lancement d'un conteneur. Ici, ouvrons un shell `BASH`
 
@@ -1046,8 +1047,8 @@ La clause `CMD` s'écrit toujours sous la forme d'un array (une sorte de liste) 
 
 ## Le .dockerignore
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Tout comme <i class="fab  fa-git "></i>
-et <i class="fab  fa-r-project "></i>, <i class="fab  fa-docker "></i> est capable d'ignorer certains
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Tout comme <i class="fab fa-git" role="presentation" aria-label="git icon"></i>
+et <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i>, <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i> est capable d'ignorer certains
 fichiers/dossiers lors de la construction d'une image grâce à un `.dockerignore`
 
 Cela est particulièrement important lorsque la clause `COPY` copie des dossiers entiers.
@@ -1056,7 +1057,7 @@ Cela est particulièrement important lorsque la clause `COPY` copie des dossiers
 
 &lt;br /&gt;
 Etant sous macOS, je vais ignorer les fameux fichiers `.DS_Store` et pourquoi pas les fichiers
-et dossiers cachés de <i class="fab  fa-git "></i> (ça grossirait l'image pour rien)
+et dossiers cachés de <i class="fab fa-git" role="presentation" aria-label="git icon"></i> (ça grossirait l'image pour rien)
 
 ```sh
 echo ".DS_Store" &gt; .dockerignore
@@ -1069,7 +1070,7 @@ echo ".gitignore" &gt;&gt; .dockerignore
 
 ## Build de l'image
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 Nous sommes prêt pour construire (builder) notre image à partir du `Dockerfile`.
 Pour cela, je vais utiliser la commande `docker build` avec le drapeau `-t` pour
 donner un nom à mon image. Je dois aussi spécifier le répertoire contenant ma recette.
@@ -1095,10 +1096,10 @@ debian              buster        1510e8501783        2 weeks ago         114MB
 
 --
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 Ma nouvelle image est légèrement plus grosse que celle d'origine : nous n'avons pas abusé des clauses `RUN`.
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 Par défaut, la tag `latest` a été ajouté à la nouvelle image.
 
 
@@ -1106,7 +1107,7 @@ Par défaut, la tag `latest` a été ajouté à la nouvelle image.
 
 ## Utilisation de l'image
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Nous revoilà revenu au point de départ. Mais,
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Nous revoilà revenu au point de départ. Mais,
 avec une toute nouvelle image, faite maison qui plus est ! Créons-nous un conteneur pour l'fun
 
 ```docker
@@ -1188,8 +1189,8 @@ class: inverse, center, middle
 
 ## Publier sur le Docker Hub
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
-Nous allons voir qu'il est facile de publier une image <i class="fab  fa-docker "></i> sur le
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
+Nous allons voir qu'il est facile de publier une image <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i> sur le
 [**Docker Hub**](https://hub.docker.com). Pour cela, il nous faut tout d'abord nous créer
 un identifiant Docker en se rendant sur cette [**page**](https://hub.docker.com/signup).
 Une fois créé, nous devons stocker notre Docker ID sur notre machine local grâce
@@ -1202,7 +1203,7 @@ docker login
 --
 &lt;br /&gt;
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 Nous allons déposer notre image sur Docker Hub dans notre repository personnel (publique).
 Cependant, nous avons un problème, car pour ce faire, le nom de notre image doit
 contenir notre identifiant Docker : `docker_id/image`.
@@ -1233,7 +1234,7 @@ debian                  buster     1510e8501783     2 weeks ago      114MB
 
 --
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 Docker lui a attribué la version
 `latest`. Pour publier sur le Hub, il est préférable de lui attribuer un autre tag,
 plus parlant. Allons-y
@@ -1259,7 +1260,7 @@ nicolascasajus/buster   1.0        b389eba1f1c9     2 hours ago      121MB
 
 ## Publier sur le Docker Hub
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 Il est temps de pusher !
 
 ```sh
@@ -1303,7 +1304,7 @@ docker push nicolascasajus/buster:1.0
 
 class: inverse, center, middle
 
-## <i class="fab  fa-r-project "></i> &amp; <i class="fab  fa-docker "></i>
+## <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i> &amp; <i class="fab fa-docker" role="presentation" aria-label="docker icon"></i>
 
 
 ---
@@ -1312,12 +1313,12 @@ class: inverse, center, middle
 
 Si on se rappelle la définition d'un conteneur, celui-ci contient un environnement
 de travail mais aussi, et surtout, une application. Or, il nous manque l'application.
-Et idéalement, une application développée sous <i class="fab  fa-r-project "></i>...
+Et idéalement, une application développée sous <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i>...
 
 --
 
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 [**L'initiative Rocker**](https://www.rocker-project.org/)
 
 .center[![:scale 80%](assets/img/rocker.png)]
@@ -1329,7 +1330,7 @@ Et idéalement, une application développée sous <i class="fab  fa-r-project ">
 .center[![:scale 80%](assets/img/rocker-img.png)]
 
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Ressources:&amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Ressources:&amp;nbsp;
 [**GitHub**](https://github.com/rocker-org/rocker-versioned2) &amp;nbsp;|&amp;nbsp;
 [**Docker**](https://hub.docker.com/r/rocker/r-ver)
 
@@ -1348,7 +1349,7 @@ class: inverse, center, middle
 
 ## Pour aller plus loin...
 
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 [**Docker-compose**](https://docs.docker.com/compose/) - L'orchestrateur ultime
 
 
