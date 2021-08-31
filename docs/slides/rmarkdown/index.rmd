@@ -593,9 +593,9 @@ background-position: 9% 15%
 ### Credit: I borrowed slides from [Garrett Grolemund](https://rstudio.com/speakers/garrett-grolemund/) and [Ulrik Lyngs](https://ulriklyngs.com/). I also used the beautiful illustrations shared by [Allison Horst](https://github.com/allisonhorst/stats-illustrations).
 
 
-|                                                                                                            |                                   |
-| :--------------------------------------------------------------------------------------------------------- | :-------------------------------- |
-| `r icon::fa("envelope")` | **olivier.gimenez@cefe.cnrs.fr**       |
-| `r icon::fa("home")` | [**https://oliviergimenez.github.io/**](https://oliviergimenez.github.io/) |
-| `r icon::fa_twitter()` | [**@oaggimenez**](https://twitter.com/oaggimenez)                         |
-| `r icon::fa_github()` | [**@oliviergimenez**](https://github.com/oliviergimenez)
+|                                   |                                                                            |
+| :-------------------------------- | :------------------------------------------------------------------------- |
+| `r fontawesome::fa_i("envelope")` | **olivier.gimenez@cefe.cnrs.fr**                                           |
+| `r fontawesome::fa_i("home")`     | [**https://oliviergimenez.github.io/**](https://oliviergimenez.github.io/) |
+| `r fontawesome::fa_i("twitter")`  | [**@oaggimenez**](https://twitter.com/oaggimenez)                          |
+| `r fontawesome::fa_i("github")`   | [**@oliviergimenez**](https://github.com/oliviergimenez)                   |
