@@ -202,7 +202,7 @@ Placez un README à la racine du projet
 <br />
 Utilisez docker !
 
-.center[`r icon::fa("docker", color = "#3f3f3f", size = 5)`]
+.center[`r fontawesome::fa_i("docker", class = "darkbig")`]
 
 
 ---
