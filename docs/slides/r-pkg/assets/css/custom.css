@@ -48,3 +48,6 @@ a:hover,a:focus{text-decoration:underline;}
 .github .fa-github:hover {
   color: #697c89;
 }
+
+i.dark{color:#3f3f3f;}
+i.darkbig{color:#3f3f3f;font-size:150px;}

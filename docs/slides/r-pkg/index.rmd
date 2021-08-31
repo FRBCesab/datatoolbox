@@ -1,6 +1,6 @@
 ---
 title: Building an R package
-subtitle: <i>the best part </i>&nbsp;`r icon::fa("grin-tongue")`
+subtitle: <i>the best part </i>&nbsp;`r fontawesome::fa_i("grin-tongue")`
 author: <br /><br />Nicolas CASAJUS<br />.inst[{{ Data scientist FRB-CESAB }}]
 date: .inst[Mardi 3 novembre 2020]
 output:
@@ -34,7 +34,7 @@ class: inverse, center, middle
 ## What's an R Package?
 
 
-`r icon::fa("quote-left", size = 1, color = "#3f3f3f")` &nbsp;_In R, the fundamental unit of
+`r fontawesome::fa_i("quote-left", class = "dark")` &nbsp;_In R, the fundamental unit of
 shareable code is the package. A package bundles together **code**, **data**,
 **documentation**, and **tests**, and is easy to share with others_<br />&mdash;
 &nbsp;&nbsp;**_Hadley Wickham_**
@@ -49,7 +49,7 @@ shareable code is the package. A package bundles together **code**, **data**,
 
 ## What's an R Package?
 
-`r icon::fa("quote-left", size = 1, color = "#3f3f3f")` &nbsp;_In R, the fundamental unit of
+`r fontawesome::fa_i("quote-left", class = "dark")` &nbsp;_In R, the fundamental unit of
 shareable code is the package. A package bundles together **code**, **data**,
 **documentation**, and **tests**, and is easy to share with others_<br />&mdash;
 &nbsp;&nbsp;**_Hadley Wickham_**
@@ -182,11 +182,11 @@ class: inverse, center, middle
 ![:scale 49%](assets/img/new-2.png)
 ]
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Make sure to select `R Package using devtools`
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Make sure to select `R Package using devtools`
 
 <br />
 
-`r icon::fa("exclamation-triangle", color = "#3f3f3f")` &nbsp;A package name can **only contain** letters and numbers (the dot is the only non-alphanumeric character allowed)
+`r fontawesome::fa_i("exclamation-triangle", class = "dark")` &nbsp;A package name can **only contain** letters and numbers (the dot is the only non-alphanumeric character allowed)
 
 ---
 
@@ -194,14 +194,14 @@ class: inverse, center, middle
 ## Create the structure
 
 
-- Using `r icon::fa("r-project")` directly (no IDE)
+- Using `r fontawesome::fa_i("r-project")` directly (no IDE)
 
 
 ```{r, echo = TRUE, eval = FALSE}
 usethis::create_package("/Users/nicolascasajus/Desktop/rpkg")
 ```
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Make sure to specify the `absolute path` to your package
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Make sure to specify the `absolute path` to your package
 
 --
 
@@ -237,11 +237,11 @@ RoxygenNote: 7.1.1
 
 ---
 
-## `r icon::fa("exclamation-circle")` &nbsp;What about reproducibility?
+## `r fontawesome::fa_i("exclamation-circle")` &nbsp;What about reproducibility?
 
 --
 
-- We will create an `r icon::fa("r-project")` script with all the command lines required to develop our package so we can reuse it in the future for new developments.
+- We will create an `r fontawesome::fa_i("r-project")` script with all the command lines required to develop our package so we can reuse it in the future for new developments.
 
 --
 
@@ -255,13 +255,13 @@ usethis::edit_file("_devhistory.R")
 --
 
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;From now, **all the command lines** will be written in this file.
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;From now, **all the command lines** will be written in this file.
 
 --
 
 <br />
 
-`r icon::fa("exclamation-triangle", color = "#3f3f3f")` &nbsp;As this file is not part of a typical package structure, we need to tell R to ignore it when checking and installing the package. It's the purpose of the `.Rbuildignore` file.
+`r fontawesome::fa_i("exclamation-triangle", class = "dark")` &nbsp;As this file is not part of a typical package structure, we need to tell R to ignore it when checking and installing the package. It's the purpose of the `.Rbuildignore` file.
 
 ```{r, echo = TRUE, eval = FALSE}
 usethis::use_build_ignore("_devhistory.R")
@@ -276,7 +276,7 @@ usethis::use_build_ignore("_devhistory.R")
 
 ## Setup versioning
 
-- Let's initialize the `r icon::fa("git")` versioning
+- Let's initialize the `r fontawesome::fa_i("git")` versioning
 
 
 ```{r, echo = TRUE, eval = FALSE}
@@ -304,12 +304,12 @@ Restart now?
 (...)
 ```
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Commit changes and restart RStudio
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Commit changes and restart RStudio
 
 ---
 
 
-## `r icon::fa("apple")` .DS_Store files
+## `r fontawesome::fa_i("apple")` .DS_Store files
 
 **.DS_Store** files are hidden files storing folder preferences on macOS computers. It's recommended to remove them from the versioning. Moreover these files are not part of standard package structure: we also need to ignore them during the check and installation of the package.
 
@@ -408,11 +408,11 @@ Description: The purpose of the \code{rpkg} package is to illustrate the main
 --
 
 
-`r icon::fa("exclamation-triangle", color = "#3f3f3f")` &nbsp;The other fields will be added/modified automatically.
+`r fontawesome::fa_i("exclamation-triangle", class = "dark")` &nbsp;The other fields will be added/modified automatically.
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Resources: [**R Package - Chap8**](https://r-pkgs.org/description.html)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Resources: [**R Package - Chap8**](https://r-pkgs.org/description.html)
 
 --
 
@@ -438,7 +438,7 @@ usethis::use_package_doc()
 
 --
 
-`r icon::fa("exclamation-triangle", color = "#3f3f3f")` &nbsp;A dummy file has been created in `R/`: **do not edit this file!**
+`r fontawesome::fa_i("exclamation-triangle", class = "dark")` &nbsp;A dummy file has been created in `R/`: **do not edit this file!**
 
 --
 
@@ -485,7 +485,7 @@ class: inverse, center, middle
 
 <br />
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Resources: [**choosealicense.com**](https://choosealicense.com)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Resources: [**choosealicense.com**](https://choosealicense.com)
 
 --
 
@@ -562,14 +562,14 @@ moyenne <- function(x) sum(x) / length(x)
 --
 
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Resources: [**Tidyverse style guide**](https://style.tidyverse.org/) and the R package `{styler}` (with its RStudio addin) to format your R code
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Resources: [**Tidyverse style guide**](https://style.tidyverse.org/) and the R package `{styler}` (with its RStudio addin) to format your R code
 
 
 ---
 
 ## Let's try our function
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Before going any further we have to try our code. So we will load our package (and **NOT** sourcing the function)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Before going any further we have to try our code. So we will load our package (and **NOT** sourcing the function)
 
 ```{r, echo = TRUE, eval = FALSE}
 devtools::load_all()
@@ -600,13 +600,13 @@ mean(1:10)
 ```
 
 
-`r icon::fa("beer", size = 1, color = "#3f3f3f")`
-`r icon::fa("beer", size = 1, color = "#3f3f3f")`
-`r icon::fa("beer", size = 1, color = "#3f3f3f")`
+`r fontawesome::fa_i("beer", class = "dark")`
+`r fontawesome::fa_i("beer", class = "dark")`
+`r fontawesome::fa_i("beer", class = "dark")`
 &nbsp; **Yeah!!!** &nbsp;
-`r icon::fa("beer", size = 1, color = "#3f3f3f")`
-`r icon::fa("beer", size = 1, color = "#3f3f3f")`
-`r icon::fa("beer", size = 1, color = "#3f3f3f")`
+`r fontawesome::fa_i("beer", class = "dark")`
+`r fontawesome::fa_i("beer", class = "dark")`
+`r fontawesome::fa_i("beer", class = "dark")`
 
 --
 
@@ -653,7 +653,7 @@ Each **Roxygen2 header** will always start with these two fields:
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Keywords `@title` and `@description` can be omitted
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Keywords `@title` and `@description` can be omitted
 
 ```{r, echo = TRUE, eval = FALSE}
 #' Short Title of the Function (One Line)
@@ -666,7 +666,7 @@ Each **Roxygen2 header** will always start with these two fields:
 
 ## Time to document
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;If your function has **parameters**, each one must be documented
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;If your function has **parameters**, each one must be documented
 
 ```{r, echo = TRUE, eval = FALSE}
 #' @param param_name param_description
@@ -684,7 +684,7 @@ For example with our function `moyenne()`
 
 <br />
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;If your function **returns** an R object use the keyword `@return`
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;If your function **returns** an R object use the keyword `@return`
 
 ```{r, echo = TRUE, eval = FALSE}
 #' @return What the function returns
@@ -705,7 +705,7 @@ You can omit this field if your function returns nothing
 
 ## Time to document
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Add a section `@examples` to show how to use your function
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Add a section `@examples` to show how to use your function
 
 ```{r, echo = TRUE, eval = FALSE}
 #' @examples
@@ -731,14 +731,14 @@ If you don't want your example to be executed use `\dontrun{}` (in case your exa
 
 <br />
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;You can also add a reproducible example (dataset added to your package)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;You can also add a reproducible example (dataset added to your package)
 
 
 ---
 
 ## Time to document
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Finally if you want your function to be used directly by user you need to add this tag
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Finally if you want your function to be used directly by user you need to add this tag
 
 ```{r, echo = TRUE, eval = FALSE}
 #' @export
@@ -748,7 +748,7 @@ If you don't want your example to be executed use `\dontrun{}` (in case your exa
 
 <br />
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Additional Roxygen2 tags
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Additional Roxygen2 tags
 
 ```{r, echo = TRUE, eval = FALSE}
 #' @details
@@ -763,7 +763,7 @@ If you don't want your example to be executed use `\dontrun{}` (in case your exa
 
 <br />
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Resources: [**R Package - Chap10**](https://r-pkgs.org/man.html) and [**R Package Primer**](https://kbroman.org/pkg_primer/pages/docs.html)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Resources: [**R Package - Chap10**](https://r-pkgs.org/man.html) and [**R Package Primer**](https://kbroman.org/pkg_primer/pages/docs.html)
 
 ---
 
@@ -791,7 +791,7 @@ moyenne <- function(x) sum(x) / length(x)
 
 ## Time to document
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;It's time to generate the corresponding `.Rd` file (special file for R documentation) from this Roxygen2 header
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;It's time to generate the corresponding `.Rd` file (special file for R documentation) from this Roxygen2 header
 
 ```{r, echo = TRUE, eval = FALSE}
 devtools::document()                                  # or roxygen2::roxygenize()
@@ -811,7 +811,7 @@ devtools::document()                                  # or roxygen2::roxygenize(
 export(moyenne)
 ```
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;As we can see this file lists which functions need to be exported (accessible by the user when loading the package). But it also deals with external dependencies.
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;As we can see this file lists which functions need to be exported (accessible by the user when loading the package). But it also deals with external dependencies.
 
 --
 
@@ -835,7 +835,7 @@ class: inverse, center, middle
 
 ## Checking package
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;It's time to check the integrity of our package
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;It's time to check the integrity of our package
 
 ```{r, echo = TRUE, eval = FALSE}
 devtools::check()
@@ -864,19 +864,19 @@ Duration: 10.8s
 
 --
 
-`r icon::fa("beer", size = 1, color = "#3f3f3f")`
-`r icon::fa("beer", size = 1, color = "#3f3f3f")`
-`r icon::fa("beer", size = 1, color = "#3f3f3f")`
+`r fontawesome::fa_i("beer", class = "dark")`
+`r fontawesome::fa_i("beer", class = "dark")`
+`r fontawesome::fa_i("beer", class = "dark")`
 &nbsp; **Yeah!!!** &nbsp;
-`r icon::fa("beer", size = 1, color = "#3f3f3f")`
-`r icon::fa("beer", size = 1, color = "#3f3f3f")`
-`r icon::fa("beer", size = 1, color = "#3f3f3f")`
+`r fontawesome::fa_i("beer", class = "dark")`
+`r fontawesome::fa_i("beer", class = "dark")`
+`r fontawesome::fa_i("beer", class = "dark")`
 
 ---
 
 ## Installing package
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Finally we can install our package
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Finally we can install our package
 
 ```{r, echo = TRUE, eval = FALSE}
 devtools::install()
@@ -927,7 +927,7 @@ class: inverse, center, middle
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Package `{testthat}`
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Package `{testthat}`
 
 .pull-leftt[
 .center[[![:scale 75%](assets/img/hex-testthat.png)](https://testthat.r-lib.org)]
@@ -950,7 +950,7 @@ class: inverse, center, middle
 - Problem: it's time consuming, repetitive and it can break the code
 
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Package `{testthat}`
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Package `{testthat}`
 
 .pull-leftt[
 .center[[![:scale 75%](assets/img/hex-testthat.png)](https://testthat.r-lib.org)]
@@ -983,7 +983,7 @@ usethis::use_testthat()
 
 ## Test your code
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;A new `r icon::fa("r-project")` file has been written: `tests/testthat.R`. It sets the testing environment
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;A new `r fontawesome::fa_i("r-project")` file has been written: `tests/testthat.R`. It sets the testing environment
 
 
 ```{r, echo = TRUE, eval = FALSE}
@@ -1002,7 +1002,7 @@ usethis::use_git(message = ":white_check_mark: Setup testthat")
 
 <br />
 
-- Now we have to implement some unit tests. Let's create an `r icon::fa("r-project")` script for testing the function `moyenne()`
+- Now we have to implement some unit tests. Let's create an `r fontawesome::fa_i("r-project")` script for testing the function `moyenne()`
 
 
 ```{r, echo = TRUE, eval = FALSE}
@@ -1016,7 +1016,7 @@ usethis::use_test("moyenne")
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;All tests files are stored in `tests/testthat/` and their names must start with `test-*`
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;All tests files are stored in `tests/testthat/` and their names must start with `test-*`
 
 ---
 
@@ -1039,7 +1039,7 @@ Tests are organised hierarchically: **expectations** are grouped into **tests** 
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Let's add some tests in `tests/testthat/test-moyenne.R`
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Let's add some tests in `tests/testthat/test-moyenne.R`
 
 ```{r, echo = TRUE, eval = FALSE}
 context("Testing moyenne()")
@@ -1055,7 +1055,7 @@ test_that("check outputs", {
 
 ## Run the test
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;To run the test we will use `devtools::test()`
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;To run the test we will use `devtools::test()`
 
 ```{r, echo = TRUE, eval = FALSE}
 devtools::test()
@@ -1116,7 +1116,7 @@ Skipped:  0
 
 Our function does not seem to work as expected.
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;We need to change the code of the function `moyenne()` to deal with `NA` values.
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;We need to change the code of the function `moyenne()` to deal with `NA` values.
 
 ```{r, echo = TRUE, eval = FALSE}
 moyenne <- function(x) {
@@ -1154,7 +1154,7 @@ This is not a good practice. If user has `NA` values, this implementation will n
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Let's add an additional parameter to our function: `na_rm` with a default value (`FALSE`). If `x` contains `NA` values and `na_rm = FALSE`, then an error will be returned. Otherwise (`na_rm = TRUE`) `NA` values will be removed and the computation can be done.
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Let's add an additional parameter to our function: `na_rm` with a default value (`FALSE`). If `x` contains `NA` values and `na_rm = FALSE`, then an error will be returned. Otherwise (`na_rm = TRUE`) `NA` values will be removed and the computation can be done.
 
 --
 
@@ -1363,7 +1363,7 @@ Skipped:  0
 
 <br />
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Complete tests file available [**here**](https://gist.github.com/ahasverus/7863a8ca598154af99a3fc490b649d31)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Complete tests file available [**here**](https://gist.github.com/ahasverus/7863a8ca598154af99a3fc490b649d31)
 
 ---
 
@@ -1393,7 +1393,7 @@ Duration: 11.6s
 
 <br />
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**One note:** Let's talk about package dependencies
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;**One note:** Let's talk about package dependencies
 
 
 ---
@@ -1411,20 +1411,20 @@ class: inverse, center, middle
 
 ## NAMESPACE
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Usually a package depends on functions of others packages. So we need to tell `r icon::fa("r-project")` about that to ensure that 1) others packages are installed when your package is installed, and 2) that they are made available when your package is loaded<sup><b>*</b></sup>.
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Usually a package depends on functions of others packages. So we need to tell `r fontawesome::fa_i("r-project")` about that to ensure that 1) others packages are installed when your package is installed, and 2) that they are made available when your package is loaded<sup><b>*</b></sup>.
 
 .footnote[
-*****This is true for every package (except for the package `{base}`), even for packages `{utils}`, `{stats}` and `{graphics}` installed by default with `r icon::fa("r-project")`.
+*****This is true for every package (except for the package `{base}`), even for packages `{utils}`, `{stats}` and `{graphics}` installed by default with `r fontawesome::fa_i("r-project")`.
 ]
 
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;It's the purpose of the `NAMESPACE`
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;It's the purpose of the `NAMESPACE`
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;As said before, the `NAMESPACE` is automatically updated when `devtools::document()` is called. So we need to list these dependencies in the **Roxygen2** header with:
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;As said before, the `NAMESPACE` is automatically updated when `devtools::document()` is called. So we need to list these dependencies in the **Roxygen2** header with:
 
 - `#' @import package`: will import all the functions of the dependency
 - `#' @importFrom package function`: will only import the listed functions
@@ -1447,7 +1447,7 @@ Previously we had the following note:
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;So we need to import this function of the package `{stats}`
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;So we need to import this function of the package `{stats}`
 
 --
 
@@ -1497,7 +1497,7 @@ moyenne <- function(x, na_rm = FALSE) {
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Note that the functions `any()`, `is.na()`, `sum()`, `length()` and `stop()` are in the package `{base}`
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Note that the functions `any()`, `is.na()`, `sum()`, `length()` and `stop()` are in the package `{base}`
 
 
 ---
@@ -1553,7 +1553,7 @@ importFrom(stats,na.omit)
 
 <br />
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;The `NAMESPACE` controls what happens when our package is loaded but not when it's installed. This is the role of `DESCRIPTION` and we need to add dependencies to this file.
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;The `NAMESPACE` controls what happens when our package is loaded but not when it's installed. This is the role of `DESCRIPTION` and we need to add dependencies to this file.
 
 ---
 
@@ -1596,7 +1596,7 @@ Suggests:
 - `Suggests`: packages listed in this field are **not** installed when your package is installed. Your package can use these packages, but doesn’t require them (e.g. to run tests, build vignettes, etc.)
 
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Resources: [**R Package - Chap8.1**](https://r-pkgs.org/description.html#dependencies) and [**R Package - Chap13.6**](https://r-pkgs.org/namespace.html#imports)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Resources: [**R Package - Chap8.1**](https://r-pkgs.org/description.html#dependencies) and [**R Package - Chap13.6**](https://r-pkgs.org/namespace.html#imports)
 
 --
 
@@ -1652,7 +1652,7 @@ class: inverse, center, middle
 
 <br />
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Resources: [**R Package - Chap20**](https://r-pkgs.org/release.html)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Resources: [**R Package - Chap20**](https://r-pkgs.org/release.html)
 
 --
 
@@ -1670,7 +1670,7 @@ usethis::use_version(which = "minor")
 
 ## Inform users &mdash; NEWS
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Inform existing users of changes in each release of your package with the `NEWS.md`
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Inform existing users of changes in each release of your package with the `NEWS.md`
 
 
 ```{r, echo = TRUE, eval = FALSE}
@@ -1696,7 +1696,7 @@ usethis::use_news_md()
 --
 
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Try to keep this file updated after each version incrementation
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Try to keep this file updated after each version incrementation
 
 --
 
@@ -1720,15 +1720,15 @@ class: inverse, center, middle
 
 ## Connecting to GitHub
 
-Here we opted for creating a local versioned `r icon::fa("r-project")` project: this workflow is called [**GitHub last**](https://happygitwithr.com/existing-github-last.html).
+Here we opted for creating a local versioned `r fontawesome::fa_i("r-project")` project: this workflow is called [**GitHub last**](https://happygitwithr.com/existing-github-last.html).
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;So we need to:
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;So we need to:
 
 1. Create an new empty repository on our GitHub account (or organization)
-2. Add the remote (GitHub repository URL) to our local `r icon::fa("git")` project
-3. Push our versioned `r icon::fa("r-project")` project to this new repository
+2. Add the remote (GitHub repository URL) to our local `r fontawesome::fa_i("git")` project
+3. Push our versioned `r fontawesome::fa_i("r-project")` project to this new repository
 
 --
 
@@ -1736,13 +1736,13 @@ Here we opted for creating a local versioned `r icon::fa("r-project")` project: 
 
 There is two way of doing that:
 - On the GitHub website, then on a terminal
-- Directly from `r icon::fa("r-project")` in one command line
+- Directly from `r fontawesome::fa_i("r-project")` in one command line
 
 ---
 
 ## Connecting to GitHub - Option 1
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Log in on your GitHub account and create a new empty repository (click on the **+** on the top-right)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Log in on your GitHub account and create a new empty repository (click on the **+** on the top-right)
 
 .center[![:scale 90%](assets/img/github-1.png)]
 
@@ -1750,7 +1750,7 @@ There is two way of doing that:
 
 ## Connecting to GitHub - Option 1
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Give a name to the new repository and let other options to their defaults values (no README, no LICENSE, no .gitignore)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Give a name to the new repository and let other options to their defaults values (no README, no LICENSE, no .gitignore)
 
 .center[![:scale 90%](assets/img/github-2.png)]
 
@@ -1758,7 +1758,7 @@ There is two way of doing that:
 
 ## Connecting to GitHub - Option 1
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Choose your protocol with which you communicate with GitHub (HTTPS or SSH if you have generated SSH keys)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Choose your protocol with which you communicate with GitHub (HTTPS or SSH if you have generated SSH keys)
 
 .center[![:scale 90%](assets/img/github-3.png)]
 
@@ -1766,13 +1766,13 @@ There is two way of doing that:
 
 ## Connecting to GitHub - Option 1
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;To connect a local git project to a GitHub repository, run the following command line under the RStudio terminal<sup>*****</sup>:
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;To connect a local git project to a GitHub repository, run the following command line under the RStudio terminal<sup>*****</sup>:
 
 ```sh
 git remote add origin git@github.com:ahasverus/rpkg.git
 ```
 
-or, if you prefer directly on the `r icon::fa("r-project")` console:
+or, if you prefer directly on the `r fontawesome::fa_i("r-project")` console:
 
 ```{r, eval = FALSE}
 system("git remote add origin git@github.com:ahasverus/rpkg.git")
@@ -1788,7 +1788,7 @@ Since October 2020, GitHub has decided to replace the 'master' branch with 'main
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;So we need to rename our local 'master' branch in 'main'
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;So we need to rename our local 'master' branch in 'main'
 
 
 ```sh
@@ -1799,7 +1799,7 @@ git branch -M main
 
 ## Connecting to GitHub - Option 1
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Before pushing our local project we will add two lines in the `DESCRIPTION` file:
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Before pushing our local project we will add two lines in the `DESCRIPTION` file:
 
 ```
 URL: https://github.com/ahasverus/rpkg
@@ -1843,7 +1843,7 @@ All in one command line. Pretty cool, isn't it!
 
 <br />
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;**BUT** first we need to get a [**GitHub Personal Access Token**](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token) (PAT) which will allow `r icon::fa("r-project")` to control GitHub (only once)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;**BUT** first we need to get a [**GitHub Personal Access Token**](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token) (PAT) which will allow `r fontawesome::fa_i("r-project")` to control GitHub (only once)
 
 --
 
@@ -1875,7 +1875,7 @@ usethis::edit_r_environ()
 GITHUB_PAT=999999zzz99zz9z9zzzz9zzz99999z9z9z9zzz99
 ```
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Make sure to replace `999999zzz...` by your token and make sure `.Renviron` ends with a newline!
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Make sure to replace `999999zzz...` by your token and make sure `.Renviron` ends with a newline!
 
 --
 
@@ -1891,7 +1891,7 @@ usethis::github_token()
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Resources: [**Managing secrets**](https://cran.r-project.org/web/packages/httr/vignettes/secrets.html)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Resources: [**Managing secrets**](https://cran.r-project.org/web/packages/httr/vignettes/secrets.html)
 
 ---
 
@@ -1917,7 +1917,7 @@ usethis::use_github(protocol = "https")      # If you haven't generated SSH keys
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;This function will also try to push project but it will fail. We need to run:
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;This function will also try to push project but it will fail. We need to run:
 
 ```{r, eval = FALSE}
 system("git push --set-upstream origin master")
@@ -1943,7 +1943,7 @@ class: inverse, center, middle
 
 ## Add a README
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;It's time to add a **README** to our repository: in a glance user will know more about our project (what it does, how to install it, and how to use it).
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;It's time to add a **README** to our repository: in a glance user will know more about our project (what it does, how to install it, and how to use it).
 
 ```{r, eval = FALSE}
 usethis::use_readme_rmd()
@@ -1961,7 +1961,7 @@ usethis::use_readme_rmd()
 
 You can find an example of the `README.Rmd` of our package [**here**](https://gist.github.com/ahasverus/1ab87dba3a4e473817fe6835139022f6)
 
-We are creating a `.Rmd` because our project is an `r icon::fa("r-project")` package. After editing the file we'll need to compile it into a `.md` file.
+We are creating a `.Rmd` because our project is an `r fontawesome::fa_i("r-project")` package. After editing the file we'll need to compile it into a `.md` file.
 
 ```{r, eval = FALSE}
 rmarkdown::render("README.Rmd")
@@ -1976,7 +1976,7 @@ rmarkdown::render("README.Rmd")
 
 ## Add a README
 
-Two files have been created. The `.md` will be used by GitHub and the CRAN, but the `.html` will not be used by `r icon::fa("r-project")` during the build of our package.
+Two files have been created. The `.md` will be used by GitHub and the CRAN, but the `.html` will not be used by `r fontawesome::fa_i("r-project")` during the build of our package.
 
 --
 
@@ -1998,7 +1998,7 @@ system("git push")
 
 <br />
 
-`r icon::fa("exclamation-triangle", color = "#3f3f3f")` &nbsp;Each time you edit the `README.Rmd` you will have to update the `.md` with `rmarkdown::render("README.Rmd")`
+`r fontawesome::fa_i("exclamation-triangle", class = "dark")` &nbsp;Each time you edit the `README.Rmd` you will have to update the `.md` with `rmarkdown::render("README.Rmd")`
 
 
 ---
@@ -2019,19 +2019,19 @@ And if we were able to trigger automated tasks after we push to GitHub?
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;This is where ![:scale 3%](assets/img/actions-logo.png) `GitHub Actions`
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;This is where ![:scale 3%](assets/img/actions-logo.png) `GitHub Actions`
 come in. They can trigger actions that will automate our workflow under a CI/CD framework allowing us to build (check), test and
-deploy our `r icon::fa("r-project")` package after each interaction with GitHub.
+deploy our `r fontawesome::fa_i("r-project")` package after each interaction with GitHub.
 
 .center[![:scale 100%](assets/img/actions-workflow.png)]
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Resources: [**Official website**](https://github.com/features/actions)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Resources: [**Official website**](https://github.com/features/actions)
 
 ---
 
 ## GH Actions - Checks & Tests
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Instead of locally (and each time we make changes) checking our `r icon::fa("r-project")` package with `devtools::check()` and running
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Instead of locally (and each time we make changes) checking our `r fontawesome::fa_i("r-project")` package with `devtools::check()` and running
 unit tests with `devtools::test()`, we can delegate these tasks to GitHub with the functions of the family: `usethis::use_github_action_check_*()`
 
 --
@@ -2039,15 +2039,15 @@ unit tests with `devtools::test()`, we can delegate these tasks to GitHub with t
 <br />
 
 You can replace `*` by one of:
-- `release`: this will build our package on macOS with the latest release of `r icon::fa("r-project")`;
-- `standard`: this will build our package on three OS (linux, macOS and Windows) and the release and devel version of `r icon::fa("r-project")`;
-- `full`: this will build our package on the same three OS and multiple versions of `r icon::fa("r-project")`.
+- `release`: this will build our package on macOS with the latest release of `r fontawesome::fa_i("r-project")`;
+- `standard`: this will build our package on three OS (linux, macOS and Windows) and the release and devel version of `r fontawesome::fa_i("r-project")`;
+- `full`: this will build our package on the same three OS and multiple versions of `r fontawesome::fa_i("r-project")`.
 
 ---
 
 ## GH Actions - Checks & Tests
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Let's check and test our package in a robust way (cross-platform and multiple versions of `r icon::fa("r-project")`)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Let's check and test our package in a robust way (cross-platform and multiple versions of `r fontawesome::fa_i("r-project")`)
 
 
 ```{r, eval = FALSE}
@@ -2070,7 +2070,7 @@ The configuration file for this GH Actions has been stored in
 
 <br />
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Our `README.Rmd` has been modified: a badge has been added. So we need to re-knit it:
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Our `README.Rmd` has been modified: a badge has been added. So we need to re-knit it:
 
 
 ```{r, eval = FALSE}
@@ -2081,7 +2081,7 @@ rmarkdown::render("README.Rmd")
 
 ## GH Actions - Checks & Tests
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Let's commit changes and push to our repository
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Let's commit changes and push to our repository
 
 ```{r, eval = FALSE}
 usethis::use_git(message = ":octocat: Configure gh-actions (checks & tests)")
@@ -2098,13 +2098,13 @@ system("git push")
 
 --
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;After a few minutes our package has been cheked and tested by GitHub servers!
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;After a few minutes our package has been cheked and tested by GitHub servers!
 
 ---
 
 ## GH Actions - Checks & Tests
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;And we've got a green badge. **Yeah!!!**
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;And we've got a green badge. **Yeah!!!**
 
 .center[![:scale 100%](assets/img/badge-check.png)]
 
@@ -2112,10 +2112,10 @@ system("git push")
 
 <br />
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Resources: [**GH Actions for R**](https://ropenscilabs.github.io/actions_sandbox)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Resources: [**GH Actions for R**](https://ropenscilabs.github.io/actions_sandbox)
 
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;And the complete `_devhistory.R` for this package: [**here**](https://gist.github.com/ahasverus/1ba2280bad8726d810791c0cc893a8b4)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;And the complete `_devhistory.R` for this package: [**here**](https://gist.github.com/ahasverus/1ba2280bad8726d810791c0cc893a8b4)
 
 ---
 
@@ -2132,19 +2132,19 @@ class: inverse, center, middle
 ## To go further...
 
 .pull-left[
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;A website for your package
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;A website for your package
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Add badges to your repository
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Add badges to your repository
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Add a DOI with Zenodo
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Add a DOI with Zenodo
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Create a logo for you packages
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Create a logo for you packages
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Add Data to your package
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Add Data to your package
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Add a vignette (tutorial)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Add a vignette (tutorial)
 
-`r icon::fa("hand-point-right", color = "#3f3f3f")` &nbsp;Add a code coverage
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Add a code coverage
 ]
 
 .pull-right[
