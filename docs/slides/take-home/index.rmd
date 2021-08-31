@@ -1,6 +1,6 @@
 ---
 title: Messages à retenir
-subtitle: En guise d'au-revoir&nbsp;`r icon::fa("grin-tongue")`
+subtitle: En guise d'au-revoir&nbsp;`r fontawesome::fa_i("grin-tongue")`
 author: <br /><br />L'équipe au complet<br />&nbsp;
 date: .inst[Vendredi 6 novembre 2020]
 output:
@@ -65,25 +65,25 @@ is_reproducible(recherche_c)
 <br/>
 <br/>
 <br/>
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")`&nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")`&nbsp;
 **Organisez vos fichiers selon les conventions de votre communauté**.
 <br/>
 <br/>
 <br/>
 <br/>
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")`&nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")`&nbsp;
 **Séparez données, méthodes et résultats**, tout en explicitant votre démarche.
 <br/>
 <br/>
 <br/>
 <br/>
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")`&nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")`&nbsp;
 **Specifiez l'environnement de développement** qui a été utilisé pour réaliser vos analyses.
 
 ---
 
 <br/>
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")`&nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")`&nbsp;
 **Organisez vos fichiers selon les conventions de votre communauté**.
 <br/>
 <br/>
@@ -94,13 +94,13 @@ Organisez votre répertoire de travail avec des sous-dossiers : construisez un `
 ---
 
 <br/>
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")`&nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")`&nbsp;
 **Séparez données, méthodes et résultats**, tout en explicitant votre démarche.
 <br/>
 <br/>
 <br/>
 <br/>
-Développez des fonctions `r icon::fa("r-project")`
+Développez des fonctions `r fontawesome::fa_i("r-project")`
 dans un sous-dossier `R/` et documentez-les avec `devtools::document()`
 (pour les rendre accessible à vos analyses grâce au `NAMESPACE`)
 <br/>
@@ -112,12 +112,12 @@ Intégrez vos analyses, résultats et éléments textuels avec `RMarkdown`
 ---
 
 <br/>
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")`&nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")`&nbsp;
 **Specifiez l'environnement et l'historique de développement** qui a été utilisé pour réaliser vos analyses.
 
 <br/>
 <br/>
-`Versionnez` votre développement avec `r icon::fa("git")` et GitHub `r icon::fa("github")` (ou GitLab `r icon::fa("gitlab")`)
+`Versionnez` votre développement avec `r fontawesome::fa_i("git")` et GitHub `r fontawesome::fa_i("github")` (ou GitLab `r fontawesome::fa_i("gitlab")`)
 
 <br/>
 <br/>
@@ -128,7 +128,7 @@ Créez un fichier `DESCRIPTION` et utilisez les fonctions :
 <br/>
 <br/>
 Créez un `README` pour décrire l'environnement de développement
-(e.g. `devtools::session_info()`), et pour les plus téméraires, ayez l'esprit `Docker` `r icon::fa("docker")`
+(e.g. `devtools::session_info()`), et pour les plus téméraires, ayez l'esprit `Docker` `r fontawesome::fa_i("docker")`
 
 
 ---
@@ -138,17 +138,17 @@ Créez un `README` pour décrire l'environnement de développement
 <br/>
 <br/>
 <br/>
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")`&nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")`&nbsp;
 **Pour un travail collaboratif :**
 
 (potentiellement avec vous-même dans 3 mois)
 
-`Versionnez` votre développement avec `r icon::fa("git")` et GitHub `r icon::fa("github")` (ou GitLab `r icon::fa("gitlab")`)
+`Versionnez` votre développement avec `r fontawesome::fa_i("git")` et GitHub `r fontawesome::fa_i("github")` (ou GitLab `r fontawesome::fa_i("gitlab")`)
 <br/>
 <br/>
 <br/>
 <br/>
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")`&nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")`&nbsp;
 **Utilisez un "pipeline" si vos analyses prennent du temps :**
 
 Packages `{drake}` , `{targets}`
@@ -156,7 +156,7 @@ Packages `{drake}` , `{targets}`
 <br/>
 <br/>
 <br/>
-`r icon::fa("hand-point-right", size = 1, color = "#3f3f3f")`&nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")`&nbsp;
 **Pour diffuser / réutiliser vos fonctions :**
 
 Construisez un `package R` (n'oubliez pas le `.Rbuildignore`)
