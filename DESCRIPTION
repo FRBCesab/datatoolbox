@@ -46,6 +46,7 @@ Imports:
     cranlogs,
     devtools,
     drake,
+    emo,
     fishualize,
     fontawesome,
     here,
@@ -75,6 +76,7 @@ Imports:
     xaringan,
     xaringanthemer
 Remotes:
-    benmarwick/rrtools
+    benmarwick/rrtools,
+    hadley/emo
 Suggest:
     tinytex

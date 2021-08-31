@@ -1,6 +1,6 @@
 ## Qu'est-ce qu'une API ?
 
-`r icon::fa("hand-point-right")` &nbsp;Interface de Programmation Applicative
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Interface de Programmation Applicative
 
 
 
@@ -42,22 +42,22 @@
 
 <br />
 
-`r icon::fa("hand-point-right")` &nbsp;Accès via interfaces en ligne de commande :
-`r icon::fa("r-project")`
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Accès via interfaces en ligne de commande :
+`r fontawesome::fa_i("r-project")`
 &nbsp;/&nbsp;
-`r icon::fa("python")`
+`r fontawesome::fa_i("python")`
 &nbsp;/&nbsp;
-`r icon::fa("js")`
+`r fontawesome::fa_i("js")`
 &nbsp;/&nbsp;
-`r icon::fa("terminal")`
+`r fontawesome::fa_i("terminal")`
 
 --
 
-`r icon::fa("hand-point-right", color = "#e1ddc0")` &nbsp;Automatisation & Reproductibilité
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Automatisation & Reproductibilité
 
 --
 
-`r icon::fa("hand-point-right", color = "#e1ddc0")` &nbsp;Différents formats de données (xml, (geo)json, yaml, texte, etc.)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Différents formats de données (xml, (geo)json, yaml, texte, etc.)
 
 
 
@@ -75,7 +75,7 @@
 
 ---
 
-## Sous `r icon::fa("r-project")` de nombreux packages
+## Sous `r fontawesome::fa_i("r-project")` de nombreux packages
 
 Package           | Type de données
 ------------------|------------------
@@ -92,7 +92,7 @@ Package           | Type de données
 
 --
 
-`r icon::fa("hand-point-right")` &nbsp;Pour aller plus loin :
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Pour aller plus loin :
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 [**[ rOpenSci ]**](https://ropensci.org/packages/)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -126,7 +126,7 @@ Package           | Type de données
   - Global Names Resolver
   - ...
 
-`r icon::fa("hand-point-right")` &nbsp;L'accès à certaines bases de données nécessite un token
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;L'accès à certaines bases de données nécessite un token
 
 
 
@@ -146,7 +146,7 @@ _Acanthurus lineatus_
 
 ## Zoom sur le package `{taxize}`
 
-`r icon::fa("question-circle")` &nbsp;Le nom d'espèce est-il bien orthographié ?
+`r fontawesome::fa_i("question-circle", class = "dark")` &nbsp;Le nom d'espèce est-il bien orthographié ?
 
 ```{r echo=TRUE, eval=TRUE}
 species_name <- "Acanthuurus lineatus"
@@ -171,7 +171,7 @@ taxize::gnr_resolve(names = species_name)
 
 <br />
 
-`r icon::fa("hand-point-right")` &nbsp;Bonne orthographe : **_Acanthurus lineatus_**
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Bonne orthographe : **_Acanthurus lineatus_**
 
 
 
@@ -179,7 +179,7 @@ taxize::gnr_resolve(names = species_name)
 
 ## Zoom sur le package `{taxize}`
 
-`r icon::fa("question-circle")` &nbsp;Quel est le nom accepté ?
+`r fontawesome::fa_i("question-circle", class = "dark")` &nbsp;Quel est le nom accepté ?
 
 ```{r echo=TRUE, eval=TRUE}
 species_name <- "Acanthurus lineatus"
@@ -214,7 +214,7 @@ taxize::tnrs(query = species_name)$acceptedname
 
 ## Zoom sur le package `{taxize}`
 
-`r icon::fa("question-circle")` &nbsp;Quelle est sa classification taxonomique ?
+`r fontawesome::fa_i("question-circle", class = "dark")` &nbsp;Quelle est sa classification taxonomique ?
 
 ```{r echo=TRUE, eval=FALSE}
 taxize::classification(x = species_name, db = "itis")
@@ -251,7 +251,7 @@ $`Acanthurus lineatus`
 
 ## Zoom sur le package `{taxize}`
 
-`r icon::fa("question-circle")` &nbsp;Quels sont ses synonymes ?
+`r fontawesome::fa_i("question-circle", class = "dark")` &nbsp;Quels sont ses synonymes ?
 
 ```{r echo=TRUE, eval=FALSE}
 synonyms <- taxize::synonyms(species_name, db = "worms")
@@ -291,7 +291,7 @@ synonyms[ , c("scientificname", "status", "valid_name", "order")]
 
 ## Zoom sur le package `{taxize}`
 
-`r icon::fa("question-circle")` &nbsp;Quels sont ses noms communs ?
+`r fontawesome::fa_i("question-circle", class = "dark")` &nbsp;Quels sont ses noms communs ?
 
 ```{r echo=TRUE, eval=FALSE}
 taxize::sci2comm(species_name, db = "ncbi")
@@ -325,7 +325,7 @@ taxize::sci2comm(species_name, db = "worms")
 
 <br />
 
-`r icon::fa("hand-point-right")` &nbsp;En `r emo::ji("fr")`  : le **Poisson chirurgien rayé** ou **Poisson chirurgien clown**
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;En `r emo::ji("fr")`  : le **Poisson chirurgien rayé** ou **Poisson chirurgien clown**
 
 
 
@@ -337,26 +337,26 @@ _Que faire si aucun package R n'a été développé mais qu'il existe une API ?_
 
 --
 
-`r icon::fa("hand-point-right")` &nbsp;Construire soi-même un client R (c.-à-d. écrire soi-même les requêtes à envoyer à l'API)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Construire soi-même un client R (c.-à-d. écrire soi-même les requêtes à envoyer à l'API)
 
 --
 
 <br />
 
-Sous `r icon::fa("r-project")` il existe de nombreux packages pour communiquer
+Sous `r fontawesome::fa_i("r-project", class = "dark")` il existe de nombreux packages pour communiquer
 avec les services Web (`{httr}`, `{curl}`, etc.)
 
 --
 
 <br />
 
-`r icon::fa("hand-point-right")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 [**Getting started with httr**](https://cran.r-project.org/web/packages/httr/vignettes/quickstart.html)
 
-`r icon::fa("hand-point-right", color = "#e1ddc0")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 [**Best practices for API packages**](https://cran.r-project.org/web/packages/httr/vignettes/api-packages.html)
 
-`r icon::fa("hand-point-right", color = "#e1ddc0")` &nbsp;
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;
 [**Managing secrets**](https://cran.r-project.org/web/packages/httr/vignettes/secrets.html)
 
 --
@@ -373,7 +373,7 @@ Voyons deux exemples illustrant l'utilisation de `{httr}`
 
 .center[[![:scale 20%](assets/img/redlist_logo.png)](https://apiv3.iucnredlist.org/api/v3/docs)]
 
-`r icon::fa("hand-point-right")` &nbsp;Conditions d'utilisation disponibles [**ici**](https://www.iucnredlist.org/terms/terms-of-use)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Conditions d'utilisation disponibles [**ici**](https://www.iucnredlist.org/terms/terms-of-use)
 
 <br />
 
@@ -395,11 +395,11 @@ Pour la démonstration, nous utiliserons le token fourni dans la documentation d
 
 <br />
 
-.center[`r icon::fa("universal-access", color = "#3f3f3f", size = 5)`]
+.center[`r fontawesome::fa_i("universal-access", class = "darkbig")`]
 
 <br />
 
-`r icon::fa("hand-point-right")` &nbsp;Si vous voulez utiliser cette API, **SVP** obtenez votre propre [**token**](https://apiv3.iucnredlist.org/api/v3/token)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Si vous voulez utiliser cette API, **SVP** obtenez votre propre [**token**](https://apiv3.iucnredlist.org/api/v3/token)
 
 
 
@@ -424,7 +424,7 @@ IUCN_KEY=9bb4facb6...
 
 <br />
 
-- Vérifions que le PAT est bien stocké (après un redémarrage de `r icon::fa("r-project")`)
+- Vérifions que le PAT est bien stocké (après un redémarrage de `r fontawesome::fa_i("r-project")`)
 
 ```{r echo=TRUE, eval=FALSE}
 Sys.getenv("IUCN_KEY")
@@ -440,7 +440,7 @@ Sys.getenv("IUCN_KEY")
 
 ## IUCN Red list API
 
-`r icon::fa("question-circle")` &nbsp;Combien d'espèces de chaque catégorie IUCN y a-t-il en France ?
+`r fontawesome::fa_i("question-circle", class = "dark")` &nbsp;Combien d'espèces de chaque catégorie IUCN y a-t-il en France ?
 
 --
 
@@ -586,7 +586,7 @@ table(species_fr[ , "category"])
 
 --
 
-.right[`r icon::fa("hand-point-right")` &nbsp; Package R ` {rredlist}`]
+.right[`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp; Package R ` {rredlist}`]
 
 
 
@@ -598,7 +598,7 @@ table(species_fr[ , "category"])
 
 --
 
-`r icon::fa("hand-point-right")` &nbsp;Conditions d'utilisation disponibles [**ici**](https://operations.osmfoundation.org/policies/nominatim/)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Conditions d'utilisation disponibles [**ici**](https://operations.osmfoundation.org/policies/nominatim/)
 
 <br />
 
@@ -606,7 +606,7 @@ Cette API permet d'obtenir les coordonnées géographiques de lieux (villes, bâ
 
 Elle ne requière aucun token. Cependant, le nombre de requêtes est limitée à 1/s
 
-`r icon::fa("hand-point-right")` &nbsp;`Sys.sleep()`
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;`Sys.sleep()`
 
 
 ---

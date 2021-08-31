@@ -17,13 +17,13 @@
 
 --
 
-`r icon::fa("hand-point-right")` &nbsp;[**Be polite!**](http://www.user2019.fr/static/pres/lt257430.pdf) with [`{polite}`](https://github.com/dmi3kno/polite/)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;[**Be polite!**](http://www.user2019.fr/static/pres/lt257430.pdf) with [`{polite}`](https://github.com/dmi3kno/polite/)
 
 --
 
 <br />
 
-Sous `r icon::fa("r-project")`, deux approches  :
+Sous `r fontawesome::fa_i("r-project")`, deux approches  :
   1. L'approche brutale (`readLines()` + `regular expressions`)
   1. Le package R : `{rvest}`
 
@@ -33,7 +33,7 @@ Sous `r icon::fa("r-project")`, deux approches  :
 
 ## Extraction de texte
 
-`r icon::fa("hand-point-right")` &nbsp;Source : [**Wikipédia**](https://fr.wikipedia.org/wiki/Liste_des_communes_de_France_les_plus_peuplées)
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Source : [**Wikipédia**](https://fr.wikipedia.org/wiki/Liste_des_communes_de_France_les_plus_peuplées)
 
 - Construisons l'URL de la page
 
@@ -114,7 +114,7 @@ downloaded 24 KB
 
 ## Extraction d'un tableau html
 
-`r icon::fa("hand-point-right")` &nbsp;Obtenir le nombre d'habitants des 10 communes les plus peuplées de France (source [**Wikipédia**](https://fr.wikipedia.org/wiki/Liste_des_communes_de_France_les_plus_peuplées))
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Obtenir le nombre d'habitants des 10 communes les plus peuplées de France (source [**Wikipédia**](https://fr.wikipedia.org/wiki/Liste_des_communes_de_France_les_plus_peuplées))
 
 - Construisons l'URL de la page
 
@@ -180,7 +180,7 @@ cities
 
 <br />
 
-`r icon::fa("hand-point-right")` &nbsp;Un peu de nettoyage est nécessaire
+`r fontawesome::fa_i("hand-point-right", class = "dark")` &nbsp;Un peu de nettoyage est nécessaire
 
 
 
@@ -259,7 +259,8 @@ xy <- data.frame(
 
 ## Bonus : Une bubble map
 
-```{r echo=TRUE, eval=TRUE}
+```{r echo=-1, eval=TRUE}
+cities[1, 1] <- "Paris"
 (xy <- cbind(cities, xy))
 ```
 

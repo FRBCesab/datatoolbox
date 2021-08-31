@@ -4,8 +4,9 @@
     <title>Acquisition de données</title>
     <meta charset="utf-8" />
     <meta name="author" content="  Nicolas CASAJUS .inst[{{ Data scientist FRB-Cesab }}]" />
-    <script src="assets/libs/header-attrs/header-attrs.js"></script>
-    <link href="assets/libs/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <script src="assets/libs/header-attrs-2.10/header-attrs.js"></script>
+    <link href="assets/libs/font-awesome-5.15.3/css/all.min.css" rel="stylesheet" />
+    <link href="assets/libs/font-awesome-5.15.3/css/v4-shims.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="assets/css/xaringan-themer.css" type="text/css" />
     <link rel="stylesheet" href="assets/css/custom.css" type="text/css" />
   </head>
@@ -33,7 +34,7 @@ class: inverse, center, middle
 
 ## Qu'est-ce qu'une API ?
 
-<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Interface de Programmation Applicative
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Interface de Programmation Applicative
 
 
 
@@ -75,22 +76,22 @@ class: inverse, center, middle
 
 &lt;br /&gt;
 
-<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Accès via interfaces en ligne de commande :
-<i class="fab  fa-r-project "></i>
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Accès via interfaces en ligne de commande :
+<i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i>
 &amp;nbsp;/&amp;nbsp;
-<i class="fab  fa-python "></i>
+<i class="fab fa-python" role="presentation" aria-label="python icon"></i>
 &amp;nbsp;/&amp;nbsp;
-<i class="fab  fa-js "></i>
+<i class="fab fa-js" role="presentation" aria-label="js icon"></i>
 &amp;nbsp;/&amp;nbsp;
-<i class="fas  fa-terminal "></i>
+<i class="fa fa-terminal" role="presentation" aria-label="terminal icon"></i>
 
 --
 
-<i class="fas  fa-hand-point-right " style="color:#e1ddc0;"></i> &amp;nbsp;Automatisation &amp; Reproductibilité
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Automatisation &amp; Reproductibilité
 
 --
 
-<i class="fas  fa-hand-point-right " style="color:#e1ddc0;"></i> &amp;nbsp;Différents formats de données (xml, (geo)json, yaml, texte, etc.)
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Différents formats de données (xml, (geo)json, yaml, texte, etc.)
 
 
 
@@ -108,7 +109,7 @@ class: inverse, center, middle
 
 ---
 
-## Sous <i class="fab  fa-r-project "></i> de nombreux packages
+## Sous <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i> de nombreux packages
 
 Package           | Type de données
 ------------------|------------------
@@ -125,7 +126,7 @@ Package           | Type de données
 
 --
 
-<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Pour aller plus loin :
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Pour aller plus loin :
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
 [**[ rOpenSci ]**](https://ropensci.org/packages/)
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
@@ -159,7 +160,7 @@ Package           | Type de données
   - Global Names Resolver
   - ...
 
-<i class="fas  fa-hand-point-right "></i> &amp;nbsp;L'accès à certaines bases de données nécessite un token
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;L'accès à certaines bases de données nécessite un token
 
 
 
@@ -179,7 +180,7 @@ _Acanthurus lineatus_
 
 ## Zoom sur le package `{taxize}`
 
-<i class="fas  fa-question-circle "></i> &amp;nbsp;Le nom d'espèce est-il bien orthographié ?
+<i class="fa fa-question-circle dark" role="presentation" aria-label="question-circle icon"></i> &amp;nbsp;Le nom d'espèce est-il bien orthographié ?
 
 
 ```r
@@ -206,7 +207,7 @@ taxize::gnr_resolve(names = species_name)
 
 &lt;br /&gt;
 
-<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Bonne orthographe : **_Acanthurus lineatus_**
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Bonne orthographe : **_Acanthurus lineatus_**
 
 
 
@@ -214,7 +215,7 @@ taxize::gnr_resolve(names = species_name)
 
 ## Zoom sur le package `{taxize}`
 
-<i class="fas  fa-question-circle "></i> &amp;nbsp;Quel est le nom accepté ?
+<i class="fa fa-question-circle dark" role="presentation" aria-label="question-circle icon"></i> &amp;nbsp;Quel est le nom accepté ?
 
 
 ```r
@@ -252,7 +253,7 @@ taxize::tnrs(query = species_name)$acceptedname
 
 ## Zoom sur le package `{taxize}`
 
-<i class="fas  fa-question-circle "></i> &amp;nbsp;Quelle est sa classification taxonomique ?
+<i class="fa fa-question-circle dark" role="presentation" aria-label="question-circle icon"></i> &amp;nbsp;Quelle est sa classification taxonomique ?
 
 
 ```r
@@ -290,7 +291,7 @@ $`Acanthurus lineatus`
 
 ## Zoom sur le package `{taxize}`
 
-<i class="fas  fa-question-circle "></i> &amp;nbsp;Quels sont ses synonymes ?
+<i class="fa fa-question-circle dark" role="presentation" aria-label="question-circle icon"></i> &amp;nbsp;Quels sont ses synonymes ?
 
 
 ```r
@@ -332,7 +333,7 @@ synonyms[ , c("scientificname", "status", "valid_name", "order")]
 
 ## Zoom sur le package `{taxize}`
 
-<i class="fas  fa-question-circle "></i> &amp;nbsp;Quels sont ses noms communs ?
+<i class="fa fa-question-circle dark" role="presentation" aria-label="question-circle icon"></i> &amp;nbsp;Quels sont ses noms communs ?
 
 
 ```r
@@ -369,7 +370,7 @@ taxize::sci2comm(species_name, db = "worms")
 
 &lt;br /&gt;
 
-<i class="fas  fa-hand-point-right "></i> &amp;nbsp;En 🇫🇷  : le **Poisson chirurgien rayé** ou **Poisson chirurgien clown**
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;En 🇫🇷  : le **Poisson chirurgien rayé** ou **Poisson chirurgien clown**
 
 
 
@@ -381,26 +382,26 @@ _Que faire si aucun package R n'a été développé mais qu'il existe une API ?_
 
 --
 
-<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Construire soi-même un client R (c.-à-d. écrire soi-même les requêtes à envoyer à l'API)
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Construire soi-même un client R (c.-à-d. écrire soi-même les requêtes à envoyer à l'API)
 
 --
 
 &lt;br /&gt;
 
-Sous <i class="fab  fa-r-project "></i> il existe de nombreux packages pour communiquer
+Sous <i class="fab fa-r-project dark" role="presentation" aria-label="r-project icon"></i> il existe de nombreux packages pour communiquer
 avec les services Web (`{httr}`, `{curl}`, etc.)
 
 --
 
 &lt;br /&gt;
 
-<i class="fas  fa-hand-point-right "></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 [**Getting started with httr**](https://cran.r-project.org/web/packages/httr/vignettes/quickstart.html)
 
-<i class="fas  fa-hand-point-right " style="color:#e1ddc0;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 [**Best practices for API packages**](https://cran.r-project.org/web/packages/httr/vignettes/api-packages.html)
 
-<i class="fas  fa-hand-point-right " style="color:#e1ddc0;"></i> &amp;nbsp;
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;
 [**Managing secrets**](https://cran.r-project.org/web/packages/httr/vignettes/secrets.html)
 
 --
@@ -417,7 +418,7 @@ Voyons deux exemples illustrant l'utilisation de `{httr}`
 
 .center[[![:scale 20%](assets/img/redlist_logo.png)](https://apiv3.iucnredlist.org/api/v3/docs)]
 
-<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Conditions d'utilisation disponibles [**ici**](https://www.iucnredlist.org/terms/terms-of-use)
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Conditions d'utilisation disponibles [**ici**](https://www.iucnredlist.org/terms/terms-of-use)
 
 &lt;br /&gt;
 
@@ -439,11 +440,11 @@ Pour la démonstration, nous utiliserons le token fourni dans la documentation d
 
 &lt;br /&gt;
 
-.center[<i class="fas  fa-universal-access fa-5x " style="color:#3f3f3f;"></i>]
+.center[<i class="fa fa-universal-access darkbig" role="presentation" aria-label="universal-access icon"></i>]
 
 &lt;br /&gt;
 
-<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Si vous voulez utiliser cette API, **SVP** obtenez votre propre [**token**](https://apiv3.iucnredlist.org/api/v3/token)
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Si vous voulez utiliser cette API, **SVP** obtenez votre propre [**token**](https://apiv3.iucnredlist.org/api/v3/token)
 
 
 
@@ -470,7 +471,7 @@ IUCN_KEY=9bb4facb6...
 
 &lt;br /&gt;
 
-- Vérifions que le PAT est bien stocké (après un redémarrage de <i class="fab  fa-r-project "></i>)
+- Vérifions que le PAT est bien stocké (après un redémarrage de <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i>)
 
 
 ```r
@@ -487,7 +488,7 @@ Sys.getenv("IUCN_KEY")
 
 ## IUCN Red list API
 
-<i class="fas  fa-question-circle "></i> &amp;nbsp;Combien d'espèces de chaque catégorie IUCN y a-t-il en France ?
+<i class="fa fa-question-circle dark" role="presentation" aria-label="question-circle icon"></i> &amp;nbsp;Combien d'espèces de chaque catégorie IUCN y a-t-il en France ?
 
 --
 
@@ -668,12 +669,12 @@ table(species_fr[ , "category"])
 ```
 ## 
 ##    CR    DD    EN    EW    EX    LC LR/cd LR/lc LR/nt    NT    VU 
-##    44   346   103     1     9  3020     1     3    16   222   266
+##    47   332   108     1     9  3052     1     3    16   223   270
 ```
 
 --
 
-.right[<i class="fas  fa-hand-point-right "></i> &amp;nbsp; Package R ` {rredlist}`]
+.right[<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp; Package R ` {rredlist}`]
 
 
 
@@ -685,7 +686,7 @@ table(species_fr[ , "category"])
 
 --
 
-<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Conditions d'utilisation disponibles [**ici**](https://operations.osmfoundation.org/policies/nominatim/)
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Conditions d'utilisation disponibles [**ici**](https://operations.osmfoundation.org/policies/nominatim/)
 
 &lt;br /&gt;
 
@@ -693,7 +694,7 @@ Cette API permet d'obtenir les coordonnées géographiques de lieux (villes, bâ
 
 Elle ne requière aucun token. Cependant, le nombre de requêtes est limitée à 1/s
 
-<i class="fas  fa-hand-point-right "></i> &amp;nbsp;`Sys.sleep()`
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;`Sys.sleep()`
 
 
 ---
@@ -936,13 +937,13 @@ class: inverse, center, middle
 
 --
 
-<i class="fas  fa-hand-point-right "></i> &amp;nbsp;[**Be polite!**](http://www.user2019.fr/static/pres/lt257430.pdf) with [`{polite}`](https://github.com/dmi3kno/polite/)
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;[**Be polite!**](http://www.user2019.fr/static/pres/lt257430.pdf) with [`{polite}`](https://github.com/dmi3kno/polite/)
 
 --
 
 &lt;br /&gt;
 
-Sous <i class="fab  fa-r-project "></i>, deux approches  :
+Sous <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i>, deux approches  :
   1. L'approche brutale (`readLines()` + `regular expressions`)
   1. Le package R : `{rvest}`
 
@@ -952,7 +953,7 @@ Sous <i class="fab  fa-r-project "></i>, deux approches  :
 
 ## Extraction de texte
 
-<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Source : [**Wikipédia**](https://fr.wikipedia.org/wiki/Liste_des_communes_de_France_les_plus_peuplées)
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Source : [**Wikipédia**](https://fr.wikipedia.org/wiki/Liste_des_communes_de_France_les_plus_peuplées)
 
 - Construisons l'URL de la page
 
@@ -1040,7 +1041,7 @@ downloaded 24 KB
 
 ## Extraction d'un tableau html
 
-<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Obtenir le nombre d'habitants des 10 communes les plus peuplées de France (source [**Wikipédia**](https://fr.wikipedia.org/wiki/Liste_des_communes_de_France_les_plus_peuplées))
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Obtenir le nombre d'habitants des 10 communes les plus peuplées de France (source [**Wikipédia**](https://fr.wikipedia.org/wiki/Liste_des_communes_de_France_les_plus_peuplées))
 
 - Construisons l'URL de la page
 
@@ -1115,22 +1116,24 @@ cities
 ```
 
 ```
-##        Commune Population légale
-## 1        Paris         2 187 526
-## 2    Marseille           863 310
-## 3         Lyon           516 092
-## 4     Toulouse           479 553
-## 5         Nice           340 017
-## 6       Nantes           309 346
-## 7  Montpellier           285 121
-## 8   Strasbourg           280 966
-## 9     Bordeaux           254 436
-## 10       Lille           232 787
+## # A tibble: 10 × 2
+##    Commune                `Population légale`
+##    &lt;chr&gt;                  &lt;chr&gt;              
+##  1 Ville de Paris[Note 1] 2 175 601          
+##  2 Marseille              868 277            
+##  3 Lyon                   518 635            
+##  4 Toulouse               486 828            
+##  5 Nice                   341 032            
+##  6 Nantes                 314 138            
+##  7 Montpellier            290 053            
+##  8 Strasbourg             284 677            
+##  9 Bordeaux               257 068            
+## 10 Lille                  233 098
 ```
 
 &lt;br /&gt;
 
-<i class="fas  fa-hand-point-right "></i> &amp;nbsp;Un peu de nettoyage est nécessaire
+<i class="fa fa-hand-point-right dark" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Un peu de nettoyage est nécessaire
 
 
 
@@ -1158,17 +1161,19 @@ cities$pop2017 &lt;- as.numeric(cities$pop2017)
 ```
 
 ```
-##           city pop2017
-## 1        Paris 2187526
-## 2    Marseille  863310
-## 3         Lyon  516092
-## 4     Toulouse  479553
-## 5         Nice  340017
-## 6       Nantes  309346
-## 7  Montpellier  285121
-## 8   Strasbourg  280966
-## 9     Bordeaux  254436
-## 10       Lille  232787
+## # A tibble: 10 × 2
+##    city                   pop2017
+##    &lt;chr&gt;                    &lt;dbl&gt;
+##  1 Ville de Paris[Note 1] 2175601
+##  2 Marseille               868277
+##  3 Lyon                    518635
+##  4 Toulouse                486828
+##  5 Nice                    341032
+##  6 Nantes                  314138
+##  7 Montpellier             290053
+##  8 Strasbourg              284677
+##  9 Bordeaux                257068
+## 10 Lille                   233098
 ```
 
 
@@ -1187,9 +1192,9 @@ params    &lt;- list(format = "json", details = 0, limit = 1)
 ```
 
 ```
-##  [1] "Paris,%20France"       "Marseille,%20France"   "Lyon,%20France"       
-##  [4] "Toulouse,%20France"    "Nice,%20France"        "Nantes,%20France"     
-##  [7] "Montpellier,%20France" "Strasbourg,%20France"  "Bordeaux,%20France"   
+##  [1] "Ville de Paris[Note 1],%20France" "Marseille,%20France"              "Lyon,%20France"                  
+##  [4] "Toulouse,%20France"               "Nice,%20France"                   "Nantes,%20France"                
+##  [7] "Montpellier,%20France"            "Strasbourg,%20France"             "Bordeaux,%20France"              
 ## [10] "Lille,%20France"
 ```
 
@@ -1227,16 +1232,16 @@ for (location in locations) {
 
 ```
 ##           city pop2017        lon      lat
-## 1        Paris 2187526  2.3514992 48.85661
-## 2    Marseille  863310  5.3699525 43.29617
-## 3         Lyon  516092  4.8320114 45.75781
-## 4     Toulouse  479553  1.4442469 43.60446
-## 5         Nice  340017  7.2683912 43.70094
-## 6       Nantes  309346 -1.5541362 47.21864
-## 7  Montpellier  285121  3.8767337 43.61124
-## 8   Strasbourg  280966  7.7507127 48.58461
-## 9     Bordeaux  254436 -0.5800364 44.84123
-## 10       Lille  232787  3.0635282 50.63657
+## 1        Paris 2175601  2.3514992 48.85661
+## 2    Marseille  868277  5.3699525 43.29617
+## 3         Lyon  518635  4.8320114 45.75781
+## 4     Toulouse  486828  1.4442469 43.60446
+## 5         Nice  341032  7.2683912 43.70094
+## 6       Nantes  314138 -1.5541362 47.21864
+## 7  Montpellier  290053  3.8767337 43.61124
+## 8   Strasbourg  284677  7.7507127 48.58461
+## 9     Bordeaux  257068 -0.5800364 44.84123
+## 10       Lille  233098  3.0635282 50.63657
 ```
 
 
