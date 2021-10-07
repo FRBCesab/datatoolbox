@@ -1,0 +1,25 @@
+---
+title: "Introduction to `renv`"
+subtitle: "Project-local R dependencies management"
+author: "Nicolas Casajus"
+date: "Décembre 2021"
+output:
+  xaringan::moon_reader:
+    css: ["assets/css/rutgers-tidyverse.css", "assets/css/rutgers-fonts_og.css"]
+    lib_dir: "assets/libs"
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+# to convert html output into pdf,
+# xaringan::decktape("file://.../filename.html", "filename.pdf", docker = FALSE)
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(
+  fig.path   = 'assets/img/',
+  cache.path = "assets/cache/",
+  dpi        = 300)
+```
+
+# **Coming soon**
