@@ -13,6 +13,8 @@ navbar:
   right:
     - icon: fa fa-home
       href: index.html
+    - text: "Instructions"
+      href: instructions.html
     - text: "Cours"
       menu:
       - text: "Cours 1. Recherche reproductible"
