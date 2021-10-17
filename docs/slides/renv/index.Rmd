@@ -1,25 +1,208 @@
 ---
-title: "Introduction to `renv`"
-subtitle: "Project-local R dependencies management"
-author: "Nicolas Casajus"
-date: "Décembre 2021"
+title: "<br />Introduction to `renv`"
+subtitle: "<i>Project-local R dependencies management</i>"
+date: .inst[December 2021]
+author: <br /><br /><br />Nicolas Casajus
 output:
   xaringan::moon_reader:
-    css: ["assets/css/rutgers-tidyverse.css", "assets/css/rutgers-fonts_og.css"]
+    css: ["assets/css/xaringan-themer.css", "assets/css/custom.css"]
     lib_dir: "assets/libs"
+    seal: true
+    yolo: false
+    self_contained: false
     nature:
-      highlightStyle: github
+      ratio: "4:3"
+      titleSlideClass: ["right", "middle"]
+      highlightStyle: 'zenburn'
       highlightLines: true
       countIncrementalSlides: false
-# to convert html output into pdf,
-# xaringan::decktape("file://.../filename.html", "filename.pdf", docker = FALSE)
+      slideNumberFormat: "%current% / %total%"
+      beforeInit: "assets/libs/macros.js"
 ---
 
-```{r global_options, include=FALSE}
-knitr::opts_chunk$set(
-  fig.path   = 'assets/img/',
-  cache.path = "assets/cache/",
-  dpi        = 300)
-```
 
-# **Coming soon**
+
+## Degrees of Reproducibility
+
+`r fontawesome::fa_i("thumbs-up", class = "emph")` &nbsp;Research compendium<br/>
+`r fontawesome::fa_i("thumbs-up", class = "emph")` &nbsp;Version control<br/>
+`r fontawesome::fa_i("thumbs-up", class = "emph")` &nbsp;Code refactoring<br/>
+`r fontawesome::fa_i("thumbs-up", class = "emph")` &nbsp;Literate programming
+
+--
+
+<br/>
+
+What about R packages (versions)&nbsp;`r fontawesome::fa_i("question-circle")`
+
+--
+
+  - What are the packages versions used for my project?
+  - Will my project be usable on other system or in the future?
+  - How to deal with projects requiring different versions of a package?
+  
+
+
+---
+
+## The package `renv`
+
+.pull-leftt[
+.center[[![:scale 75%](https://raw.githubusercontent.com/rstudio/renv/master/man/figures/logo.svg)](https://rstudio.github.io/renv/articles/renv.html)]
+]
+
+.pull-rightt[
+- Developed by [**Kevin Ushey**](https://kevinushey.github.io/), also maintainer of the package [`reticulate`](https://rstudio.github.io/reticulate/)
+- [`renv`](https://rstudio.github.io/renv/articles/renv.html) is a toolkit used to manage project-local libraries of `r fontawesome::fa_i("r-project")` packages
+- `renv` is the successor of [`packrat`](https://rstudio.github.io/packrat/)
+]
+
+--
+
+`renv` makes your project more:
+
+`r fontawesome::fa_i("hand-point-right", class = "emph")` &nbsp;**Isolated**: 
+each project gets its own library of `r fontawesome::fa_i("r-project")` packages, 
+so you can feel free to upgrade and change package versions in one project 
+without worrying about breaking your other projects.
+
+`r fontawesome::fa_i("hand-point-right", class = "emph")` &nbsp;**Portable**: 
+`renv` captures the state of your `r fontawesome::fa_i("r-project")` packages 
+within a _lockfile_, so you can more easily collaborate with others, 
+and ensure that everyone is working from a common base.
+
+`r fontawesome::fa_i("hand-point-right", class = "emph")` &nbsp;**Reproducible**: 
+the _lockfile_ contains all the information on `r fontawesome::fa_i("r-project")` 
+packages (name, version, repository, etc.) making your project even more transparent.
+
+
+---
+
+## Libraries _vs_ packages
+
+`r fontawesome::fa_i("hand-point-right")` &nbsp;`Package` - a 
+collection of `r fontawesome::fa_i("r-project")` functions, data, and compiled 
+code in a well-defined format. 
+
+`r fontawesome::fa_i("hand-point-right")` &nbsp;`Library` - the 
+directory into which packages are installed.
+
+---
+
+## Global package cache
+
+
+
+---
+
+## Initialization
+
+
+
+---
+
+## Infrastructure
+
+
+
+---
+
+## The local environment
+
+
+
+---
+
+## Adding packages
+
+
+
+---
+
+## Removing packages
+
+
+
+---
+
+## Cleaning the local environment
+
+
+
+---
+
+## The `DESCRIPTION` file
+
+
+
+---
+
+## Collaborating with `renv`
+
+
+---
+
+## Saving the local environment
+
+
+
+---
+
+## Restoring the local environment
+
+
+
+---
+
+## Resources
+
+- https://environments.rstudio.com/docker
+- https://kevinushey-2020-rstudio-conf.netlify.app/slides.html
+- https://elise.maigne.pages.mia.inra.fr/2021_package_renv/presentation.html
+- https://rstudio.github.io/renv/articles/renv.html
+- https://maxmasnick.com/kb/rlang/package-management/
+- https://6chaoran.wordpress.com/2020/07/20/introduction-of-renv-package/
+- https://rpubs.com/glennwithtwons/reproducible-r-toolbox
+
+
+---
+
+## Other features
+
+
+
+---
+
+## Wrap-up
+
+```{r eval=FALSE}
+## Initiate renv for the project ----
+renv::init()
+
+## Install < pkg_name > for the project ----
+renv::install("pkg_name")
+
+## Install packages listed in the DESCRIPTION file ----
+renv::install()   # or, remotes::install_deps()
+
+## Remove unnecessary packages ----
+renv::remove("pkg_name")
+
+## Check renv status ----
+renv::status()
+
+## Update list of required packages ----
+renv::clean()
+
+## Save local environment ----
+renv::snapshot()
+
+## Restore local environment ----
+renv::restore()
+
+## Deactivate local environment ----
+renv::deactivate()
+
+## (Re)activate local environment ----
+renv::activate()
+```
