@@ -28,6 +28,7 @@ biodiversité.
 :point\_right:  **Les cours et exercices sont disponibles à cette
 adresse :** <https://frbcesab.github.io/datatoolbox/>
 
+
 <br />
 
 Si vous voulez consulter les cours hors ligne, clonez le dépôt et ouvrez
