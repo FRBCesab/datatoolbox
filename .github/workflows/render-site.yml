@@ -34,5 +34,5 @@ jobs:
         run: |
           git add -A
           git commit -m 'Rebuild website' || echo "No changes to commit"
-          git pull --no-edit
+          git pull --rebase
           git push origin || echo "No changes to commit"
