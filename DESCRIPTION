@@ -63,7 +63,6 @@ Imports:
     rmarkdown,
     rnaturalearth,
     rnaturalearthdata,
-    rrtools,
     rvest,
     sf,
     taxize,
@@ -73,7 +72,6 @@ Imports:
     xaringan,
     xaringanthemer
 Remotes:
-    benmarwick/rrtools,
     hadley/emo
 Suggest:
     tinytex
