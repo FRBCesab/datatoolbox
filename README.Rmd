@@ -14,12 +14,13 @@ knitr::opts_chunk$set(
 ```
 
 
-# Formation FRB-Cesab/GDR EcoStat - Edition 2021
+Recherche Reproductible en Ecologie <img src="man/figures/datatoolbox-logo.png" height="120" align="right"/>
+=========================================================
 
 
 <!-- badges: start -->
 [![Build and Deploy Website](https://github.com/frbcesab/datatoolbox/actions/workflows/render-site.yml/badge.svg)](https://github.com/frbcesab/datatoolbox/actions/workflows/render-site.yml)
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://choosealicense.com/licenses/cc-by-4.0/)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgreen.svg)](https://choosealicense.com/licenses/cc-by-4.0/)
 [![DOI](https://zenodo.org/badge/213662591.svg)](https://zenodo.org/badge/latestdoi/213662591)
 <!-- badges: end -->
 
@@ -28,13 +29,16 @@ knitr::opts_chunk$set(
 <br />
 
 
-Le Cesab de la FRB et le GDR EcoStat proposent depuis 2019 une formation 
-intitulée « Bonnes pratiques pour une recherche reproductible en écologie 
-numérique ». Cette formation de cinq jours a pour objectif de former de jeunes 
-chercheurs / chercheuses aux outils de reproductibilité, de développement 
-logiciel et de gestion de versions (e.g. R, git, markdown, tidyverse, docker) 
-appliqués à la recherche en biodiversité.
+Cette formation de cinq jours, co-organisée par le 
+[Cesab](https://www.fondationbiodiversite.fr/la-fondation/le-cesab/) de la 
+[FRB](https://www.fondationbiodiversite.fr) et le 
+[GdR EcoStat](https://sites.google.com/site/gdrecostat/), 
+a pour objectif de former de jeunes chercheurs / chercheuses aux outils 
+de reproductibilité, de développement logiciel et de gestion de versions 
+(R, git, markdown, tidyverse, docker) appliqués à la recherche en biodiversité.
 
+
+:boom: &nbsp;Les cours et exercices sont disponibles à cette adresse : https://frbcesab.github.io/datatoolbox/
 
 
 <br />
