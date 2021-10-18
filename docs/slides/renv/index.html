@@ -35,7 +35,7 @@ class: right, middle, title-slide
 
 &lt;br/&gt;
 
-What about R packages (versions)&amp;nbsp;<i class="fa fa-question-circle" role="presentation" aria-label="question-circle icon"></i>
+What about R packages (and their versions)&amp;nbsp;<i class="fa fa-question-circle" role="presentation" aria-label="question-circle icon"></i>
 
 --
 
@@ -64,23 +64,23 @@ What about R packages (versions)&amp;nbsp;<i class="fa fa-question-circle" role=
 `renv` makes your project more:
 
 <i class="fa fa-hand-point-right emph" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;**Isolated**: 
-each project gets its own library of <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i> packages, 
-so you can feel free to upgrade and change package versions in one project 
-without worrying about breaking your other projects.
+each project has its own library of <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i> packages.
 
-<i class="fa fa-hand-point-right emph" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;**Portable**: 
+<i class="fa fa-hand-point-right emph" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;**Portable** and **reproducible**: 
 `renv` captures the state of your <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i> packages 
-within a _lockfile_, so you can more easily collaborate with others, 
-and ensure that everyone is working from a common base.
+within a _lockfile_.
 
-<i class="fa fa-hand-point-right emph" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;**Reproducible**: 
-the _lockfile_ contains all the information on <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i> 
-packages (name, version, repository, etc.) making your project even more transparent.
+--
 
+&lt;br/&gt;
+
+Inspired from <i class="fab fa-python" role="presentation" aria-label="python icon"></i> and the `venv` module.
 
 ---
 
 ## Libraries _vs_ packages
+
+--
 
 <i class="fa fa-hand-point-right" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;`Package` - a 
 collection of <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i> functions, data, and compiled 
@@ -89,22 +89,81 @@ code in a well-defined format.
 <i class="fa fa-hand-point-right" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;`Library` - the 
 directory into which packages are installed.
 
+
+--
+
+&lt;br /&gt;
+
+By default, <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i> has two (or more) libraries:
+
+
+```r
+.libPaths()
+## [1] "/Users/nicolascasajus/Library/R/4.0/library"
+## [2] "/Library/Frameworks/R.framework/Versions/4.0/Resources/library"
+```
+
+The first is the **user** library and the second the **system** library.
+
+--
+
+&lt;br/&gt;
+
+
+```r
+find.package("rmarkdown")
+## [1] "/Users/nicolascasajus/Library/R/4.0/library/rmarkdown"
+
+find.package("base")
+## [1] "/Library/Frameworks/R.framework/Resources/library/base"
+```
+
+---
+
+## Libraries _vs_ packages
+
+.center[
+![:scale 75%](assets/img/library-1.png)
+]
+
+
 ---
 
 ## Global package cache
 
+.pull-left[.center[![:scale 95%](assets/img/library-1.png)]]
+.pull-right[.center[![:scale 95%](assets/img/library-2a.png)]]
+
+
+---
+
+## Global package cache
+
+.pull-left[.center[![:scale 95%](assets/img/library-1.png)]]
+.pull-right[.center[![:scale 95%](assets/img/library-2b.png)]]
 
 
 ---
 
 ## Initialization
 
+- Command line
 
+
+```r
+## Initiate renv for the project ----
+renv::init()
+```
+
+&lt;br/&gt;
+
+- With RStudio
+
+.center[![:scale 50%](assets/img/rstudio-renv.png)]
 
 ---
 
 ## Infrastructure
-
 
 
 ---

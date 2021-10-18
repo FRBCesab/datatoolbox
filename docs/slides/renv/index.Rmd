@@ -33,7 +33,7 @@ output:
 
 <br/>
 
-What about R packages (versions)&nbsp;`r fontawesome::fa_i("question-circle")`
+What about R packages (and their versions)&nbsp;`r fontawesome::fa_i("question-circle")`
 
 --
 
@@ -62,23 +62,23 @@ What about R packages (versions)&nbsp;`r fontawesome::fa_i("question-circle")`
 `renv` makes your project more:
 
 `r fontawesome::fa_i("hand-point-right", class = "emph")` &nbsp;**Isolated**: 
-each project gets its own library of `r fontawesome::fa_i("r-project")` packages, 
-so you can feel free to upgrade and change package versions in one project 
-without worrying about breaking your other projects.
+each project has its own library of `r fontawesome::fa_i("r-project")` packages.
 
-`r fontawesome::fa_i("hand-point-right", class = "emph")` &nbsp;**Portable**: 
+`r fontawesome::fa_i("hand-point-right", class = "emph")` &nbsp;**Portable** and **reproducible**: 
 `renv` captures the state of your `r fontawesome::fa_i("r-project")` packages 
-within a _lockfile_, so you can more easily collaborate with others, 
-and ensure that everyone is working from a common base.
+within a _lockfile_.
 
-`r fontawesome::fa_i("hand-point-right", class = "emph")` &nbsp;**Reproducible**: 
-the _lockfile_ contains all the information on `r fontawesome::fa_i("r-project")` 
-packages (name, version, repository, etc.) making your project even more transparent.
+--
 
+<br/>
+
+Inspired from `r fontawesome::fa_i("python")` and the `venv` module.
 
 ---
 
 ## Libraries _vs_ packages
+
+--
 
 `r fontawesome::fa_i("hand-point-right")` &nbsp;`Package` - a 
 collection of `r fontawesome::fa_i("r-project")` functions, data, and compiled 
@@ -87,21 +87,61 @@ code in a well-defined format.
 `r fontawesome::fa_i("hand-point-right")` &nbsp;`Library` - the 
 directory into which packages are installed.
 
+
+--
+
+<br />
+
+By default, `r fontawesome::fa_i("r-project")` has two (or more) libraries:
+
+```{r eval=FALSE}
+.libPaths()
+## [1] "/Users/nicolascasajus/Library/R/4.0/library"
+## [2] "/Library/Frameworks/R.framework/Versions/4.0/Resources/library"
+```
+
+The first is the **user** library and the second the **system** library.
+
+--
+
+<br/>
+
+```{r eval=FALSE}
+find.package("rmarkdown")
+## [1] "/Users/nicolascasajus/Library/R/4.0/library/rmarkdown"
+
+find.package("base")
+## [1] "/Library/Frameworks/R.framework/Resources/library/base"
+```
+
+---
+
+## Libraries _vs_ packages
+
+.center[
+![:scale 75%](assets/img/library-1.png)
+]
+
+
 ---
 
 ## Global package cache
 
+.pull-left[.center[![:scale 95%](assets/img/library-1.png)]]
+.pull-right[.center[![:scale 95%](assets/img/library-2a.png)]]
+
+
+---
+
+## Global package cache
+
+.pull-left[.center[![:scale 95%](assets/img/library-1.png)]]
+.pull-right[.center[![:scale 95%](assets/img/library-2b.png)]]
 
 
 ---
 
 ## Initialization
-
-
-
----
-
-## Infrastructure
 
 - Command line
 
@@ -110,7 +150,16 @@ directory into which packages are installed.
 renv::init()
 ```
 
+<br/>
+
 - With RStudio
+
+.center[![:scale 50%](assets/img/rstudio-renv.png)]
+
+---
+
+## Infrastructure
+
 
 ---
 
