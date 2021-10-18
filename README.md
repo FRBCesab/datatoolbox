@@ -32,8 +32,10 @@ adresse :** <https://frbcesab.github.io/datatoolbox/>
 
 Si vous voulez consulter les cours hors ligne, clonez le dépôt et ouvrez
 le fichier
-[**docs/slides/index.html**](https://github.com/frbcesab/datatoolbox/tree/master/docs/slides/index.html)
+[docs/index.html](https://github.com/frbcesab/datatoolbox/tree/master/docs/index.html)
 dans un navigateur.
+
+<br/>
 
 ### Citation
 
@@ -42,7 +44,7 @@ de cette formation. Votre seule obligation est de la citer de la manière
 suivante :
 
 > Casajus N., Dray S., Gimenez O., Guéry L., Guilhaumon F. &
-> Schiettekatte N. M. D. (2021) *Formation FRB CESAB / GDR ECOSTAT :
+> Schiettekatte N. M. D. (2021) *Formation FRB Cesab / GdR EcoStat :
 > Bonnes pratiques pour une recherche reproductible en écologie
-> numérique* (Version 2021). Zenodo.
+> numérique* (Edition 2021). Zenodo.
 > <http://doi.org/10.5281/zenodo.4262978>.
