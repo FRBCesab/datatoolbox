@@ -38,20 +38,20 @@ de reproductibilité, de développement logiciel et de gestion de versions
 (R, git, markdown, tidyverse, docker) appliqués à la recherche en biodiversité.
 
 
-:boom: &nbsp;Les cours et exercices sont disponibles à cette adresse : https://frbcesab.github.io/datatoolbox/
+<br />
+
+
+:point_right: &nbsp;**Les cours et exercices sont disponibles à cette adresse :** https://frbcesab.github.io/datatoolbox/
+
 
 
 <br />
 
 
 
-**Ce dépôt, placé sous 
-[Licence CC-BY 4.0](https://github.com/frbcesab/datatoolbox/blob/master/LICENSE.md), 
-contient tout le matériel nécessaire à la reproduction des cours**.
-
-
-
-<br />
+Si vous voulez consulter les cours hors ligne, clonez le dépôt et ouvrez le fichier
+[**docs/slides/index.html**](https://github.com/frbcesab/datatoolbox/tree/master/docs/slides/index.html)
+dans un navigateur.
 
 
 
@@ -59,124 +59,8 @@ contient tout le matériel nécessaire à la reproduction des cours**.
 
 
 
-Selon les termes de la licence, vous êtes libres de réutiliser le contenu de ce 
-projet. Veillez simplement à citer le projet de la manière suivante :
+Selon les termes de la licence, vous êtes libre de réutiliser le contenu de cette 
+formation. Votre seule obligation est de la citer de la manière suivante :
 
 > Casajus N., Dray S., Gimenez O., Guéry L., Guilhaumon F. & Schiettekatte N. M. D. (2021)
 > _Formation FRB CESAB / GDR ECOSTAT : Bonnes pratiques pour une recherche reproductible en écologie numérique_ (Version 2021). Zenodo. [http://doi.org/10.5281/zenodo.4262978](http://doi.org/10.5281/zenodo.4262978).
-
-
-
-<br />
-
-
-
-### Equipe organisatrice
-
-- [:octocat:](https://github.com/ahasverus)
-&nbsp;[:globe_with_meridians:](https://nicolascasajus.fr)
-&nbsp;Nicolas CASAJUS (FRB CESAB)
-- [:octocat:](https://github.com/sdray)
-&nbsp;[:globe_with_meridians:](https://lbbe.univ-lyon1.fr/-Dray-Stephane-.html)
-&nbsp;Stéphane DRAY (CNRS LBBE)
-- [:octocat:](https://github.com/oliviergimenez)
-&nbsp;[:globe_with_meridians:](https://oliviergimenez.github.io/)
-&nbsp;Olivier GIMENEZ (CNRS CEFE)
-- [:octocat:](https://github.com/lguery)
-&nbsp;[:globe_with_meridians:](http://www.umr-marbec.fr/guery-lorelei.html)
-&nbsp;Loreleï GUÉRY (IRD MARBEC)
-- [:octocat:](https://github.com/fguilhaumon)
-&nbsp;[:globe_with_meridians:](https://fguilhaumon.gitlab.io/)
-&nbsp;François GUILHAUMON (IRD MARBEC)
-- [:octocat:](https://github.com/nschiett)
-&nbsp;[:globe_with_meridians:](http://www.criobe.pf/pro/personnel/doctorants/nina-schiettekatte/)
-&nbsp;Nina SCHIETTEKATTE (EPHE CRIOBE)
-
-
-
-<br />
-
-
-
-### Contenu
-
-
-
-Ce dépôt est structuré de la manière suivante :
-
-- :file_folder: &nbsp;[**assets/**](https://github.com/FRBCesab/datatoolbox/tree/master/assets):
-contient les images, styles CSS et librairies JS pour la page d'accueil de la formation
-- :file_folder: &nbsp;[**courses/**](https://github.com/FRBCesab/datatoolbox/tree/master/courses):
-contient les sous-dossiers des cours (un sous-dossier par cours)
-- :file_folder: &nbsp;[**exercises/**](https://github.com/FRBCesab/datatoolbox/tree/master/exercises):
-contient les sous-dossiers des exercices (un sous-dossier par exercice)
-- :file_folder: &nbsp;[**man/**](https://github.com/FRBCesab/datatoolbox/tree/master/man):
-contient la documentation des fonctions R développées pour ce projet
-- :file_folder: &nbsp;[**notes/**](https://github.com/FRBCesab/datatoolbox/tree/master/notes):
-contient les notes écrites sur HackMD (voir les badges en haut de page)
-- :file_folder: &nbsp;[**R/**](https://github.com/FRBCesab/datatoolbox/tree/master/r):
-contient les fonctions R développées pour ce projet
-- :page_facing_up: &nbsp;[**DESCRIPTION**](https://github.com/FRBCesab/datatoolbox/tree/master/DESCRIPTION):
-fichier contiennant les métadonnées du projet (notamment les packages R requis)
-- :page_facing_up: &nbsp;[**index.Rmd**](https://github.com/FRBCesab/datatoolbox/tree/master/index.Rmd):
-fichier `RMarkdown` de la page d'accueil de la formation
-- :page_facing_up: &nbsp;[**index.html**](https://github.com/FRBCesab/datatoolbox/tree/master/index.html):
-fichier `HTML` de la page d'accueil de la formation
-- :page_facing_up: &nbsp;[**LICENSE.md**](https://github.com/FRBCesab/datatoolbox/tree/master/LICENSE.md):
-fichier détaillant la licence CC-BY 4.0 protégeant ce projet
-- :page_facing_up: &nbsp;[**make.R**](https://github.com/FRBCesab/datatoolbox/tree/master/make.R):
-fichier `R` permettant de mettre à jour tous les cours et exercices
-- :page_facing_up: &nbsp;[**README.md**](https://github.com/FRBCesab/datatoolbox/tree/master/README.md):
-ce présent fichier
-
-
-<br />
-
-
-:boom: &nbsp;**Pour accéder à la page d'accueil de la formation et des cours, cliquez [ICI](https://frbcesab.github.io/datatoolbox/index.html)**
-
-
-
-<br />
-
-
-
-### Dépendances requises
-
-Pour recompiler les diapositives des cours et des exercices, les dépendances systèmes
-suivantes sont requises :
-
-- Google Chrome (pour convertir certains cours en PDF)
-- Librairie système GDAL
-- Librairie système GEOS
-- Librairie système PROJ
-- Pandoc (inclus dans RStudio)
-- Rtools (pour les utilisateurs Windows)
-
-La liste des packages R requis et listés dans le fichier `DESCRIPTION` seront installés
-automatiquement lorsque le script `make.R` sera exécuté.
-
-<br />
-
-
-
-### Usage
-
-Pour mettre à jour les versions HTML (et PDF) des diapositives des cours, exécutez simplement :
-
-```r
-source("make.R")
-```
-
-
-<br />
-
-
-
-### Ressources
-
-:punch: [**Page de l'événement**](https://www.fondationbiodiversite.fr/evenement/frb-cesab-formation-reproductibilite-2020/)
-
-:punch: [**Informations générales**](https://hackmd.io/kMboCUzyQNmReObNDYoQ6A)
-
-:punch: [**Dépôt des exercices**](https://github.com/FRBCesab/datatoolboxexos)
