@@ -103,7 +103,14 @@ directory into which packages are installed.
 
 ## Infrastructure
 
+- Command line
 
+```{r eval=FALSE}
+## Initiate renv for the project ----
+renv::init()
+```
+
+- With RStudio
 
 ---
 

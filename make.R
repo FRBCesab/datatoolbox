@@ -38,7 +38,7 @@ devtools::load_all(quiet = TRUE)
 # datatoolbox::knit_slides(name = "rmarkdown")
 # datatoolbox::knit_slides(name = "take-home")
 # datatoolbox::knit_slides(name = "tidyverse")
-# datatoolbox::knit_slides(name = "renv")
+datatoolbox::knit_slides(name = "renv")
 
 
 
