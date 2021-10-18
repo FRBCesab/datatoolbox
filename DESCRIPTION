@@ -1,5 +1,5 @@
 Package: datatoolbox
-Title: Materials For The Datatoolbox Training Course
+Title: Materials for the Datatoolbox Training Course
 Version: 3.0.0
 Authors@R: c(
     person(given  = "Nicolas",
@@ -42,9 +42,9 @@ SystemRequirements: Google Chrome (to convert slides to PDF), GDAL, GEOS, PROJ,
     pandoc, pandoc-citeproc, Rtools (for Windows users)
 Depends: R (>= 3.5.0)
 Imports:
-    blogdown,
     cranlogs,
     devtools,
+    distill,
     drake,
     emo,
     fishualize,
@@ -57,7 +57,6 @@ Imports:
     magrittr,
     maps,
     mapview,
-    pagedown,
     pkgdown,
     raster,
     revealjs,
@@ -67,12 +66,10 @@ Imports:
     rrtools,
     rvest,
     sf,
-    showtext,
     taxize,
     testthat,
     tidyverse,
     usethis,
-    visNetwork,
     xaringan,
     xaringanthemer
 Remotes:
