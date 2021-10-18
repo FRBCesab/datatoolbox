@@ -50,9 +50,11 @@ de reproductibilité, de développement logiciel et de gestion de versions
 
 
 Si vous voulez consulter les cours hors ligne, clonez le dépôt et ouvrez le fichier
-[**docs/slides/index.html**](https://github.com/frbcesab/datatoolbox/tree/master/docs/slides/index.html)
+[docs/index.html](https://github.com/frbcesab/datatoolbox/tree/master/docs/index.html)
 dans un navigateur.
 
+
+<br/>
 
 
 ### Citation
@@ -63,4 +65,4 @@ Selon les termes de la licence, vous êtes libre de réutiliser le contenu de ce
 formation. Votre seule obligation est de la citer de la manière suivante :
 
 > Casajus N., Dray S., Gimenez O., Guéry L., Guilhaumon F. & Schiettekatte N. M. D. (2021)
-> _Formation FRB CESAB / GDR ECOSTAT : Bonnes pratiques pour une recherche reproductible en écologie numérique_ (Version 2021). Zenodo. [http://doi.org/10.5281/zenodo.4262978](http://doi.org/10.5281/zenodo.4262978).
+> _Formation FRB Cesab / GdR EcoStat : Bonnes pratiques pour une recherche reproductible en écologie numérique_ (Edition 2021). Zenodo. [http://doi.org/10.5281/zenodo.4262978](http://doi.org/10.5281/zenodo.4262978).

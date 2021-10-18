@@ -502,5 +502,5 @@ Le code source est diponible à :
 
 Casajus N, Dray S, Gimenez O, Guéry L, Guilhaumon F & Schiettekatte NMD (2021) 
 Formation FRB Cesab / GdR EcoStat : Bonnes pratiques pour une recherche 
-reproductible en écologie numérique (Version 2021). 
+reproductible en écologie numérique (Edition 2021). 
 Zenodo. <http://doi.org/10.5281/zenodo.4262978>.
