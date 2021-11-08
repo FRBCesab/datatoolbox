@@ -14,7 +14,7 @@ output:
       ratio: "4:3"
       titleSlideClass: ["right", "middle"]
       highlightStyle: 'zenburn'
-      highlightLines: true
+      highlightLines: false
       countIncrementalSlides: false
       slideNumberFormat: "%current% / %total%"
       beforeInit: "assets/libs/macros.js"
@@ -26,8 +26,8 @@ output:
 
 `r fontawesome::fa_i("thumbs-up", class = "emph")` &nbsp;Research compendium<br/>
 `r fontawesome::fa_i("thumbs-up", class = "emph")` &nbsp;Version control<br/>
-`r fontawesome::fa_i("thumbs-up", class = "emph")` &nbsp;Code refactoring<br/>
-`r fontawesome::fa_i("thumbs-up", class = "emph")` &nbsp;Literate programming
+`r fontawesome::fa_i("thumbs-up", class = "emph")` &nbsp;Literate programming<br/>
+`r fontawesome::fa_i("thumbs-up", class = "emph")` &nbsp;Code refactoring
 
 --
 
@@ -96,8 +96,8 @@ By default, `r fontawesome::fa_i("r-project")` has two (or more) libraries:
 
 ```{r eval=FALSE}
 .libPaths()
-## [1] "/Users/nicolascasajus/Library/R/4.0/library"
-## [2] "/Library/Frameworks/R.framework/Versions/4.0/Resources/library"
+## [1] "/Users/nicolascasajus/Library/R/4.1/library"
+## [2] "/Library/Frameworks/R.framework/Versions/4.1/Resources/library"
 ```
 
 The first is the **user** library and the second the **system** library.
@@ -108,7 +108,7 @@ The first is the **user** library and the second the **system** library.
 
 ```{r eval=FALSE}
 find.package("rmarkdown")
-## [1] "/Users/nicolascasajus/Library/R/4.0/library/rmarkdown"
+## [1] "/Users/nicolascasajus/Library/R/4.1/library/rmarkdown"
 
 find.package("base")
 ## [1] "/Library/Frameworks/R.framework/Resources/library/base"
@@ -116,50 +116,203 @@ find.package("base")
 
 ---
 
-## Libraries _vs_ packages
+## The `r fontawesome::fa_i("r-project")` system
 
 .center[
 ![:scale 75%](assets/img/library-1.png)
 ]
 
+All projects share the same versions of installed packages
 
 ---
 
-## Global package cache
+## With `renv`
 
-.pull-left[.center[![:scale 95%](assets/img/library-1.png)]]
-.pull-right[.center[![:scale 95%](assets/img/library-2a.png)]]
+.pull-left[
+.center[![:scale 95%](assets/img/library-1.png)]
+The `r fontawesome::fa_i("r-project")` system
+]
+.pull-right[
+.center[![:scale 95%](assets/img/library-2a.png)]
+The `renv` system
+]
+
 
 
 ---
 
-## Global package cache
+## With `renv` - Global package cache
 
-.pull-left[.center[![:scale 95%](assets/img/library-1.png)]]
-.pull-right[.center[![:scale 95%](assets/img/library-2b.png)]]
+.pull-left[
+.center[![:scale 95%](assets/img/library-1.png)]
+The `r fontawesome::fa_i("r-project")` system
+]
+.pull-right[
+.center[![:scale 95%](assets/img/library-2b.png)]
+The `renv` system
+]
 
 
 ---
 
 ## Initialization
 
-- Command line
+- Installation
+
+```{r eval=FALSE}
+## Install renv ----
+install.package("renv")
+```
+
+<br />
+
+--
+
+- Initialization from command line
 
 ```{r eval=FALSE}
 ## Initiate renv for the project ----
 renv::init()
 ```
 
-<br/>
+--
 
-- With RStudio
+- Initialization with RStudio
 
-.center[![:scale 50%](assets/img/rstudio-renv.png)]
+.center[![:scale 35%](assets/img/rstudio-renv.png)]
+
+---
+
+## Initialization
+
+When you open the project you will see this welcome message:
+
+```
+R version 4.1.2 (2021-11-01) -- "Bird Hippie"
+Copyright (C) 2021 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin17.0 (64-bit)
+
+* Project '~/Desktop/myproject' loaded. [renv 0.14.0]
+>
+```
+
+This means that the project is currently using the `renv` system
 
 ---
 
 ## Infrastructure
 
+What happened?
+
+```
+.
+├── (.git)
+├── (.gitignore)
+│
+├── (myproject.Rproj)
+│
+├── .Rprofile
+│
+├── renv
+│   ├── .gitignore
+│   ├── activate.R
+│   ├── library
+│   └── settings.dcf
+│
+└── renv.lock
+```
+
+---
+
+## Infrastructure
+
+What happened?
+
+```
+.
+├── (.git)             # Git files
+└── (.gitignore)       # Untracked files by git
+```
+
+
+---
+
+## Infrastructure
+
+What happened?
+
+```
+.
+├── (.git)             # Git files
+├── (.gitignore)       # Untracked files by git
+│
+└── (myproject.Rproj)  # RStudio files
+```
+
+---
+
+## Infrastructure
+
+What happened?
+
+```
+.
+├── (.git)             # Git files
+├── (.gitignore)       # Untracked files by git
+│
+├── (myproject.Rproj)  # RStudio files
+│
+└── .Rprofile          # Activate renv on project opening
+```
+
+
+---
+
+## Infrastructure
+
+What happened?
+
+```
+.
+├── (.git)             # Git files
+├── (.gitignore)       # Untracked files by git
+│
+├── (myproject.Rproj)  # RStudio files
+│
+├── .Rprofile          # Activate renv on project opening
+│
+└── renv
+    ├── .gitignore     # Ignore large renv files (e.g. packages)
+    ├── activate.R     # R script to launch renv
+    ├── library        # R packages
+    └── settings.dcf   # renv settings
+```
+
+
+
+---
+
+## Infrastructure
+
+What happened?
+
+```
+.
+├── (.git)             # Git files
+├── (.gitignore)       # Untracked files by git
+│
+├── (myproject.Rproj)  # RStudio files
+│
+├── .Rprofile          # Activate renv on project opening
+│
+├── renv
+│   ├── .gitignore     # Ignore large renv files (e.g. packages)
+│   ├── activate.R     # R script to launch renv
+│   ├── library        # R packages
+│   └── settings.dcf   # renv settings
+│
+└── renv.lock          # Package metadata
+```
 
 ---
 
