@@ -317,19 +317,84 @@ What happened?
 │   ├── library        # R packages
 │   └── settings.dcf   # renv settings
 │
-└── renv.lock          # Package metadata
+└── renv.lock          # Packages metadata
 ```
 
----
-
-## The local environment
-
-
 
 ---
 
-## Adding packages
+## The lockfile `renv.lock`
 
+```
+{
+  "R": {
+    "Version": "4.1.2",
+    "Repositories": [
+      {
+        "Name": "CRAN",
+        "URL": "https://cloud.r-project.org"
+      }
+    ]
+  },
+  "Packages": {
+    "renv": {
+      "Package": "renv",
+      "Version": "0.14.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "30e5eba91b67f7f4d75d31de14bbfbdc"
+    }
+  }
+}
+```
+
+This is a simple **JSON** file that specifies metadata on the <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i> version and all packages used for the project
+
+--
+
+- With this _lockfile_ you freeze (and document) your <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i> environment
+
+- To collaborate with others you **only** need to share this file
+
+<i class="fa fa-hand-point-right emph" role="presentation" aria-label="hand-point-right icon"></i> &amp;nbsp;Reproducibility
+
+---
+
+## Installing packages
+
+To install packages with `renv`, use the function `renv::install()`
+
+You can install the latest version of a package, a specific version of a package,
+a package from GitHub, GitLab...
+
+
+```r
+## Install the latest version ----
+renv::install("devtools")
+
+## Install a specific version ----
+renv::install("devtools@2.3.0")
+
+## Install the development version from GitHub ----
+renv::install("github::r-lib/devtools")
+```
+
+--
+
+&lt;br /&gt;
+
+If you have a `DESCRIPTION` file you can install all required packages as follow:
+
+
+```r
+## Install (latest versions) of packages listed in DESCRIPTION ----
+renv::install()
+```
+
+--
+
+Using `renv::install()` without argument will also screen `R` and `Rmd` files and
+install packages mentioned as `library(pkg)`, `require(pkg)`, and `pkg::fun()`
 
 
 ---
@@ -341,12 +406,6 @@ What happened?
 ---
 
 ## Cleaning the local environment
-
-
-
----
-
-## The `DESCRIPTION` file
 
 
 

@@ -311,19 +311,82 @@ What happened?
 │   ├── library        # R packages
 │   └── settings.dcf   # renv settings
 │
-└── renv.lock          # Package metadata
+└── renv.lock          # Packages metadata
 ```
 
----
-
-## The local environment
-
-
 
 ---
 
-## Adding packages
+## The lockfile `renv.lock`
 
+```
+{
+  "R": {
+    "Version": "4.1.2",
+    "Repositories": [
+      {
+        "Name": "CRAN",
+        "URL": "https://cloud.r-project.org"
+      }
+    ]
+  },
+  "Packages": {
+    "renv": {
+      "Package": "renv",
+      "Version": "0.14.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "30e5eba91b67f7f4d75d31de14bbfbdc"
+    }
+  }
+}
+```
+
+This is a simple **JSON** file that specifies metadata on the `r fontawesome::fa_i("r-project")` version and all packages used for the project
+
+--
+
+- With this _lockfile_ you freeze (and document) your `r fontawesome::fa_i("r-project")` environment
+
+- To collaborate with others you **only** need to share this file
+
+`r fontawesome::fa_i("hand-point-right", class = "emph")` &nbsp;Reproducibility
+
+---
+
+## Installing packages
+
+To install packages with `renv`, use the function `renv::install()`
+
+You can install the latest version of a package, a specific version of a package,
+a package from GitHub, GitLab...
+
+```{r eval = FALSE}
+## Install the latest version ----
+renv::install("devtools")
+
+## Install a specific version ----
+renv::install("devtools@2.3.0")
+
+## Install the development version from GitHub ----
+renv::install("r-lib/devtools")
+```
+
+--
+
+<br />
+
+If you have a `DESCRIPTION` file you can install all required packages as follow:
+
+```{r eval = FALSE}
+## Install (latest versions) of packages listed in DESCRIPTION ----
+renv::install()
+```
+
+--
+
+Using `renv::install()` without argument will also screen `R` and `Rmd` files and
+install packages mentioned as `library(pkg)`, `require(pkg)`, and `pkg::fun()`
 
 
 ---
@@ -335,12 +398,6 @@ What happened?
 ---
 
 ## Cleaning the local environment
-
-
-
----
-
-## The `DESCRIPTION` file
 
 
 
