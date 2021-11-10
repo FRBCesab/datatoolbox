@@ -20,7 +20,7 @@ navbar:
       - text: "Cours 1. Recherche reproductible"
         href: "slides/open-sci/index.html"
       - text: "Cours 2. Research compendium"
-        href: ""
+        href: "slides/res-compendium/index.html"
       - text: "Cours 3. Gestion de versions"
         href: "slides/intro-git/index.html"
       - text: "Cours 4. Manipulation de données"
@@ -36,7 +36,7 @@ navbar:
       - text: "Cours 9. Package R"
         href: "slides/r-pkg/index.html"
       - text: "Messages à retenir"
-        href: "/courses/take-home/index.html"
+        href: "/slides/take-home/index.html"
     - text: "Exercices"
       menu:
       - text: "---"
