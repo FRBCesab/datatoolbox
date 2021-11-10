@@ -36,7 +36,7 @@ navbar:
       - text: "Cours 9. Package R"
         href: "slides/r-pkg/index.html"
       - text: "Messages à retenir"
-        href: "/slides/take-home/index.html"
+        href: "slides/take-home/index.html"
     - text: "Exercices"
       menu:
       - text: "---"
