@@ -94,7 +94,7 @@ correspondre à : `C:/Program Files/Git/bin/git.exe`
 
 
 
-4. Télécharger **`Rtools4`** à cette adresse:<br/>
+4. Télécharger **`Rtools4`** à cette adresse :<br/>
 [https://cran.r-project.org/bin/windows/Rtools/](https://cran.r-project.org/bin/windows/Rtools/)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`r fontawesome::fa_i("caret-right")` &nbsp;
@@ -174,7 +174,7 @@ Sys.which("pandoc")
 6. Installez une version minimale de **`LaTeX`**
 
 Si vous souhaitez convertir des documents `.Rmd` en `.pdf`, vous aurez besoin
-de **`LaTeX`**. Pour cela, vous aurez besoin du package `r fontawesome::fa_i("r-project")`
+de **`LaTeX`**. Pour cela, vous allez installer le package `r fontawesome::fa_i("r-project")`
 [**`tinytex`**](https://yihui.org/tinytex/), qui installe une version légère de **`LaTeX`**.
 Ouvrez **`RStudio`** et tapez les deux commandes suivantes : 
 
@@ -268,7 +268,7 @@ Sys.which("pandoc")
 <br/>
 
 Si vous souhaitez convertir des documents `.Rmd` en `.pdf`, vous aurez besoin
-de **`LaTeX`**. Pour cela, vous aurez besoin du package `r fontawesome::fa_i("r-project")`
+de **`LaTeX`**. Pour cela, vous allez installer le package `r fontawesome::fa_i("r-project")`
 [**`tinytex`**](https://yihui.org/tinytex/), qui installe une version légère de **`LaTeX`**.
 Ouvrez **`RStudio`** et tapez les deux commandes suivantes : 
 
@@ -303,7 +303,7 @@ N'oubliez pas de mettre régulièrement à jour votre environnement de travail :
 
 ```sh
 ## Update environment ----
-brew update && brew upgrade
+brew update && brew upgrade --greedy
 ```
 
 
@@ -442,7 +442,7 @@ Sys.which("pandoc")
 <br/>
 
 Si vous souhaitez convertir des documents `.Rmd` en `.pdf`, vous aurez besoin
-de **`LaTeX`**. Pour cela, vous aurez besoin du package `r fontawesome::fa_i("r-project")`
+de **`LaTeX`**. Pour cela, vous allez installer le package `r fontawesome::fa_i("r-project")`
 [**`tinytex`**](https://yihui.org/tinytex/), qui installe une version légère de **`LaTeX`**.
 Ouvrez **`RStudio`** et tapez les deux commandes suivantes : 
 
@@ -535,7 +535,7 @@ protocole SSH (recommendé). Pour ce dernier, vous devez générer
 une paire de clés SSH qui consiste en une clé privée (localisée sur votre 
 ordinateur) et une clé publique qui sera hébergée sur votre espace GitHub.
 
-Procéder comme suit : 
+Procédez comme suit : 
 
 &nbsp;&nbsp;`r fontawesome::fa_i("caret-right")` &nbsp;
 Créez-vous un compte **GitHub** à cette adresse [https://github.com/signup](https://github.com/signup)
