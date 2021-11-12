@@ -2217,6 +2217,44 @@ Archives
 </div>
 </div>
 <p><br/></p>
+<ol start="5" type="1">
+<li>Installez <strong><code>pandoc</code></strong></li>
+</ol>
+<p>Le package <strong><code>rmarkdown</code></strong> nécessite le logiciel <strong><code>pandoc</code></strong> qui permet de passer d’un format de fichier (ex. <code>Rmd</code>) à un autre (ex. <code>.html</code>).</p>
+<p>Normalement, l’installation de <strong>RStudio Desktop</strong> installe également ce logiciel. Vérifiez en ouvrant <strong><code>RStudio</code></strong> et tapez :</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Sys.which.html'>Sys.which</a></span><span class='op'>(</span><span class='st'>"pandoc"</span><span class='op'>)</span>
+<span class='co'>## "C:/Program Files/RStudio/bin/pandoc"</span>
+</code></pre>
+</div>
+</div>
+<p>Si cette fonction ne retourne rien, vous devez installer manuellement <strong><code>pandoc</code></strong> en le téléchargeant à cette adresse : <br /> <a href="https://github.com/jgm/pandoc/releases/tag/2.16.1">https://github.com/jgm/pandoc/releases/tag/2.16.1</a></p>
+<p>Après avoir installé <strong><code>pandoc</code></strong>, redémarrez <strong><code>RStudio</code></strong> et vérifiez que <strong><code>RStudio</code></strong> trouve bien <strong><code>pandoc</code></strong> :</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Sys.which.html'>Sys.which</a></span><span class='op'>(</span><span class='st'>"pandoc"</span><span class='op'>)</span>
+<span class='co'>## C:/Program Files/Pandoc/bin/pandoc</span>
+</code></pre>
+</div>
+</div>
+<p><br/></p>
+<ol start="6" type="1">
+<li>Installez une version minimale de <strong><code>LaTeX</code></strong></li>
+</ol>
+<p>Si vous souhaitez convertir des documents <code>markdown</code> en <code>pdf</code>, vous aurez besoin de <strong><code>LaTeX</code></strong>. Pour cela, vous aurez besoin du package <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i> <a href="https://yihui.org/tinytex/"><strong><code>tinytex</code></strong></a>, qui installe une version légère de <strong><code>LaTeX</code></strong>.</p>
+<p>Ouvrez <strong><code>RStudio</code></strong> et tapez les deux commandes suivantes :</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## Installation de tinytex ----</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"tinytex"</span><span class='op'>)</span>
+
+<span class='co'>## Installation de LaTeX ----</span>
+<span class='fu'>tinytex</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/tinytex/man/install_tinytex.html'>install_tinytex</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p><br/></p>
 <h3 id="macos"><i class="fab fa-apple" role="presentation" aria-label="apple icon"></i>  macOS</h3>
 <p>La manière la plus simple d’installer l’environnement de travail est d’utiliser le gestionnaire de paquets <a href="https://brew.sh"><strong><code>Homebrew</code></strong></a>. Celui-ci permet d’installer (et de mettre à jour) des logiciels en ligne de commande. Pour fonctionner, vous devez avoir installé le logiciel <em>Command Line Tools for Xcode</em> d’Apple.</p>
 <p>Dans un <a href="https://support.apple.com/fr-fr/guide/terminal/apd5265185d-f365-44cb-8b09-71a064a42125/mac">terminal</a>, tapez cette ligne de code et acceptez la licence :</p>
@@ -2244,7 +2282,10 @@ Archives
 <span id="cb3-9"><a href="#cb3-9"></a><span class="ex">brew</span> install --cask rstudio</span>
 <span id="cb3-10"><a href="#cb3-10"></a></span>
 <span id="cb3-11"><a href="#cb3-11"></a><span class="co">## Install git ----</span></span>
-<span id="cb3-12"><a href="#cb3-12"></a><span class="ex">brew</span> install git</span></code></pre></div>
+<span id="cb3-12"><a href="#cb3-12"></a><span class="ex">brew</span> install git</span>
+<span id="cb3-13"><a href="#cb3-13"></a></span>
+<span id="cb3-14"><a href="#cb3-14"></a><span class="co">## Install pandoc ----</span></span>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="ex">brew</span> install pandoc</span></code></pre></div>
 <p>Vous pouvez maitenant lancer <strong><code>RStudio</code></strong> et vérifier votre installation :</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2258,10 +2299,27 @@ Archives
 <span class='fu'><a href='https://rdrr.io/r/base/Sys.which.html'>Sys.which</a></span><span class='op'>(</span><span class='st'>"make"</span><span class='op'>)</span>
 <span class='co'>##            make </span>
 <span class='co'>## "/usr/bin/make"</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/Sys.which.html'>Sys.which</a></span><span class='op'>(</span><span class='st'>"pandoc"</span><span class='op'>)</span>
+<span class='co'>##            pandoc </span>
+<span class='co'>## "/usr/local/bin/pandoc"</span>
 </code></pre>
 </div>
 </div>
 <p><br/></p>
+<p>Si vous souhaitez convertir des documents <code>markdown</code> en <code>pdf</code>, vous aurez besoin de <strong><code>LaTeX</code></strong>. Pour cela, vous aurez besoin du package <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i> <a href="https://yihui.org/tinytex/"><strong><code>tinytex</code></strong></a>, qui installe une version légère de <strong><code>LaTeX</code></strong>.</p>
+<p>Ouvrez <strong><code>RStudio</code></strong> et tapez les deux commandes suivantes :</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## Installation de tinytex ----</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"tinytex"</span><span class='op'>)</span>
+
+<span class='co'>## Installation de LaTeX ----</span>
+<span class='fu'>tinytex</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/tinytex/man/install_tinytex.html'>install_tinytex</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p><br /></p>
 <p><i class="fa fa-lightbulb" role="presentation" aria-label="lightbulb icon"></i>   Votre environnement de travail est opérationnel. Les lignes suivantes permettent d’installer des utilitaires requis pour certains packages (<code>sf</code>, <code>sp</code>, <code>rgdal</code>, <code>rgeos</code>, <code>raster</code>, <code>terra</code>, <code>xml</code>, etc.).</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="co">## Install other utilities for R (spatial and others) ----</span></span>
 <span id="cb4-2"><a href="#cb4-2"></a><span class="ex">brew</span> install libgit2 </span>
@@ -2364,8 +2422,10 @@ Archives
 <span id="cb9-15"><a href="#cb9-15"></a><span class="fu">rm</span> rstudio-2021.09.0-351-amd64.deb</span>
 <span id="cb9-16"><a href="#cb9-16"></a><span class="co"># rm rstudio-1.4.1106-amd64.deb</span></span></code></pre></div>
 <p><br/></p>
-<p>Finalement, installez <strong><code>git</code></strong> comme suit :</p>
+<p>Maintenant, installez <strong><code>git</code></strong> comme suit :</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">sudo</span> apt install git</span></code></pre></div>
+<p>Finalement, vous aurez besoin de <strong><code>pandoc</code></strong> pour convertir des documents texte :</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">sudo</span> apt install pandoc</span></code></pre></div>
 <p><br/></p>
 <p>Vous pouvez maitenant lancer <strong><code>RStudio</code></strong> et vérifier votre installation :</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -2380,24 +2440,41 @@ Archives
 <span class='fu'><a href='https://rdrr.io/r/base/Sys.which.html'>Sys.which</a></span><span class='op'>(</span><span class='st'>"make"</span><span class='op'>)</span>
 <span class='co'>##            make </span>
 <span class='co'>## "/usr/bin/make"</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/Sys.which.html'>Sys.which</a></span><span class='op'>(</span><span class='st'>"pandoc"</span><span class='op'>)</span>
+<span class='co'>##            pandoc </span>
+<span class='co'>## "/usr/bin/pandoc"</span>
 </code></pre>
 </div>
 </div>
 <p><br/></p>
+<p>Si vous souhaitez convertir des documents <code>markdown</code> en <code>pdf</code>, vous aurez besoin de <strong><code>LaTeX</code></strong>. Pour cela, vous aurez besoin du package <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i> <a href="https://yihui.org/tinytex/"><strong><code>tinytex</code></strong></a>, qui installe une version légère de <strong><code>LaTeX</code></strong>.</p>
+<p>Ouvrez <strong><code>RStudio</code></strong> et tapez les deux commandes suivantes :</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## Installation de tinytex ----</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"tinytex"</span><span class='op'>)</span>
+
+<span class='co'>## Installation de LaTeX ----</span>
+<span class='fu'>tinytex</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/tinytex/man/install_tinytex.html'>install_tinytex</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p><br /></p>
 <p><i class="fa fa-lightbulb" role="presentation" aria-label="lightbulb icon"></i>   Votre environnement de travail est opérationnel. Les lignes suivantes permettent d’installer des utilitaires requis pour certains packages (<code>sf</code>, <code>sp</code>, <code>rgdal</code>, <code>rgeos</code>, <code>raster</code>, <code>terra</code>, etc.).</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1"></a><span class="co">## Install other utilities for R (spatial and others) ----</span></span>
-<span id="cb11-2"><a href="#cb11-2"></a><span class="fu">sudo</span> apt install libgdal-dev libproj-dev libgeos-dev libudunits2-dev libnetcdf-dev</span>
-<span id="cb11-3"><a href="#cb11-3"></a><span class="fu">sudo</span> apt install libcairo2-dev libmagick++-dev</span>
-<span id="cb11-4"><a href="#cb11-4"></a><span class="fu">sudo</span> apt install libpoppler-cpp-dev</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">## Install other utilities for R (spatial and others) ----</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">sudo</span> apt install libgdal-dev libproj-dev libgeos-dev libudunits2-dev libnetcdf-dev</span>
+<span id="cb12-3"><a href="#cb12-3"></a><span class="fu">sudo</span> apt install libcairo2-dev libmagick++-dev</span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="fu">sudo</span> apt install libpoppler-cpp-dev</span></code></pre></div>
 <p>N’oubliez pas de mettre régulièrement à jour votre environnement de travail :</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1"></a><span class="co">## Update system ----</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">sudo</span> apt update <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> apt upgrade</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1"></a><span class="co">## Update system ----</span></span>
+<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">sudo</span> apt update <span class="kw">&amp;&amp;</span> <span class="fu">sudo</span> apt upgrade</span></code></pre></div>
 <p><br/></p>
 <h2 id="configuration">Configuration</h2>
 <h3 id="git"><code>git</code></h3>
 <p>Afin de pouvoir utiliser <strong><code>git</code></strong>, vous devez renseigner votre nom et votre email qui seront utilisés pour vos commits. Dans un terminal, tapez les deux lignes suivantes :</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">git</span> config --global user.name  <span class="st">&quot;Jane Doe&quot;</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">git</span> config --global user.email <span class="st">&quot;jane.doe@mail.com&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">git</span> config --global user.name  <span class="st">&quot;Jane Doe&quot;</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">git</span> config --global user.email <span class="st">&quot;jane.doe@mail.com&quot;</span></span></code></pre></div>
 <p>Ou sous <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i> :</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2425,11 +2502,11 @@ Archives
 <p>Procéder comme suit :</p>
 <p>  <i class="fa fa-caret-right" role="presentation" aria-label="caret-right icon"></i>   Créez-vous un compte <strong>GitHub</strong> à cette adresse <a href="https://github.com/signup">https://github.com/signup</a> <br/>  <i class="fa fa-caret-right" role="presentation" aria-label="caret-right icon"></i>   Dans <strong><code>RStudio</code></strong>, cliquez sur : <code>Tools &gt; Global options &gt; Git/SVN</code> <br/>  <i class="fa fa-caret-right" role="presentation" aria-label="caret-right icon"></i>   Cliquez sur <strong>Create RSA Key</strong> et cliquez sur <strong>Create</strong> (vous pouvez omettre la phrase secrète) <br/>  <i class="fa fa-caret-right" role="presentation" aria-label="caret-right icon"></i>   Redémarrer <strong><code>RStudio</code></strong> et cliquez sur : <code>Tools &gt; Global options &gt; Git/SVN</code> <br/>  <i class="fa fa-caret-right" role="presentation" aria-label="caret-right icon"></i>   Cliquez sur <strong>View public key</strong> et copiez la clé publique <br/>  <i class="fa fa-caret-right" role="presentation" aria-label="caret-right icon"></i>   Visitez la page <a href="https://github.com/settings/keys">https://github.com/settings/keys</a> et cliquez sur <strong>New SSH key</strong> <br/>  <i class="fa fa-caret-right" role="presentation" aria-label="caret-right icon"></i>   Donnez un titre à votre nouvelle clé et collez le contenu de votre clé publique. Puis, cliquez sur <strong>Add SSH key</strong></p>
 <p>Votre nouvelle paire de clés SSH est maintenant déployée et la communication avec GitHub au travers du protocole SSH est effective. Vous n’aurez plus besoin de renseigner de mot de passe pour puller/pusher. Lorsque vous clonerez un dépôt GitHub ou ajouterez une <em>remote</em> à un dépôt local, assurez-vous d’utiliser l’URL SSH et non pas HTTPS.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1"></a><span class="co">## URL HTTPS ----</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="ex">https</span>://github.com/frbcesab/datatoolbox.git</span>
-<span id="cb14-3"><a href="#cb14-3"></a></span>
-<span id="cb14-4"><a href="#cb14-4"></a><span class="co">## URL SSH (à utiliser) ----</span></span>
-<span id="cb14-5"><a href="#cb14-5"></a><span class="ex">git@github.com</span>:frbcesab/datatoolbox.git</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1"></a><span class="co">## URL HTTPS ----</span></span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="ex">https</span>://github.com/frbcesab/datatoolbox.git</span>
+<span id="cb15-3"><a href="#cb15-3"></a></span>
+<span id="cb15-4"><a href="#cb15-4"></a><span class="co">## URL SSH (à utiliser) ----</span></span>
+<span id="cb15-5"><a href="#cb15-5"></a><span class="ex">git@github.com</span>:frbcesab/datatoolbox.git</span></code></pre></div>
 <p><strong>Attention :</strong> si vous perdez votre clé privée, vous devrez générer une nouvelle paire de clés SSH et stocker votre nouvelle clé publique sur GitHub.</p>
 <h2 id="corrections" class="appendix">Corrections</h2>
 <p>Si vous voyez des erreurs ou souhaitez apporter des changements, veuillez ouvrir un ticket (<a href="https://github.com/frbcesab/datatoolbox/issues">Create an issue</a>) sur le dépôt GitHub de la formation.</p>
@@ -2437,7 +2514,7 @@ Archives
 <p>Sauf mention contraire, le contenu de ce site Web est placé sous licence Creative Commons Attribution <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>. Le code source est diponible à : <a href="https://github.com/frbcesab/datatoolbox">https://github.com/frbcesab/datatoolbox</a>.</p>
 <h2 id="citation" class="appendix">Citation</h2>
 <p>Casajus N, Dray S, Gimenez O, Guéry L, Guilhaumon F &amp; Schiettekatte NMD (2021) Formation FRB Cesab / GdR EcoStat : Bonnes pratiques pour une recherche reproductible en écologie numérique (Edition 2021). Zenodo. <a href="http://doi.org/10.5281/zenodo.4262978" class="uri">http://doi.org/10.5281/zenodo.4262978</a>.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
