@@ -138,6 +138,56 @@ install.packages("jsonlite", type = "source")
 ```
 
 
+<br/>
+
+
+
+5. Installez **`pandoc`**
+
+Le package **`rmarkdown`** nécessite le logiciel **`pandoc`** qui permet de passer
+d'un format de fichier (ex. `Rmd`) à un autre (ex. `.html`).
+
+Normalement, l'installation de **RStudio Desktop** installe également ce logiciel.
+Vérifiez en ouvrant **`RStudio`** et tapez :
+
+```{r echo=TRUE, eval=FALSE}
+Sys.which("pandoc")
+## "C:/Program Files/RStudio/bin/pandoc"
+```
+
+Si cette fonction ne retourne rien, vous devez installer manuellement **`pandoc`**
+en le téléchargeant à cette adresse : <br /> [https://github.com/jgm/pandoc/releases/tag/2.16.1](https://github.com/jgm/pandoc/releases/tag/2.16.1)
+
+Après avoir installé **`pandoc`**, redémarrez **`RStudio`** et vérifiez que **`RStudio`**
+trouve bien **`pandoc`** :
+
+```{r echo=TRUE, eval=FALSE}
+Sys.which("pandoc")
+## C:/Program Files/Pandoc/bin/pandoc
+```
+
+
+<br/>
+
+
+
+6. Installez une version minimale de **`LaTeX`**
+
+Si vous souhaitez convertir des documents `markdown` en `pdf`, vous aurez besoin
+de **`LaTeX`**. Pour cela, vous aurez besoin du package `r fontawesome::fa_i("r-project")`
+[**`tinytex`**](https://yihui.org/tinytex/), qui installe une version légère de **`LaTeX`**.
+
+Ouvrez **`RStudio`** et tapez les deux commandes suivantes : 
+
+```{r echo=TRUE, eval=FALSE}
+## Installation de tinytex ----
+install.packages("tinytex")
+
+## Installation de LaTeX ----
+tinytex::install_tinytex()
+```
+
+
 
 <br/>
 
@@ -192,6 +242,9 @@ brew install --cask rstudio
 
 ## Install git ----
 brew install git
+
+## Install pandoc ----
+brew install pandoc
 ```
 
 Vous pouvez maitenant lancer **`RStudio`** et vérifier votre installation :
@@ -207,9 +260,29 @@ Sys.which("git")
 Sys.which("make")
 ##            make 
 ## "/usr/bin/make"
+
+Sys.which("pandoc")
+##            pandoc 
+## "/usr/local/bin/pandoc"
 ```
 
 <br/>
+
+Si vous souhaitez convertir des documents `markdown` en `pdf`, vous aurez besoin
+de **`LaTeX`**. Pour cela, vous aurez besoin du package `r fontawesome::fa_i("r-project")`
+[**`tinytex`**](https://yihui.org/tinytex/), qui installe une version légère de **`LaTeX`**.
+
+Ouvrez **`RStudio`** et tapez les deux commandes suivantes : 
+
+```{r echo=TRUE, eval=FALSE}
+## Installation de tinytex ----
+install.packages("tinytex")
+
+## Installation de LaTeX ----
+tinytex::install_tinytex()
+```
+
+<br />
 
 
 `r fontawesome::fa_i("lightbulb")` &nbsp;
@@ -332,10 +405,16 @@ rm rstudio-2021.09.0-351-amd64.deb
 
 <br/>
 
-Finalement, installez **`git`** comme suit : 
+Maintenant, installez **`git`** comme suit : 
 
 ```sh
 sudo apt install git
+```
+
+Finalement, vous aurez besoin de **`pandoc`** pour convertir des documents texte :
+
+```sh
+sudo apt install pandoc
 ```
 
 
@@ -355,9 +434,30 @@ Sys.which("git")
 Sys.which("make")
 ##            make 
 ## "/usr/bin/make"
+
+Sys.which("pandoc")
+##            pandoc 
+## "/usr/bin/pandoc"
 ```
 
 <br/>
+
+Si vous souhaitez convertir des documents `markdown` en `pdf`, vous aurez besoin
+de **`LaTeX`**. Pour cela, vous aurez besoin du package `r fontawesome::fa_i("r-project")`
+[**`tinytex`**](https://yihui.org/tinytex/), qui installe une version légère de **`LaTeX`**.
+
+Ouvrez **`RStudio`** et tapez les deux commandes suivantes : 
+
+```{r echo=TRUE, eval=FALSE}
+## Installation de tinytex ----
+install.packages("tinytex")
+
+## Installation de LaTeX ----
+tinytex::install_tinytex()
+```
+
+
+<br />
 
 
 `r fontawesome::fa_i("lightbulb")` &nbsp;
