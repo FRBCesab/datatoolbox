@@ -2146,7 +2146,8 @@ Archives
 </ul></li>
 <li><a href="#configuration">Configuration</a><ul>
 <li><a href="#git"><code>git</code></a></li>
-<li><a href="#github"><i class="fab fa-github" role="presentation" aria-label="github icon"></i> GitHub</a></li>
+<li><a href="#github-ssh-keys"><i class="fab fa-github" role="presentation" aria-label="github icon"></i> GitHub SSH keys</a></li>
+<li><a href="#github-pat"><i class="fab fa-github" role="presentation" aria-label="github icon"></i> GitHub PAT</a></li>
 </ul></li>
 <li><a href="#corrections">Corrections</a></li>
 <li><a href="#réutilisation">Réutilisation</a></li>
@@ -2494,7 +2495,7 @@ Archives
 </div>
 <p>Un fichier <code>.gitconfig</code> a été créé dans votre dossier personnel.</p>
 <p><br/></p>
-<h3 id="github"><i class="fab fa-github" role="presentation" aria-label="github icon"></i> GitHub</h3>
+<h3 id="github-ssh-keys"><i class="fab fa-github" role="presentation" aria-label="github icon"></i> GitHub SSH keys</h3>
 <p>Pour communiquer avec GitHub, vous pouvez utiliser le protocole HTTPS ou le protocole SSH (recommendé). Pour ce dernier, vous devez générer une paire de clés SSH qui consiste en une clé privée (localisée sur votre ordinateur) et une clé publique qui sera hébergée sur votre espace GitHub.</p>
 <p>Procéder comme suit :</p>
 <p>  <i class="fa fa-caret-right" role="presentation" aria-label="caret-right icon"></i>   Créez-vous un compte <strong>GitHub</strong> à cette adresse <a href="https://github.com/signup">https://github.com/signup</a> <br/>  <i class="fa fa-caret-right" role="presentation" aria-label="caret-right icon"></i>   Dans <strong><code>RStudio</code></strong>, cliquez sur : <code>Tools &gt; Global options &gt; Git/SVN</code> <br/>  <i class="fa fa-caret-right" role="presentation" aria-label="caret-right icon"></i>   Cliquez sur <strong>Create RSA Key</strong> et cliquez sur <strong>Create</strong> (vous pouvez omettre la phrase secrète) <br/>  <i class="fa fa-caret-right" role="presentation" aria-label="caret-right icon"></i>   Redémarrer <strong><code>RStudio</code></strong> et cliquez sur : <code>Tools &gt; Global options &gt; Git/SVN</code> <br/>  <i class="fa fa-caret-right" role="presentation" aria-label="caret-right icon"></i>   Cliquez sur <strong>View public key</strong> et copiez la clé publique <br/>  <i class="fa fa-caret-right" role="presentation" aria-label="caret-right icon"></i>   Visitez la page <a href="https://github.com/settings/keys">https://github.com/settings/keys</a> et cliquez sur <strong>New SSH key</strong> <br/>  <i class="fa fa-caret-right" role="presentation" aria-label="caret-right icon"></i>   Donnez un titre à votre nouvelle clé et collez le contenu de votre clé publique. Puis, cliquez sur <strong>Add SSH key</strong></p>
@@ -2505,6 +2506,25 @@ Archives
 <span id="cb15-4"><a href="#cb15-4"></a><span class="co">## URL SSH (à utiliser) ----</span></span>
 <span id="cb15-5"><a href="#cb15-5"></a><span class="ex">git@github.com</span>:frbcesab/datatoolbox.git</span></code></pre></div>
 <p><strong>Attention :</strong> si vous perdez votre clé privée, vous devrez générer une nouvelle paire de clés SSH et stocker votre nouvelle clé publique sur GitHub.</p>
+<p><br/></p>
+<h3 id="github-pat"><i class="fab fa-github" role="presentation" aria-label="github icon"></i> GitHub PAT</h3>
+<p>Finalement, si vous voulez contrôler GitHub à partir de <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i> (création de dépôts, de branches distantes, etc.), notamment avec le package <strong><code>usethis</code></strong> (qui repose en partie sur l’API GitHub), vous aurez besoin de créer un GitHub Personal Access Token (PAT).</p>
+<p>Rendez-vous sur ce site <a href="https://github.com/settings/tokens">https://github.com/settings/tokens</a></p>
+<p>  <i class="fa fa-caret-right" role="presentation" aria-label="caret-right icon"></i>   Cliquez sur <strong>Generate new token</strong> <br/>  <i class="fa fa-caret-right" role="presentation" aria-label="caret-right icon"></i>   Donnez un nom à votre nouveau token (par ex. le nom de votre ordinateur) <br/>  <i class="fa fa-caret-right" role="presentation" aria-label="caret-right icon"></i>   Dans les <em>scopes</em>, sélectionnez au moins <strong>repo</strong> et <strong>workflow</strong> <br/>  <i class="fa fa-caret-right" role="presentation" aria-label="caret-right icon"></i>   Copiez le token. Vous allez le stocker dans le fichier <code>~/.Renviron</code></p>
+<p>Sous <strong><code>RStudio</code></strong> :</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## Install usethis package ----</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"usethis"</span><span class='op'>)</span>
+
+<span class='co'>## Open ~/.Renviron file ----</span>
+<span class='fu'>usethis</span><span class='fu'>::</span><span class='fu'><a href='https://usethis.r-lib.org/reference/edit.html'>edit_r_environ</a></span><span class='op'>(</span><span class='op'>)</span>
+<span class='co'>## • Modify '~/.Renviron'</span>
+<span class='co'>## • Restart R for changes to take effect</span>
+</code></pre>
+</div>
+</div>
+<p>Ajoutez la ligne suivante : <code>GITHUB_PAT='XXX'</code> où <code>XXX</code> correspond à votre token.</p>
 <h2 id="corrections" class="appendix">Corrections</h2>
 <p>Si vous voyez des erreurs ou souhaitez apporter des changements, veuillez ouvrir un ticket (<a href="https://github.com/frbcesab/datatoolbox/issues">Create an issue</a>) sur le dépôt GitHub de la formation.</p>
 <h2 id="réutilisation" class="appendix">Réutilisation</h2>
