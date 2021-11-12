@@ -527,7 +527,7 @@ Un fichier `.gitconfig` a été créé dans votre dossier personnel.
 <br/>
 
 
-### `r fontawesome::fa_i("github")`&nbsp;GitHub
+### `r fontawesome::fa_i("github")`&nbsp;GitHub SSH keys
 
 
 Pour communiquer avec GitHub, vous pouvez utiliser le protocole HTTPS ou le
@@ -573,6 +573,40 @@ git@github.com:frbcesab/datatoolbox.git
 paire de clés SSH et stocker votre nouvelle clé publique sur GitHub.
 
 
+<br/>
+
+
+### `r fontawesome::fa_i("github")`&nbsp;GitHub PAT
+
+Finalement, si vous voulez contrôler GitHub à partir de `r fontawesome::fa_i("r-project")`
+(création de dépôts, de branches distantes, etc.), notamment avec le package 
+**`usethis`** (qui repose en partie sur l'API GitHub), vous aurez besoin de 
+créer un GitHub Personal Access Token (PAT).
+
+Rendez-vous sur ce site [https://github.com/settings/tokens](https://github.com/settings/tokens)
+
+&nbsp;&nbsp;`r fontawesome::fa_i("caret-right")` &nbsp;
+Cliquez sur **Generate new token**
+<br/>&nbsp;&nbsp;`r fontawesome::fa_i("caret-right")` &nbsp;
+Donnez un nom à votre nouveau token (par ex. le nom de votre ordinateur)
+<br/>&nbsp;&nbsp;`r fontawesome::fa_i("caret-right")` &nbsp;
+Dans les _scopes_, sélectionnez au moins **repo** et **workflow**
+<br/>&nbsp;&nbsp;`r fontawesome::fa_i("caret-right")` &nbsp;
+Copiez le token. Vous allez le stocker dans le fichier `~/.Renviron`
+
+Sous **`RStudio`** : 
+
+```{r echo = TRUE, eval = FALSE}
+## Install usethis package ----
+install.packages("usethis")
+
+## Open ~/.Renviron file ----
+usethis::edit_r_environ()
+## • Modify '~/.Renviron'
+## • Restart R for changes to take effect
+```
+
+Ajoutez la ligne suivante : `GITHUB_PAT='XXX'` où `XXX` correspond à votre token.
 
 
 ## Corrections {.appendix}
