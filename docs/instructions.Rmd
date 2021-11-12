@@ -145,7 +145,7 @@ install.packages("jsonlite", type = "source")
 5. Installez **`pandoc`**
 
 Le package **`rmarkdown`** nécessite le logiciel **`pandoc`** qui permet de passer
-d'un format de fichier (ex. `Rmd`) à un autre (ex. `.html`).
+d'un format de fichier (ex. `.Rmd`) à un autre (ex. `.html`).
 
 Normalement, l'installation de **RStudio Desktop** installe également ce logiciel.
 Vérifiez en ouvrant **`RStudio`** et tapez :
@@ -156,7 +156,7 @@ Sys.which("pandoc")
 ```
 
 Si cette fonction ne retourne rien, vous devez installer manuellement **`pandoc`**
-en le téléchargeant à cette adresse : <br /> [https://github.com/jgm/pandoc/releases/tag/2.16.1](https://github.com/jgm/pandoc/releases/tag/2.16.1)
+en le téléchargeant à cette adresse :  [https://github.com/jgm/pandoc/releases/tag/2.16.1](https://github.com/jgm/pandoc/releases/tag/2.16.1)
 
 Après avoir installé **`pandoc`**, redémarrez **`RStudio`** et vérifiez que **`RStudio`**
 trouve bien **`pandoc`** :
@@ -173,17 +173,16 @@ Sys.which("pandoc")
 
 6. Installez une version minimale de **`LaTeX`**
 
-Si vous souhaitez convertir des documents `markdown` en `pdf`, vous aurez besoin
+Si vous souhaitez convertir des documents `.Rmd` en `.pdf`, vous aurez besoin
 de **`LaTeX`**. Pour cela, vous aurez besoin du package `r fontawesome::fa_i("r-project")`
 [**`tinytex`**](https://yihui.org/tinytex/), qui installe une version légère de **`LaTeX`**.
-
 Ouvrez **`RStudio`** et tapez les deux commandes suivantes : 
 
 ```{r echo=TRUE, eval=FALSE}
-## Installation de tinytex ----
+## Install tinytex ----
 install.packages("tinytex")
 
-## Installation de LaTeX ----
+## Install LaTeX ----
 tinytex::install_tinytex()
 ```
 
@@ -244,7 +243,7 @@ brew install --cask rstudio
 brew install git
 
 ## Install pandoc ----
-brew install pandoc
+brew install pandoc             ## Convert documents (Rmd, html, etc.)
 ```
 
 Vous pouvez maitenant lancer **`RStudio`** et vérifier votre installation :
@@ -268,19 +267,19 @@ Sys.which("pandoc")
 
 <br/>
 
-Si vous souhaitez convertir des documents `markdown` en `pdf`, vous aurez besoin
+Si vous souhaitez convertir des documents `.Rmd` en `.pdf`, vous aurez besoin
 de **`LaTeX`**. Pour cela, vous aurez besoin du package `r fontawesome::fa_i("r-project")`
 [**`tinytex`**](https://yihui.org/tinytex/), qui installe une version légère de **`LaTeX`**.
-
 Ouvrez **`RStudio`** et tapez les deux commandes suivantes : 
 
 ```{r echo=TRUE, eval=FALSE}
-## Installation de tinytex ----
+## Install tinytex ----
 install.packages("tinytex")
 
-## Installation de LaTeX ----
+## Install LaTeX ----
 tinytex::install_tinytex()
 ```
+
 
 <br />
 
@@ -442,19 +441,19 @@ Sys.which("pandoc")
 
 <br/>
 
-Si vous souhaitez convertir des documents `markdown` en `pdf`, vous aurez besoin
+Si vous souhaitez convertir des documents `.Rmd` en `.pdf`, vous aurez besoin
 de **`LaTeX`**. Pour cela, vous aurez besoin du package `r fontawesome::fa_i("r-project")`
 [**`tinytex`**](https://yihui.org/tinytex/), qui installe une version légère de **`LaTeX`**.
-
 Ouvrez **`RStudio`** et tapez les deux commandes suivantes : 
 
 ```{r echo=TRUE, eval=FALSE}
-## Installation de tinytex ----
+## Install tinytex ----
 install.packages("tinytex")
 
-## Installation de LaTeX ----
+## Install LaTeX ----
 tinytex::install_tinytex()
 ```
+
 
 
 <br />
