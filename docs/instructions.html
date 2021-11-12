@@ -2220,7 +2220,7 @@ Archives
 <ol start="5" type="1">
 <li>Installez <strong><code>pandoc</code></strong></li>
 </ol>
-<p>Le package <strong><code>rmarkdown</code></strong> nécessite le logiciel <strong><code>pandoc</code></strong> qui permet de passer d’un format de fichier (ex. <code>Rmd</code>) à un autre (ex. <code>.html</code>).</p>
+<p>Le package <strong><code>rmarkdown</code></strong> nécessite le logiciel <strong><code>pandoc</code></strong> qui permet de passer d’un format de fichier (ex. <code>.Rmd</code>) à un autre (ex. <code>.html</code>).</p>
 <p>Normalement, l’installation de <strong>RStudio Desktop</strong> installe également ce logiciel. Vérifiez en ouvrant <strong><code>RStudio</code></strong> et tapez :</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2229,7 +2229,7 @@ Archives
 </code></pre>
 </div>
 </div>
-<p>Si cette fonction ne retourne rien, vous devez installer manuellement <strong><code>pandoc</code></strong> en le téléchargeant à cette adresse : <br /> <a href="https://github.com/jgm/pandoc/releases/tag/2.16.1">https://github.com/jgm/pandoc/releases/tag/2.16.1</a></p>
+<p>Si cette fonction ne retourne rien, vous devez installer manuellement <strong><code>pandoc</code></strong> en le téléchargeant à cette adresse : <a href="https://github.com/jgm/pandoc/releases/tag/2.16.1">https://github.com/jgm/pandoc/releases/tag/2.16.1</a></p>
 <p>Après avoir installé <strong><code>pandoc</code></strong>, redémarrez <strong><code>RStudio</code></strong> et vérifiez que <strong><code>RStudio</code></strong> trouve bien <strong><code>pandoc</code></strong> :</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2242,14 +2242,13 @@ Archives
 <ol start="6" type="1">
 <li>Installez une version minimale de <strong><code>LaTeX</code></strong></li>
 </ol>
-<p>Si vous souhaitez convertir des documents <code>markdown</code> en <code>pdf</code>, vous aurez besoin de <strong><code>LaTeX</code></strong>. Pour cela, vous aurez besoin du package <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i> <a href="https://yihui.org/tinytex/"><strong><code>tinytex</code></strong></a>, qui installe une version légère de <strong><code>LaTeX</code></strong>.</p>
-<p>Ouvrez <strong><code>RStudio</code></strong> et tapez les deux commandes suivantes :</p>
+<p>Si vous souhaitez convertir des documents <code>.Rmd</code> en <code>.pdf</code>, vous aurez besoin de <strong><code>LaTeX</code></strong>. Pour cela, vous aurez besoin du package <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i> <a href="https://yihui.org/tinytex/"><strong><code>tinytex</code></strong></a>, qui installe une version légère de <strong><code>LaTeX</code></strong>. Ouvrez <strong><code>RStudio</code></strong> et tapez les deux commandes suivantes :</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## Installation de tinytex ----</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## Install tinytex ----</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"tinytex"</span><span class='op'>)</span>
 
-<span class='co'>## Installation de LaTeX ----</span>
+<span class='co'>## Install LaTeX ----</span>
 <span class='fu'>tinytex</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/tinytex/man/install_tinytex.html'>install_tinytex</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -2285,7 +2284,7 @@ Archives
 <span id="cb3-12"><a href="#cb3-12"></a><span class="ex">brew</span> install git</span>
 <span id="cb3-13"><a href="#cb3-13"></a></span>
 <span id="cb3-14"><a href="#cb3-14"></a><span class="co">## Install pandoc ----</span></span>
-<span id="cb3-15"><a href="#cb3-15"></a><span class="ex">brew</span> install pandoc</span></code></pre></div>
+<span id="cb3-15"><a href="#cb3-15"></a><span class="ex">brew</span> install pandoc             <span class="co">## Convert documents (Rmd, html, etc.)</span></span></code></pre></div>
 <p>Vous pouvez maitenant lancer <strong><code>RStudio</code></strong> et vérifier votre installation :</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
@@ -2307,14 +2306,13 @@ Archives
 </div>
 </div>
 <p><br/></p>
-<p>Si vous souhaitez convertir des documents <code>markdown</code> en <code>pdf</code>, vous aurez besoin de <strong><code>LaTeX</code></strong>. Pour cela, vous aurez besoin du package <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i> <a href="https://yihui.org/tinytex/"><strong><code>tinytex</code></strong></a>, qui installe une version légère de <strong><code>LaTeX</code></strong>.</p>
-<p>Ouvrez <strong><code>RStudio</code></strong> et tapez les deux commandes suivantes :</p>
+<p>Si vous souhaitez convertir des documents <code>.Rmd</code> en <code>.pdf</code>, vous aurez besoin de <strong><code>LaTeX</code></strong>. Pour cela, vous aurez besoin du package <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i> <a href="https://yihui.org/tinytex/"><strong><code>tinytex</code></strong></a>, qui installe une version légère de <strong><code>LaTeX</code></strong>. Ouvrez <strong><code>RStudio</code></strong> et tapez les deux commandes suivantes :</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## Installation de tinytex ----</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## Install tinytex ----</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"tinytex"</span><span class='op'>)</span>
 
-<span class='co'>## Installation de LaTeX ----</span>
+<span class='co'>## Install LaTeX ----</span>
 <span class='fu'>tinytex</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/tinytex/man/install_tinytex.html'>install_tinytex</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -2448,14 +2446,13 @@ Archives
 </div>
 </div>
 <p><br/></p>
-<p>Si vous souhaitez convertir des documents <code>markdown</code> en <code>pdf</code>, vous aurez besoin de <strong><code>LaTeX</code></strong>. Pour cela, vous aurez besoin du package <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i> <a href="https://yihui.org/tinytex/"><strong><code>tinytex</code></strong></a>, qui installe une version légère de <strong><code>LaTeX</code></strong>.</p>
-<p>Ouvrez <strong><code>RStudio</code></strong> et tapez les deux commandes suivantes :</p>
+<p>Si vous souhaitez convertir des documents <code>.Rmd</code> en <code>.pdf</code>, vous aurez besoin de <strong><code>LaTeX</code></strong>. Pour cela, vous aurez besoin du package <i class="fab fa-r-project" role="presentation" aria-label="r-project icon"></i> <a href="https://yihui.org/tinytex/"><strong><code>tinytex</code></strong></a>, qui installe une version légère de <strong><code>LaTeX</code></strong>. Ouvrez <strong><code>RStudio</code></strong> et tapez les deux commandes suivantes :</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## Installation de tinytex ----</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## Install tinytex ----</span>
 <span class='fu'><a href='https://rdrr.io/r/utils/install.packages.html'>install.packages</a></span><span class='op'>(</span><span class='st'>"tinytex"</span><span class='op'>)</span>
 
-<span class='co'>## Installation de LaTeX ----</span>
+<span class='co'>## Install LaTeX ----</span>
 <span class='fu'>tinytex</span><span class='fu'>::</span><span class='fu'><a href='https://rdrr.io/pkg/tinytex/man/install_tinytex.html'>install_tinytex</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
