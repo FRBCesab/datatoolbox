@@ -161,7 +161,7 @@ The `renv` system
 
 ```{r eval=FALSE}
 ## Install renv ----
-install.package("renv")
+install.packages("renv")
 ```
 
 <br />
@@ -311,7 +311,7 @@ What happened?
 │   ├── library        # R packages
 │   └── settings.dcf   # renv settings
 │
-└── renv.lock          # Packages metadata
+└── renv.lock          # Packages metadata - Lockfile
 ```
 
 
@@ -391,50 +391,183 @@ install packages mentioned as `library(pkg)`, `require(pkg)`, and `pkg::fun()`
 
 ---
 
-## Removing packages
+## Working with `renv`
 
+- Just work as usual
+
+--
+
+- Use `renv::status()` to check the status of your `renv` project
+
+--
+
+```{r eval = FALSE}
+renv::status()
+
+## * The project is already synchronized with the lockfile.
+## 
+## The following package(s) are used in the project, but are not installed:
+## 
+##   ggplot2
+## 
+## Consider installing these packages, and then using `renv::snapshot()`
+## to record these packages in the lockfile.
+```
+
+In this example we use the package `ggplot2` in our code but it is not installed (locally)
+
+--
+
+- Let's install this package
+
+```{r eval = FALSE}
+renv::install("ggplot2")
+```
+
+
+
+---
+
+## Working with `renv`
+
+- Let's use `renv::status()` again
+
+```{r eval = FALSE}
+renv::status()
+
+## The following package(s) are installed but not recorded in the lockfile:
+## 
+##  ggplot2        [3.3.5]
+##  [...]
+## 
+## Use `renv::snapshot()` to add these packages to your lockfile.
+```
+
+--
+
+- Here we need to update the *lockfile* with `renv::snapshot()`
+
+```{r eval = FALSE}
+renv::snapshot()
+
+## The following package(s) will be updated in the lockfile:
+## 
+## # CRAN ===============================
+## - ggplot2        [* -> 3.3.5]
+## - ...
+##
+## Do you want to proceed? [y/N]: y
+## 
+## * Lockfile written to '~/Desktop/myproject/renv.lock'.
+```
+
+--
+
+
+```{r eval = FALSE}
+renv::status()
+
+## * The project is already synchronized with the lockfile.
+```
 
 
 ---
 
 ## Cleaning the local environment
 
+- If you no longer use some packages you need to remove them from the *lockfile*
+
+```{r eval = FALSE}
+renv::status()
+
+## The following package(s) are no longer used in this project:
+## 
+##  ggplot2        [3.3.5]
+##  [...]
+## 
+## Use `renv::snapshot()` to remove them from the lockfile.
+```
+
+--
+
+<br />
+
+```{r eval = FALSE}
+renv::snapshot()
+
+## The following package(s) will be updated in the lockfile:
+## 
+## # CRAN ===============================
+## - ggplot2        [* -> 3.3.5]
+## - ...
+##
+## Do you want to proceed? [y/N]: y
+## 
+## * Lockfile written to '~/Desktop/myproject/renv.lock'.
+```
+
+
+---
+
+## Cleaning the local environment
+
+- You can also remove them from your local library (optional)
+
+```{r eval = FALSE}
+renv::clean()
+
+## The following packages are installed in the project library,
+## but appear to be no longer used in your project.
+## 
+## ggplot2
+##
+## These packages will be removed.
+## 
+## Do you want to proceed? [y/N]: y
+## 
+## Removing package 'ggplot2' ... Done!
+##
+## * Done! Removed 1 package.
+## * The project has been cleaned.
+```
 
 
 ---
 
 ## Collaborating with `renv`
 
+- Just share the updated *lockfile* (with `r fontawesome::fa_i("github")`)
 
----
-
-## Saving the local environment
-
+--
 
 
----
+- Your collaborator will then run `renv::restore()` to locally install required 
+packages (with the same versions as you)
 
-## Restoring the local environment
+```{r eval = FALSE}
+renv::restore()
 
+## The following package(s) will be updated:
+## 
+## # CRAN ===============================
+## - ggplot2        [* -> 3.3.5]
+## 
+## Do you want to proceed? [y/N]: y
+##
+## Installing ggplot2 [3.3.5] ...
+##   OK [linked cache]
+```
 
+--
 
----
+- If you only share the *lockfile* your collaborator needs to run `renv::init()` before
 
-## Resources
+--
 
-- https://environments.rstudio.com/docker
-- https://kevinushey-2020-rstudio-conf.netlify.app/slides.html
-- https://elise.maigne.pages.mia.inra.fr/2021_package_renv/presentation.html
-- https://rstudio.github.io/renv/articles/renv.html
-- https://maxmasnick.com/kb/rlang/package-management/
-- https://6chaoran.wordpress.com/2020/07/20/introduction-of-renv-package/
-- https://rpubs.com/glennwithtwons/reproducible-r-toolbox
+<br />
 
-
----
-
-## Other features
-
+`r fontawesome::fa_i("exclamation-triangle", class = "emph")` &nbsp; One limit: collaborators need
+to have the **same major version** of `r fontawesome::fa_i("r-project")`
 
 
 ---
@@ -447,28 +580,43 @@ renv::init()
 
 ## Install < pkg_name > for the project ----
 renv::install("pkg_name")
+renv::install("pkg_name@version")
+renv::install("github/pkg_name")
 
-## Install packages listed in the DESCRIPTION file ----
-renv::install()   # or, remotes::install_deps()
-
-## Remove unnecessary packages ----
-renv::remove("pkg_name")
+## Install packages listed in DESCRIPTION (and/or R and Rmd files) ----
+renv::install()
 
 ## Check renv status ----
 renv::status()
 
-## Update list of required packages ----
-renv::clean()
-
-## Save local environment ----
+## Update lockfile (save local environment) ----
 renv::snapshot()
+
+## Uninstall unused packages ----
+renv::clean()
 
 ## Restore local environment ----
 renv::restore()
 
-## Deactivate local environment ----
-renv::deactivate()
-
-## (Re)activate local environment ----
-renv::activate()
+## Other functions ----
+renv::deactivate()       ## Deactivate local environment
+renv::activate()         ## (Re)activate local environment
+renv::dependencies()     ## List used packages (R and Rmd files)
+renv::history()          ## Browse previous commits (with git)
 ```
+
+
+
+---
+
+## Resources
+
+https://kevinushey-2020-rstudio-conf.netlify.app/slides.html
+
+https://elise.maigne.pages.mia.inra.fr/2021_package_renv/presentation.html
+
+https://rstudio.github.io/renv/articles/renv.html
+
+https://6chaoran.wordpress.com/2020/07/20/introduction-of-renv-package/
+
+https://github.com/rstudio/renv/
