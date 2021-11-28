@@ -1,0 +1,34 @@
+---
+title: "<br />Exercice renv"
+subtitle: ""
+author: <br /><br /><br />
+output:
+  xaringan::moon_reader:
+    css: ["assets/css/xaringan-themer.css", "assets/css/custom.css"]
+    lib_dir: "assets/libs"
+    seal: true
+    yolo: false
+    self_contained: false
+    nature:
+      ratio: "4:3"
+      titleSlideClass: ["right", "middle"]
+      highlightStyle: 'zenburn'
+      highlightLines: false
+      countIncrementalSlides: false
+      slideNumberFormat: "%current% / %total%"
+      beforeInit: "assets/libs/macros.js"
+---
+
+
+
+## Instructions
+
+1. Installer le package `renv`
+2. Ajouter `renv` à un des projets précédents
+3. Installer les packages requis
+4. Faites un snapshot
+5. Modifier le `.gitignore` pour ne versionner que le `renv.lock`
+6. Supprimer le dossier le **renv/**
+7. Restorer vos packages avec `renv::restore()`
+8. Pusher vers **GitHub**
+
