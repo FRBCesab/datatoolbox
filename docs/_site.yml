@@ -34,7 +34,7 @@ navbar:
       - text: "Cours 8. Conteneurisation"
         href: "slides/docker/index.html"
       - text: "Cours 9. Package R"
-        href: "slides/r-pkg/index.html"
+        href: "slides/rpackage/index.html"
       - text: "Messages à retenir"
         href: "slides/take-home/index.html"
     - text: "Exercices"
