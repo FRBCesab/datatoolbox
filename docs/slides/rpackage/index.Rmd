@@ -1090,5 +1090,5 @@ The ultimate resource: [**https://r-pkgs.org**](https://r-pkgs.org)
 
 <br />
 
-`r fontawesome::fa_i("hand-point-right")` &nbsp;Now your turn!
+`r fontawesome::fa_i("hand-point-right")` &nbsp;Try the [`rcompendium`](https://cran.r-project.org/package=rcompendium) package
 
