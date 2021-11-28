@@ -40,7 +40,7 @@ devtools::load_all(quiet = TRUE)
 # datatoolbox::knit_slides(name = "renv")
 # datatoolbox::knit_slides(name = "rpackage")
 
-name <- "renv"
+name <- "rpackage"
 rmarkdown::render(input         = here::here("docs", "exercises", name, 
                                              "index.Rmd"),
                   output_format = "xaringan::moon_reader",
