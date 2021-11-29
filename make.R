@@ -43,14 +43,14 @@ devtools::load_all(quiet = TRUE)
 
 ## Re-knit exercises ----
 
-# name <- "rpackage"
-# rmarkdown::render(input         = here::here("docs", "exercises", name, 
-#                                              "index.Rmd"),
-#                   output_format = "xaringan::moon_reader",
-#                   output_file   = "index.html",
-#                   output_dir    = here::here("docs", "exercises", name),
-#                   clean         = TRUE,
-#                   quiet         = TRUE)
+name <- "rpackage"
+rmarkdown::render(input         = here::here("docs", "exercises", name,
+                                             "index.Rmd"),
+                  output_format = "xaringan::moon_reader",
+                  output_file   = "index.html",
+                  output_dir    = here::here("docs", "exercises", name),
+                  clean         = TRUE,
+                  quiet         = TRUE)
 
 
 
