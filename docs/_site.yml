@@ -52,9 +52,9 @@ navbar:
       - text: "Exercice 6. Targets"
         href: ""
       - text: "Exercice 7. renv"
-        href: ""
+        href: "exercises/renv/index.html"
       - text: "Exercice 8. R package"
-        href: ""
+        href: "exercises/rpackage/index.html"
     - text: "Archives"
       menu:
       - text: "Edition 2020"
