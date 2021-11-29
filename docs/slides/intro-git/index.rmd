@@ -2,7 +2,7 @@
 title: Versioning your code (and more)
 subtitle: <i>An illustration with `r fontawesome::fa("git", fill = "#E1DDC1")`</i>
 author: <br /><br />Stéphane DRAY
-date: .inst[Lundi 2 novembre 2020]
+date: .inst[Novembre 2021]
 output:
   xaringan::moon_reader:
     css: ["assets/css/xaringan-themer.css", "assets/css/custom.css"]
