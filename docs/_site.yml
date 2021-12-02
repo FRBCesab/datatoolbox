@@ -28,7 +28,7 @@ navbar:
       - text: "Cours 5. Programmation lettrée"
         href: "slides/rmarkdown/index.html"
       - text: "Cours 6. Pipeline toolkits"
-        href: "slides/drake/index.html"
+        href: "slides/targets/index.html"
       - text: "Cours 7. Package renv"
         href: "slides/renv/index.html"
       - text: "Cours 8. Conteneurisation"
