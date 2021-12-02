@@ -2,7 +2,7 @@
 title: Research Compendium
 subtitle: <i>ou comment bien ranger sa chambre</i>
 author: <br /><br />François Guilhaumon<br />.inst[{{ Chercheur IRD }}]
-date: .inst[Mardi 3 Novembre 2020]
+date: .inst[Lundi 29 Novembre 2021]
 output:
   xaringan::moon_reader:
     css: ["assets/css/xaringan-themer.css", "assets/css/custom.css"]

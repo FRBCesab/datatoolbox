@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Reproducible workflow with targets</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="François Guilhaumon, Nina M. D. Schiettekatte" />
+    <meta name="date" content="2021-12-01" />
+    <script src="assets/libs/header-attrs/header-attrs.js"></script>
+    <link rel="stylesheet" href="assets/css/xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Reproducible workflow with targets
+### François Guilhaumon, Nina M. D. Schiettekatte
+### 2021-12-01
+
+---
+
+
+---
+class: inverse, center, middle
+
+# What is targets?
+
+
+
+
+---
+# Large data science project struggles
+
+1) Long runtimes
+
+2) Many tasks
+
+3) Interconnected tasks
+
+
+.center[![](https://wwwen.uni.lu/var/storage/images/media/images/data_science_explore/1136248-1-fre-FR/data_science_explore.png)]
+
+---
+# The Sisyphean workflow
+
+1) Launch the code
+
+2) Wait while it runs
+
+3) Discover an issue
+
+4) Restart from scratch
+
+.center[&lt;img src = https://sites.google.com/site/sisyphusa/_/rsrc/1468863216970/config/customLogo.gif?revision=1 style="width: 40%" /&gt;]
+---
+
+
+# targets to the rescue
+
+**targets** is a workflow manager for your R code
+
+.pull-left[
+
+- Keeps track of interconnected elements
+
+- Automatically launches the parts that changed since last time and skips the rest
+
+- Tangible evidence of reproducibility
+
+- Big data efficiency
+
+- Readibility and transparancy
+]
+
+
+.pull-right[.center[&lt;img src="https://raw.githubusercontent.com/ropensci/targets/main/man/figures/logo.png" style="width: 60%" /&gt;]]
+
+---
+# Use functions
+
+
+
+```r
+mydata     &lt;- read.csv("mydata.csv")
+data2      &lt;- clean(mydata)
+data3      &lt;- transform(data2)
+data4      &lt;- erase_na(data3)
+data_clean &lt;- transform(data_4)
+```
+
+
+```r
+mydata &lt;- read.csv("mydata.csv")
+wrangle &lt;- function(data){
+  data2      &lt;- clean(data)
+  data3      &lt;- transform(data2)
+  data4      &lt;- erase_na(data3)
+  data_clean &lt;- transform(data_4)
+  return(data_clean)
+}
+data_clean &lt;- wrangle(mydata)
+```
+
+
+---
+
+class: inverse, center, middle
+
+# How does it work?
+
+---
+# Targets
+
+In targets, a data analysis pipeline is a collection of target objects that express the individual steps of the workflow
+
+- a target is a step of your pipeline (can also be an input file or an Rmd report)
+
+- each target is defined using the function 'tar_target', providing the name of the target as first argument and the function to create it as a second argument, there is a third optional argument to specify the 'type' of the target
+
+- dependencies between targets are exposed because upstream targets are arguments of the functions used to build downstream targets
+
+- this allow to visualize the pipeline as a dependency graph
+
+---
+# Key functions
+
+-  tar_target(): create a target
+
+-  tar_make(): run the pipeline
+
+-  tar_load(): load one built target into your R session (tar_load(a_target))
+
+-  tar_read(): read and return a built target (a &lt;- tar_read(a_target))
+
+-  tar_glimpse(): show targets inter-dependencies
+
+-  tar_visnetwork(): show a complete visual network representation of your workflow
+
+
+---
+# Creating the pipeline (the _targets.R file)
+
+The pipeline is written in a special `_targets.R` file located at the root of your project.
+
+
+
+```r
+# _targets.R file
+library(targets)
+source("R/functions.R")
+
+list(
+  tar_target(raw_data_file, "data/raw_data.csv", format = "file"
+  ), #make the workflow depends on the raw data file
+  tar_target(raw_data, read_csv(raw_data_file)
+  ), #read the data, return a data.frame
+  tar_target(data,
+    raw_data %&gt;% filter(!is.na(Ozone))
+  ), #transform the data
+  tar_target(hist, create_plot(data)), #explore the data (custom function)
+  tar_target(fit, lm(Ozone ~ Wind + Temp, data)) #model the data
+)
+```
+
+---
+# Visualizing the pipeline
+
+![](assets/img/tar_glimpse_1.png)
+
+
+---
+# Creating the pipeline
+
+All target script files have these requirements.
+
+1. Load the [`targets`](https://github.com/ropensci/targets) package itself.  
+1. Load your custom functions and global objects into the R session :`source("R/functions.R")`.  
+1. Define individual targets with the `tar_target()` function. Each target is an intermediate step of the workflow. At minimum, a target must have a name and an R expression.  
+1. Every target script must end with a list of your `tar_target()` objects.
+
+---
+# Targets storage
+
+Targets (when they success to run) are all stored in `_targets/objects`, this allow their examination and sharing outside of the project.
+
+That's very cool !
+---
+# Example long project
+![](assets/img/tar_glimpse.png)
+---
+# Workflow
+
+1) Write a function
+
+2) Add a target to the pipeline
+
+3) visualize the pipelie
+
+4) Make the pipeline
+
+5) Check the results
+
+6) Write a function
+...
+...
+---
+# Example: analysis R package downloads
+
+
+```r
+crandata &lt;- cranlogs::cran_downloads(
+  packages = c("dplyr", "ggplot2", "purrr", "tidyr", "stringr"),
+  when = "last-month")
+head(crandata)
+```
+
+```
+##         date count package
+## 1 2021-10-31 37863   dplyr
+## 2 2021-11-01 61520   dplyr
+## 3 2021-11-02 68325   dplyr
+## 4 2021-11-03 67493   dplyr
+## 5 2021-11-04 62335   dplyr
+## 6 2021-11-05 57814   dplyr
+```
+---
+
+## Some custom functions
+
+
+```r
+# R/my_functions.R
+
+# packages
+library(ggplot2)
+library(targets)
+library(dplyr)
+library(cranlogs)
+
+# functions
+make_my_table &lt;- function(downloads){
+  group_by(downloads, package) %&gt;%
+    summarize(mean_downloads = mean(count))
+}
+
+
+make_my_plot &lt;- function(downloads){
+  ggplot(downloads) +
+    geom_line(aes(x = date, y = count, group = package,
+                  color = package))
+}
+```
+---
+
+## The pipeline
+
+
+```r
+library(targets)
+source("R/my_functions.R")
+list(
+  # load data
+  tar_target(crandata_new, cran_downloads(
+    packages = c("dplyr", "ggplot2", "purrr", "tidyr", "stringr"),
+    from = "2019-11-01", to = "2019-12-01")),
+  tar_target(crandata_new, cran_downloads(
+    packages = c("dplyr", "ggplot2", "purrr", "tidyr", "stringr"),
+    from = "2016-11-01", to = "2016-12-01")),
+  # make tables
+  tar_target(averages_new, make_my_table(crandata_new)),
+  tar_target(averages_old, make_my_table(crandata_old)),
+  # make plots
+  tar_target(plot_new, make_my_plot(crandata_new)),
+  tar_target(plot_old, make_my_plot(crandata_old)),
+  # combine
+  tar_target(averages_combined, left_join(averages_old, averages_new, by = "package"))
+)
+```
+---
+## Make the pipeline
+
+```r
+library(targets)
+tar_make()
+```
+
+![](assets/img/tar_make.png)
+
+---
+## Read or load results
+
+```r
+a &lt;- tar_read(averages_new)
+tar_load(averages_new)
+```
+
+
+![](assets/img/tar_read.png)
+
+---
+## Read or load results
+
+```r
+tar_read(plot_old)
+```
+
+
+![](assets/img/tar_read_plot_old_1.png)
+
+
+---
+## Vizualize the workflow
+
+```r
+tar_visnetwork()
+```
+
+![](assets/img/tar_viz.png)
+
+---
+## targets loves changes
+
+
+```r
+library(fishualize)
+make_my_plot &lt;- function(downloads){
+  ggplot(downloads) +
+    geom_line(aes(x = date, y = count, group = package, color = package)) +
+    scale_color_fish_d() +
+    theme_minimal()
+}
+```
+
+---
+## targets loves changes
+
+
+```r
+tar_visnetwork()
+```
+
+![](assets/img/tar_viz_out.png)
+---
+## targets loves changes
+
+```r
+tar_make()
+```
+
+![](assets/img/tar_make_2.png)
+
+---
+## targets loves changes
+
+```r
+tar_read(plot_old)
+```
+
+![](assets/img/tar_read_plot_old_2.png)
+
+---
+# External input files
+
+To reproducibly track an external input file, you need to define a new target that has
+
+1. A command that returns the file path as a character vector, and 
+2. `format = "file"` in `tar_target()`.
+
+When the target runs in the pipeline, the returned character vector gets recorded, and `targets` watches the data file and invalidates the target when that file changes. To track multiple files this way, simply define a multi-element character vector where each element is a path. Each element can also be a directory, but this directory must not be empty at the time the target runs.
+
+---
+# External input files
+
+
+```r
+# _targets.R
+library(targets)
+path_to_data &lt;- function() {
+  "data/raw_data.csv"
+}
+list(
+  tar_target(
+    raw_data_file, path_to_data(), format = "file"
+  ),
+  tar_target(raw_data, read_csv(raw_data_file, col_types = cols())
+  )
+)
+```
+
+---
+# External output files
+
+Output files have the same mechanics as input files. The target uses `format = "file"`, and the return value is a character value of paths to existing files. The only difference here is that the target's R command writes to storage before it returns a value. For example, here is an output file target that saves a visualization.
+
+
+```r
+tar_target(plot_file, save_plot_and_return_path(), format = "file")
+```
+
+Here, our custom `save_plot_and_return_path()` function does exactly what the name describes.
+
+
+```r
+save_plot_and_return_path &lt;- function() {
+  plot &lt;- ggplot(mtcars) +
+    geom_point(aes(x = wt, y = mpg))
+  ggsave("outputs/plot_file.png", plot, width = 7, height = 7)
+  return("outputs/plot_file.png")
+}
+```
+
+---
+# Literate programming
+
+If you render an R Markdown report as part of a target, the report should be lightweight: mostly prose, minimal code, fast execution, and no output other than the rendered HTML/PDF document. In other words, R Markdown reports are just targets that document prior results. The bulk of the computation should have already happened upstream, and the most of the code chunks in the report itself should be terse calls to `tar_read()` and `tar_load()`.
+
+---
+# Literate programming
+![](assets/img/knitr-source.png)
+---
+# Literate programming
+
+The report depends on targets `fit` and `hist`. The use of `tar_read()` and `tar_load()` allows us to run the report outside the pipeline.  As long as `_targets/` folder has data on the required targets from a previous `tar_make()`, you can open the RStudio IDE, edit the report, and click the Knit button like you would for any other R Markdown report.
+
+---
+# Literate programming
+
+The target definition looks like this.
+
+
+```r
+tar_render(report, "report.Rmd") # Just defines a target object.
+```
+
+Because symbols `fit` and `hist` appear in the command, `targets` knows that `report` depends on `fit` and `hist`. When we put the `report` target in the pipeline, these dependency relationships show up in the graph.
+
+---
+# Literate programming
+
+
+```r
+# _targets.R
+library(targets)
+library(tarchetypes)
+source("R/functions.R")
+list(
+  tar_target(
+    raw_data_file,
+    "data/raw_data.csv",
+    format = "file"
+  ),
+  tar_target(
+    raw_data,
+    read_csv(raw_data_file, col_types = cols())
+  ),
+  tar_target(
+    data,
+    raw_data %&gt;%
+      mutate(Ozone = replace_na(Ozone, mean(Ozone, na.rm = TRUE)))
+  ),
+  tar_target(hist, create_plot(data)),
+  tar_target(fit, biglm(Ozone ~ Wind + Temp, data)),
+  tar_render(report, "report.Rmd") # Here is our call to tar_render().
+)
+```
+
+---
+# Recap: Why use targets?
+
+- Optimize your workflow
+
+--
+- Reproducible for others and your future self
+
+--
+- 100% sure to be reproducible
+
+--
+- You can count on **targets**'s brain and work in a clean environment
+
+--
+- Package is well maintained and documented with a great [manual](https://books.ropensci.org/targets/)
+
+
+---
+
+class: inverse, center, middle
+
+# Coding time!
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

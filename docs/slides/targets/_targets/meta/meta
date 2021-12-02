@@ -1,0 +1,10 @@
+name|type|data|command|depend|seed|path|time|size|bytes|format|iteration|parent|children|seconds|warnings|error
+crandata_old|stem|e91d64d93e60575d|33cdd3445b8d263c|b5c5ed5db8f9c32b|835399634||t18961.9221426243s|fe83abe8cd8e2418|791|rds|vector|||0.533||
+crandata_new|stem|c24f4698398c428b|7e042a5e595dbd94|b5c5ed5db8f9c32b|-925642446||t18961.922148597s|36fe0c72f1a17800|828|rds|vector|||0.492||
+averages_old|stem|27695d8ab234ae49|23f162f76c8abb0c|e55021e08eadafb4|1402523674||t18961.9221487822s|bed69d39d5d1de67|240|rds|vector|||0.012||
+averages_new|stem|851bf3ffe67c2558|fcfb8a8845a33fe7|18bc92074a32c66a|1791469231||t18961.9221492452s|4c877582db246f52|237|rds|vector|||0.009||
+averages_combined|stem|6cda4f9abda5c33c|5220e567af7725b8|486f9bb4b6de0173|236532597||t18961.9221496619s|39a4ea80a937df4e|280|rds|vector|||0.006||
+make_my_table|function|e2ca833f3b5576f3||||||||||||||
+make_my_plot|function|789adac0c0e087d5||||||||||||||
+plot_old|stem|48544fc11db10757|f07e3f03d4415719|e5481b7843821900|-428142649||t18961.9314960602s|8f50099274604716|49929|rds|vector|||0.012||
+plot_new|stem|b2de14939e67997c|f9b21af30b6153ef|120d25c3643b3281|-1991323201||t18961.9314965695s|eb6835682da86604|49978|rds|vector|||0.014||

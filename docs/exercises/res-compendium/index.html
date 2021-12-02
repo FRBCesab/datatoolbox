@@ -4,9 +4,9 @@
     <title>.small[Exercice Research Compendium]</title>
     <meta charset="utf-8" />
     <meta name="author" content="  François Guilhaumon" />
-    <link href="assets/libs/font-awesome-5.3.1/css/fontawesome-all.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../../assets/css/xaringan-themer.css" type="text/css" />
-    <link rel="stylesheet" href="../../assets/css/custom.css" type="text/css" />
+    <script src="assets/libs/header-attrs-2.11/header-attrs.js"></script>
+    <link rel="stylesheet" href="assets/css/xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/custom.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -40,20 +40,14 @@ Cet exercice s'inspire beaucoup du [**Workshop proposé par Anna Krystalli de l'
 
 ---
 
-## Étape 1 : fork &amp; clone
+## Étape 1 : Récupération du dépot des exercices
 
 Tout d'abord, il nous faut copier le dépot GitHub des exercices de la formation
-dans notre compte GitHub (fork), puis le rapatrier localement (clonage)
+dans notre ordinateur.
 
-1. Forkez le dépôt **datatoolboxexos** situé à l'adresse suivante : **https://github.com/FRBCesab/datatoolboxexos**
+-&gt; https://github.com/fguilhaumon/datatoolboxexos2021
 
-2. Clonez le dépôt localement en utilisant la fonctionalité de création de nouveau
-projet dans RStudio (cela rajoutera 2 fichiers à la racine de votre dépôt,
-prenez le temps de les examiner)
-
-3. Effacez le fichier `test` situé à la racine du dépôt
-
-4. Versionnez ces premiers changements, commitez et pushez vers GitHub
+. bouton vert "Code" &gt; download zip
 
 ---
 
@@ -69,15 +63,10 @@ que les meilleures valeurs de paramètres sont les suivantes :
 
 
 ```r
-rrtools::use_compendium("../datatoolboxexos/", open = FALSE)
+rrtools::use_compendium("../datatoolboxexos2021/", open = FALSE)
 ```
 
 2. Suivez les instructions de la sortie de la fonction et éditez le fichier `DESCRIPTION`
-
-3. Versionnez ces changements, commitez et pushez vers GitHub
-
-<i class="fas  fa-hand-point-right " style="color:#3f3f3f;"></i> &amp;nbsp;Quelle différence remarquez-vous
-entre les deux arboresences (sur GitHub et sur votre machine) ?
 
 ---
 
@@ -96,8 +85,6 @@ utiliseront le package `{readr}` pour lire les fichiers `.csv` qui seront locali
 
 3. Ajoutez ces dépendances (`{readr}` et `{here}`) dans le fichier `DESCRIPTION` grâce à la fonction `usethis::use_package()`
 
-4. Versionnez ces changements, commitez et pushez vers GitHub
-
 ---
 
 ## Étape 4 : petite pause ... ajout d'un README pour le compendium
@@ -113,8 +100,6 @@ session (`utils::sessionInfo()`).
 
 3. Re-compilez le fichier `README.Rmd` en `README.md`
 
-4. Versionnez ces changements, commitez et pushez vers GitHub
-
 
 ---
 
@@ -129,38 +114,25 @@ compendium.
 (ainsi que leur dépendences) peuvent être installés ou mis à jour à l'aide de la
 fonction `devtools::install_deps()` !
 
-2. Documentez les fonctions qu'expose votre compendium à l'aide la fonction
+(2. Documentez les fonctions qu'expose votre compendium à l'aide la fonction
 `devtools::document()`. Explorez le répertoire `man/` fraichement créé, et
-regardez-le contenu du fichier `NAMESPACE`
+regardez-le contenu du fichier `NAMESPACE`) -&gt; à vrai dire on ne le fait souvent qu'à la fin ... voir jamais.
 
 ---
 
-## Étape 5-2 : utiliser le workflow "package"
+## Étape 5-2 : chargement des fonctions
 
-3. Avant de faire votre commit, pour tester vos fonctions et reviewer leur documentation, vous pouvez construire le package qui fait maintenant partie intégrante de votre compendium (à vrai dire à ce stade votre compendium n'est qu'un simple package R). Utilisez le bouton "Install and Restart" de l'onglet "Build" :
-
-.center[![:scale 70%](assets/img/step5_build_pane.png)]
+Pour rendre vos fonctions fraichement créées disponible à vos analyses, une solution est l'utilisation de la fonction `devtools::load_all()` qui a pour
+effet principal de charger tous les fichiers présents dans le répetoire `R/`
 
 ---
 
 ## Étape 5-3 : utiliser le workflow "package"
 
-4. Vous devez également `checker` votre package, la documentation est reconstruite
-et beaucoup de vérifications de votre code sont effectuées lors de cette étape : `devtools::check()`
 
-.center[![:scale 70%](assets/img/step5_check.png)]
-
-Pas d'erreur, on ignore les 3 warnings.
-
----
-
-## Étape 5-4 : utiliser le workflow "package"
-
-5. Regardez la doc `?datatoolboxexos::data_eco_list`, et testez la fonction
+3. Regardez la doc `?datatoolboxexos::data_eco_list`, et testez la fonction
 `datatoolboxexos::data_eco_list()` (on pourrait automatiser ces tests en
 utilisant `{testthat}`)
-
-6. Comme ça fonctionne bien, versionnez ces changements, commitez et pushez vers GitHub
 
 .center[![:scale 70%](assets/img/step5_help_page.png)]
 
@@ -168,34 +140,25 @@ La page d'aide de la fonction `datatoolboxexos::data_eco_list`.
 
 ---
 
-## Étape 5-5 : un peu de relâchement
 
-Lorsque vous êtes en phase de développement actif, vous ne voulez pas sans arrêt
-"checker" et "builder" votre package. Ca peut être long.
-Une solution est l'utilisation de la fonction `devtools::load_all()` qui a pour
-effet principal de charger tous les fichiers présents dans le répetoire `R/`
-
----
-
-## Étape 6 : Intégration d'un documet dynamique Rmarkdown
+## Étape 6 : Utilisation des fonctions pour nos analyses
 
 Nous avons maintenant 3 fonctions à disposition dans notre compendium. Nous pouvons
-créer un premier document Rmarkdown pour le premier exercice sur le Tidyverse :
+créer un premier script d'analyses pour le premier exercice sur le Tidyverse :
 [**dplyr**](https://frbcesab.github.io/datatoolbox/exercises/dplyr/index.html)
 &lt;br/&gt;&lt;br/&gt;
-Plusieurs choix s'offrent à vous pour localiser vos fichiers `.Rmd` dans votre
-arborescence, leur pertinence dépendra essentiellement de la complexité de vos
-analyses. Ici, pour notre premier compendium, on va créer un fichier `.Rmd` par
-exercice dans un répertoire... `exercices/`
+Ici, pour notre premier compendium, on va créer un fichier `.R` (ou plutôt `.Rmd` mais on le verra plus tard) par exercice dans un répertoire... `exercices/`
 &lt;br/&gt;
-1. Créez le fichier `exercices/exo_dplyr.Rmd` (format **html_document**, option `keep_md: true`)
+
+On créra aussi un répertoire `outputs/` dans lequel on pourra stocker les résultats de nos analyses.
+
+1. Créez le fichier `exercices/exo_dplyr.R`
 
 2. Modifiez-le pour afficher l'histogramme de la distribution du nombre d'espèces
-de mammifères par écoregion
+de mammifères par écoregion dans un fichier `.png` sauvegardé dans `outputs/`
 
-3. Compilez votre document `.Rmd` et visualisez le dans votre navigateur
+3. Exécutez le code de `exercices/exo_dplyr.R` et visualisez le `.png`
 
-4. Versionnez ces changements, commitez et pushez vers GitHub
 
 ---
 
@@ -211,15 +174,14 @@ reproductibilité minimale de nos analyses.
 
   - installation/mise à jour des packages nécessaires aux analyses
 
-  - installation du package intégré au compendium
+  - chargement des fonctions
 
-  - compilation du document `exercices/exo_dplyr.Rmd`
+  - exécution du script `exercices/exo_dplyr.R`
 
-3. Effacez les fichiers `exercices/exo_dplyr.html`, `exercices/exo_dplyr.md` et le répertoire `exercices/exo_dplyr_files`
+3. Effacez le fichier `.png`
 
 4. Compilez votre compendium en sourçant intégralement le fichier `make.R`
 
-5. Versionnez ces changements, commitez et pushez vers GitHub
 
 ---
 
@@ -229,12 +191,10 @@ Modifiez le `README.Rmd` du compendium pour qu'il reflète un peu mieux ce qui
 se passe ici.
 
 Le compendium est maintenant fonctionnel.
-
-Vous pouvez en voir un exemple [ici](https://github.com/fguilhaumon/datatoolboxexos), n'hésitez pas a naviguer à travers les différents commit pour voir les ajouts de fichiers à chaque étape.
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script src="../../assets/libs/macros.js"></script>
+<script src="assets/libs/macros.js"></script>
 <script>var slideshow = remark.create({
 "ratio": "4:3",
 "highlightStyle": "zenburn",

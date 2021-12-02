@@ -1,7 +1,7 @@
 ---
 title: "Open Science <br/> (recherche reproductible) <br/> <br/>"
-author: "François Guilhaumon <br/> <br/> IRD, MARBEC<br/>"
-date: "02/11/2020, intro data toolbox CESAB<br/><br/><br/><span class='caption'>francois.guilhaumon@ird.fr</span>"
+author: "François Guilhaumon <br/> <br/> IRD, MARBEC, la Réunion<br/>"
+date: "29/11/2021, intro data toolbox CESAB<br/><br/><br/><span class='caption'>francois.guilhaumon@ird.fr</span>"
 output:
   revealjs::revealjs_presentation:
     theme: night
@@ -17,6 +17,21 @@ output:
 ![](assets/Galileo_Galilei_by_Peter_Paul_Rubens.jpg){width=40%}
 
 Galileo Galilei, par Peter Paul Rubens (circa 1630)<br/>
+<span class="small">wikimedia commons</span>
+
+
+## Un exemple 
+
+![](assets/Portrait_of_Jupiter_from_Cassini.jpg){width=40%}
+
+Mosaïque de Jupiter en vraies couleurs réalisée à partir de photographies prises par la sonde Cassini le 29 décembre 2000 à 5 h 30 UTC.<br/>
+<span class="small">wikimedia commons</span>
+
+## Un exemple 
+
+![](assets/Galilean_satellites.jpg){width=100%}
+
+Les quatre satellites galiléens : Io, Europe, Ganymède et Callisto.<br/>
 <span class="small">wikimedia commons</span>
 
 ## Un exemple
@@ -60,52 +75,6 @@ données + méta-données + matériel & méthodes
 
 ![](assets/poker_face.png){width=60%}
 
-
-## Pourquoi on en parle ?
-
-## Pourquoi on en parle ?
-
-![](assets/natureCapture.png){width=100%}
-
-
-## Pourquoi on en parle ?
-
-![](assets/ferric_head.png){width=100%}
-
-## Pourquoi on en parle ?
-
-![](assets/ferric_fig.png){width=60%}
-
-<span class="reference">Ferric C. Fang, and Arturo Casadevall Infect. Immun. 2011;79:3855-3859</span>
-
-## Pourquoi on en parle ?
-
-<div class="container">
-<div class="col" data-markdown>
-
-<br/>
-
-![](assets/ferric_fig.png){width=100%}
-</div>
-
-<div class="col" data-markdown>
-
-Causes de rétractation
-<br/><br/>
-
-> - 40% honest error or nonreplicable findings
-<br/><br/>
-> - 28% research misconduct
-<br/><br/>
-> - 17% redundant publication
-<br/><br/>
-> - 15% other or unstated reasons
-</div>
-</div>
-
-## Pourquoi on en parle ?
-
-![](assets/leMonde_science.png){width=100%}
 
 # Comment ?
 
