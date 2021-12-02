@@ -55,6 +55,8 @@ navbar:
         href: "exercises/renv/index.html"
       - text: "Exercice 8. R package"
         href: "exercises/rpackage/index.html"
+    - text: "Ressources"
+      href: "img/the_degrees_of_reproductibility.pdf"
     - text: "Archives"
       menu:
       - text: "Edition 2020"
