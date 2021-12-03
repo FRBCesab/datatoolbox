@@ -83,7 +83,7 @@ données + méta-données + matériel & méthodes
 
 ![](assets/goodman_2014_fig1.png){width=40%}
 
-depuis Galilée le concept a un peut évolué ...
+depuis Galilée le concept a un peu évolué ...
 
 ## Recherche reproductible
 
